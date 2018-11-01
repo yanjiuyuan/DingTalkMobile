@@ -1,0 +1,50 @@
+<import src="/util/template/index.axml"/>
+<view class="page">
+  <!-- 搜索 -->
+  <form onSubmit="search">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label">关键字</view>
+        <view class="form-row-content">
+          <input name="keyWord" class="input" placeholder="关键字" />
+        </view>
+      </view>
+    </view>
+    <button type="primary" formType="submit">搜索</button>
+  </form>
+  <!-- 物料表单 -->
+  <template is="datatable" data="{{param:tableParam,data:tableData,total:tableTotal,now:tableNow,tableOperate:tableOperate}}"/>
+  <!-- 基本表单 -->
+  <form onSubmit="submit">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label">预计总价</view>
+        <view class="form-row-content">
+          <input name="keyWord" class="input" disabled="{{true}}" />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="keyWord" class="input" placeholder="输入 标题"  />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label">申请人</view>
+        <view class="form-row-content">
+          <input name="keyWord" class="input" placeholder="输入 申请人" />
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="page-section-title">建议</view>
+          <view class="page-section-demo">
+            <textarea name="textarea"placeholder="输入 建议" />
+          </view>
+        
+      </view>
+    </view>
+  </form>
+  <template is="choosePeople"/>
+</view>

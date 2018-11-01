@@ -1,0 +1,77 @@
+<!-- 遮罩和列表 -->
+<template name="mask">
+    <view class="modal" a:if="{{!hidden}}" key="modal">
+        <view class="modal-mask" animation="{{animMaskData}}"/>
+    </view>
+</template>
+
+<!-- 选人控件 -->
+<template name="choosePeople">
+  <view >
+    <view class="tag tag-normal" style="width:160rpx;margin-right:10rpx;"> 物料编码管理员审核</view>
+    <view style="width:480rpx;display:inline-block;">
+      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-success">老王</view>
+      <view style="display:inline-block;">
+        <text style="">2018-11-11 11:11:11 \n </text>
+        <text style=""> 今天全体员工放假~</text>
+      </view>
+    </view>
+    <view style="font-size:100rpx;line-height:40rpx;color:#409EFF;text-align:center">﹀</view>
+  </view>
+  <view >
+    <view class="tag tag-normal" style="width:160rpx;margin-right:10rpx;">管理员审核</view>
+    <view style="width:480rpx;display:inline-block;">
+      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-success">小唐</view>
+      <view style="display:inline-block;"> 
+        <text style="">2018-11-11 11:11:11 \n </text>
+        <text style=""> 今天全体员工放假~</text>
+      </view>
+    </view>
+  <view style="font-size:100rpx;line-height:40rpx;color:#409EFF;text-align:center">﹀</view>
+  </view>
+
+  <view>
+    <view class="tag tag-normal" style="width:160rpx;margin-right:10rpx;">选人测试</view>
+    <view onTap="choosePeople" class="tag tag-info">+ 选人</view>
+    <view style="font-size:100rpx;line-height:40rpx;color:#409EFF;text-align:center">﹀</view>
+  </view>
+
+  <view>
+    <view class="tag tag-normal" style="width:160rpx;">结束</view>
+  </view>
+</template>
+
+<!-- 数据表 -->
+<template name="datatable">
+  <view class="table">
+    <scroll-view class="scroll-view_H" scroll-x="{{true}}" >
+      <view class="row">
+        <view class="cell" style="width:100rpx;" a:if="{{tableOperate}}">
+          <text>操作</text>
+        </view>
+        <view class="cell" a:for="{{param}}" style="width:{{item.width}}rpx;">
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+      <view class="row" a:for="{{data}}" a:for-item="d">
+        <view class="cell" style="width:100rpx;" a:if="{{tableOperate}}">
+          <text class="button">{{tableOperate}}</text>
+        </view>
+
+        <view class="cell" a:for="{{param}}" style="width:{{item.width}}rpx;">
+          <text>{{(d[item.prop]&&d[item.prop]!=0)?d[item.prop]:'-'}}</text>
+        </view>
+      </view>
+      <view class="row">
+        <text>共{{total}}条,第{{now}}页</text>
+        <button type="primary" size="mini" plain="true" style="float:right;margin-right:10px;" a:if="{{now>1}}">上一页</button>
+        <button type="primary" size="mini" plain="true" style="float:right;" a:if="{{total/5>now}}">下一页</button>
+      </view>
+    </scroll-view>
+  </view>
+</template>
+
+<!-- 必填前缀 -->
+<template name="required">
+  <view style="color:red;display:inline-block;">*</view>
+</template>

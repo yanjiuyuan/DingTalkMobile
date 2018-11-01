@@ -1,0 +1,142 @@
+page {
+  background-color: #F7F7F7;
+  border: 1px solid rgba(0,0,0,0);
+  box-sizing: border-box;
+}
+
+.tag{
+  display:inline-block;
+  text-align: center;
+  padding:14rpx;
+}
+.tag-normal{
+  color:#409EFF;
+  border:1px solid #409EFF;
+  background-color: #EBF5FF;
+}
+
+.tag-success{
+  color:#67C23A;
+  border:1px solid #67C23A;
+  background-color: #EBF5FF;
+}
+
+.tag-warning{
+  color:#E6A23C;
+  border:1px solid #E6A23C;
+  background-color: #EBF5FF;
+}
+
+.tag-danger{
+  color:#F56C6C;
+  border:1px solid #F56C6C;
+  background-color: #EBF5FF;
+}
+
+.tag-info{
+  color:#909399;
+  border:1px solid #909399;
+  background-color: #EBF5FF;
+  display:inline-block;
+  text-align: center;
+  padding:10rpx;
+}
+
+.page {
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+  font-size: 24rpx;
+  padding: 32rpx;
+  flex: 1;
+}
+
+.page-description {
+  margin-bottom: 32rpx;
+}
+
+.page-section {
+  background: #fff;
+  margin-bottom: 32rpx;
+}
+
+.page-section-title {
+  padding: 16rpx 32rpx;
+}
+
+.page-section-demo {
+  padding: 32rpx;
+}
+
+.page-section-btns {
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.page-section-btns > view {
+  flex: 1;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #49a9ee;
+}
+.page-section-btns > view + view {
+  border-left: 1px solid #ddd;
+}
+
+button {
+  margin-top:20rpx;
+  margin-bottom:20rpx;
+}
+
+.bc_blue {
+  background-color: #49A9EE;
+}
+
+.bc_red {
+  background-color: #F04134;
+}
+
+.bc_yellow {
+  background-color: #FFBF00;
+}
+
+.bc_green {
+  background-color: #00A854;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  height: 88rpx;
+  align-items: center;
+}
+
+.form-row-label {
+  width: 170rpx;
+  font-size: 34rpx;
+  margin-right: 10rpx;
+  text-align: right;
+  color: #000;
+}
+
+.form-row-content {
+  flex: 1;
+  font-size: 34rpx;
+}
+
+.form-line {
+  height: 1px;
+  background-color: #ddd;
+  margin-left: 30rpx;
+}
+
+.input{
+  background-color:#F5F7FA;
+}
+
+.input :disabled{
+  background-color:#909399;
+}

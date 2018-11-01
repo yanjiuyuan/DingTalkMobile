@@ -1,0 +1,32 @@
+@import '/util/grid/index.acss';
+@import '/util/template/index.acss';
+
+.approval-box-img {
+    width: 60px;
+    height: 60px;
+    background: url(image/icon900-540.png) no-repeat;
+    background-position: -54px -47px;
+    
+}
+
+
+
+.slogon {
+  text-align: center;
+}
+
+.logo {
+  margin-top: 60rpx;
+  width: 90px;
+  height: 90px;
+}
+
+.info {
+  margin-top: 30rpx;
+  margin-bottom: 60rpx;
+}
+
+.desc {
+  font-size: 28rpx;
+  color: #888;
+}

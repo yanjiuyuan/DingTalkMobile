@@ -1,0 +1,39 @@
+<import src="/util/template/index.axml"/>
+
+<view class="container" key="container">
+    <view class="slogon">
+        <view class="info">
+            <text class="desc">研究院移动万能钉</text>
+        </view>
+    </view>
+</view>
+
+<view>
+  <view a:for="{{menu}}" a:if="{{item.url}}" key="{{item.flowId}}" class="grid-item" data-index="{{index}}">
+    <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
+      <view class="grid-item-wrapper">
+        <view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
+        <text class="grid-text">{{item.flowName}}</text>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<template is="mask" key="items" data="{{hidden: hideMask, animMaskData}}" />
+
+<template is="choosePeople"/>
+
+<!-- <template is="datatable" data="{{param:tableParam,data:tableData,total:tableTotal,now:tableNow,tableOperate:tableOperate}}"/> -->
+
+<!-- <table data="{{tableData}}" param="{{tableParam}}" total="{{tableTotal}}" now="{{tableNow}}">
+  <column label="操作">
+    <text class="button">选择</text>
+  </column>
+  <column label="姓名" prop="name"></column>
+  <column label="职位" prop="job" width="200"></column>
+  <column label="爱好" prop="intret" width="200"></column>
+  <column label="名言" prop="word" width="300"></column>
+</table> -->
+
+
+
