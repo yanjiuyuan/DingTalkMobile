@@ -1,10 +1,11 @@
 import lib from "/lib.js"
-import template from "/util/template/index.js"
+import template from "/util/template/template.js"
 
 let logs = [];
 
 export default {
   data:{
+    ...lib.data,
     ...template.data,
     hideMask: false,
     param: {},
@@ -14,7 +15,7 @@ export default {
   },
 
   func:{
-    ...lib,
+    ...lib.func,
     ...template.func,
     onLoad(param) {
       this.param = param

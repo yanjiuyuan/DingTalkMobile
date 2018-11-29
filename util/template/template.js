@@ -5,6 +5,8 @@ export default {
   data: {
     animMaskData: [],
     animContentData: [],
+    //选人变量
+    nodeList:[],
     chooseParam: {
       title: "审批选人",            //标题
       multiple: true,            //是否多选
@@ -16,9 +18,16 @@ export default {
       responseUserOnly: false,        //返回人，或者返回人和部门
       startWithDepartmentId: 0,   // 0表示从企业最上层开始},
     },
-    tableData: []
+    //表格变量
+    tableData: [],
+    tableParam: {
+      size: 5,
+      now: 1,
+      total: 0
+    }
   },
   func: {
+    //选人控件方法
     choosePeople(){
       console.log('start choose people')
       var that = this
@@ -39,6 +48,23 @@ export default {
         }
       })
     },
+    //翻頁相關事件
+    getData() {
+        var start = this.data.tableParam.size * (this.data.tableParam.now - 1)
+        var arr = this.data.data.slice(start, start + this.data.tableParam.size)
+        this.setData({
+          tableData:arr
+        })
+        console.log(this.data.tableData)
+    },
+    handleCurrentChange: function (event) {
+        var page = event.target.dataset.page
+        this.setData({
+          "tableParam.now":page
+        })
+        this.getData()
+    },
+    //遮罩相关方法
     createMaskShowAnim() {
       const animation = dd.createAnimation({
         duration: 200,

@@ -2,6 +2,7 @@
 import lib from '/lib.js'
 App({
   onLaunch(options) {
+    return
     console.log('app onlaunch~~~~~~~~')
     console.log(options)
     console.log(JSON.stringify(options))

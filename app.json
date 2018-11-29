@@ -1,7 +1,7 @@
 {
   "pages": [
-    "page/start/index",
     "page/start/purchase/purchase",
+    "page/start/index",
     
     "page/waitMe/index",
     "page/iDone/index",

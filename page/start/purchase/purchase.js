@@ -4,9 +4,19 @@ Page({
   data: {
     ...pub.data,
     tableOperate: '选择',
-    tableTotal: 0,
-    tableNow: 1,
-    tableParam: [
+    purchaseList: [],
+    tableParam2: {
+      size: 100,
+      now: 1,
+      total: 0
+    },
+    tableOperate2: '删除',
+    good: {
+            Price: '',
+            Unit: '',
+            Count: ''
+        },
+    tableItems: [
       {
         prop: 'FNumber',
         label: '物料编码',
@@ -28,7 +38,7 @@ Page({
         width: 100
       }
     ],
-    tableData:[]
+    //data:[]
   },
   search(e){
     var value = e.detail.value
@@ -38,17 +48,42 @@ Page({
     that.requestData('GET', 'Purchase/GetICItem?Key=' +encodeURI(value.keyWord), function(res) {
       console.log(JSON.parse(res.data))
       that.setData({
-        tableData: JSON.parse(res.data),
-        tableTotal: JSON.parse(res.data).length
+        'tableParam.total': JSON.parse(res.data).length
       })
-      that.tableData = JSON.parse(res.data)
-      that.tableTotal = JSON.parse(res.data).length
+      that.data.data =  JSON.parse(res.data)
+      that.getData()
     })
   },
   onSubmit(e) {
     dd.alert({
       content: `数据：${JSON.stringify(e.detail.value)}`,
     });
+  },
+  chooseItem(e){
+    if(!e) return
+    let good = e.target.targetDataset.row
+    if(!good) return
+    for (let p of this.data.purchaseList) {
+        if (p.CodeNo == good.FNumber) return
+    }
+    let param = {
+        CodeNo: good.FNumber,
+        Name: good.FName,
+        Standard: good.FModel,
+        Unit: '',
+        Price: good.FNote == '0' ? '' : good.FNote,
+        Count: '',
+        Purpose: '',
+        UrgentDate: '',
+        Mark: ''
+    }
+    let length = this.data.purchaseList.length
+    let setStr = 'purchaseList[' + length + ']'
+    console.log(setStr)
+    this.setData({
+      [`purchaseList[${length}]`]: param
+    })
+    console.log(this.data.purchaseList)
   },
   onReset() {
 

@@ -1,4 +1,4 @@
-<import src="/util/template/index.axml"/>
+<import src="/util/template/template.axml"/>
 
 <view class="container" key="container">
     <view class="slogon">
@@ -19,7 +19,7 @@
   </view>
 </view>
 
-<template is="mask" key="items" data="{{hidden: hideMask, animMaskData}}" />
+<!-- <template is="mask" key="items" data="{{hidden: hideMask, animMaskData}}" /> -->
 
 <template is="choosePeople"/>
 

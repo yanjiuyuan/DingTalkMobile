@@ -1,5 +1,5 @@
 @import '/util/grid/index.acss';
-@import '/util/template/index.acss';
+@import '/util/template/template.acss';
 
 .api {
   font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;

@@ -1,4 +1,4 @@
-<import src="/util/template/index.axml"/>
+<import src="/util/template/template.axml"/>
 <view class="page">
   <!-- 搜索 -->
   <form onSubmit="search">
@@ -13,7 +13,15 @@
     <button type="primary" formType="submit">搜索</button>
   </form>
   <!-- 物料表单 -->
-  <template is="datatable" data="{{param:tableParam,data:tableData,total:tableTotal,now:tableNow,tableOperate:tableOperate}}"/>
+  <view onTap="chooseItem">
+    <text>物料表单</text>
+    <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
+  </view>
+   <!-- 已选物料表单 -->
+  <view onTap="deleteItem">
+    <text>已选物料表单</text>
+    <template is="datatable" data="{{items:tableItems,data:purchaseList,param:tableParam2,tableOperate:tableOperate2}}"/>
+  </view>
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">

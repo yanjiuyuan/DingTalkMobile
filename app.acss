@@ -137,6 +137,6 @@ button {
   background-color:#F5F7FA;
 }
 
-.input :disabled{
+/* .input :disabled{
   background-color:#909399;
-}
+} */

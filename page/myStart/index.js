@@ -1,25 +1,12 @@
-import template from '/util/template';
-
-// 修改：将canIUse放在数据内部，提高可读性，并且items中的每一项加上hidden属性
-// 如果当前环境有这个API，则正常返回，否则隐藏（items里判断如果hidden代表隐藏）
-function canIUse(api) {
-  if (dd.canIUse(api.api)) {
-    return api;
-  } else {
-    api.entitle = '当前设备不支持!';
-    api.hidden = true;
-
-    return api;
-  }
-}
+import pub from '/util/public';
 
 Page({
-  ...template.animOp,
   data: {
+    ...pub.func,
     pageName: 'API/index',
     hidden: true,
     curIndex: 0,
-    ...template.data,
+    ...pub.data,
     arr: {
       onItemTap: 'onGridItemTap',
       onChildItemTap: 'onChildItemTap',
@@ -98,68 +85,7 @@ Page({
         },
         ]
       },
-      {
-        icon: '/image/api_device.png',
-        title: '设备',
-        entitle: 'Device',
-        subs: [
-          canIUse({
-            api: 'getNetworkType',
-            title: '获取手机网络状态',
-            entitle: 'getNetworkType',
-            page: '../get-network-type/get-network-type'
-          }),
-          {
-            title: '获取手机系统信息',
-            entitle: 'getSystemInfo',
-            page: '../get-system-info/get-system-info'
-          },
-        ]
-      },
-      {
-        icon: '/image/api_network.png',
-        title: '网络',
-        entitle: 'Network',
-        subs: [canIUse({
-          api: 'httpRequest',
-          title: '发起一个请求',
-          entitle: 'request',
-          page: '../request/request'
-        }),
-        canIUse({
-          api: 'uploadFile',
-          title: '上传文件',
-          entitle: 'Upload File',
-          page: '../upload-file/upload-file'
-        }), {
-          title: '下载文件',
-          entitle: 'Download File',
-          page: '../download-file/download-file'
-        }]
-      },
-      {
-        icon: '/image/api_media.png',
-        title: '媒体',
-        entitle: 'Media',
-        subs: [{
-          title: '图片',
-          entitle: 'chooseImage/previewImage/saveImage',
-          page: '../image/image'
-        },
-        canIUse({
-          api: 'getImageInfo',
-          title: '获取图片信息',
-          entitle: 'getImageInfo',
-          page: '../get-image-info/get-image-info'
-        }),
-          canIUse({
-            api: 'compressImage',
-            title: '压缩图片',
-            entitle: 'compressImage',
-            page: '../compress-image/compress-image'
-          }),
-        ]
-      },
+
       {
         icon: '/image/api_data.png',
         title: '缓存',

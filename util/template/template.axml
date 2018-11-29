@@ -49,23 +49,27 @@
         <view class="cell" style="width:100rpx;" a:if="{{tableOperate}}">
           <text>操作</text>
         </view>
-        <view class="cell" a:for="{{param}}" style="width:{{item.width}}rpx;">
+        <view class="cell" a:for="{{items}}" style="width:{{item.width}}rpx;">
           <text>{{item.label}}</text>
         </view>
       </view>
       <view class="row" a:for="{{data}}" a:for-item="d">
         <view class="cell" style="width:100rpx;" a:if="{{tableOperate}}">
-          <text class="button">{{tableOperate}}</text>
+          <text class="button" data-row="{{d}}">{{tableOperate}}</text>
         </view>
 
-        <view class="cell" a:for="{{param}}" style="width:{{item.width}}rpx;">
+        <view class="cell" a:for="{{items}}" style="width:{{item.width}}rpx;">
           <text>{{(d[item.prop]&&d[item.prop]!=0)?d[item.prop]:'-'}}</text>
         </view>
       </view>
       <view class="row">
-        <text>共{{total}}条,第{{now}}页</text>
-        <button type="primary" size="mini" plain="true" style="float:right;margin-right:10px;" a:if="{{now>1}}">上一页</button>
-        <button type="primary" size="mini" plain="true" style="float:right;" a:if="{{total/5>now}}">下一页</button>
+        <text>共{{param.total}}条,第{{param.now}}页</text>
+        <button type="primary" size="mini" plain="true" style="float:right;" data-page="{{param.now+1}}"
+            onTap="handleCurrentChange" a:if="{{param.total/5>param.now}}">下一页
+        </button>
+         <button type="primary" size="mini" plain="true" style="float:right;margin-right:10px;" data-page="{{param.now-1}}"
+            onTap="handleCurrentChange" a:if="{{param.now>1}}">上一页
+        </button>
       </view>
     </scroll-view>
   </view>
