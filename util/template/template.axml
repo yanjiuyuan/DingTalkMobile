@@ -55,7 +55,7 @@
       </view>
       <view class="row" a:for="{{data}}" a:for-item="d">
         <view class="cell" style="width:100rpx;" a:if="{{tableOperate}}">
-          <text class="button" data-row="{{d}}">{{tableOperate}}</text>
+          <text class="button" data-row="{{d}}" data-index="{{index}}">{{tableOperate}}</text>
         </view>
 
         <view class="cell" a:for="{{items}}" style="width:{{item.width}}rpx;">

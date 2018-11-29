@@ -8,12 +8,20 @@ function doWithErrcode(result){
   }
   return 0
 }
+var d = new Date()
+var year = d.getFullYear()
+var month = d.getMonth() + 1
+var day = d.getDate()
 export default {
   data:{
     dormainName:dormainName,
     currentPage: 1,
     totalRows: 0,
     pageSize: 5,
+    Year:year,
+    Month:month,
+    Day:day,
+    DateStr: _dateToString(d)
   },
   func:{
     checkLogin(){
@@ -65,15 +73,20 @@ export default {
     formatQueryStr(obj) {
       var queryStr = '?'
       for (var o in obj) {
-        queryStr = queryStr + o + '=' + obj[o] + '&'
+        queryStr = queryStr + o + '=' + encodeURI(obj[o]) + '&'
       }
       return queryStr.substring(0, queryStr.length - 1)
     },
   }, 
+}
 
-  
-
-  
-
-  
+function _dateToString(date, split) {
+    if(!split) split = "-"
+    var d = new Date(date)
+    var year = d.getFullYear()
+    var month = d.getMonth() + 1
+    var day = d.getDate()
+    if (month < 10) month = '0' + month
+    if (day < 10) day = '0' + day
+    return year + split + month + split + day
 }
