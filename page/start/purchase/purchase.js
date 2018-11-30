@@ -2,6 +2,7 @@ import pub from '/util/public';
 let good = {}
 Page({
   ...pub.func,
+  ...pub.func.start,
   data: {
     ...pub.data,
     hidden: true,
@@ -194,4 +195,5 @@ Page({
 
   },
 
+  
 });

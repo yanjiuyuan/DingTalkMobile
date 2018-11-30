@@ -9,7 +9,8 @@ export default {
     ...template.data,
     hideMask: false,
     param: {},
-
+    flowid:0,
+    taskid:0,
     nodeList:[],
     isback: false
   },
@@ -17,16 +18,16 @@ export default {
   func:{
     ...lib.func,
     ...template.func,
-    onLoad(param) {
-      this.param = param
-      this.getNodeList()
-    },
     onReady() {
       this.checkLogin()
     },
     start: {
       onLoad(a) {
-        
+        console.log('on load~~~~~~~~~~')
+        console.log(a)
+        this.data.flowid == a.flowid
+        this.data.flowid == '8'
+        getNodeList()
       },
 
       onUnload() {
@@ -48,12 +49,8 @@ export default {
     },
     getNodeList() {
       var that = this
-      var url = "FlowInfo/GetSign?FlowId=" + this.param.flowid
-      if (this.param.taskid) url = url + "&TaskId=" + this.param.taskid
+      this.requestData('GET', "FlowInfo/GetSign" + this.formatQueryStr({TaskId:this.data.taskid}), function(res) {
 
-      this.requestData('GET', url, function(res) {
-        
-       
       })
     },
     checkLogin(){

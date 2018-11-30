@@ -9,7 +9,7 @@ export default {
     nodeList:[],
     chooseParam: {
       title: "审批选人",            //标题
-      multiple: true,            //是否多选
+      multiple: false,            //是否多选
       limitTips: "超出了人数范围", //超过限定人数返回提示
       maxUsers: 1000,            //最大可选人数
       pickedUsers: [],            //已选用户 
