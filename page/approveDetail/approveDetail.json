@@ -1,0 +1,11 @@
+{
+    "enableWK": "YES",
+    "enableDSL": true,
+    "defaultTitle": "待我审批",
+    "backgroundColor": "#F5F5F9",
+    "pullRefresh": false,
+    "usingComponents":{
+    "list":"mini-ddui/es/list/index",
+    "list-item":"mini-ddui/es/list/list-item/index"
+  }
+}

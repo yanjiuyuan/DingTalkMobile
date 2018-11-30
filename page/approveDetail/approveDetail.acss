@@ -1,0 +1,11 @@
+.round_icon {
+    background-color: #3296FA;
+    width: 35px;
+    height: 35px;
+    color: white;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}

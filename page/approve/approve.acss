@@ -1,0 +1,13 @@
+.imageApprove{
+    background-color: #eeeeee; 
+    width: 50px; 
+    height:50px;
+    margin-left:35px;
+    margin-top:20px;
+    background-color: transparent;
+}
+
+.textApprove{
+   margin-left:35px;
+   font-size: 12px;
+}

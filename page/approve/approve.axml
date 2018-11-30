@@ -1,0 +1,19 @@
+
+<view>
+<view style="float:left;" onTap="LoadUrl" data-alpha-beta="../approveDetail/approveDetail" data-alpha-betaIndex='0'>
+  <image class='imageApprove' style="" src="../../image/1.png"/>
+  <view class="textApprove">待我审批</view>
+</view>
+<view style="float:left">
+  <image class='imageApprove'  src="../../image/1.png"/>
+  <view class="textApprove">我已审批</view>
+</view>
+<view style="float:left">
+  <image class='imageApprove'  src="../../image/2.png"/>
+  <view class="textApprove">我发起的</view>
+</view>
+<view style="float:left">
+  <image class='imageApprove'  src="../../image/3.png"/>
+  <view class="textApprove">抄送我的</view>
+</view>
+</view>
