@@ -1,8 +1,9 @@
 {
   "pages": [
+    "page/start/purchase/purchase",
+    
     "page/approve/approve",
     "page/start/index",
-    "page/start/purchase/purchase",
     "page/waitMe/index",
     "page/iDone/index",
     "page/myStart/index",

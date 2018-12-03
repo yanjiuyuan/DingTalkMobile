@@ -42,6 +42,7 @@ export default {
         url: dormainName + url,
         method: type,
         data: param,
+        contentType: 'application/json; charset=utf-8',
         success: function(res) {
           console.log(url)
           console.log(res)
@@ -77,6 +78,22 @@ export default {
       }
       return queryStr.substring(0, queryStr.length - 1)
     },
+    _getTime() {
+        var split = "-"
+        var d = new Date()
+        var year = d.getFullYear()
+        var month = d.getMonth() + 1
+        var day = d.getDate()
+        var hour = d.getHours()
+        var minute = d.getMinutes()
+        var second = d.getSeconds()
+        if (month < 10) month = '0' + month
+        if (day < 10) day = '0' + day
+        if (hour < 10) hour = '0' + hour
+        if (minute < 10) minute = '0' + minute
+        if (second < 10) second = '0' + second
+        return year + split + month + split + day + ' ' + hour + ':' + minute + ':' + second
+    }
   }, 
 }
 

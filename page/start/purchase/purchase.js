@@ -102,12 +102,43 @@ Page({
       that.getData()
     })
   },
-  onSubmit(e) {
-    dd.alert({
-      content: `数据：${JSON.stringify(e.detail.value)}`,
-    });
+  submit(e) {
+    var that = this
+    var value = e.detail.value
+    var param = {
+        Title: value.title,
+        Remark: value.remark,
+        ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
+        ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
+    }
+    let callBack = function (taskId) {
+        console.log("提交审批ok!")
+        that.bindAll(taskId)
+    }
+    console.log(param)
+    this.approvalSubmit(param, 
+    callBack, {
+            ProjectId: param.ProjectId
+        })
   },
-
+  bindAll(taskId) {
+      var that = this
+      console.log('bindAll~~~~~')
+      console.log(that.data)
+      console.log('bindAll~~~~~23333')
+      var paramArr = []
+      for (let p of that.data.purchaseList) {
+          p.TaskId = taskId
+          paramArr.push(p)
+      }
+      console.log("采购表单批量保存 paramArr ")
+      console.log(paramArr)
+      that.requestData('POST', "Purchase/SavePurchaseTable", function(res) {
+          var alertStr = '采购表单批量保存成功'
+          if (res.errorCode != 0) alertStr = res.errorMessage
+          that.doneSubmit(alertStr)
+      },paramArr)
+  },
 
 
   //弹窗表单相关

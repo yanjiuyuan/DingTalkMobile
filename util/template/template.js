@@ -28,20 +28,28 @@ export default {
   },
   func: {
     //选人控件方法
-    choosePeople(){
+    choosePeople(e){
       console.log('start choose people')
+      var nodeId = e.target.targetDataset.NodeId
       var that = this
       dd.complexChoose({
         ...that.chooseParam,
         success: function(res) {
           console.log(res)
-          /**
+          res = 
           {
               selectedCount:1,                              //选择人数
-              users:[{"name":"","avatar":"","userId":""}]，//返回选人的列表，列表中的对象包含name（用户名），avatar（用户头像），userId（用户工号）三个字段
-              departments:[{"id":,"name":"","number":}]//返回已选部门列表，列表中每个对象包含id（部门id）、name（部门名称）、number（部门人数）
+              users:[{"name":"詹姆斯","avatar":"","userId":"manager325"}],//返回选人的列表，列表中的对象包含name（用户名），avatar（用户头像），userId（用户工号）三个字段
+              departments:[{"id":"","name":"","number":""}]//返回已选部门列表，列表中每个对象包含id（部门id）、name（部门名称）、number（部门人数）
           }
-          */
+          for (let node of that.data.nodeList) {
+              if (node.NodeId == nodeId) {
+                  node.AddPeople = res.users
+              }
+          }
+          that.setData({
+            nodeList:that.data.nodeList
+          })
         },
         fail: function(err) {
 
