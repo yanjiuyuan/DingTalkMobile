@@ -45,7 +45,7 @@ Page({
   //获取审批列表
   getApproveList(index){
     var that = this
-    that.requestData('GET', 'FlowInfo/GetFlowStateDetail' + that.formatQueryStr({Index:index,ApplyManId:that.data.DingData.userid}) , function(res) { 
+    that.requestData('GET', 'FlowInfo/GetFlowStateDetail' + that.formatQueryStr({Index:index,ApplyManId:that.data.DingData.userid,IsSupportMobile:true}) , function(res) { 
       that.setData({
         'approveList': res.data.slice(0,20),
         pageCount:Math.ceil(res.data.length/5)
