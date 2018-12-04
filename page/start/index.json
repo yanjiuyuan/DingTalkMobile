@@ -1,5 +1,4 @@
 {
-  "defaultTitle": "小程序组件 Demo",
   "usingComponents":{
     "table":"/util/table/table",
     "column":"/util/table/column/column"

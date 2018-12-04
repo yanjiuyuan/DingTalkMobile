@@ -1,9 +1,12 @@
 {
   "pages": [
     "page/approve/approve",
+
     "page/start/purchase/purchase",
-    "page/approveDetail/purchase/purchase",
+
     "page/start/index",
+
+    "page/approveDetail/purchase/purchase",
     "page/approveDetail/approveDetail",
     "page/approveDetail/purchase/purchase"
   ],

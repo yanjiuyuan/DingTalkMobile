@@ -3,7 +3,7 @@
 <view class="container" key="container">
     <view class="slogon">
         <view class="info">
-            <text class="desc">研究院移动万能钉</text>
+            <text class="desc">手机端流程列表</text>
         </view>
     </view>
 </view>

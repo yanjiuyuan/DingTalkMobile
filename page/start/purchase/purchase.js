@@ -15,7 +15,7 @@ Page({
     },
     tableOperate2: '删除',
     good: {},
-    totalPrice: '0',
+    totalPrice: 0,
     tableItems: [
       {
         prop: 'FNumber',
@@ -207,7 +207,7 @@ Page({
     let setStr = 'purchaseList[' + length + ']'
     this.setData({
       [`purchaseList[${length}]`]: param,
-      totalPrice: this.data.totalPrice + param.Price * param.Count
+      totalPrice: (this.data.totalPrice + param.Price * param.Count) + ''
     })
     console.log(param.Purpose)
     this.onModalCloseTap()

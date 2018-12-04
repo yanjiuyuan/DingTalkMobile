@@ -8,16 +8,16 @@
 <!-- 选人控件 -->
 <template name="choosePeople">
   <view a:for="{{nodeList}}" a:for-item="node">
-    <view class="tag tag-normal" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
+    <view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
     <view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="width:480rpx;display:inline-block;">
-      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-success">{{p}}</view>
+      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{p}}</view>
       <view style="display:inline-block;">
         <text style="">{{node.ApplyTime}}\n</text>
         <text style=""> {{node.Remark}}</text>
       </view>
     </view>
     <view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
-      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-success">{{ad.name}}</view>
+      <view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view>
     </view>
     <view a:if="{{nodedata.IsNeedChose && nodedata.ChoseNodeId && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}"
       data-NodeId="{{node.NodeId}}" 

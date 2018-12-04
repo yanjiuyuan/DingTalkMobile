@@ -18,19 +18,19 @@ page {
 .tag-success{
   color:#67C23A;
   border:1px solid #67C23A;
-  background-color: #EBF5FF;
+  background-color: #F9F0EB;
 }
 
 .tag-warning{
   color:#E6A23C;
   border:1px solid #E6A23C;
-  background-color: #EBF5FF;
+  background-color: #FDF6E6;
 }
 
 .tag-danger{
   color:#F56C6C;
   border:1px solid #F56C6C;
-  background-color: #EBF5FF;
+  background-color: #FEF0F0;
 }
 
 .tag-info{

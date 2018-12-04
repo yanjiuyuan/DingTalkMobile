@@ -295,7 +295,7 @@ export default {
           content:text,
           success(){
             dd.navigateTo({
-              url: 'start/index'
+              url: '/page/start/index'
             })
           }
         })
