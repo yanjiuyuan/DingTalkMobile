@@ -17,12 +17,17 @@ export default {
     IsNeedChose:false,
     flowid:0,
     taskid:0,
-    nodeId:0,
+    nodeid:0,
     projectIndex:0,
     nodeList:[],
     projectList:[],
     nodeInfo:{},
+    //审批页面变量
+    dingList:[],//需要钉一下的人
+    tableInfo:{},//审批表单信息
     isback: false,
+    remark:'',
+
     disablePage:false
   },
 
@@ -33,10 +38,10 @@ export default {
       this.checkLogin()
     },
     start: {
-      onLoad(a) {
-        console.log('on load~~~~~~~~~~')
-        console.log(a)
-        this.data.flowid == a.flowid
+      onLoad(param) {
+        console.log('start page on load~~~~~~~~~~')
+        console.log(param)
+        this.data.flowid == param.flowid
         this.setData({
           flowid:8
         })
@@ -108,14 +113,179 @@ export default {
       },
     },
     dowith: {
-      onLoad(a) {
-
+      onLoad(param) {
+        console.log('dowith page on load~~~~~~~~~~')
+        console.log(param)
+        this.setData({
+          flowid:param.flowid,
+          index:param.index,
+          nodeid:param.nodeid,
+          taskid:param.taskid,
+          state:param.state
+        })
+        this.getFormData()
+        this.getBomInfo()
+        this.getNodeList()
+        this.getNodeInfo()
       },
 
       onUnload() {
       },
 
       onHide() {
+      },
+      //审批-同意
+      aggreSubmit(param){
+        this.setData({
+          disablePage:true
+        })
+        var paramArr = []
+        var that = this
+        paramArr.push({
+            "TaskId": that.data.taskid,
+            "ApplyMan": that.data.DingData.nickName,
+            "ApplyManId": that.data.DingData.userid,
+            "Dept": that.data.DingData.departName,
+            "NodeId": that.data.nodeid,
+            "ApplyTime": that._getTime(),
+            "IsEnable": "1",
+            "FlowId": that.data.flowid,
+            "IsSend": "false",
+            "State": "1",
+            "Id": that.data.tableInfo.Id,
+            "Remark": that.data.remark
+        })
+        for (let p in param) {
+            paramArr[0][p] = param[p]
+        }
+        for (let node of this.data.nodeList) {
+            if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) || (node.NodeName == "采购员采购" && node.AddPeople.length >0)) {
+                if (node.AddPeople.length == 0) {
+                    dd.alert({
+                      content:'您尚未选择审批人'
+                    });
+                    this.setData({
+                      disablePage:false
+                    })
+                    return
+                }
+                for (let a of node.AddPeople) {
+                    let tmpParam = {
+                        "ApplyMan": a.name,
+                        "ApplyManId": a.emplId,
+                        "TaskId": that.data.taskid,
+                        "ApplyTime": null,
+                        "IsEnable": 1,
+                        "FlowId": that.data.flowid,
+                        "NodeId": node.NodeId,
+                        "Remark": null,
+                        "IsSend": node.IsSend,
+                        "State": 0,
+                        "ImageUrl": null,
+                        "FileUrl": null,
+                        "IsPost": false,
+                        "OldImageUrl": null,
+                        "OldFileUrl": null,
+                        "IsBack": null
+                    }
+                    for (let p2 in param2) {
+                        tmpParam[p2] = param2[p2]
+                    }
+                    paramArr.push(tmpParam)
+                }
+            }
+        }
+        console.log('同意审批了~~~~~~~~~')
+        console.log(this.data.nodeList)
+        console.log(paramArr)
+        that.requestData('POST', "FlowInfo/SubmitTaskInfo", function(res) {
+            let daat = res.data
+            if (res.data && res.data.errorCode == 0) {
+                  dd.alert({
+                    content:'审批成功',
+                    success: () => {
+                      dd.navigateTo({
+                        url: '/page/approve/approve'
+                      })
+                    }
+                  });
+                } else {
+                  dd.alert({
+                    content:'审批发生错误'
+                  });
+                }
+          },JSON.stringify(paramArr))
+      },
+
+      //退回审批
+      returnSubmit(option) {
+        this.setData({
+          disablePage:true
+        })
+        var that = this
+        var param = {
+            "TaskId": that.data.taskid,
+            "ApplyMan": that.data.DingData.nickName,
+            "ApplyManId": that.data.DingData.userid,
+            "Dept": that.data.DingData.departName,
+            "NodeId": that.data.nodeid,
+            "ApplyTime": that._getTime(),
+            "IsEnable": "1",
+            "FlowId": that.data.flowid,
+            "IsSend": "false",
+            "State": "1",
+            "BackNodeId": that.data.nodeInfo.BackNodeId,
+            "Id": that.data.tableInfo.Id,
+            "Remark": that.data.remark
+        }
+        for (let o in option) {
+            param[o] = option[o]
+        }
+        that.requestData('POST', "FlowInfo/FlowBack", function(res) {
+            let daat = res.data
+            if (res.data && res.data.errorCode == 0) {
+                  dd.alert({
+                    content:'审批成功',
+                    success: () => {
+                      dd.navigateTo({
+                        url: '/page/approve/approve'
+                      })
+                    }
+                  });
+                } else {
+                  dd.alert({
+                    content:'审批发生错误'
+                  });
+                }
+          },JSON.stringify(param))
+      },
+
+      //获取审批表单信息
+      getFormData(){
+        var that = this
+        var param = {
+          ApplyManId:this.data.DingData.userid,
+          nodeId:this.data.nodeid,
+          TaskId:this.data.taskid
+        }
+        this.requestData('GET', "FlowInfo/GetApproveInfo" + this.formatQueryStr(param),
+        function(res) {
+          that.setData({
+            tableInfo: res.data
+          })
+        })
+      },
+      //获取审批表单Bom表数据
+      getBomInfo(){
+        var that = this
+          this.requestData('GET', "Purchase/ReadPurchaseTable" + this.formatQueryStr({TaskId:this.data.taskid}),
+          function(res) {
+            that.setData({
+              data: JSON.parse(res.data),
+              'tableParam.total': JSON.parse(res.data).length
+            })
+            that.getData()
+          })
       },
     },
     //审批所有流程通过，后续处理
@@ -131,6 +301,7 @@ export default {
         })
         
     },
+    //获取节点列表
     getNodeList() {
       var that = this
       let param = {
@@ -176,6 +347,7 @@ export default {
         })
       })
     },
+    //获取项目列表
     getProjectList() {
       var that = this
       this.requestData('GET', "Project/GetAllProJect", function(res) {
@@ -184,9 +356,10 @@ export default {
         })
       })
     },
+    //获取当前节点信息
     getNodeInfo() {
       var that = this
-      this.requestData('GET', "FlowInfo/getnodeinfo" + this.formatQueryStr({FlowId:this.data.flowid,nodeId:this.data.nodeId}),
+      this.requestData('GET', "FlowInfo/getnodeinfo" + this.formatQueryStr({FlowId:this.data.flowid,nodeId:this.data.nodeid}),
        function(res) {
         that.setData({
           nodeInfo:res.data[0],
@@ -194,6 +367,10 @@ export default {
         })
       })
     },
+
+
+    
+    //检查是否登录
     checkLogin(){
       var that = this
       //检查登录

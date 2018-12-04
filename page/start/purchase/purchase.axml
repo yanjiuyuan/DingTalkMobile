@@ -10,7 +10,7 @@
         </view>
       </view>
     </view>
-    <button type="primary" formType="submit">搜索</button>
+    <button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
   </form>
   <!-- 物料表单 -->
 
@@ -130,6 +130,6 @@
         
       </view>
     </view>
-    <button type="primary" formType="submit">提交申请</button>
+    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
   </form>
 </view>

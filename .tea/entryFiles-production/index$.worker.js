@@ -120,11 +120,11 @@ function success() {
 require('../..//app');
 require('../../util/table/table');
 require('../../util/table/column/column');
+require('../../node_modules/mini-ddui/es/list/index');
+require('../../node_modules/mini-ddui/es/list/list-item/index');
+require('../../page/approve/approve');
 require('../../page/start/purchase/purchase');
 require('../../page/start/index');
-require('../../page/waitMe/index');
-require('../../page/iDone/index');
-require('../../page/myStart/index');
-require('../../page/copyMe/index');
+require('../../page/approveDetail/approveDetail');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();

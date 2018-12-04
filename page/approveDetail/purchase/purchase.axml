@@ -1,0 +1,42 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  <!-- 物料表单 -->
+  <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam}}"/>
+
+  <!-- 选人组件 -->
+  <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+  <!-- 基本表单 -->
+  <form onSubmit="submit">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label">标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label">项目名</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+        </view>
+      </view>
+      <view class="form-line" /> 
+      <view class="form-row">
+        <view class="form-row-label">申请人</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" value="{{DingData.nickName}}" disabled="{{true}}" />
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="page-section-title">建议</view>
+          <view class="page-section-demo">
+            <textarea name="remark"placeholder="输入 建议" value="{{remark}}" />
+          </view>
+        
+      </view>
+    </view>
+    <button type="primary" onTap="aggreSubmit" disabled="{{disablePage}}">同意</button>
+    <button type="warn" onTap="returnSubmit" disabled="{{disablePage}}">退回</button>
+  </form>
+</view>

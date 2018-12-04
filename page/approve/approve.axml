@@ -1,19 +1,28 @@
-
+<import src="/util/template/template.axml"/>
 <view>
-<view style="float:left;" onTap="LoadUrl" data-alpha-beta="../approveDetail/approveDetail" data-alpha-betaIndex='0'>
-  <image class='imageApprove' style="" src="../../image/1.png"/>
-  <view class="textApprove">待我审批</view>
-</view>
-<view style="float:left">
-  <image class='imageApprove'  src="../../image/1.png"/>
-  <view class="textApprove">我已审批</view>
-</view>
-<view style="float:left">
-  <image class='imageApprove'  src="../../image/2.png"/>
-  <view class="textApprove">我发起的</view>
-</view>
-<view style="float:left">
-  <image class='imageApprove'  src="../../image/3.png"/>
-  <view class="textApprove">抄送我的</view>
-</view>
+  <view style="height:176rpx;">
+      <view style="float:left;" a:for="{{items}}">
+        <image class="imageApprove {{item.index == activeItem ? 'active':'' }}" src="{{item.image}}" data-index='{{item.index}}'
+          onTap="changeItem"
+          />
+        <view class="textApprove">{{item.name}}</view>
+      </view>
+  </view>
+
+  <list>
+    <view slot="header">{{items[activeItem].name}}</view>
+    <block a:for="{{approveList}}">
+      <list-item onTap="toDetial" data-row="{{item}}"
+        key="item-{{index}}"
+        index="{{index}}"
+        last="{{index === (approveList.length - 1)}}"
+      >
+        {{item[0].ApplyMan}} 的 {{item[0].FlowName}}
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">标题:{{item[0].Title}}</view>
+        <view class="am-list-brief">流水号:{{item[0].TaskId}}</view>
+        <view class="am-list-brief">申请时间:{{item[0].ApplyTime}}</view>
+      </list-item>
+    </block>
+    <view slot="footer"></view>
+  </list>
 </view>

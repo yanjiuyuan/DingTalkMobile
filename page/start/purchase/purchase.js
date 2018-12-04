@@ -15,7 +15,7 @@ Page({
     },
     tableOperate2: '删除',
     good: {},
-    totalPrice: 0,
+    totalPrice: '0',
     tableItems: [
       {
         prop: 'FNumber',
@@ -93,7 +93,7 @@ Page({
     console.log(value) 
     if (!value || !value.keyWord) return
     var that = this
-    that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) {  //'?Key=' +encodeURI(value.keyWord), function(res) {
+    that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) { 
       console.log(JSON.parse(res.data))
       that.setData({
         'tableParam.total': JSON.parse(res.data).length
@@ -132,7 +132,7 @@ Page({
           paramArr.push(p)
       }
       console.log("采购表单批量保存 paramArr ")
-      console.log(paramArr)
+      console.log(JSON.stringify(paramArr))
       that.requestData('POST', "Purchase/SavePurchaseTable", function(res) {
           var alertStr = '采购表单批量保存成功'
           if (res.errorCode != 0) alertStr = res.errorMessage
@@ -197,7 +197,7 @@ Page({
         Name: good.FName,
         Standard: good.FModel,
         Unit: value.Unit,
-        Price: value.Price ? parseInt(value.Price) : 0,
+        Price: value.Price ? value.Price + '' : '0',
         Count: value.Count,
         Purpose: value.Purpose,
         UrgentDate: value.UrgentDate,

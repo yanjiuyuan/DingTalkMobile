@@ -78,6 +78,13 @@ export default {
       }
       return queryStr.substring(0, queryStr.length - 1)
     },
+    _formatQueryStr(obj) {
+      var queryStr = '?'
+      for (var o in obj) {
+        queryStr = queryStr + o + '=' + obj[o] + '&'
+      }
+      return queryStr.substring(0, queryStr.length - 1)
+    },
     _getTime() {
         var split = "-"
         var d = new Date()

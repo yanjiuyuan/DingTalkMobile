@@ -1,3 +1,4 @@
+@import '/util/template/template.acss';
 .imageApprove{
     background-color: #eeeeee; 
     width: 50px; 
@@ -10,4 +11,10 @@
 .textApprove{
    margin-left:35px;
    font-size: 12px;
+}
+.am-list-item{
+    border-bottom:1px solid gray;
+}
+.active{
+    border:1px solid #E6A23C;
 }
