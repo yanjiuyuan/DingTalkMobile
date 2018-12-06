@@ -8,9 +8,9 @@ export default {
     ...lib.data,
     ...template.data,
     DingData:{
-      nickName:'詹姆斯',
-      departName:'图书馆',
-      userid:'manager325'
+      // nickName:'詹姆斯',
+      // departName:'图书馆',
+      // userid:'manager325'
     },
     hideMask: false,
     param: {},
@@ -27,29 +27,46 @@ export default {
     tableInfo:{},//审批表单信息
     isback: false,
     remark:'',
-
+    ReApprovalTempData:{},//重新发起的临时变量
     disablePage:false
   },
 
   func:{
     ...lib.func,
     ...template.func,
-    onReady() {
-      this.checkLogin()
-    },
+    
     start: {
       onLoad(param) {
         console.log('start page on load~~~~~~~~~~')
         console.log(param)
-        this.data.flowid == param.flowid
+        let title = ''
+        for(let m of this.data.menu){
+          if(m.flowId == param.flowid){
+            title = m.title
+            break
+          }
+        }
+        let app = getApp()
+        var DingData = {
+            nickName:app.userInfo.name,
+            departName:app.userInfo.dept,
+            userid:app.userInfo.userid,
+            'tableInfo.Title':title
+          }
+
+        this.checkLogin()
         this.setData({
-          flowid:8
+          flowid:param.flowid,
+          DingData:DingData
         })
+        this.loadReApproval()
         this.getNodeList()
         this.getProjectList()
         this.getNodeInfo()
       },
-
+      onReady() {
+        
+      },
       onUnload() {
       },
 
@@ -111,28 +128,56 @@ export default {
             callBack(taskid)
           },JSON.stringify(paramArr))
       },
+      //加载重新发起数据
+      loadReApproval(){
+        let ReApprovalTempData = JSON.parse(localStorage.getItem("ReApprovalTempData"))
+        if (!ReApprovalTempData.valid) return
+        console.log('重新发起的数据~~~~~~~~~~~')
+        console.log(ReApprovalTempData)
+        ReApprovalTempData.valid = false
+        if(ReApprovalTempData.flowid == 8){
+          this.setData({
+            purchaseList: ReApprovalTempData.data
+          })
+        }else{
+          this.setData({
+            data: ReApprovalTempData.title
+          })
+        }
+        this.setData({
+          'tableInfo.Title': ReApprovalTempData.title,
+          flowid:ReApprovalTempData.flowid,
+          tableItems: ReApprovalTempData.tableItems
+        })
+        localStorage.setItem("ReApprovalTempData",JSON.stringify(ReApprovalTempData))
+      }
     },
     dowith: {
       onLoad(param) {
         console.log('dowith page on load~~~~~~~~~~')
         console.log(param)
+        let app = getApp()
+        var DingData = {
+            nickName:app.userInfo.name,
+            departName:app.userInfo.dept,
+            userid:app.userInfo.userid
+          }
+        this.checkLogin()
         this.setData({
           flowid:param.flowid,
           index:param.index,
           nodeid:param.nodeid,
           taskid:param.taskid,
-          state:param.state
+          state:param.state,
+          DingData:DingData
         })
         this.getFormData()
         this.getBomInfo()
         this.getNodeList()
         this.getNodeInfo()
       },
-
-      onUnload() {
-      },
-
-      onHide() {
+      onReady() {
+        
       },
       //审批-同意
       aggreSubmit(param){
@@ -155,6 +200,7 @@ export default {
             "Id": that.data.tableInfo.Id,
             "Remark": that.data.remark
         })
+        
         for (let p in param) {
             paramArr[0][p] = param[p]
         }
@@ -260,6 +306,28 @@ export default {
           },JSON.stringify(param))
       },
 
+      //重新发起
+      reApproval(){
+        localStorage.setItem('ReApprovalTempData',
+          JSON.stringify({
+              valid: true,
+              flowid:this.data.flowid,
+              data: this.data.data,
+              title: this.data.tableInfo.Title,
+              tableItems: this.data.tableItems
+          }))
+        this.setData({
+          disablePage:true
+        })
+        for (let m of this.data.menu) {
+            if (m.flowId == this.data.flowid) {
+              dd.navigateTo({
+                url: '/page/start/' + m.url
+              })
+            }
+        }
+      },
+
       //获取审批表单信息
       getFormData(){
         var that = this
@@ -294,7 +362,7 @@ export default {
         dd.alert({
           content:text,
           success(){
-            dd.navigateTo({
+            dd.switchTab({
               url: '/page/start/index'
             })
           }
@@ -372,19 +440,26 @@ export default {
     
     //检查是否登录
     checkLogin(){
+      return
       var that = this
       //检查登录
-      this.createMaskShowAnim()
-      var app = getApp()
-      var interval = setInterval(function() {
-        app = getApp()
-        if (app.userInfo && app.userInfo.data) {
-          that.createMaskHideAnim()
-          that.setData({ hideMask: true })
-          clearInterval(interval)
-          return
-        }
-      }, 200)
+      // this.createMaskShowAnim()
+      // var app = getApp()
+      // var interval = setInterval(function() {
+      //   app = getApp()
+      //   if (app.userInfo) {
+      //     that.createMaskHideAnim()
+      //     var DingData = {
+      //       nickName:app.userInfo.name,
+      //       departName:app.userInfo.dept,
+      //       userid:app.userInfo.userid
+      //     }
+          
+      //     that.setData({ hideMask: true,DingData:DingData })
+      //     clearInterval(interval)
+      //     return
+      //   }
+      // }, 200)
     },
     bindPickerChange(e){
       this.setData({

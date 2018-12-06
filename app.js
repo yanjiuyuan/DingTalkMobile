@@ -2,21 +2,21 @@
 import lib from '/lib.js'
 App({
   onLaunch(options) {
-    return
     console.log('app onlaunch~~~~~~~~')
     console.log(options)
-    console.log(JSON.stringify(options))
-    //dd.alert({ content: JSON.stringify(options) });
     //免登
     var that = this
     dd.getAuthCode({
       success: (res) => {
         console.log(res.authCode)
-        lib.requestData('GET','LoginMobile/Bintang',function(res){
-          that.userInfo = res.data
+        lib.func.requestData('GET','LoginMobile/Bintang',function(res){
+          console.log(res.data.data)
+          that.userInfo = res.data.data
         },{authCode:res.authCode})
       },
       fail: (err) => {
+        console.log('免登失败')
+        dd.alert({ content: "免登失败" });
         dd.alert({ content: JSON.stringify(err) })
       }
     })

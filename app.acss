@@ -18,7 +18,7 @@ page {
 .tag-success{
   color:#67C23A;
   border:1px solid #67C23A;
-  background-color: #F9F0EB;
+  background-color: #F0F9EB;
 }
 
 .tag-warning{
@@ -55,7 +55,7 @@ page {
 
 .page-section {
   background: #fff;
-  margin-bottom: 32rpx;
+  margin-bottom: 10rpx;
 }
 
 .page-section-title {

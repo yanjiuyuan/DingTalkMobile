@@ -122,9 +122,11 @@ require('../../util/table/table');
 require('../../util/table/column/column');
 require('../../node_modules/mini-ddui/es/list/index');
 require('../../node_modules/mini-ddui/es/list/list-item/index');
+require('../../page/start/index');
 require('../../page/approve/approve');
 require('../../page/start/purchase/purchase');
-require('../../page/start/index');
+require('../../page/approveDetail/purchase/purchase');
 require('../../page/approveDetail/approveDetail');
+require('../../page/approveDetail/purchase/purchase');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();

@@ -21,7 +21,16 @@ export default {
     Year:year,
     Month:month,
     Day:day,
-    DateStr: _dateToString(d)
+    DateStr: _dateToString(d),
+    menu:[
+      {
+        flowId: 8,
+        sortId: 4,
+        title:'零部件采购申请',
+        url: 'purchase/purchase',
+        position: '-414px -137px'
+      }
+    ]
   },
   func:{
     checkLogin(){
@@ -37,12 +46,13 @@ export default {
     },
     //http 请求
     requestData(type,url,succe,param={},comple){
-      dd.showLoading()
+      //dd.showLoading()
       dd.httpRequest({
         url: dormainName + url,
         method: type,
         data: param,
-        contentType: 'application/json; charset=utf-8',
+        headers:{'Content-Type':'application/json; charset=utf-8'},
+        //contentType: 'application/json; charset=utf-8',
         success: function(res) {
           console.log(url)
           console.log(res)
@@ -53,7 +63,7 @@ export default {
           dd.alert({ content: '获取数据失败-' + url });
         },
         complete: function(res) {
-          dd.hideLoading();
+          //dd.hideLoading();
         }
       });
     },

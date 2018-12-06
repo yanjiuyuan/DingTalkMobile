@@ -17,10 +17,11 @@
         index="{{index}}"
         last="{{index === (approveList.length - 1)}}"
       >
-        {{item[0].ApplyMan}} 的 {{item[0].FlowName}}
+        {{item[0].ApplyMan}} 的 {{item[0].FlowName}} 
+        <view class="tag {{item[0].State=='已完成'?'tag-success':'tag-danger'}}" style="float:right;font-size:12px;padding:2rpx;">{{item[0].State}}</view>
         <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">标题:{{item[0].Title}}</view>
-        <view class="am-list-brief">流水号:{{item[0].TaskId}}</view>
-        <view class="am-list-brief">申请时间:{{item[0].ApplyTime}}</view>
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">流水号:{{item[0].TaskId}}</view>
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">申请时间:{{item[0].ApplyTime}}</view>
       </list-item>
     </block>
     <view slot="footer"></view>

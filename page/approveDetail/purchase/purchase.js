@@ -1,14 +1,10 @@
 import pub from '/util/public';
-let good = {}
 Page({
   ...pub.func,
   ...pub.func.dowith,
   data: {
     ...pub.data,
     hidden: true,
-    purchaseList: [],
-
-    good: {},
     totalPrice: '0',
     tableItems: [
       {
@@ -59,39 +55,14 @@ Page({
     ],
     //data:[]
   },
-  //表单操作相关
-  search(e){
-    var value = e.detail.value
-    console.log(value) 
-    if (!value || !value.keyWord) return
-    var that = this
-    that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) { 
-      console.log(JSON.parse(res.data))
-      that.setData({
-        'tableParam.total': JSON.parse(res.data).length
-      })
-      that.data.data =  JSON.parse(res.data)
-      that.getData()
-    })
-  },
   submit(e) {
     var that = this
     var value = e.detail.value
     var param = {
         Title: value.title,
-        Remark: value.remark,
-        ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
-        ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
+        Remark: value.remark
     }
-    let callBack = function (taskId) {
-        console.log("提交审批ok!")
-        that.bindAll(taskId)
-    }
-    console.log(param)
-    this.approvalSubmit(param, 
-    callBack, {
-            ProjectId: param.ProjectId
-        })
+    this.aggreSubmit(param)
   },
 
 

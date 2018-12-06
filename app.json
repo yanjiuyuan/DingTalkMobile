@@ -1,10 +1,11 @@
 {
   "pages": [
+    "page/start/index",
+
     "page/approve/approve",
 
     "page/start/purchase/purchase",
 
-    "page/start/index",
 
     "page/approveDetail/purchase/purchase",
     "page/approveDetail/approveDetail",
@@ -31,8 +32,8 @@
       },
       {
         "pagePath": "page/approve/approve",
-        "icon": "image/icon_component.png",
-        "activeIcon": "image/icon_component_HL.png",
+        "icon": "image/icon_API.png",
+        "activeIcon": "image/icon_API_HL.png",
         "name": "审批列表"
       }
     ]

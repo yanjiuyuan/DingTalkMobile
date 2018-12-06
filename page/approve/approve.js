@@ -31,7 +31,21 @@ Page({
     approveList:[]
   },
   onLoad() {
+    this.checkLogin()
+    let app = getApp()
+    var DingData = {
+      nickName:app.userInfo.name,
+      departName:app.userInfo.dept,
+      userid:app.userInfo.userid
+    }
+    console.log('get list~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    console.log(app.userInfo)
+    this.setData({
+      DingData:DingData
+    })
     this.getApproveList(0)
+  },
+  onReady() {
   },
   changeItem(e)
   {

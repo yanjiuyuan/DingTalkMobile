@@ -137,7 +137,7 @@ Page({
           var alertStr = '采购表单批量保存成功'
           if (res.errorCode != 0) alertStr = res.errorMessage
           that.doneSubmit(alertStr)
-      },paramArr)
+      },JSON.stringify(paramArr))
   },
 
 
@@ -186,7 +186,7 @@ Page({
     for (let p of this.data.purchaseList) {
         if (p.CodeNo == good.FNumber) return
     }
-    if (!value || !value.Unit || !value.Count|| !value.UrgentDate) {
+    if (!value || !value.Unit || !value.Count|| !value.UrgentDate|| !value.Purpose) {
       dd.alert({
         content: `表单填写不完整`,
       });
@@ -222,8 +222,20 @@ Page({
       });
     }, 210);
   },
-  onReset() {
-
+  //显示临时保存数据
+  saveTempData() {
+      localStorage.setItem('purchase', JSON.stringify(this.data.purchaseList))
+      dd.alert({content:'保存成功'})
+  },
+  loadTempData() {
+      var data = JSON.parse(localStorage.getItem('purchase'))
+      if (data && data.length && data.length > 0) {
+        this.setData({purchaseList: data})
+        localStorage.removeItem('purchase')
+      }
+  },
+  onShow() {
+    this.loadTempData()
   },
 
   
