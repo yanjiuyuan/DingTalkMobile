@@ -1,7 +1,24 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
   
-
+  <!-- 退回审批表单 -->
+  <view class="modal" a:if="{{!hidden}}" key="modal">
+      <view class="modal-mask" animation="{{animMaskData}}"/>
+      <view class="modal-container" animation="{{animContentData}}">
+          <view class="modal-close" onTap="onModalCloseTap">×</view>
+          <view class="modal-content">
+            <form onSubmit="returnSubmit">
+              <view class="page-section">
+                <view class="page-section-title">退回建议</view>
+                <view class="page-section-demo">
+                  <textarea name="remark" placeholder="输入退回建议" />
+                </view>
+              </view>
+              <button type="warn" style="margin-bottom:0;" disabled="{{disablePage}}" formType="submit">退回</button>
+            </form>
+          </view>
+      </view>
+  </view>
   
   <!-- 基本表单 -->
   <form onSubmit="submit">
@@ -33,17 +50,16 @@
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
       <view a:if="{{index==0}}">
         <view class="page-section">
-          <view class="page-section-title">建议</view>
+          <view class="page-section-title">同意建议</view>
           <view class="page-section-demo">
             <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />
           </view>
         </view>
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-        <button type="warn" onTap="returnSubmit" disabled="{{disablePage}}">退回</button>
+        <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>
       <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
-        <button type="primary" onTap="reApproval" disabled="{{disablePage}}">重新发起</button>
-        
+        <button type="primary" onTap="tapReturn" disabled="{{disablePage}}">重新发起</button>
       </view>
       <!-- <view a:if="{{index==2 && state=='未完成'}}">
         <button type="primary" onTap="" disabled="{{disablePage}}">钉一下</button>

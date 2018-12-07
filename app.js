@@ -4,14 +4,19 @@ App({
   onLaunch(options) {
     console.log('app onlaunch~~~~~~~~')
     console.log(options)
+    return
     //免登
     var that = this
+    dd.showLoading({
+      content: '登录中...'
+    });
     dd.getAuthCode({
       success: (res) => {
         console.log(res.authCode)
         lib.func.requestData('GET','LoginMobile/Bintang',function(res){
           console.log(res.data.data)
           that.userInfo = res.data.data
+          dd.hideLoading()
         },{authCode:res.authCode})
       },
       fail: (err) => {
@@ -27,7 +32,7 @@ App({
   onHide() {
     console.log('App Hide');
   },
-  userInfo:{},
+  userInfo:null,
   globalData: {
     hasLogin: false,
     appId: 189694580

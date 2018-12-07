@@ -39,6 +39,7 @@ export default {
       onLoad(param) {
         console.log('start page on load~~~~~~~~~~')
         console.log(param)
+        var that = this
         let title = ''
         for(let m of this.data.menu){
           if(m.flowId == param.flowid){
@@ -46,31 +47,17 @@ export default {
             break
           }
         }
-        let app = getApp()
-        var DingData = {
-            nickName:app.userInfo.name,
-            departName:app.userInfo.dept,
-            userid:app.userInfo.userid,
-            'tableInfo.Title':title
-          }
-
-        this.checkLogin()
         this.setData({
           flowid:param.flowid,
-          DingData:DingData
+          'tableInfo.Title':title
         })
-        this.loadReApproval()
-        this.getNodeList()
-        this.getProjectList()
-        this.getNodeInfo()
-      },
-      onReady() {
-        
-      },
-      onUnload() {
-      },
-
-      onHide() {
+        let callBack = function(){
+          //that.loadReApproval()
+          that.getNodeList()
+          that.getProjectList()
+          that.getNodeInfo()
+        }
+        this.checkLogin(callBack)
       },
       //提交审批
       approvalSubmit(param = {}, callBack, param2 = {}) {
@@ -131,7 +118,7 @@ export default {
       //加载重新发起数据
       loadReApproval(){
         let ReApprovalTempData = JSON.parse(localStorage.getItem("ReApprovalTempData"))
-        if (!ReApprovalTempData.valid) return
+        if (!ReApprovalTempData || !ReApprovalTempData.valid) return
         console.log('重新发起的数据~~~~~~~~~~~')
         console.log(ReApprovalTempData)
         ReApprovalTempData.valid = false
@@ -156,25 +143,22 @@ export default {
       onLoad(param) {
         console.log('dowith page on load~~~~~~~~~~')
         console.log(param)
-        let app = getApp()
-        var DingData = {
-            nickName:app.userInfo.name,
-            departName:app.userInfo.dept,
-            userid:app.userInfo.userid
-          }
-        this.checkLogin()
+        var that = this
         this.setData({
           flowid:param.flowid,
           index:param.index,
           nodeid:param.nodeid,
           taskid:param.taskid,
-          state:param.state,
-          DingData:DingData
+          state:param.state
         })
-        this.getFormData()
-        this.getBomInfo()
-        this.getNodeList()
-        this.getNodeInfo()
+        let callBack = function(){
+          that.getFormData()
+          that.getBomInfo()
+          that.getNodeList()
+          that.getNodeInfo()
+        }
+        this.checkLogin(callBack)
+        
       },
       onReady() {
         
@@ -264,7 +248,7 @@ export default {
       },
 
       //退回审批
-      returnSubmit(option) {
+      returnSubmit(e) {
         this.setData({
           disablePage:true
         })
@@ -282,10 +266,7 @@ export default {
             "State": "1",
             "BackNodeId": that.data.nodeInfo.BackNodeId,
             "Id": that.data.tableInfo.Id,
-            "Remark": that.data.remark
-        }
-        for (let o in option) {
-            param[o] = option[o]
+            "Remark": e.detail.value.remark
         }
         that.requestData('POST', "FlowInfo/FlowBack", function(res) {
             let daat = res.data
@@ -407,8 +388,6 @@ export default {
                 }]
             }
         }
-        console.log('~~~~~~~~~~~!!!')
-        console.log(tempNodeList)
         that.setData({
           nodeList:tempNodeList,
           isBack:res.data[0].IsBack
@@ -439,27 +418,68 @@ export default {
 
     
     //检查是否登录
-    checkLogin(){
-      return
+    checkLogin(callBack){
       var that = this
+      var app = getApp()
       //检查登录
-      // this.createMaskShowAnim()
-      // var app = getApp()
-      // var interval = setInterval(function() {
-      //   app = getApp()
-      //   if (app.userInfo) {
-      //     that.createMaskHideAnim()
-      //     var DingData = {
-      //       nickName:app.userInfo.name,
-      //       departName:app.userInfo.dept,
-      //       userid:app.userInfo.userid
-      //     }
-          
-      //     that.setData({ hideMask: true,DingData:DingData })
-      //     clearInterval(interval)
-      //     return
-      //   }
-      // }, 200)
+      if (app.userInfo) {
+        console.log('已有userInfo~~~~~~~~~~~~')
+        var DingData = {
+          nickName:app.userInfo.name,
+          departName:app.userInfo.dept,
+          userid:app.userInfo.userid
+        }
+        that.setData({DingData:DingData })
+        callBack()
+        return
+      }
+      dd.showLoading({
+        content: '登录中...'
+      });
+      
+      dd.getAuthCode({
+        success: (res) => {
+          console.log(res.authCode)
+          lib.func.requestData('GET','LoginMobile/Bintang',function(res){
+            console.log(res.data.data)
+            app.userInfo = res.data.data
+            var DingData = {
+              nickName:res.data.data.name,
+              departName:res.data.data.dept,
+              userid:res.data.data.userid
+            }
+            that.setData({ DingData:DingData })
+            dd.hideLoading()
+            callBack()
+          },{authCode:res.authCode})
+        },
+        fail: (err) => {
+          console.log('免登失败')
+          dd.alert({ content: "免登失败" });
+          dd.alert({ content: JSON.stringify(err) })
+        }
+      })
+
+
+
+      return
+      var app = getApp()
+      var interval = setInterval(function() {
+        app = getApp()
+        //dd.alert({content:'在登录了~~~~'})
+        if (app.userInfo) {
+          that.createMaskHideAnim()
+          var DingData = {
+            nickName:app.userInfo.name,
+            departName:app.userInfo.dept,
+            userid:app.userInfo.userid
+          }
+          that.setData({ hideMask: true,DingData:DingData })
+          clearInterval(interval)
+          callBack()
+          //dd.alert({content:'我登录了~~~~'})
+        }
+      }, 200)
     },
     bindPickerChange(e){
       this.setData({

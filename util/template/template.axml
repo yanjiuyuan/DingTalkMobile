@@ -26,7 +26,7 @@
         data-NodeId="{{node.NodeId}}" 
         onTap="choosePeople" class="tag tag-info">+ 选人
       </view>
-      <view a:if="{{index < length-1}}" style="font-size:100rpx;line-height:40rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
+      <view a:if="{{index < length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
     </view>
   </view>
 </template>
@@ -53,7 +53,7 @@
         </view>
       </view>
       <view>
-        <text>共{{param.total}}条,第{{param.now}}页</text>
+        <text>共{{param.total}}条,第{{param.now}}页  </text><text style="color:red;">  -  提示：向右滑动显示全部信息</text>
         <button type="primary" size="mini" plain="true" style="float:right;" data-page="{{param.now+1}}"
             onTap="handleCurrentChange" a:if="{{param.total/5>param.now}}">下一页
         </button>

@@ -30,20 +30,13 @@ Page({
     ],
     approveList:[]
   },
-  onLoad() {
-    this.checkLogin()
-    let app = getApp()
-    var DingData = {
-      nickName:app.userInfo.name,
-      departName:app.userInfo.dept,
-      userid:app.userInfo.userid
-    }
-    console.log('get list~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    console.log(app.userInfo)
-    this.setData({
-      DingData:DingData
+  onLoad(query) {
+    //dd.alert({content:'onLoad~~~~~~~~'})
+    var that = this
+    this.checkLogin(function(){
+      //dd.alert({content:'getApproveList~~~~~~~~'})
+      that.getApproveList(0)
     })
-    this.getApproveList(0)
   },
   onReady() {
   },
@@ -59,11 +52,13 @@ Page({
   //获取审批列表
   getApproveList(index){
     var that = this
+    dd.showLoading({content:'获取审批列表中，请稍候~'})
     that.requestData('GET', 'FlowInfo/GetFlowStateDetail' + that.formatQueryStr({Index:index,ApplyManId:that.data.DingData.userid,IsSupportMobile:true}) , function(res) { 
       that.setData({
         'approveList': res.data.slice(0,20),
         pageCount:Math.ceil(res.data.length/5)
       })
+      dd.hideLoading()
     })
   },
   //跳转到详细页面

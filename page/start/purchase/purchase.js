@@ -123,16 +123,11 @@ Page({
   },
   bindAll(taskId) {
       var that = this
-      console.log('bindAll~~~~~')
-      console.log(that.data)
-      console.log('bindAll~~~~~23333')
       var paramArr = []
       for (let p of that.data.purchaseList) {
           p.TaskId = taskId
           paramArr.push(p)
       }
-      console.log("采购表单批量保存 paramArr ")
-      console.log(JSON.stringify(paramArr))
       that.requestData('POST', "Purchase/SavePurchaseTable", function(res) {
           var alertStr = '采购表单批量保存成功'
           if (res.errorCode != 0) alertStr = res.errorMessage
@@ -235,7 +230,7 @@ Page({
       }
   },
   onShow() {
-    this.loadTempData()
+    //this.loadTempData()
   },
 
   

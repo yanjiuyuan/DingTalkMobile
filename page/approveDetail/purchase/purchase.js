@@ -64,7 +64,24 @@ Page({
     }
     this.aggreSubmit(param)
   },
-
-
+  //显示弹窗表单
+  tapReturn(e){
+    if(!e) return
+    this.setData({
+      hidden: !this.data.hidden
+    })
+    this.createMaskShowAnim();
+    this.createContentShowAnim();
+  },
+  //隐藏弹窗表单
+  onModalCloseTap() {
+    this.createMaskHideAnim();
+    this.createContentHideAnim();
+    setTimeout(() => {
+      this.setData({
+        hidden: true,
+      });
+    }, 210);
+  },
 
 });
