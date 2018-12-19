@@ -34,7 +34,7 @@ Page({
     //dd.alert({content:'onLoad~~~~~~~~'})
     var that = this
     this.checkLogin(function(){
-      //dd.alert({content:'getApproveList~~~~~~~~'})
+      //dd.alert({content:JSON.stringify(that.data.DingData)})
       that.getApproveList(0)
     })
   },
@@ -84,9 +84,27 @@ Page({
             index: this.data.activeItem,
             state: row.State
         }
+        if (row.FlowId == 6) {
+            dd.navigateTo({
+              url: '/page/approveDetail/paper/paper' + this._formatQueryStr(param)
+            })
+            return
+        }
         if (row.FlowId == 8) {
             dd.navigateTo({
               url: '/page/approveDetail/purchase/purchase' + this._formatQueryStr(param)
+            })
+            return
+        }
+        if (row.FlowId == 13) {
+            dd.navigateTo({
+              url: '/page/approveDetail/usePublicCar/usePublicCar' + this._formatQueryStr(param)
+            })
+            return
+        }
+        if (row.FlowId == 14) {
+            dd.navigateTo({
+              url: '/page/approveDetail/useCar/useCar' + this._formatQueryStr(param)
             })
             return
         }

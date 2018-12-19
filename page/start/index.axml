@@ -3,7 +3,8 @@
 <view class="container" key="container">
     <view class="slogon">
         <view class="info">
-            <text class="desc">手机端流程列表</text>
+            <text class="desc">{{DingData.nickName}} - 正在工作中</text>
+            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯'}}" onTap="choosePeople" class="tag tag-info">+ 选人</view>
         </view>
     </view>
 </view>
@@ -19,21 +20,11 @@
   </view>
 </view>
 
-<!-- <template is="mask" key="items" data="{{hidden: hideMask, animMaskData}}" /> -->
 
-<template is="choosePeople"/>
-
-<!-- <template is="datatable" data="{{param:tableParam,data:tableData,total:tableTotal,now:tableNow,tableOperate:tableOperate}}"/> -->
-
-<!-- <table data="{{tableData}}" param="{{tableParam}}" total="{{tableTotal}}" now="{{tableNow}}">
-  <column label="操作">
-    <text class="button">选择</text>
-  </column>
-  <column label="姓名" prop="name"></column>
-  <column label="职位" prop="job" width="200"></column>
-  <column label="爱好" prop="intret" width="200"></column>
-  <column label="名言" prop="word" width="300"></column>
-</table> -->
-
+<view class="container" style="position:absolute;bottom:0rpx;right:0rpx;">
+    <view class="slogon">
+          <text class="desc">版本号 - 0.72</text>
+    </view>
+</view>
 
 

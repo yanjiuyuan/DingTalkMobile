@@ -1,14 +1,14 @@
 {
   "pages": [
     "page/start/index",
-
     "page/approve/approve",
-
     "page/start/purchase/purchase",
-
-
     "page/approveDetail/purchase/purchase",
-    "page/approveDetail/purchase/purchase"
+    "page/approveDetail/usePublicCar/usePublicCar",
+    "page/start/usePublicCar/usePublicCar",
+    "page/approveDetail/paper/paper",
+    "page/start/useCar/useCar",
+    "page/approveDetail/useCar/useCar"
   ],
   "window": {
     "enableWK": "YES",

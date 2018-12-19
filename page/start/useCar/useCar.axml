@@ -1,0 +1,65 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  
+  
+  <!-- 基本表单 -->
+  <form onSubmit="submit">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>驾驶员</view>
+        <view class="form-row-content">
+          <input name="DrivingMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
+        </view>
+        
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label">同行人</view>
+        <view class="form-row-content">
+          <input name="PeerNumber" class="input" disabled="{{true}}" value="{{tableInfo.PeerNumber}}"/>
+        </view>
+        <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>计划行车路线</view>
+        <view class="form-row-content">
+          <input name="PlantTravelWay" class="input"/>
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>用车事由</view>
+        <view class="form-row-content">
+          <input name="MainContent" class="input"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>开始时间</view>
+        <view class="form-row-content">
+          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime"
+          value="{{startDateStr}}"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>结束时间</view>
+        <view class="form-row-content">
+          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
+          value="{{endDateStr}}"/>
+        </view>
+      </view>
+
+      <!-- 选人组件 -->
+      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+    </view>
+    
+    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+  </form>
+</view>

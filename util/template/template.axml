@@ -5,6 +5,27 @@
     </view>
 </template>
 
+<!-- 退回审批弹窗 -->
+<template name="reBack">
+  <view class="modal" a:if="{{!hidden}}" key="modal">
+      <view class="modal-mask" animation="{{animMaskData}}"/>
+      <view class="modal-container" animation="{{animContentData}}">
+          <view class="modal-close" onTap="onModalCloseTap">×</view>
+          <view class="modal-content">
+            <form onSubmit="returnSubmit">
+              <view class="page-section">
+                <view class="page-section-title">退回建议</view>
+                <view class="page-section-demo">
+                  <textarea name="remark" placeholder="输入退回建议" />
+                </view>
+              </view>
+              <button type="warn" style="margin-bottom:0;" disabled="{{disablePage}}" formType="submit">退回</button>
+            </form>
+          </view>
+      </view>
+  </view>
+</template>
+
 <!-- 选人控件 -->
 <template name="choosePeople">
   <view style="padding:40rpx 0;">

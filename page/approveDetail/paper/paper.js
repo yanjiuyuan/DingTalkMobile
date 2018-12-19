@@ -53,6 +53,10 @@ Page({
         width: 300
       }
     ],
+
+    imageList:[],
+    fileList:[],
+    pdfList:[],
     //data:[]
   },
   submit(e) {
@@ -63,6 +67,19 @@ Page({
         Remark: value.remark
     }
     this.aggreSubmit(param)
+  },
+  //PDF文件查看后，点击按钮设置状态
+  setPdfState(e) {
+      var states = []
+      for (let p of this.data.pdfList) {
+          states.push(p.state)
+      }
+      console.log(e)
+      console.log(this.data.pdfList)
+      return
+      var url = "/File/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",")
+      this.requestData('GET', url , function(res) { 
+      })
   },
 
 });

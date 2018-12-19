@@ -1,4 +1,4 @@
-let dormainName = 'http://wuliao5222.55555.io:57513/'
+let dormainName = 'http://17e245o364.imwork.net:49415/'
 
 function doWithErrcode(result){
   if(!result) return 1
@@ -29,6 +29,20 @@ export default {
         title:'零部件采购申请',
         url: 'purchase/purchase',
         position: '-414px -137px'
+      },
+      {
+          flowId: 13,
+          sortId: 6,
+          title:'公车申请',
+          url: 'usePublicCar/usePublicCar',
+          position: '-775px -317px'
+      },
+      {
+          flowId: 14,
+          sortId: 6,
+          title:'私车申请',
+          url: 'useCar/useCar',
+          position: '-504px -405px'
       }
     ]
   },
@@ -51,16 +65,38 @@ export default {
         url: dormainName + url,
         method: type,
         data: param,
-        headers:{'Content-Type':'application/json; charset=utf-8'},
-        //contentType: 'application/json; charset=utf-8',
+        headers:{'Content-Type':'application/x-www-form-urlencoded; charset=utf-8'},
         success: function(res) {
           console.log(url)
+          console.log(param)
           console.log(res)
           if(doWithErrcode(res)) return
           succe(res)
         },
         fail: function(res) {
-          dd.alert({ content: '获取数据失败-' + url });
+          dd.alert({ content: '获取数据失败-' + url+ '报错:'  +  JSON.stringify(res) });
+        },
+        complete: function(res) {
+          //dd.hideLoading();
+        }
+      });
+    },
+    requestJsonData(type,url,succe,param={},comple){
+      //dd.showLoading()
+      dd.httpRequest({
+        url: dormainName + url,
+        method: type,
+        data: param,
+        headers:{'Content-Type':'application/json; charset=utf-8'},
+        success: function(res) {
+          console.log(url)
+          console.log(param)
+          console.log(res)
+          if(doWithErrcode(res)) return
+          succe(res)
+        },
+        fail: function(res) {
+          dd.alert({ content: '获取数据失败-' + url + '报错:'  +  JSON.stringify(res)});
         },
         complete: function(res) {
           //dd.hideLoading();

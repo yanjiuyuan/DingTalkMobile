@@ -18,14 +18,19 @@ export default {
     flowid:0,
     taskid:0,
     nodeid:0,
+    id:0,
     projectIndex:0,
     nodeList:[],
     projectList:[],
     nodeInfo:{},
     //审批页面变量
+    imageList: [],
+    fileList: [],
+    pdfList: [],
     dingList:[],//需要钉一下的人
     tableInfo:{},//审批表单信息
     isback: false,
+    hidden: true,
     remark:'',
     ReApprovalTempData:{},//重新发起的临时变量
     disablePage:false
@@ -152,6 +157,7 @@ export default {
           state:param.state
         })
         let callBack = function(){
+          console.log('callBack!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
           that.getFormData()
           that.getBomInfo()
           that.getNodeList()
@@ -319,9 +325,11 @@ export default {
         }
         this.requestData('GET', "FlowInfo/GetApproveInfo" + this.formatQueryStr(param),
         function(res) {
+          console.log("FlowInfo/GetApproveInfo!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
           that.setData({
             tableInfo: res.data
           })
+          that.handleUrlData(res.data)
         })
       },
       //获取审批表单Bom表数据
@@ -336,6 +344,48 @@ export default {
             that.getData()
           })
       },
+      //处理表单中的图片、PDF等文件显示
+      handleUrlData(data) {
+        var that = this
+        let imageList = []
+        let fileList = []
+        let pdfList = []
+        if (data.ImageUrl && data.ImageUrl.length > 5) {
+            var tempList = data.ImageUrl.split(',')
+            for (let img of tempList) {
+                imageList.push(that.data.dormainName + (img.substring(2)).replace(/\\/g, "/"))
+            }
+            that.setData({imageList:imageList})
+        }
+        if (data.FileUrl && data.FileUrl.length > 5) {
+            var urlList = data.FileUrl.split(',')
+            var oldUrlList = data.OldFileUrl.split(',')
+            var MediaIdList = data.MediaId ? data.MediaId.split(',') : []
+            for (var i = 0; i < urlList.length; i++) {
+                fileList.push({
+                    name: oldUrlList[i],
+                    url: that.data.dormainName + (urlList[i].substring(2)).replace(/\\/g, "/"),
+                    mediaId: MediaIdList[i]
+                })
+            }
+            that.setData({fileList:fileList})
+        }
+        if (data.FilePDFUrl && data.FilePDFUrl.length > 5) {
+            var urlList = data.FilePDFUrl.split(',')
+            var oldUrlList = data.OldFilePDFUrl.split(',')
+            var MediaIdList = data.MediaIdPDF ? data.MediaIdPDF.split(',') : []
+            var stateList = data.PdfState ? data.PdfState.split(',') : []
+            for (var i = 0; i < urlList.length; i++) {
+                pdfList.push({
+                    name: oldUrlList[i],
+                    url: that.data.dormainName + (urlList[i].substring(2)).replace(/\\/g, "/"),
+                    mediaId: MediaIdList[i],
+                    state: stateList[i]
+                })
+            }
+            that.setData({pdfList:pdfList})
+        }
+    }
     },
     //审批所有流程通过，后续处理
     doneSubmit(text) {
@@ -384,7 +434,7 @@ export default {
                 node.ApplyMan = that.data.DingData.nickName
                 node.AddPeople = [{
                     name: that.data.DingData.nickName,
-                    emplId: that.data.DingData.userid
+                    userId: that.data.DingData.userid
                 }]
             }
         }
@@ -415,8 +465,26 @@ export default {
       })
     },
 
-
-    
+    //显示弹窗表单
+    tapReturn(e){
+      if(!e) return
+      this.setData({
+        hidden: !this.data.hidden
+      })
+      this.createMaskShowAnim();
+      this.createContentShowAnim();
+    },
+    //隐藏弹窗表单
+    onModalCloseTap() {
+      this.createMaskHideAnim();
+      this.createContentHideAnim();
+      setTimeout(() => {
+        this.setData({
+          hidden: true,
+        });
+      }, 210);
+    },
+      
     //检查是否登录
     checkLogin(callBack){
       var that = this
@@ -429,6 +497,10 @@ export default {
           departName:app.userInfo.dept,
           userid:app.userInfo.userid
         }
+        DingData.nickName='蔡兴桐'
+        DingData.userid='083452125733424957'
+        // DingData.nickName='张鹏辉'
+        // DingData.userid='100328051024695354'
         that.setData({DingData:DingData })
         callBack()
         return
@@ -448,6 +520,10 @@ export default {
               departName:res.data.data.dept,
               userid:res.data.data.userid
             }
+            DingData.nickName='蔡兴桐'
+            DingData.userid='083452125733424957'
+            // DingData.nickName='张鹏辉'
+            // DingData.userid='100328051024695354'
             that.setData({ DingData:DingData })
             dd.hideLoading()
             callBack()

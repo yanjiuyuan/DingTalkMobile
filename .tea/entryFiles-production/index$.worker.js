@@ -126,7 +126,10 @@ require('../../page/start/index');
 require('../../page/approve/approve');
 require('../../page/start/purchase/purchase');
 require('../../page/approveDetail/purchase/purchase');
-require('../../page/approveDetail/approveDetail');
-require('../../page/approveDetail/purchase/purchase');
+require('../../page/approveDetail/usePublicCar/usePublicCar');
+require('../../page/start/usePublicCar/usePublicCar');
+require('../../page/approveDetail/paper/paper');
+require('../../page/start/useCar/useCar');
+require('../../page/approveDetail/useCar/useCar');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();

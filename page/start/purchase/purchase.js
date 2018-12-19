@@ -128,7 +128,7 @@ Page({
           p.TaskId = taskId
           paramArr.push(p)
       }
-      that.requestData('POST', "Purchase/SavePurchaseTable", function(res) {
+      that.requestJsonData('POST', "Purchase/SavePurchaseTable", function(res) {
           var alertStr = '采购表单批量保存成功'
           if (res.errorCode != 0) alertStr = res.errorMessage
           that.doneSubmit(alertStr)
