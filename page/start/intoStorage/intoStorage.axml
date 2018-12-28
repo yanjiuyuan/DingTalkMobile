@@ -1,0 +1,56 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  
+  <!-- 基本表单 -->
+  <form onSubmit="submit">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label">申请人</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+        </view>
+      </view>
+
+
+      <!-- 搜索 -->
+      <form onSubmit="search">
+        <view class="page-section">
+          <view class="form-row">
+            <view class="form-row-label">关键字</view>
+            <view class="form-row-content">
+              <input name="keyWord" class="input" placeholder="关键字" />
+            </view>
+          </view>
+        </view>
+        <button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
+      </form>
+      <!-- 物料表单 -->
+
+      <view onTap="chooseItem">
+        <text>物料表单</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
+      </view>
+
+      <!-- 选人组件 -->
+      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+      
+      <view class="page-section">
+        <view class="page-section-title">建议</view>
+          <view class="page-section-demo">
+            <textarea name="remark"placeholder="输入 建议" />
+          </view>
+        
+      </view>
+    </view>
+    
+    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+    <!-- <button onTap="saveTempData">临时保存</button> -->
+  </form>
+</view>

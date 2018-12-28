@@ -1,4 +1,6 @@
 let dormainName = 'http://17e245o364.imwork.net:49415/'
+//let dormainName = 'http://47.96.172.122:8093/'
+
 
 function doWithErrcode(result){
   if(!result) return 1
@@ -68,7 +70,7 @@ export default {
         headers:{'Content-Type':'application/x-www-form-urlencoded; charset=utf-8'},
         success: function(res) {
           console.log(url)
-          console.log(param)
+          if(type=='POST' || type=='post') console.log(param)
           console.log(res)
           if(doWithErrcode(res)) return
           succe(res)
@@ -90,7 +92,7 @@ export default {
         headers:{'Content-Type':'application/json; charset=utf-8'},
         success: function(res) {
           console.log(url)
-          console.log(param)
+          if(type=='POST' || type=='post') console.log(param)
           console.log(res)
           if(doWithErrcode(res)) return
           succe(res)

@@ -13,3 +13,4 @@ require('../../page/start/usePublicCar/usePublicCar');
 require('../../page/approveDetail/paper/paper');
 require('../../page/start/useCar/useCar');
 require('../../page/approveDetail/useCar/useCar');
+require('../../page/start/intoStorage/intoStorage');

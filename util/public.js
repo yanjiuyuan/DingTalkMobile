@@ -157,9 +157,8 @@ export default {
           state:param.state
         })
         let callBack = function(){
-          console.log('callBack!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
           that.getFormData()
-          that.getBomInfo()
+          that.getBomInfo(param.flowid)
           that.getNodeList()
           that.getNodeInfo()
         }
@@ -325,7 +324,6 @@ export default {
         }
         this.requestData('GET', "FlowInfo/GetApproveInfo" + this.formatQueryStr(param),
         function(res) {
-          console.log("FlowInfo/GetApproveInfo!!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
           that.setData({
             tableInfo: res.data
           })
@@ -333,15 +331,30 @@ export default {
         })
       },
       //获取审批表单Bom表数据
-      getBomInfo(){
+      getBomInfo(flowid){
         var that = this
-          this.requestData('GET', "Purchase/ReadPurchaseTable" + this.formatQueryStr({TaskId:this.data.taskid}),
-          function(res) {
-            that.setData({
-              data: JSON.parse(res.data),
-              'tableParam.total': JSON.parse(res.data).length
-            })
-            that.getData()
+        let url = ''
+        console.log(flowid)
+        if(flowid == 6) url = "DrawingUpload/GetPurchase"
+        else if(flowid == 8){
+          url = "Purchase/ReadPurchaseTable"
+          this.requestData('GET', url + this.formatQueryStr({TaskId:this.data.taskid}),
+            function(res) {
+              that.setData({
+                data: JSON.parse(res.data),
+                'tableParam.total': JSON.parse(res.data).length
+              })
+              that.getData()
+          })
+          return
+        } 
+        this.requestData('GET', url + this.formatQueryStr({TaskId:this.data.taskid}),
+            function(res) {
+              that.setData({
+                data: res.data,
+                'tableParam.total': res.data.length
+              })
+              that.getData()
           })
       },
       //处理表单中的图片、PDF等文件显示
@@ -464,7 +477,13 @@ export default {
         })
       })
     },
-
+    //预览图片
+    previewImg(e){
+      console.log(e.target.dataset.url)
+      dd.previewImage({
+        urls: [e.target.dataset.url],
+      });
+    },
     //显示弹窗表单
     tapReturn(e){
       if(!e) return
@@ -484,23 +503,44 @@ export default {
         });
       }, 210);
     },
-      
+    //下载文件
+    downloadFile(e){
+      console.log('下载文件~~~~~~~~~~')
+      var url = "DingTalkServers/sendFileMessage"
+      var param = {
+        UserId: this.data.DingData.userid,
+        Media_Id: e.target.dataset.mediaId
+      }
+      console.log(url)
+      this.requestData('POST', url , function(res) { 
+        dd.alert({content:'提示信息:' + JSON.parse(res.data).errmsg})
+      },param)
+    },
     //检查是否登录
     checkLogin(callBack){
       var that = this
       var app = getApp()
       //检查登录
       if (app.userInfo) {
-        console.log('已有userInfo~~~~~~~~~~~~')
         var DingData = {
           nickName:app.userInfo.name,
           departName:app.userInfo.dept,
           userid:app.userInfo.userid
         }
-        DingData.nickName='蔡兴桐'
-        DingData.userid='083452125733424957'
+        // DingData.nickName='蔡兴桐'
+        // DingData.userid='083452125733424957'
         // DingData.nickName='张鹏辉'
         // DingData.userid='100328051024695354'
+
+        //如果有全局变量，优先使用 ---- 切换用户需要
+        // var app = getApp()
+        // if (app.userInfo) {
+        //   DingData = {
+        //     nickName:app.userInfo.name,
+        //     userid:app.userInfo.userid
+        //   }
+        // }
+
         that.setData({DingData:DingData })
         callBack()
         return
@@ -520,8 +560,8 @@ export default {
               departName:res.data.data.dept,
               userid:res.data.data.userid
             }
-            DingData.nickName='蔡兴桐'
-            DingData.userid='083452125733424957'
+            // DingData.nickName='蔡兴桐'
+            // DingData.userid='083452125733424957'
             // DingData.nickName='张鹏辉'
             // DingData.userid='100328051024695354'
             that.setData({ DingData:DingData })

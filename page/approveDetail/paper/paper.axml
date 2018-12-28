@@ -2,7 +2,8 @@
 <view class="page">
   
   <!-- 退回审批表单 -->
-  <view class="modal" a:if="{{!hidden}}" key="modal">
+  <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+  <!-- <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>
       <view class="modal-container" animation="{{animContentData}}">
           <view class="modal-close" onTap="onModalCloseTap">×</view>
@@ -18,7 +19,7 @@
             </form>
           </view>
       </view>
-  </view>
+  </view> -->
   
   <!-- 基本表单 -->
   <form onSubmit="submit">
@@ -43,20 +44,21 @@
           <input name="applyman" class="input" value="{{DingData.nickName}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-row">
+      <view class="form-row" style="height:auto;">
         <view class="form-row-label">相关图片</view>
         <view class="form-row-content">
-          <view><image a:for="{{imageList}}" style="width: 80rpx; height:80rpx;" src="{{item.url}}" /></view>
+          <view><image a:for="{{imageList}}" onTap="previewImg" data-url="{{item}}" style="width: 180rpx; height:180rpx;" src="{{item}}" /></view>
         </view>
       </view>
-      <view class="form-row" style="height:100%;">
+      <view class="form-row" style="height:auto;">
         <view class="form-row-label">PDF图纸</view>
         <view class="form-row-content">
           <view a:for="{{pdfList}}" a:for-index="i">
-            <text>{{item.name}}</text>
-            <button type="primary" onTap="downloadFile" data-mediaId="{{item.mediaId}}" disabled="{{disablePage}}" style="display:inline;padding:10rpx;margin:0 10rpx;">下载</button>
-            <switch a:if="{{index == 0}}" checked onChange="setPdfState"/>
-            <text a:if="{{index != 0}}">{{item.state=='1'?'通过':'不通过'}}</text>
+            <view style="margin-bottom:-10px"><text>{{item.name}}</text></view>
+            <button type="primary" onTap="downloadFile" data-mediaId="{{item.mediaId}}" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+            <switch a:if="{{index == 0}}" checked="{{item.state == '1' ? true : false}}" onChange="setPdfState" data-index="{{i}}"/>
+            <text>{{item.state=='1'?'通过':'不通过'}}</text>
+            <view class="form-line" />
           </view>
         </view>
       </view>

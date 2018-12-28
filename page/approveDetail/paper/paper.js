@@ -8,29 +8,19 @@ Page({
     totalPrice: '0',
     tableItems: [
       {
-        prop: 'CodeNo',
-        label: '物料编码',
-        width: 200
-      },
-      {
-        prop: 'Name',
-        label: '物料名称',
-        width: 300
-      },
-      {
-        prop: 'Standard',
-        label: '规格型号',
-        width: 300
-      },
-      {
-        prop: 'Unit',
-        label: '单位',
+        prop: 'Sorts',
+        label: '类别',
         width: 100
       },
       {
-        prop: 'Price',
-        label: '单价(预计)',
-        width: 200
+        prop: 'DrawingNo',
+        label: '代号',
+        width: 300
+      },
+      {
+        prop: 'Name',
+        label: '名称',
+        width: 300
       },
       {
         prop: 'Count',
@@ -38,12 +28,27 @@ Page({
         width: 100
       },
       {
-        prop: 'Purpose',
-        label: '用途',
-        width: 300
+        prop: 'MaterialScience',
+        label: '材料',
+        width: 200
       },
       {
-        prop: 'UrgentDate',
+        prop: 'Unit',
+        label: '单位',
+        width: 100
+      },
+      {
+        prop: 'SingleWeight',
+        label: '单重',
+        width: 100
+      },
+      {
+        prop: 'AllWeight',
+        label: '总重',
+        width: 100
+      },
+      {
+        prop: 'NeedTime',
         label: '需用日期',
         width: 200
       },
@@ -68,16 +73,18 @@ Page({
     }
     this.aggreSubmit(param)
   },
+  
   //PDF文件查看后，点击按钮设置状态
   setPdfState(e) {
+      let index = e.target.dataset.index
+      this.data.pdfList[index].state == '1' ? this.data.pdfList[index].state = '0' : this.data.pdfList[index].state = '1'
+      this.setData({pdfList:this.data.pdfList})
       var states = []
       for (let p of this.data.pdfList) {
           states.push(p.state)
       }
-      console.log(e)
-      console.log(this.data.pdfList)
-      return
-      var url = "/File/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",")
+      var url = "File/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",")
+      console.log(url)
       this.requestData('GET', url , function(res) { 
       })
   },

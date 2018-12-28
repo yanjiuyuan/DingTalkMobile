@@ -39,19 +39,33 @@ Page({
   },
   submit(e) {
     var that = this
+    var value = e.detail.value
+    if((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid ==3 || this.data.nodeid ==4)){
+      dd.alert({content:'表单未填写完整'})
+      return
+    }
     that.data.table['ImageUrl'] = that.data.imgUrlList.join(',')
     //dd.alert({content: 'ImageUrl = ~~~~~~ ' + that.data.table['ImageUrl']})
     var that = this
-    var value = e.detail.value
-    var param = {
-        Title: value.title,
-        Remark: value.remark,
-        ImageUrl: that.data.table['ImageUrl']
+    if(that.data.table['ImageUrl'].length>6){
+      var param = {
+          Title: value.title,
+          Remark: value.remark,
+          ImageUrl: that.data.table['ImageUrl']
+      }
+    }else{
+      var param = {
+          Title: value.title,
+          Remark: value.remark,
+          ImageUrl: this.data.tableInfo.ImageUrl
+      }
     }
+    
     this.data.table['StartKilometres'] = value.StartKilometres
     this.data.table['EndKilometres'] = value.EndKilometres
     this.data.table['UseKilometres'] = parseInt(value.EndKilometres) - parseInt(value.StartKilometres)
     console.log(this.data.table)
+    console.log(param)
     that.requestData('POST', "CarTable/TableModify",
     function(result){
       that.aggreSubmit(param)

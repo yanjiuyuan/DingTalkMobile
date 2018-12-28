@@ -5,7 +5,10 @@ Page({
   ...pub.func.start,
   data: {
     ...pub.data,
-    hidden: true,
+    disablePage:true,
+    checked:false,
+    // modalOpened:false,
+    items:[{name:'本人同意《研究院车辆安全使用协议》'}]
   },
   submit(e) {
     var that = this
@@ -63,6 +66,39 @@ Page({
       }
     })
   },
+  //同意协议选项
+  onChecked(e){
+    console.log(!this.data.checked)
+    // if(!this.data.checked){
+    //   this.setData({modalOpened:!this.data.checked})
+    // }
+    this.setData({
+      checked:!this.data.checked,
+      disablePage:this.data.checked
+    })
+  },
+  downLoad(){
+    var param = {
+        UserId: this.data.DingData.userid,
+        Media_Id: '@lAnPDeC2tzsNwZnObg_EXs5_pwGR'
+    }
+    console.log(param)
+    this.requestData('POST', "DingTalkServers/sendFileMessage", function(res) {
+      console.log(res)
+      dd.alert({content:JSON.parse(res.data.errmsg)})
+    },param)
+  },
+  // onModalClick() {
+  //   // other code
+  //   this.setData({
+  //     modalOpened: false,
+  //   });
+  // },
+  // onModalClose() {
+  //   this.setData({
+  //     modalOpened: false,
+  //   });
+  // },
   //选择时间
   selectStartDateTime(){
     dd.datePicker({
@@ -90,15 +126,5 @@ Page({
       },
     });
   },
-  //隐藏弹窗表单
-  onModalCloseTap() {
-    this.createMaskHideAnim();
-    this.createContentHideAnim();
-    setTimeout(() => {
-      this.setData({
-        hidden: true,
-      });
-    }, 210);
-  },
-  
+ 
 });

@@ -21,7 +21,14 @@ Page({
     this.data.table['EndKilometres'] = value.EndKilometres
     this.data.table['UseKilometres'] = parseInt(value.EndKilometres) - parseInt(value.StartKilometres)
     console.log(this.data.table)
-    if(!this.data.table['CarId']) dd.alert({content:'未选择车辆'})
+    if((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid ==3 || this.data.nodeid ==4)){
+      dd.alert({content:'表单未填写完整'})
+      return
+    }
+    if(!this.data.table['CarId'] && this.data.nodeid == 2) 
+      {dd.alert({content:'未选择车辆'}) 
+      return
+    }
     that.requestData('POST', "CarTable/TableModify",
     function(result){
       that.aggreSubmit(param)

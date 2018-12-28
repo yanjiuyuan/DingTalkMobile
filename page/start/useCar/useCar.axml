@@ -55,11 +55,18 @@
           value="{{endDateStr}}"/>
         </view>
       </view>
+      <checkbox-group onChange="onChecked">
+        <label class="checkbox" a:for="{{items}}">
+          <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
+          <text class="checkbox-text">{{item.name}}</text>
+        </label>
+      </checkbox-group>
 
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+    <button type="primary" onTap="downLoad">下载《私车公用协议书》</button>
   </form>
 </view>

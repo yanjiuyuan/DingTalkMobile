@@ -56,10 +56,30 @@
         </view>
       </view>
 
+      <checkbox-group onChange="onChecked">
+        <label class="checkbox" a:for="{{items}}">
+          <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
+          <text class="checkbox-text">{{item.name}}</text>
+        </label>
+      </checkbox-group>
+
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+    <button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
   </form>
+<!-- 
+  <modal
+    onModalClick="onModalClick"
+		onModalClose="onModalClose"
+		show="{{modalOpened}}">
+		<view slot="header">车辆安全使用协议</view>
+		<view>甲方: 泉州华中科技大学智能制造研究院（泉州华数机器人有限公司）</view>
+    说明当前状态、提示用户解决方案，最好不要超过两行。
+		<view slot="footer">确定</view>
+	</modal> -->
+
+
 </view>

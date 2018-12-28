@@ -6,6 +6,8 @@ Page({
   data: {
     ...pub.data,
     hidden: true,
+     checked:false,
+    items:[{name:'本人同意《私车公用协议书》'}]
   },
   submit(e) {
     var that = this
@@ -62,6 +64,24 @@ Page({
 
       }
     })
+  },
+  //同意协议选项
+  onChecked(e){
+    this.setData({
+      checked:!this.data.checked,
+      disablePage:this.data.checked
+    })
+  },
+  downLoad(){
+    var param = {
+        UserId: this.data.DingData.userid,
+        Media_Id: '@lArPDeC2tzsRLpzOWVoCUs4-J34O'
+    }
+    console.log(param)
+    this.requestData('POST', "DingTalkServers/sendFileMessage", function(res) {
+      console.log(res)
+      dd.alert({content:JSON.parse(res.data.errmsg)})
+    },param)
   },
   //选择时间
   selectStartDateTime(){

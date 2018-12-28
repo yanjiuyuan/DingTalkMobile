@@ -9,6 +9,7 @@ Page({
   },
   onLoad(){
     this.checkLogin(function(){})
+    this.getUserInfo()
   },
   data: {
     ...pub.data,
@@ -17,6 +18,8 @@ Page({
       pageId: 0,
     },
     curIndex: 0,
+    userIndex: -1,
+    userList:[],
     sort: [{
       SORT_ID: 4,
       SORT_NAME: '采购管理',
@@ -43,6 +46,9 @@ Page({
         if(res.users.length > 0){
           let name = res.users[0].name
           let userId = res.users[0].userId
+          var app = getApp()
+          app.userInfo.name = name
+          app.userInfo.userid = userId
           that.setData({ DingData:{
             nickName:name,
             userid:userId
@@ -53,6 +59,31 @@ Page({
 
       }
     })
+  },
+  //选人操作
+  selectUser(value) {
+    console.log(value)
+    console.log(value.detail.value)
+    let userIndex = value.detail.value
+    let name = this.data.userList[userIndex].NodePeople
+    let userId = this.data.userList[userIndex].PeopleId
+    var app = getApp()
+    app.userInfo.name = name
+    app.userInfo.userid = userId
+    this.setData({ DingData:{
+        nickName:name,
+        userid:userId
+      },
+      userIndex:value.detail.value
+    })
+  },
+  getUserInfo() {
+      var that = this
+      this.requestData('GET', 'FlowInfo/GetUserInfo',function(res){
+        that.setData({
+          userList: res.data
+        })
+      })
   },
   getMenu(){
     var that = this

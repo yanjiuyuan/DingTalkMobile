@@ -2,7 +2,8 @@
 <view class="page">
   
   <!-- 退回审批表单 -->
-  <view class="modal" a:if="{{!hidden}}" key="modal">
+  <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+  <!-- <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>
       <view class="modal-container" animation="{{animContentData}}">
           <view class="modal-close" onTap="onModalCloseTap">×</view>
@@ -18,7 +19,7 @@
             </form>
           </view>
       </view>
-  </view>
+  </view> -->
   
   <!-- 基本表单 -->
   <form onSubmit="submit">

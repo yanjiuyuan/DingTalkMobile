@@ -8,11 +8,14 @@
 }
 .cell{
   display:inline-block;
+  overflow:scroll;
+  height: 60rpx;
   /* padding:10px; */
+  padding-left:0 12rpx;
   text-align: center;
   border:1px solid;
   margin-left:-1px;
-  margin-top:-1px;
+  margin-top:-5px;
 }
 .button{
   border:1px solid #409EFF;
