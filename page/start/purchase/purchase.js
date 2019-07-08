@@ -112,7 +112,6 @@ Page({
         ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
     }
     let callBack = function (taskId) {
-        console.log("提交审批ok!")
         that.bindAll(taskId)
     }
     console.log(param)
@@ -129,9 +128,7 @@ Page({
           paramArr.push(p)
       }
       that.requestJsonData('POST', "Purchase/SavePurchaseTable", function(res) {
-          var alertStr = '采购表单批量保存成功'
-          if (res.errorCode != 0) alertStr = res.errorMessage
-          that.doneSubmit(alertStr)
+          that.doneSubmit()
       },JSON.stringify(paramArr))
   },
 

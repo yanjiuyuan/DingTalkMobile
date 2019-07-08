@@ -17,20 +17,26 @@
 </view>
 
 <view>
-  <view a:for="{{menu}}" a:if="{{item.url}}" key="{{item.flowId}}" class="grid-item" data-index="{{index}}">
-    <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
-      <view class="grid-item-wrapper">
-        <view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
-        <text class="grid-text">{{item.flowName}}</text>
+  <view a:for="{{sort}}" a:for-item="m" style="text-align:center;font-size:0.4rem;">
+    <text a:if="{{m.show}}">{{m.SORT_NAME}}</text>
+    <view style="display:block;">
+      <view a:for="{{menu}}" a:if="{{item.url && item.sortId == m.SORT_ID}}" key="{{item.flowId}}" class="grid-item" data-index="{{index}}">
+        <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
+          <view class="grid-item-wrapper">
+            <view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
+            <text class="grid-text">{{item.flowName}}</text>
+          </view>
+        </navigator>
       </view>
-    </navigator>
+      <view style="clear:both"></view>
+    </view>
   </view>
 </view>
 
 
 <view class="container" style="position:absolute;bottom:0rpx;right:0rpx;">
     <view class="slogon">
-          <text class="desc">版本号 - 0.09</text>
+          <text class="desc">版本号 - {{version}}</text>
     </view>
 </view>
 

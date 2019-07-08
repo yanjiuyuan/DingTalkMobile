@@ -4,10 +4,8 @@ import pub from '/util/public';
 var globalData = getApp().globalData
 Page({
   ...pub.func,
-  onShow(a) {
-    this.getMenu()
-  },
   onLoad(){
+    this.getMenu()
     this.checkLogin(function(){})
     this.getUserInfo()
   },
@@ -20,16 +18,13 @@ Page({
     curIndex: 0,
     userIndex: -1,
     userList:[],
-    sort: [{
-      SORT_ID: 4,
-      SORT_NAME: '采购管理',
-      IsEnable: 1,
-      State: 1
-    }],
     sort: []
   },
   //选人控件方法
   choosePeople(e){
+
+    // this.upLoadFile()
+    // return
     console.log('start choose people')
     var that = this
     dd.complexChoose({
@@ -37,12 +32,6 @@ Page({
       multiple: false,
       success: function(res) {
         console.log(res)
-        // res = 
-        // {
-        //     selectedCount:1,                              //选择人数
-        //     users:[{"name":"大猩猩","avatar":"","userId":"manager325"}],//返回选人的列表，列表中的对象包含name（用户名），avatar（用户头像），userId（用户工号）三个字段
-        //     departments:[{"id":"","name":"","number":""}]//返回已选部门列表，列表中每个对象包含id（部门id）、name（部门名称）、number（部门人数）
-        // }
         if(res.users.length > 0){
           let name = res.users[0].name
           let userId = res.users[0].userId
@@ -58,6 +47,55 @@ Page({
       fail: function(err) {
 
       }
+    })
+  },
+
+  upLoadFile(){
+    dd.uploadAttachmentToDingTalk({
+        image:{multiple:true,compress:false,max:9,spaceId: "12345"},
+        space:{spaceId:"12345",isCopy:1 , max:9},
+        file: {spaceId:"12345",max:1},
+        types:["photo","camera","file","space"],//PC端仅支持["photo","file","space"]
+        success: (res) => {
+          console.log(res)
+          dd.alert({
+              content:JSON.stringify(res)
+          })
+          /*
+          {
+              type:'', // 用户选择了哪种文件类型 ，image（图片）、file（手机文件）、space（钉盘文件）
+              data: [
+                {
+                  spaceId: "232323",
+                  fileId: "DzzzzzzNqZY",
+                  fileName: "审批流程.docx",
+                  fileSize: 1024,
+                  fileType: "docx"
+                },
+                {
+                  spaceId: "232323",
+                  fileId: "DzzzzzzNqZY",
+                  fileName: "审批流程1.pdf",
+                  fileSize: 1024,
+                  fileType: "pdf"
+                },
+                {
+                  spaceId: "232323",
+                  fileId: "DzzzzzzNqZY",
+                  fileName: "审批流程3.pptx",
+                  fileSize: 1024,
+                  fileType: "pptx"
+                }
+              ]
+    
+          }
+            */
+        },
+        fail: (err) =>{
+            dd.alert({
+                content:JSON.stringify(err)
+            })
+        }
     })
   },
   //选人操作
@@ -79,22 +117,32 @@ Page({
   },
   getUserInfo() {
       var that = this
-      this.requestData('GET', 'FlowInfo/GetUserInfo',function(res){
+      this._getData('FlowInfoNew/GetUserInfo',function(data){
         that.setData({
-          userList: res.data
+          userList: data
         })
       })
   },
   getMenu(){
     var that = this
-    this.requestData('GET', 'FlowInfo/LoadFlowSort?id=123', function(res) {
-      that.sort = res
-      that.requestData('GET', 'FlowInfo/LoadFlowInfo?id=123',function(res){
-        var temp = that.mergeObjectArr(res.data,that.data.menu,'flowId')
+    this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
+      let sorts = data
+      that.setData({sort:data})
+      that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
+        var temp = that.mergeObjectArr(data,that.data.menu,'flowId')
+        for(let s of sorts){
+          s['show'] = false
+          for(let t of temp){
+            if(t.url && t.sortId == s.SORT_ID){
+              s['show'] = true
+              break
+            }
+          }
+        }
         that.setData({
+          sort:sorts,
           menu: temp
         })
-        console.log(temp)
       })
     })
   }

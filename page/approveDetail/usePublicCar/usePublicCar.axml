@@ -3,24 +3,7 @@
   
   <!-- 退回审批表单 -->
   <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
-  <!-- <view class="modal" a:if="{{!hidden}}" key="modal">
-      <view class="modal-mask" animation="{{animMaskData}}"/>
-      <view class="modal-container" animation="{{animContentData}}">
-          <view class="modal-close" onTap="onModalCloseTap">×</view>
-          <view class="modal-content">
-            <form onSubmit="returnSubmit">
-              <view class="page-section">
-                <view class="page-section-title">退回建议</view>
-                <view class="page-section-demo">
-                  <textarea name="remark" placeholder="输入退回建议" />
-                </view>
-              </view>
-              <button type="warn" style="margin-bottom:0;" disabled="{{disablePage}}" formType="submit">退回</button>
-            </form>
-          </view>
-      </view>
-  </view> -->
-  
+  <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
@@ -34,21 +17,21 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <input name="PeerNumber" class="input" value="{{table.PeerNumber}}" disabled="{{true}}" />
+          <textarea auto-height="true" name="PeerNumber" class="input" value="{{table.PeerNumber}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-line" /> 
       <view class="form-row">
         <view class="form-row-label">用车事由</view>
         <view class="form-row-content">
-          <input name="MainContent" class="input" value="{{table.MainContent}}" disabled="{{true}}" />
+          <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-line" /> 
       <view class="form-row">
         <view class="form-row-label">计划行车路线</view>
         <view class="form-row-content">
-          <input name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}" disabled="{{true}}" />
+          <textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}" disabled="{{true}}" />
         </view>
       </view>
       
@@ -57,7 +40,7 @@
         <view class="form-row">
           <view class="form-row-label">实际行车路线</view>
           <view class="form-row-content">
-            <input name="FactTravelWay" class="input" value="{{table.FactTravelWay}}"  />
+            <textarea auto-height="true" name="FactTravelWay" class="input" value="{{table.FactTravelWay}}"  />
           </view>
         </view>
         <view class="form-line" /> 
@@ -74,13 +57,6 @@
             <input name="EndKilometres" class="input" value="{{table.EndKilometres}}" />
           </view>
         </view>
-        <!-- <view class="form-line" /> 
-        <view class="form-row">
-          <view class="form-row-label">使用公里数</view>
-          <view class="form-row-content">
-            <input name="UseKilometres" class="input" value="{{table.UseKilometres}}" disabled="{{true}}" />
-          </view>
-        </view> -->
       </view>
 
 
@@ -88,28 +64,29 @@
       <view class="form-row">
         <view class="form-row-label">开始时间</view>
         <view class="form-row-content">
-          <input name="StartTime" class="input" value="{{table.StartTime}}" disabled="{{true}}" />
+          <input name="StartTime" class="input" value="{{table.StartTime}}" disabled="{{nodeid < 4}}" />
         </view>
       </view>
       <view class="form-line" /> 
       <view class="form-row">
         <view class="form-row-label">返回时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{true}}" />
+          <input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{nodeid < 4}}" />
         </view>
       </view>
 
       <view class="form-line" />
-      <view class="form-row" a:if="{{nodeid == 2}}">
+      <view class="form-row" a:if="{{nodeid == 2 || nodeid == 4}}">
         <view class="form-row-label">车辆选择</view>
-        <picker onChange="selectCar" value="{{carIndex}}" range="{{carList}}" range-key="Name">
+        <picker onChange="selectCar" value="{{carIndex}}" range="{{carList}}" range-key="{{'text'}}">
           <view class="row">
-            <view class="row-extra">{{carList[carIndex].Name}}-{{carList[carIndex].Type}}</view>
+            <view class="row-extra">{{carList[carIndex].Name}}-{{carList[carIndex].CarNumber}}</view>
             <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
           </view>
         </picker>
       </view>
-      <view class="form-row" a:if="{{nodeid == 2}}" style="height:100rpx;">
+      
+      <view class="form-row" a:if="{{nodeid == 2 || nodeid == 4}}" style="height:100rpx;">
         <view class="form-row-label">车辆占用</view>
         <view class="form-row-content" a:for="{{useTimeList}}">
           <view><text style="font-size:24rpx;color:red;">驾驶员:{{item.name}}</text></view>
@@ -127,7 +104,7 @@
 
 
       <!-- 选人组件 -->
-      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
         <view class="page-section">
           <view class="page-section-title">同意建议</view>
@@ -138,9 +115,16 @@
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
         <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>
-      <!-- <view a:if="{{index==2 && state=='未完成'}}">
-        <button type="primary" onTap="" disabled="{{disablePage}}">钉一下</button>
-      </view> -->
+      <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
+        <button type="primary" onTap="tapReturn" disabled="{{disablePage}}">重新发起</button>
+      </view>
+      <view a:if="{{index!=0}}">
+        <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+      </view>
+      <view a:if="{{index==2 && state=='未完成'}}">
+        <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+        <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
+      </view>
     </view>
   </form>
 </view>

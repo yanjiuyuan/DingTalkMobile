@@ -3,7 +3,7 @@
 /*表格类 */
 .table{
   border-top:1px solid;
-  margin-top:20rpx;
+  margin-top:80rpx;
   margin-bottom:20rpx;
 }
 .cell{

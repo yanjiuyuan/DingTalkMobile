@@ -3,25 +3,37 @@
   <view style="height:176rpx;">
       <view style="float:left;" a:for="{{items}}">
         <image class="imageApprove {{item.index == activeItem ? 'active':'' }}" src="{{item.image}}" data-index='{{item.index}}'
-          onTap="changeItem"
-          />
-        <view class="textApprove">{{item.name}}</view>
+          onTap="changeItem"/>
+        <view class="textApprove"> {{item.name}}  </view>
       </view>
   </view>
 
   <list>
-    <view slot="header">{{items[activeItem].name}}</view>
+    <view slot="header">{{items[activeItem].name}} 
+       <form onSubmit="search" style="width:83%;display:inline-block;">
+          <view class="page-section">
+            <view class="form-row">
+              <view class="form-row-content">
+                <input name="keyword" class="input" placeholder="关键字搜索" style="width:78%;" /> 
+                <button type="primary" size="mini" formType="submit" style="margin:0;">搜索</button>
+              </view>
+            </view>
+          </view>
+        </form>
+    </view>
     <block a:for="{{approveList}}">
       <list-item onTap="toDetial" data-row="{{item}}"
         key="item-{{index}}"
         index="{{index}}"
         last="{{index === (approveList.length - 1)}}"
       >
-        {{item[0].ApplyMan}} 的 {{item[0].FlowName}} 
-        <view class="tag {{item[0].State=='已完成'?'tag-success':'tag-danger'}}" style="float:right;font-size:12px;padding:2rpx;">{{item[0].State}}</view>
-        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">标题:{{item[0].Title}}</view>
-        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">流水号:{{item[0].TaskId}}</view>
-        <view class="am-list-brief" onTap="toDetial" data-row="{{item[0]}}">申请时间:{{item[0].ApplyTime}}</view>
+        <view onTap="toDetial" data-row="{{item}}">{{item.ApplyMan}} 的 {{item.FlowName}} 
+          <view class="tag {{item.State=='已完成'?'tag-success':'tag-danger'}}" 
+          style="float:right;font-size:12px;padding:2rpx;">{{item.State}}</view>
+        </view>
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item}}">标题:{{item.Title}}</view>
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item}}">流水号:{{item.TaskId}}</view>
+        <view class="am-list-brief" onTap="toDetial" data-row="{{item}}">申请时间:{{item.ApplyTime}}</view>
       </list-item>
     </block>
     <view slot="footer"></view>

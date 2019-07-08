@@ -24,8 +24,8 @@
   }
 
   // eslint-disable-next-line
-  var OriginFunction = Function;
-  var OriginFetch = self.fetch;
+  var OriginalFunction = Function;
+  var OriginalFetch = self.fetch;
 
   var callInternalAPI = function callInternalAPI(api, param) {
     var actionData = {
@@ -38,8 +38,8 @@
     var apiQueryString = encodeURIComponent(JSON.stringify(actionData));
     var url = 'https://alipay.kylinBridge/?data=' + apiQueryString;
 
-    if (OriginFetch) {
-      OriginFetch(url, {
+    if (OriginalFetch) {
+      OriginalFetch(url, {
         mode: 'no-cors'
       }).then(function () {}).catch(function () {});
     } else {
@@ -78,7 +78,7 @@
             });
           };
           try {
-            new OriginFunction('requestId', 'sendBack', '\n              const res = ' + data.script + ';\n              console.log(res);\n            ')(requestId, sendBack);
+            new OriginalFunction('requestId', 'sendBack', '\n              const res = ' + data.script + ';\n              console.log(res);\n            ')(requestId, sendBack);
           } catch (error) {
             console.error(error.name + ':' + error.message);
           }
@@ -105,8 +105,11 @@
   }, 10);
 
   ['log', 'info', 'error', 'debug', 'warn'].forEach(function (type) {
-    var originType = 'o' + type;
-    console[originType] = console[type];
+    var originalType = 'o' + type;
+    if (console[originalType]) {
+      return;
+    }
+    console[originalType] = console[type];
     console[type] = function () {
       var _console;
 
@@ -114,7 +117,7 @@
         args[_key] = arguments[_key];
       }
 
-      (_console = console)[originType].apply(_console, args);
+      (_console = console)[originalType].apply(_console, args);
       var content = void 0;
       try {
         content = CircularJSON.stringify(args.map(function (i) {
@@ -148,6 +151,25 @@ require('../../page/start/usePublicCar/usePublicCar');
 require('../../page/approveDetail/paper/paper');
 require('../../page/start/useCar/useCar');
 require('../../page/approveDetail/useCar/useCar');
+require('../../page/start/picking/picking');
 require('../../page/start/intoStorage/intoStorage');
+require('../../page/approveDetail/intoStorage/intoStorage');
+require('../../util/errorPage/errorPage');
+require('../../page/approveDetail/picking/picking');
+require('../../page/start/goOut/goOut');
+require('../../page/approveDetail/goOut/goOut');
+require('../../page/start/createProject/createProject');
+require('../../page/approveDetail/createProject/createProject');
+require('../../page/start/officeSupplies/officeSupplies');
+require('../../page/approveDetail/officeSupplies/officeSupplies');
+require('../../page/approveDetail/meterieCode/meterieCode');
+require('../../page/start/meterieCode/meterieCode');
+require('../../page/approveDetail/officePurchase/officePurchase');
+require('../../page/approveDetail/crossHelp/crossHelp');
+require('../../page/start/crossHelp/crossHelp');
+require('../../page/approveDetail/changePaper/changePaper');
+require('../../page/approveDetail/techonologySupply/techonologySupply');
+require('../../page/start/letGoodsGo/letGoodsGo');
+require('../../page/approveDetail/letGoodsGo/letGoodsGo');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();

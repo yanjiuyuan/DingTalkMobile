@@ -1,0 +1,83 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  
+  
+  <!-- 基本表单 -->
+  <form onSubmit="submit">
+    <view class="page-section">
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>申请人</view>
+        <view class="form-row-content">
+          <input class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>申请部门</view>
+        <view class="form-row-content">
+          <input class="input" disabled="{{true}}" value="{{DingData.departName}}"/>
+        </view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>协作部门</view>
+        <picker onChange="bindDeptChange" value="{{departIndex}}" range="{{DeptNames}}">
+          <view class="row">
+            <view class="row-extra">{{DeptNames[departIndex]}}</view>
+            <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>协作人</view>
+        <view class="form-row-content">
+          <textarea auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}"/>
+        </view>
+        <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
+      </view>
+      <view class="form-line" />
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>协作内容</view>
+        <view class="form-row-content">
+          <textarea auto-height="true" name="CooperateContent" class="input"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>开始时间</view>
+        <view class="form-row-content">
+          <input name="PlanBeginTime" class="input" placeholder="开始时间" onFocus="selectStartDate"
+          value="{{startDateStr}}"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>结束时间</view>
+        <view class="form-row-content">
+          <input name="PlanEndTime" class="input" placeholder="结束时间" onFocus="selectEndDate"
+          value="{{endDateStr}}"/>
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>计划天数</view>
+        <view class="form-row-content">
+          <input name="PlanDays" class="input" />
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label">建议</view>
+        <view class="form-row-content">
+          <textarea auto-height="true" name="remark" class="input"/>
+        </view>
+      </view>
+      <!-- 选人组件 -->
+      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+    </view>
+    
+    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+  </form>
+</view>

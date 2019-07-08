@@ -73,7 +73,26 @@ Page({
     }
     this.aggreSubmit(param)
   },
-  
+  print(){
+    var that = this
+    this._postData('DrawingUploadNew/PrintAndSend',
+      function(res){
+        dd.alert({content:'获取成功，请在钉钉工作通知中查收'})
+      },
+      {
+        UserId: that.data.DingData.userid,
+        TaskId: that.data.taskid,
+        OldPath: that.data.FilePDFUrl.replace(/\\/g, '\\\\')
+      }
+    )
+  },
+  downloadAllPdf(){
+    this._getData('NewsAndCases/GetAllPDF'+ this.formatQueryStr({ApplyManId:this.data.DingData.userid,taskId:this.data.taskid}),
+      function(res){
+        dd.alert({content:'获取成功，请在钉钉工作通知中查收'})
+      }
+    )
+  },
   //PDF文件查看后，点击按钮设置状态
   setPdfState(e) {
       let index = e.target.dataset.index
@@ -83,9 +102,8 @@ Page({
       for (let p of this.data.pdfList) {
           states.push(p.state)
       }
-      var url = "File/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",")
-      console.log(url)
-      this.requestData('GET', url , function(res) { 
+      var url = "FileNew/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",")
+      this._getData(url , function(res) { 
       })
   },
 

@@ -77,7 +77,7 @@
       </view>
       <view class="form-line" />
       <view class="form-row">
-        <view class="form-row-label">项目名</view>
+        <view class="form-row-label"><template is="required"></template>项目名</view>
         <picker onChange="bindPickerChange" value="{{projectIndex}}" range="{{projectList}}" range-key="ProjectName">
           <view class="row">
             <view class="row-extra">{{projectList[projectIndex].ProjectName}}</view>

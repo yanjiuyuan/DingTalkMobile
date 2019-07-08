@@ -3,7 +3,14 @@ page {
   border: 1px solid rgba(0,0,0,0);
   box-sizing: border-box;
 }
-
+.button-inline{
+  display:inline-block;
+  padding: 0 4rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
 .tag{
   display:inline-block;
   text-align: center;
@@ -45,7 +52,6 @@ page {
 .page {
   font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
   font-size: 24rpx;
-  padding: 32rpx;
   flex: 1;
 }
 
@@ -109,8 +115,7 @@ button {
 .form-row {
   display: flex;
   align-items: center;
-  padding: 0 30rpx;
-  height: 88rpx;
+  padding: 6rpx 10rpx;
   align-items: center;
 }
 
@@ -135,6 +140,7 @@ button {
 
 .input{
   background-color:#F5F7FA;
+  width:95%;
 }
 
 /* .input :disabled{

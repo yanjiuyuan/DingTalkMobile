@@ -2,8 +2,6 @@
 import lib from '/lib.js'
 App({
   onLaunch(options) {
-    console.log('app onlaunch~~~~~~~~')
-    console.log(options)
     return
     //免登
     var that = this

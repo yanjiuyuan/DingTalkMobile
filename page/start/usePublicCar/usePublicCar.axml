@@ -23,7 +23,7 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <input name="PeerNumber" class="input" disabled="{{true}}" value="{{tableInfo.PeerNumber}}"/>
+          <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
@@ -31,33 +31,39 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>计划行车路线</view>
         <view class="form-row-content">
-          <input name="PlantTravelWay" class="input"/>
+          <textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}"/>
         </view>
       </view>
       <view class="form-line" />
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>用车事由</view>
         <view class="form-row-content">
-          <input name="MainContent" class="input"/>
+          <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
         </view>
       </view>
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
           <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime"
-          value="{{startDateStr}}"/>
+          value="{{table.StartTime}}"/>
         </view>
       </view>
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">
           <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
-          value="{{endDateStr}}"/>
+          value="{{table.EndTime}}"/>
         </view>
       </view>
 
       <checkbox-group onChange="onChecked">
         <label class="checkbox" a:for="{{items}}">
+          <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
+          <text class="checkbox-text">{{item.name}}</text>
+        </label>
+      </checkbox-group>
+       <checkbox-group onChange="onChecked2">
+        <label class="checkbox" a:for="{{items2}}">
           <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
           <text class="checkbox-text">{{item.name}}</text>
         </label>
