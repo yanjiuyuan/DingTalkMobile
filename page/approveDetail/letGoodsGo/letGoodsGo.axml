@@ -26,7 +26,7 @@
           <input class="input" name="Company" value="{{table.Company}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
       <view class="form-row">
         <view class="form-row-label">车牌号</view>
         <view class="form-row-content">
@@ -75,12 +75,12 @@
           <view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view>
         </view>
       </view>
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
   
       <!-- 选人组件 -->
-       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+       <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
-        <view class="page-section">
+        <view class="page-section-suggest">
           <view class="page-section-title">同意建议</view>
           <view class="page-section-demo">
             <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />

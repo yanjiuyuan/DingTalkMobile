@@ -26,7 +26,7 @@
           <input class="input" name="Name" value="{{table.Name}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
       <view class="form-row">
         <view class="form-row-label">申请类别</view>
         <view class="form-row-content">
@@ -48,7 +48,7 @@
       </view>
   
      
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
       <view a:if="{{nodeid >= 5}}">
          <view class="form-row">
           <view class="form-row-label"><template is="required"></template>发明人或设计人</view>
@@ -103,9 +103,9 @@
         </view>
       </view>
       <!-- 选人组件 -->
-      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+      <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
-        <view class="page-section">
+        <view class="page-section-suggest">
           <view class="page-section-title">同意建议</view>
           <view class="page-section-demo">
             <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />

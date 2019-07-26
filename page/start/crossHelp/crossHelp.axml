@@ -11,7 +11,7 @@
           <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请人</view>
         <view class="form-row-content">
@@ -24,7 +24,7 @@
           <input class="input" disabled="{{true}}" value="{{DingData.departName}}"/>
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>协作部门</view>
         <picker onChange="bindDeptChange" value="{{departIndex}}" range="{{DeptNames}}">
@@ -37,11 +37,13 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>协作人</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}"/>
+          <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}">{{tableInfo.CooperateMan}}</text>
+         
+          <!-- <textarea auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}"/> -->
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>协作内容</view>
         <view class="form-row-content">

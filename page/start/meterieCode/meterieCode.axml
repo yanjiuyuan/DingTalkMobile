@@ -121,7 +121,7 @@
 
     <view class="page-section">
 
-    <form onSubmit="addGood">
+    <form onSubmit="addGood" onReset="asd">
 
   
       <view class="form-row">
@@ -140,11 +140,12 @@
 
       <view class="form-row">
         <view class="form-row-label" >选择类型</view>
-        <radio-group class="radio-group" name="codeType" onChange="radioChange">
-          <label class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
-            <radio value="{{item.label}}" checked="{{item.checked}}"/>{{item.name}}
+        <radio-group class="radio-group" name="codeType" onChange="radioChange" >
+          <label  class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
+            <radio value="{{item.label}}" checked="{{item.checked}}"  />{{item.name}}
           </label>
         </radio-group>
+        <button size="mini" type="primary" style="width:1rem;height:0.5rem;font-size:25rpx;margin-left:0.8rem" formType="reset">重置</button>
       </view>
        
       <view class="form-row">
