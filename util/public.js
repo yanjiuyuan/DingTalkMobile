@@ -116,13 +116,6 @@ export default {
             title:'知识产权申请',
             url: 'intellectualProperty/intellectualProperty',
             position: (x + 2 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
-        },
-        {
-            flowId:66,
-            sortId:4,
-            title:'领料管理',
-            url:'pickingManage/pickingManage',
-            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
         },{
             flowId: 67,
             sortId: 4,
@@ -135,7 +128,15 @@ export default {
             title:'维修申请',
             url: 'maintain/maintain',
             position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
-        }],
+        },{
+            flowId:66,
+            sortId:4,
+            title:'领料管理',
+            url:'pickingManage/pickingManage',
+            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+        }
+        ],
+
         //审批页面变量
         imgUrlList:[],
         imageList: [],

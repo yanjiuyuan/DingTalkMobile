@@ -93,10 +93,14 @@
 .dropdown-content{
 	display: none;
     position: absolute;
+	transition: opacity 1s;
+	opacity: 0.1;
 
 }
 .dropdown-content-show{
 	background-color: #fff;
+	display: block;
+	opacity:1;
 }
 /* .sort:hover .dropdown-content{
     display: block;
@@ -105,6 +109,7 @@
 	height: auto;
 	width: 100%;
 	/* border: 1px red solid; */
+	/* display: inline-block; */
 	display: inline-block;
 	background-color: #fff;
 }

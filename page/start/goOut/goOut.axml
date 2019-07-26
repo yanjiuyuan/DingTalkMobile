@@ -31,14 +31,14 @@
           <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请人</view>
         <view class="form-row-content">
           <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
@@ -47,18 +47,20 @@
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>外出地点</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}"/>
+          <!-- <textarea auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}"/> -->
+          <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.Place}}">{{table.Place}}</text>
+
         </view>
       </view>
       <view style="margin-left:25%;">
         <button type="primary" onTap="showInput" class="button-inline" style='margin-left:10rpx;'>添加地点</button>
         <button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除地点</button>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>外出事由</view>
         <view class="form-row-content">

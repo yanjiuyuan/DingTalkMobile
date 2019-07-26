@@ -193,8 +193,9 @@ Page({
   radioChange: function(e) {
     this.setData({
       tableData: []
+      
     })
-    console.log(e)
+
     this.data.codeType = e.detail.value
 
     this.getMaterielCode()
@@ -203,9 +204,11 @@ Page({
   getMaterielCode() {
       let url = '';
       console.log(this.data.codeType);
+      console.log(this.data.bigCodes);
       if(this.data.codeType == '2'){
         this.setData({
-          bigCodes:this.data.bigCodes2
+          bigCodes:this.data.bigCodes2,
+
           });
       }
       else if(this.data.codeType == '1'){
@@ -219,9 +222,15 @@ Page({
       } 
 
   },
+
+  asd(){
+    console.log("发生了重置");
+  },
   changeBigCode(e){
-    let index = e.detail.value
-    if(index == this.data.bigIndex) return
+    let index = e.detail.value;
+    console.log('changeBigCode')
+    console.log(this.data.codeType);
+    if(index == this.data.bigIndex) return;
     this.setData({
       bigIndex: index,
       smallIndex: 0,
@@ -229,6 +238,7 @@ Page({
     })
   },
   changeSmallCode(e){
+    console.log("changeSmallCode");
     let index = e.detail.value
     this.setData({
       smallIndex: index

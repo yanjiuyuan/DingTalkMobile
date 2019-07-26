@@ -25,7 +25,7 @@
           <input class="input" value="{{tableInfo.Dept}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
       <view class="form-row">
         <view class="form-row-label">协作部门</view>
         <view class="form-row-content">
@@ -38,7 +38,7 @@
           <textarea auto-height="true" name="CooperateMan" class="input" value="{{table.CooperateMan}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-line" /> 
+      <!-- <view class="form-line" />  -->
       <view class="form-row">
         <view class="form-row-label">协作内容</view>
         <view class="form-row-content">
@@ -64,7 +64,7 @@
         </view>
       </view>
       <view a:if="{{nodeid >= 4}}">
-        <view class="form-line" /> 
+        <!-- <view class="form-line" />  -->
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>实际开始时间</view>
           <view class="form-row-content">
@@ -104,9 +104,9 @@
         </view>
       </view>
       <!-- 选人组件 -->
-       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+       <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
-        <view class="page-section">
+        <view class="page-section-suggest">
           <view class="page-section-title">同意建议</view>
           <view class="page-section-demo">
             <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />

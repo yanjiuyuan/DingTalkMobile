@@ -13,7 +13,7 @@ Page({
       now: 1,
       total: 0
     },
-    tableOperate2: '删除',
+    // tableOperate2: '删除',
     good: {},
     totalPrice: 0,
     tableItems: [

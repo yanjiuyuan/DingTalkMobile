@@ -11,7 +11,7 @@
           <input name="Title" class="input" placeholder="输入 标题"  />
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请人</view>
         <view class="form-row-content">
@@ -66,7 +66,7 @@
         </view>
       </view>
       
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>放行日期</view>
         <view class="form-row-content">

@@ -74,8 +74,8 @@ Page({
   },
   //选人操作
   selectUser(value) {
-    console.log(value)
-    console.log(value.detail.value)
+    // console.log(value)
+    // console.log(value.detail.value)
     let userIndex = value.detail.value
     let name = this.data.userList[userIndex].NodePeople
     let userId = this.data.userList[userIndex].PeopleId
@@ -139,7 +139,6 @@ Page({
 	  console.log(this.data.DingData);
 
 		console.log(this.data.menu);
-
 		let index=event.target.dataset.index;
 		if(this.data.sortItems[index].text == "展开"){
 		  let item=this.data.sortItems;
