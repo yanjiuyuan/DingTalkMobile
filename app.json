@@ -31,7 +31,12 @@
     "page/approveDetail/letGoodsGo/letGoodsGo",
     "page/start/intellectualProperty/intellectualProperty",
     "page/approveDetail/intellectualProperty/intellectualProperty",
-    "page/approveDetail/sendRead/sendRead"
+    "page/approveDetail/sendRead/sendRead",
+    "page/start/borrowThing/borrowThing",
+    "page/approveDetail/borrowThing/borrowThing",
+    "page/start/maintain/maintain",
+    "page/approveDetail/maintain/maintain",
+    "page/start/pickingManage/pickingManage"
   ],
   "window": {
     "enableWK": "YES",

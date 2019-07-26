@@ -136,7 +136,7 @@ Page({
         console.log(res.data.data)
         let data = res.data.data
         for (let d of data) {
-          d['left'] = parseInt(d.fQty) - parseInt(d.fQtyInvoice)
+          d['left'] = parseInt(d.fQty)
         }
         if(data.length == 0){
           dd.showToast({content: '暂无数据'});
@@ -151,18 +151,6 @@ Page({
       }
     });
   },
-  bindPickerChange(e){
-    this.data.nodeList[1].AddPeople = 
-        [{
-            name: this.data.projectList[e.detail.value].ResponsibleMan,
-            userId: this.data.projectList[e.detail.value].ResponsibleManId
-        }]
-    this.setData({
-      projectIndex: e.detail.value,
-      nodeList: this.data.nodeList
-    });
-      
-    },
   searchAndAdd2(e){
     dd.showLoading({
         content: '获取中...'

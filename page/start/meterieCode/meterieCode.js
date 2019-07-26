@@ -15,6 +15,84 @@ Page({
         materialCodeNumber: 1,
         materialName:''
     }],
+
+    bigCodes2 : [
+    {
+        "materialCodeNumber": "60",
+        "materialName": "办公用品",
+        "smallMaterialCodes": [
+            {
+                "materialCodeNumber": "000",
+                "materialName": "文件档案管理类"
+            },
+            {
+                "materialCodeNumber": "001",
+                "materialName": "桌面用品"
+            },
+            {
+                "materialCodeNumber": "002",
+                "materialName": "办公本薄"
+            },
+            {
+                "materialCodeNumber": "003",
+                "materialName": "书写修正用品"
+            },
+            {
+                "materialCodeNumber": "004",
+                "materialName": "财务用品"
+            },
+            {
+                "materialCodeNumber": "005",
+                "materialName": "辅助用品"
+            },
+            {
+                "materialCodeNumber": "006",
+                "materialName": "电脑周边用品"
+            },
+            {
+                "materialCodeNumber": "040",
+                "materialName": "打印耗材"
+            },
+            {
+                "materialCodeNumber": "041",
+                "materialName": "装订耗材"
+            },
+            {
+                "materialCodeNumber": "042",
+                "materialName": "办公用纸"
+            },
+            {
+                "materialCodeNumber": "043",
+                "materialName": "IT耗材"
+            },
+            {
+                "materialCodeNumber": "080",
+                "materialName": "日用品"
+            },
+            {
+                "materialCodeNumber": "081",
+                "materialName": "清洁用品"
+            },
+            {
+                "materialCodeNumber": "120",
+                "materialName": "事务设备"
+            },
+            {
+                "materialCodeNumber": "121",
+                "materialName": "IT设备"
+            },
+            {
+                "materialCodeNumber": "122",
+                "materialName": "办公电器"
+            },
+            {
+                "materialCodeNumber": "160",
+                "materialName": "办公家具"
+            }
+        ]
+    }
+  ],
+
     smallMaterialCodes: [],
     codeType: '1',
     tableItems: [
@@ -115,23 +193,44 @@ Page({
   radioChange: function(e) {
     this.setData({
       tableData: []
+      
     })
-    console.log(e)
+
     this.data.codeType = e.detail.value
 
     this.getMaterielCode()
   },
   //获取编码
   getMaterielCode() {
-      let url = ''
-      this.data.codeType == '2' ? url = this.data.jinDomarn + 'OfficeSupply/ReadType' : url = '/ItemCodeAdd/GetAllMaterialCode'
-      this._getData(url, (res) => {
-        this.setData({bigCodes: res})
+      let url = '';
+      console.log(this.data.codeType);
+      console.log(this.data.bigCodes);
+      if(this.data.codeType == '2'){
+        this.setData({
+          bigCodes:this.data.bigCodes2,
+
+          });
+      }
+      else if(this.data.codeType == '1'){
+        url = '/ItemCodeAdd/GetAllMaterialCode'
+        this._getData(url, (res) => {
+        console.log(res);
+        this.setData({
+          bigCodes: res
+          });
       })
+      } 
+
+  },
+
+  asd(){
+    console.log("发生了重置");
   },
   changeBigCode(e){
-    let index = e.detail.value
-    if(index == this.data.bigIndex) return
+    let index = e.detail.value;
+    console.log('changeBigCode')
+    console.log(this.data.codeType);
+    if(index == this.data.bigIndex) return;
     this.setData({
       bigIndex: index,
       smallIndex: 0,
@@ -139,6 +238,7 @@ Page({
     })
   },
   changeSmallCode(e){
+    console.log("changeSmallCode");
     let index = e.detail.value
     this.setData({
       smallIndex: index
@@ -167,27 +267,35 @@ Page({
   },
   //提交弹窗表单
   addGood(e){
-    var value = e.detail.value
-    console.log(value) 
-    if (!value || !value.Name || !value.Standard || this.data.bigIndex<0 || this.data.smallIndex<0) {
+    var value = e.detail.value;
+    console.log(e);
+    console.log(value);
+    console.log(!value);
+    console.log(!value.Name);
+    console.log(!value.Standard);
+    console.log(this.data.bigIndex);
+    console.log(this.data.smallIndex);
+
+
+    if (!value || !value.Name || !value.Standard || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
       dd.alert({
         content: `表单填写不完整`,
       });
-      return
+      return;
     }
-    value['BigCodeName'] = this.data.bigCodes[this.data.bigIndex].materialName
-    value['BigCode'] = this.data.bigCodes[this.data.bigIndex].materialCodeNumber
-    value['SmallCodeName'] = this.data.smallMaterialCodes[this.data.smallIndex].materialName
-    value['SmallCode'] = this.data.smallMaterialCodes[this.data.smallIndex].materialCodeNumber
-    console.log(value)
-    let length = this.data.tableData.length
+    value['BigCodeName'] = this.data.bigCodes[this.data.bigIndex].materialName;
+    value['BigCode'] = this.data.bigCodes[this.data.bigIndex].materialCodeNumber;
+    value['SmallCodeName'] = this.data.smallMaterialCodes[this.data.smallIndex].materialName;
+    value['SmallCode'] = this.data.smallMaterialCodes[this.data.smallIndex].materialCodeNumber;
+    console.log(value);
+    let length = this.data.tableData.length;
     this.setData({
       [`tableData[${length}]`]: value
     })
-    this.onModalCloseTap()
+    // this.onModalCloseTap();
   },
   onShow() {
-    this.getMaterielCode()
+    this.getMaterielCode();
     //this.loadTempData()
   },
 

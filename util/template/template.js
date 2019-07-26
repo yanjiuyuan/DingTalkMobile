@@ -24,32 +24,57 @@ export default {
       size: 5,
       now: 1,
       total: 0
-    }
+    },
   },
   func: {
     //选人控件方法
     choosePeople(e){
       console.log('start choose people')
-      var nodeId = e.target.targetDataset.NodeId
-      var that = this
-      dd.complexChoose({
-        ...that.chooseParam,
-        success: function(res) {
-          console.log(res)
-          for (let node of that.data.nodeList) {
-              if (node.NodeId == nodeId) {
-                  node.AddPeople = res.users
-              }
-          }
-          that.setData({
-            nodeList:that.data.nodeList
-          })
-        },
-        fail: function(err) {
-
-        }
-      })
+      var nodeId = e.target.dataset.NodeId;
+      var that = this;
+      
+	  if(nodeId){
+		dd.complexChoose({
+			...that.data.chooseParam,
+			success: function(res) {
+			console.log(res);
+			for (let node of that.data.nodeList) {
+				if (node.NodeId == nodeId) {
+					// node.AddPeople = [res.users[0].name];
+					node.AddPeople = res.users;
+				}
+			}
+			that.setData({
+				nodeList:that.data.nodeList,
+				ChoosePeople:true
+			})
+			},
+			fail: function(err) {
+				console.log("fail!!");
+			}
+		})	  
+	  }
+    
     },
+
+
+	NodePeople(e){
+		console.log(e.currentTarget.dataset.NodePeople);
+		let that=this;
+		dd.complexChoose({
+			title: "已选人数",            //标题
+			success: function(res) {
+			},
+			fail: function(err) {
+				console.log("fail!!");
+			}
+		})	 
+	},
+
+
+
+
+
     //翻頁相關事件
     getData() {
         var start = this.data.tableParam.size * (this.data.tableParam.now - 1)

@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.28,
+    version: 2.31,
     DingData:{
       nickName:'',
       departName:'',
@@ -42,6 +42,10 @@ export default {
     DeptNames: DeptNames,  deptIndex:0,  
     CompanyNames: CompanyNames,  companyIndex:0,
     IntellectualPropertyTypes:IntellectualPropertyTypes,  iptIndex:0,
+
+    dateStr: '',
+    startDateStr:'',
+    endDateStr:'',
 
     changeRemarkId:0,
     changeRemarkNodeid:0,
@@ -86,12 +90,13 @@ export default {
         sortId: 7,
         title:'外出申请',
         url: 'goOut/goOut',
-        position: (x + 1 * xTap) + 'px ' + (y + 3 * yTap) + 'px' }, {
-        flowId: 31,
-        sortId: 5,
-        title:'立项申请',
-        url: 'createProject/createProject',
-        position: (x + 8 * xTap -3) + 'px ' + (y + 1 * yTap - 3) + 'px'},
+        position: (x + 1 * xTap) + 'px ' + (y + 3 * yTap) + 'px' },
+        //  {
+        // flowId: 31,
+        // sortId: 5,
+        // title:'立项申请',
+        // url: 'createProject/createProject',
+        // position: (x + 8 * xTap -3) + 'px ' + (y + 1 * yTap - 3) + 'px'},
         {
             flowId: 32,
             sortId: 7,
@@ -111,7 +116,26 @@ export default {
             title:'知识产权申请',
             url: 'intellectualProperty/intellectualProperty',
             position: (x + 2 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
-        }],
+        },{
+            flowId: 67,
+            sortId: 4,
+            title:'借入申请',
+            url: 'borrowThing/borrowThing',
+            position: (x + 6 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+        },{
+            flowId: 68,
+            sortId: 4,
+            title:'维修申请',
+            url: 'maintain/maintain',
+            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+        },{
+            flowId:66,
+            sortId:4,
+            title:'领料管理',
+            url:'pickingManage/pickingManage',
+            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+        }
+        ],
         //审批页面变量
         imgUrlList:[],
         imageList: [],
@@ -152,20 +176,6 @@ export default {
           that.getProjectList()
           that.getNodeInfo()
           that.loadReApproval()
-          // that._getData('FlowInfoNew/CheckVersion',(res) => {
-          //   if(res == that.data.version){
-          //     that.getNodeList()
-          //     that.getProjectList()
-          //     that.getNodeInfo()
-          //   }else{
-          //     dd.alert({content:'请更新到最新版:' + res,success : () => {
-          //         dd.switchTab({
-          //           url: '/page/start/index'
-          //         })
-          //       }
-          //     })
-          //   }
-          // })
         }
         this.checkLogin(callBack)
       },
@@ -249,7 +259,47 @@ export default {
           tableItems: localStorage.tableItems,
           localStorage: localStorage
         })
-      }
+      },
+      //搜索物料编码
+      searchCode(e){
+        var value = e.detail.value
+        console.log(value) 
+        if (!value || !value.keyWord) return
+        var that = this
+        that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) { 
+          console.log(JSON.parse(res.data))
+          that.setData({
+            'tableParam.total': JSON.parse(res.data).length
+          })
+          that.data.data =  JSON.parse(res.data)
+          that.getData()
+        })
+      },
+      //弹窗表单相关
+      //显示弹窗表单
+      chooseItem(e){
+        if(!e) return
+        console.log(e)
+        this.data.good = e.target.targetDataset.row
+        if(!this.data.good) return
+        this.setData({
+          hidden: !this.data.hidden
+        })
+        this.createMaskShowAnim();
+        this.createContentShowAnim();
+      },
+      deleteItem(e){
+        if(!e) return
+        console.log(e)
+        let index = e.target.targetDataset.index
+        if((!index) && index != 0)  return
+        console.log(this.data.purchaseList)
+        this.data.purchaseList.splice(index, 1)
+        this.setData({
+          purchaseList:this.data.purchaseList
+        })
+        console.log(this.data.purchaseList)
+      },
     },
     dowith: {
       onLoad(param) {
@@ -306,7 +356,7 @@ export default {
             paramArr[0][p] = param[p]
         }
         for (let node of this.data.nodeList) {
-            if (that.data.nodeInfo.IsNeedChose && ( (that.data.nodeInfo.ChoseNodeId && that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)) ) {
+            if ( (that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0) )  {
             //if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)))) {
                 if (node.AddPeople.length == 0) {
                     dd.alert({
@@ -446,6 +496,8 @@ export default {
           case '26': url = "Pick/Read"; break;
           case '27': url = "Godown/Read"; break;
           case '33': url = "DrawingChange/Read"; break;
+          case '67': url = "Borrow/Read"; break;
+          case '68': url = "Maintain/Read"; break;
         }
         if(!url) return
         if(flowid == '12'){
@@ -637,6 +689,8 @@ export default {
         })
       })
     },
+
+
      //选择时间
     selectStartDateTime(){
         dd.datePicker({
@@ -665,32 +719,44 @@ export default {
         });
       },
       //选择时间
+      selectDate(){
+        dd.datePicker({
+          currentDate: this.data.DateStr,
+          startDate: this.data.DateStr,
+          endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
+          success: (res) => {
+            this.setData({
+              dateStr: res.date
+            })
+          },
+        });
+      },
       selectStartDate(){
-          dd.datePicker({
-            format: 'yyyy-MM-dd',
-            currentDate: this.data.DateStr,
-            startDate: this.data.DateStr,
-            endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
-            success: (res) => {
-              this.setData({
-                startDateStr: res.date
-              })
-            },
-          });
-        },
-        selectEndDate(){
-          dd.datePicker({
-            format: 'yyyy-MM-dd',
-            currentDate: this.data.DateStr,
-            startDate: this.data.DateStr,
-            endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
-            success: (res) => {
-              this.setData({
-                endDateStr: res.date
-              })
-            },
-          });
-        },
+        dd.datePicker({
+          format: 'yyyy-MM-dd',
+          currentDate: this.data.DateStr,
+          startDate: this.data.DateStr,
+          endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
+          success: (res) => {
+            this.setData({
+              startDateStr: res.date
+            })
+          },
+        });
+      },
+      selectEndDate(){
+        dd.datePicker({
+          format: 'yyyy-MM-dd',
+          currentDate: this.data.DateStr,
+          startDate: this.data.DateStr,
+          endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
+          success: (res) => {
+            this.setData({
+              endDateStr: res.date
+            })
+          },
+        });
+      },
  
     //预览图片
     previewImg(e){
@@ -857,15 +923,27 @@ export default {
       })
     },
     bindPickerChange(e){
-        this.setData({
-        projectIndex: e.detail.value,
-      });
+      for(let i = 0;i<this.data.nodeList.length;i++){
+        if(this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0){
+          this.data.nodeList[i].AddPeople = 
+            [{
+                name: this.data.projectList[e.detail.value].ResponsibleMan,
+                userId: this.data.projectList[e.detail.value].ResponsibleManId
+            }]
+          this.setData({
+            projectIndex: e.detail.value,
+            nodeList: this.data.nodeList
+          });
+        }
+      }
     },
     bindDeptChange(e){
         this.setData({
         departIndex: e.detail.value,
       });
     }
-  },
+
+
+    },
 };
 

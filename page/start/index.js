@@ -5,9 +5,9 @@ var globalData = getApp().globalData
 Page({
   ...pub.func,
   onLoad(){
-    this.getMenu()
-    this.checkLogin(function(){})
-    this.getUserInfo()
+    this.getMenu();
+    this.checkLogin(function(){});
+    this.getUserInfo();
   },
   data: {
     ...pub.data,
@@ -18,7 +18,10 @@ Page({
     curIndex: 0,
     userIndex: -1,
     userList:[],
-    sort: []
+    sort: [],
+	sortItems:[],
+
+
   },
   //选人控件方法
   choosePeople(e){
@@ -61,35 +64,6 @@ Page({
           dd.alert({
               content:JSON.stringify(res)
           })
-          /*
-          {
-              type:'', // 用户选择了哪种文件类型 ，image（图片）、file（手机文件）、space（钉盘文件）
-              data: [
-                {
-                  spaceId: "232323",
-                  fileId: "DzzzzzzNqZY",
-                  fileName: "审批流程.docx",
-                  fileSize: 1024,
-                  fileType: "docx"
-                },
-                {
-                  spaceId: "232323",
-                  fileId: "DzzzzzzNqZY",
-                  fileName: "审批流程1.pdf",
-                  fileSize: 1024,
-                  fileType: "pdf"
-                },
-                {
-                  spaceId: "232323",
-                  fileId: "DzzzzzzNqZY",
-                  fileName: "审批流程3.pptx",
-                  fileSize: 1024,
-                  fileType: "pptx"
-                }
-              ]
-    
-          }
-            */
         },
         fail: (err) =>{
             dd.alert({
@@ -100,8 +74,8 @@ Page({
   },
   //选人操作
   selectUser(value) {
-    console.log(value)
-    console.log(value.detail.value)
+    // console.log(value)
+    // console.log(value.detail.value)
     let userIndex = value.detail.value
     let name = this.data.userList[userIndex].NodePeople
     let userId = this.data.userList[userIndex].PeopleId
@@ -126,25 +100,69 @@ Page({
   getMenu(){
     var that = this
     this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
-      let sorts = data
-      that.setData({sort:data})
+      let sorts = data;
+      that.setData({sort:data});
+	  let sortItem=[];
       that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
         var temp = that.mergeObjectArr(data,that.data.menu,'flowId')
         for(let s of sorts){
+			let item={
+				text:"收起",
+				class:"dropdown-content-show"
+			}
+			sortItem.push(item);
           s['show'] = false
           for(let t of temp){
             if(t.url && t.sortId == s.SORT_ID){
-              s['show'] = true
-              break
+              s['show'] = true;
+              break;
             }
           }
         }
         that.setData({
           sort:sorts,
-          menu: temp
+          menu: temp,
+		  sortItems: sortItem
         })
       })
     })
+  },
+
+
+
+
+
+
+  //点击展示
+  showOrClose(event){
+
+	  // console.log(this.data.DingData);
+
+		// console.log(this.data.menu);
+
+		let index=event.target.dataset.index;
+		if(this.data.sortItems[index].text == "展开"){
+		  let item=this.data.sortItems;
+		  item[index]={
+			  text:"收起",
+			  class:"dropdown-content-show"
+		  }
+		  this.setData({
+			  sortItems:item
+	  		})
+	  }
+	else  if(this.data.sortItems[index].text === "收起"){
+		  let item=this.data.sortItems;
+		  item[index]={
+			  text:"展开",
+			  class:"dropdown-content"
+		  }
+		  this.setData({
+			  sortItems:item
+	  		})
+	  }
+	
   }
+ 
   
 });

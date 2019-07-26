@@ -13,7 +13,7 @@ Page({
       now: 1,
       total: 0
     },
-    tableOperate2: '删除',
+    // tableOperate2: '删除',
     good: {},
     totalPrice: 0,
     tableItems: [
@@ -129,6 +129,10 @@ Page({
     var param = {
         Title: value.title,
         Remark: value.remark
+    }
+    if(!that.data.purchaseList.length){
+      dd.alert({content: `请选择办公用品` })
+      return
     }
     let callBack = function (taskId) {
         that.bindAll(taskId)
