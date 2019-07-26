@@ -2,7 +2,6 @@
 <view class="page">
   
   <!-- 退回审批表单 -->
-  
   <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
   <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
   <!-- 基本表单 -->
@@ -21,15 +20,9 @@
           <input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-line" /> 
+
       <!-- 物料表单 -->
-      <text style="font-size:0.6rem;margin:0 2rpx;">总价预计 <text style="color:red">{{totalPrice}}</text> 元</text>
-      <view class="form-line" /> 
-      <view a:for="{{dataList}}" onTap="deleteItem">
-        <text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计 <text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
-        <template is="datatable" data="{{items:tableItems,data:item.value,param:tableParam,tableOperate:tableOperate}}"/>
-      </view>
-      <view class="form-line" /> 
+      <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam}}"/>
       <!-- 选人组件 -->
        <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
@@ -44,6 +37,7 @@
       </view>
       <view a:if="{{index!=0}}">
         <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+        <button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
       </view>
       <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
         <button type="primary" onTap="reApproval" disabled="{{disablePage}}">重新发起</button>

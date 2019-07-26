@@ -13,10 +13,10 @@ Page({
 
   },
   submit(e) {
-    var arr = ['CreateTime','ApplyManId','','','','','','','']
     var that = this
     var value = e.detail.value
     value['CreateTime'] = ''
+    value['CompanyName'] = '泉州华中科技大学智能制造研究院'
     value['ApplyManId'] = this.data.DingData.userid
     value['ResponsibleManId'] = this.data.tableInfo.ResponsibleManId
     value['TeamMembersId'] = this.data.tableInfo.TeamMembersId

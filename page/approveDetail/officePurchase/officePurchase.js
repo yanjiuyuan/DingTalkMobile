@@ -6,7 +6,9 @@ Page({
     ...pub.data,
     hidden: true,
     dataList: [],//循环多个表格需要
+    deletedList: [],//删除的表格项
     totalPrice: 0,
+    tableOperate: '删除',
     tableParam: {
       size: 5000,
       now: 1,
@@ -62,6 +64,23 @@ Page({
         Title: value.title,
         Remark: value.remark
     }
+    if(this.data.nodeid == 2){
+      let listParam = []
+      for(let d of this.data.deletedList){
+        d.IsDelete = true
+        listParam.push(d)
+      }
+      for(let dept of this.data.dataList){
+        for(let v of dept.value){
+          listParam.push(v)
+        }
+      }
+      console.log(listParam)
+      this._postData('OfficeSuppliesPurchase/ModifyTable',(res) =>{
+        this.aggreSubmit(param)
+      },listParam)
+      return
+    }
     this.aggreSubmit(param)
   },
   //打印流程表单
@@ -76,9 +95,29 @@ Page({
       }
     )
   },
+  deleteItem(e){
+    if(!e) return
+    let row = e.target.targetDataset.row
+    let index = e.target.targetDataset.index
+    console.log(row)
+    if((!index) && index != 0)  return
+    for(let d of this.data.dataList){
+      if(d.name == row.Dept){
+       this.data.totalPrice -= parseInt(row.Price * row.Count)
+       d.tmpTotalPrice -= parseInt(row.Price * row.Count)
+       this.data.deletedList.push(d.value.splice(index, 1)[0])
+      }
+    }
+    this.setData({
+      dataList:this.data.dataList
+    })
+    console.log(this.data.dataList)
+    console.log(this.data.deletedList)
+  },
   getBomInfo(){
     //this._getData('OfficeSuppliesPurchase/ReadTable?TaskId='+this.data.taskid,(res) => {
     this.requestData('GET','OfficeSuppliesPurchase/ReadTable?TaskId='+this.data.taskid,(res) => {
+      this.data.dataList = []
       var deptList = []
       var deptStr = ''
       res = JSON.parse(res.data)
@@ -89,6 +128,7 @@ Page({
       }
       deptStr = deptStr.substring(0, deptStr.length - 1)
       deptList = deptStr.split(',')
+      console.log(deptList)
       for (let d of deptList) {
           this.data.dataList.push({
               name: d,

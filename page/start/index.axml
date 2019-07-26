@@ -3,8 +3,16 @@
 <view class="container" key="container">
     <view class="slogon">
         <view class="info">
-            <text class="desc">{{DingData.nickName}} - 正在工作中</text>
-            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯'}}"
+			<view class="info-img">
+				<text class="info-img-name" a:if="{{DingData.nickName.length==2}}">{{DingData.nickName}}</text>
+				<text class="info-img-name" a:if="{{DingData.nickName.length==3}}">{{DingData.nickName.substring(1)}}</text>
+
+			</view>
+			<view class="flex">			
+				<text class="desc-name">{{DingData.nickName}}</text>
+            	<text class="desc"> - 正在工作中</text>
+			</view>
+            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉'  }}"
              onTap="choosePeople" class="tag tag-info">+ 选人</view>
              <picker onChange="selectUser" value="{{userIndex}}" range="{{userList}}" range-key="NodePeople" a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯'}}">
               <view class="row">
@@ -15,10 +23,30 @@
         </view>
     </view>
 </view>
+<view  a:for="{{sort}}" a:for-item="m" a:if="{{m.show}} " class="sort" >
+		<view onTap="showOrClose" data-index="{{index}}" >
+			<text class="sort-name" a:if="{{m.show}}"> {{m.SORT_NAME}}</text>	
+			<text class="sort-open">{{sortItems[index].text}}</text>
+		</view>
 
-<view>
-  <view a:for="{{sort}}" a:for-item="m" style="text-align:center;font-size:0.4rem;">
-    <text a:if="{{m.show}}">{{m.SORT_NAME}}</text>
+		<view class="{{sortItems[index].class}}">
+				<view class="menu">
+						<view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
+							        <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
+									<view class="grid-item-wrapper-new" >
+										<view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
+										<text class="grid-text-new">{{item.flowName.indexOf('申请')>0?item.flowName.substring(0,item.flowName.indexOf('申请')):item.flowName}}</text>
+									</view>
+									</navigator>
+						</view>
+				</view>
+		</view>
+</view>
+
+
+<!-- <view>
+  <view a:for="{{sort}}" a:for-item="m" class="sorts">
+    <text a:if="{{m.show}}" class="sort-name">{{m.SORT_NAME}}</text>
     <view style="display:block;">
       <view a:for="{{menu}}" a:if="{{item.url && item.sortId == m.SORT_ID}}" key="{{item.flowId}}" class="grid-item" data-index="{{index}}">
         <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
@@ -31,10 +59,10 @@
       <view style="clear:both"></view>
     </view>
   </view>
-</view>
+</view> -->
 
 
-<view class="container" style="position:absolute;bottom:0rpx;right:0rpx;">
+<view class="container" style="position:absolute;top:60rpx;right:10rpx;">
     <view class="slogon">
           <text class="desc">版本号 - {{version}}</text>
     </view>

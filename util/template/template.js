@@ -11,7 +11,7 @@ export default {
       title: "审批选人",            //标题
       multiple: false,            //是否多选
       limitTips: "超出了人数范围", //超过限定人数返回提示
-      maxUsers: 1000,            //最大可选人数
+      maxUsers: 10,            //最大可选人数
       pickedUsers: [],            //已选用户 
       pickedDepartments: [],          //已选部门
       appId: globalData.appId,              //微应用的Id
@@ -33,7 +33,7 @@ export default {
       var nodeId = e.target.targetDataset.NodeId
       var that = this
       dd.complexChoose({
-        ...that.chooseParam,
+        ...that.data.chooseParam,
         success: function(res) {
           console.log(res)
           for (let node of that.data.nodeList) {

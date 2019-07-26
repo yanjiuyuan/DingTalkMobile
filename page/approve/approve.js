@@ -139,6 +139,8 @@ Page({
           case 34: url = '/page/approveDetail/techonologySupply/techonologySupply'; break;
           case 35: url = '/page/approveDetail/letGoodsGo/letGoodsGo'; break;
           case 36: url = '/page/approveDetail/intellectualProperty/intellectualProperty'; break;
+          case 67: url = '/page/approveDetail/borrowThing/borrowThing'; break;
+          case 68: url = '/page/approveDetail/maintain/maintain'; break;
         }
         dd.navigateTo({
             url: url + this._formatQueryStr(param)

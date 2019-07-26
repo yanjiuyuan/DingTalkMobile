@@ -10,6 +10,22 @@
             <form onSubmit="addGood">
               <view class="page-section">
                 <view class="form-row">
+                  <view class="form-row-label"><template is="required"></template>单位</view>
+                  <view class="form-row-content">
+                    <input name="Unit" class="input" placeholder="单位" />
+                  </view>
+                </view>
+              </view>
+              <view class="page-section">
+                <view class="form-row">
+                  <view class="form-row-label">单价</view>
+                  <view class="form-row-content">
+                    <input name="Price" class="input" placeholder="单价" />
+                  </view>
+                </view>
+              </view>
+              <view class="page-section">
+                <view class="form-row">
                   <view class="form-row-label"><template is="required"></template>数量</view>
                   <view class="form-row-content">
                     <input name="Count" class="input" placeholder="数量" />
@@ -18,9 +34,18 @@
               </view>
               <view class="page-section">
                 <view class="form-row">
-                  <view class="form-row-label">用途</view>
+                  <view class="form-row-label"><template is="required"></template>需用日期</view>
                   <view class="form-row-content">
-                    <input name="Purpose" class="input" placeholder="用途" />
+                    <input name="NeedTime" class="input" placeholder="需用日期" onFocus="selectStartDate"
+                    value="{{startDateStr}}" onTap="selectStartDate"/>
+                  </view>
+                </view>
+              </view>
+              <view class="page-section">
+                <view class="form-row">
+                  <view class="form-row-label"><template is="required"></template>维修内容</view>
+                  <view class="form-row-content">
+                    <input name="MaintainContent" class="input" placeholder="维修内容" />
                   </view>
                 </view>
               </view>
@@ -37,31 +62,31 @@
           </view>
       </view>
   </view>
-
   
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
       <view class="form-row">
-        <view class="form-row-label"><template is="required" ></template>标题</view>
-			<view class="form-row-content">
-				<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
-			</view>
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+        </view>
       </view>
+      <view class="form-line" />
       <view class="form-row">
         <view class="form-row-label">申请人</view>
-			<view class="form-row-content">
-				<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
-			</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+        </view>
       </view>
 
       <!-- 搜索 -->
-      <form onSubmit="search">
+      <form onSubmit="searchCode">
         <view class="page-section">
           <view class="form-row">
             <view class="form-row-label">关键字</view>
             <view class="form-row-content">
-              <input name="keyWord" class="input" placeholder="请输入" />
+              <input name="keyWord" class="input" placeholder="关键字" />
             </view>
           </view>
         </view>
@@ -70,25 +95,24 @@
       <!-- 物料表单 -->
 
       <view onTap="chooseItem">
-        <text>办公用品列表</text>
+        <text>物料表单</text>
         <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
       </view>
       <!-- 已选物料表单 -->
       <view onTap="deleteItem">
-        <text>已选办公用品</text>
+        <text>已选物料表单</text>
         <template is="datatable" data="{{items:tableItems2,data:purchaseList,param:tableParam2,tableOperate:tableOperate2}}"/>
       </view>
-
-
 
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
       
-      <view class="page-section-suggest">
+      <view class="page-section">
         <view class="page-section-title">建议</view>
           <view class="page-section-demo">
-            <textarea name="remark" placeholder="请输入建议" />
+            <textarea name="remark"placeholder="输入 建议" />
           </view>
+        
       </view>
     </view>
     

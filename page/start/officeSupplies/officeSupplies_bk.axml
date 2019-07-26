@@ -43,16 +43,16 @@
   <form onSubmit="submit">
     <view class="page-section">
       <view class="form-row">
-        <view class="form-row-label"><template is="required" ></template>标题</view>
-			<view class="form-row-content">
-				<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
-			</view>
+        <view class="form-row-label"><template is="required"></template>标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+        </view>
       </view>
       <view class="form-row">
         <view class="form-row-label">申请人</view>
-			<view class="form-row-content">
-				<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
-			</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+        </view>
       </view>
 
       <!-- 搜索 -->
@@ -61,7 +61,7 @@
           <view class="form-row">
             <view class="form-row-label">关键字</view>
             <view class="form-row-content">
-              <input name="keyWord" class="input" placeholder="请输入" />
+              <input name="keyWord" class="input" placeholder="关键字" />
             </view>
           </view>
         </view>
@@ -84,10 +84,10 @@
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
       
-      <view class="page-section-suggest">
+      <view class="page-section">
         <view class="page-section-title">建议</view>
           <view class="page-section-demo">
-            <textarea name="remark" placeholder="请输入建议" />
+            <textarea name="remark"placeholder="输入 建议" />
           </view>
       </view>
     </view>
