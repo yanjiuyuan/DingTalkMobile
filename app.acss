@@ -36,6 +36,8 @@ page {
 }
 
 
+
+}
 .choosePeople-title{
 	font-size: 35rpx;
 	font-family: "微软雅黑";
@@ -77,6 +79,8 @@ page {
 .choosePeople-view-text-bottom{
   color: #909399;
 }
+
+
 .choosePeople-view-left-icon{
 	height: 150rpx;
 	width: 100rpx;
@@ -152,7 +156,6 @@ page {
 .success{
     background-color: #67C23A;
 }
-
 .choosePeople-view-right-plus{
 	margin: 0 20rpx;
 	height: 80rpx;
@@ -269,9 +272,6 @@ page {
 button {
   	margin-top: 20rpx;
   	margin-bottom: 20rpx;
-
-
-
 }
 
 .bc_blue {
@@ -317,12 +317,12 @@ button {
 
 .form-row {
 	min-height: 90rpx;
+	height: 90rpx;
   display: flex;
   align-items: center;
   padding: 6rpx 10rpx;
   margin: 20rpx 0;
   background-color: #fff;
-
 }
 
 .form-row-label {
@@ -334,6 +334,16 @@ button {
   
 }
 
+}
+
+.form-row-label {
+  width: 170rpx;
+  font-size: 34rpx;
+  margin-left: 10rpx;
+  color: #000;
+  background-color: #fff;
+  
+}
 
 
 .form-row-content {

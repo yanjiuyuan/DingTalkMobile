@@ -136,10 +136,9 @@ Page({
   //点击展示
   showOrClose(event){
 
-	  // console.log(this.data.DingData);
+	  console.log(this.data.DingData);
 
-		// console.log(this.data.menu);
-
+		console.log(this.data.menu);
 		let index=event.target.dataset.index;
 		if(this.data.sortItems[index].text == "展开"){
 		  let item=this.data.sortItems;

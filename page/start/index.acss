@@ -96,7 +96,6 @@
 	transition: opacity 1s;
 	opacity: 0.1;
 
-
 }
 .dropdown-content-show{
 	background-color: #fff;
@@ -111,6 +110,7 @@
 	width: 100%;
 	/* border: 1px red solid; */
 	/* display: inline-block; */
+	display: inline-block;
 	background-color: #fff;
 }
 .box-shadow{

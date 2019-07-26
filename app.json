@@ -37,6 +37,8 @@
     "page/start/maintain/maintain",
     "page/approveDetail/maintain/maintain",
     "page/start/pickingManage/pickingManage"
+    "page/start/pickingManage/pickingManage",
+    "page/approveDetail/maintain/maintain"
   ],
   "window": {
     "enableWK": "YES",

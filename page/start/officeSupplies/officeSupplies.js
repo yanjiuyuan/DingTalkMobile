@@ -91,6 +91,8 @@ Page({
   search(e){
     var that = this
     var value = e.detail.value
+    //this.data.chooseParam[]
+    console.log(this.data.chooseParam)
     console.log(value) 
     if (!value || !value.keyWord) return
     let url =  that.data.jinDomarn + 'OfficeSupply/GetOfficeInfo' + that.formatQueryStr({Key:value.keyWord})

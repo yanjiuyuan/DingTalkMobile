@@ -24,7 +24,7 @@
       <!-- <view class="form-line" />  -->
       <!-- 物料表单 -->
       <text style="font-size:0.6rem;margin:0 2rpx;">总价预计 <text style="color:red">{{totalPrice}}</text> 元</text>
-      <!-- <view class="form-line" />  -->
+      <view class="form-line" /> 
       <view a:for="{{dataList}}" onTap="deleteItem">
         <text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计 <text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
         <template is="datatable" data="{{items:tableItems,data:item.value,param:tableParam,tableOperate:tableOperate}}"/>

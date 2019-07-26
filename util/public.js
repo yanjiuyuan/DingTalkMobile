@@ -136,6 +136,7 @@ export default {
             position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
         }
         ],
+
         //审批页面变量
         imgUrlList:[],
         imageList: [],
