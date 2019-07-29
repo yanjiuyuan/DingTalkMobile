@@ -73,6 +73,13 @@
             <view a:if="{{nodeid == 3 || nodeid == 4}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view>
           </view>
         </view>
+        <!-- <view class="form-row" style="">
+          <view class="form-row-label"><template is="required"></template> 拍照上传</view>
+          <view class="form-row-content">
+            <view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" /></view>
+            <view a:if="{{(nodeid == 2 || nodeid == 4) && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view>
+          </view>
+        </view> -->
       </view>
 
 

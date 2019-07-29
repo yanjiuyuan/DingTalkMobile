@@ -36,7 +36,6 @@
     "page/approveDetail/borrowThing/borrowThing",
     "page/start/maintain/maintain",
     "page/approveDetail/maintain/maintain",
-    "page/start/pickingManage/pickingManage"
     "page/start/pickingManage/pickingManage",
     "page/approveDetail/maintain/maintain"
   ],
