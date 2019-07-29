@@ -37,7 +37,7 @@ page {
 
 
 
-}
+
 .choosePeople-title{
 	font-size: 35rpx;
 	font-family: "微软雅黑";
@@ -317,7 +317,6 @@ button {
 
 .form-row {
 	min-height: 90rpx;
-	height: 90rpx;
   display: flex;
   align-items: center;
   padding: 6rpx 10rpx;
@@ -334,16 +333,6 @@ button {
   
 }
 
-}
-
-.form-row-label {
-  width: 170rpx;
-  font-size: 34rpx;
-  margin-left: 10rpx;
-  color: #000;
-  background-color: #fff;
-  
-}
 
 
 .form-row-content {
@@ -365,7 +354,5 @@ button {
   width:95%;
 }
 
-/* .input :disabled{
-  background-color:#909399;
-} */
+
 

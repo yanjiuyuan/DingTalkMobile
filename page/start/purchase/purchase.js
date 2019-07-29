@@ -6,7 +6,6 @@ Page({
   data: {
     ...pub.data,
     hidden: true,
-     addPeopleNodes: [1], //额外添加审批人节点数组
     tableOperate: '选择',
     purchaseList: [],
     tableParam2: {

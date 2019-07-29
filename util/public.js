@@ -935,8 +935,6 @@ export default {
             projectIndex: e.detail.value,
             nodeList: this.data.nodeList
           });
-          console.log(this.data.nodeList)
-          return
         }
       }
     },
