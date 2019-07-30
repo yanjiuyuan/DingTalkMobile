@@ -172,6 +172,22 @@ page {
 	margin-bottom: 40rpx;
 }
 
+
+.choosePeople-view-right-plus-new{
+	margin: 0 20rpx;
+	height: 80rpx;
+	width: 80rpx;
+	border-radius: 50%;
+	border: 1px #4796FA dotted;
+	color: #4796FA;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	font-size: 40rpx;
+	height: 80rpx;
+	width: 80rpx;
+}
+
 .choosePeople-view-right-text{
 	text-align: center;
 	font-size:23rpx;
