@@ -179,24 +179,32 @@ Page({
       "TaskId":"",
       "TimeRequired":value.TimeRequired,
       "remark":value.remark,
+      "MainPoints":value.MainPoints,
 
     }
- 
-    this._postData("FlowInfoNew/CreateTaskInfo",(data) => {
-        body.TaskId = data;
-        this._postData("TechnicalSupport/Save",(data) => {
-          
-          dd.alert({
-            content:"保存成功",
-            success:() => {
-             dd.navigateBack({
-                  delta: 2
-                })
-            }
-            });
-        
-        },body);
-    },CreateTaskInfo);
+    
+
+    if( !body.ResponsibleMan || !body.Customer || !body.Title || !body.ProjectType || !body.TimeRequired || !body.MainPoints || !body.ProjectOverview){
+            dd.alert({
+              content:"请完整填写表单"
+            })
+        }
+    else{
+      this._postData("FlowInfoNew/CreateTaskInfo",(data) => {
+          body.TaskId = data;
+            this._postData("TechnicalSupport/Save",(data) => {
+              
+              dd.alert({
+                content:"保存成功",
+                success:() => {
+                dd.navigateBack({
+                      delta: 2
+                    })
+                }
+                });
+            },body);
+      },CreateTaskInfo);
+    }
   },
 
   showOrClose(){
