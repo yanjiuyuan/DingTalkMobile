@@ -104,6 +104,14 @@ export default {
             url: 'crossHelp/crossHelp',
             position: (x + 6 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
         },
+          {
+            flowId: 34,
+            sortId: 5,
+            title:'项目技术支持',
+            flowName:"项目技术支持",
+            url: 'technicalSupport/technicalSupport',
+            position: (x + 6 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
+        },
         {
             flowId: 35,
             sortId: 7,
