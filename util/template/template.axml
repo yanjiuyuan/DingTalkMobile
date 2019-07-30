@@ -140,6 +140,11 @@
                 </view>					
               </view>
             </view>
+            
+            <!-- 添加人选按钮 -->
+            <view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose }}" data-NodeId="{{node.NodeId}}"  onTap="choosePeople"  class="choosePeople-view-right-plus">
+						+	
+					  </view>
 
             <view class="choosePeople-view-text">
               <view class="choosePeople-view-text-top">

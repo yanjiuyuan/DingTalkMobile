@@ -52,7 +52,7 @@
 
 
       <view class="form-row">
-        <view class="form-row-label">项目负责人</view>
+        <view class="form-row-label"><template is="required"></template>项目负责人</view>
         <view class="form-row-content">
           <text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
         </view>
@@ -87,7 +87,7 @@
       </view> -->
     
       <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>紧急情况</view>
+        <view class="form-row-label">紧急情况</view>
           <picker  onChange="bindPickerChangeTwo" value="{{index2}}" range="{{array2}}">
               <view class="row">
                 <view class="row-extra">{{array2[index2]}}</view>

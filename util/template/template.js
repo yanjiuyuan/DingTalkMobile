@@ -42,8 +42,14 @@ export default {
 				if (node.NodeId == nodeId) {
 					// node.AddPeople = [res.users[0].name];
 					node.AddPeople = res.users;
+          node.ApplyMan = res.users[0].name;
+          node.ApplyManId = res.users[0].userId;
+          node.NodePeople = [res.users[0].name];
+          
 				}
 			}
+				console.log(that.data.nodeList);
+
 			that.setData({
 				nodeList:that.data.nodeList,
 				ChoosePeople:true
