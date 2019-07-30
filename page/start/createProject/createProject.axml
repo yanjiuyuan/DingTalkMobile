@@ -11,7 +11,7 @@
           <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请人</view>
         <view class="form-row-content">
@@ -74,7 +74,7 @@
           </picker>
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>项目负责人</view>
         <view class="form-row-content">
@@ -90,7 +90,7 @@
         <view onTap="chooseMans" class="tag tag-info">+ 选人</view>
       </view>
       
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
@@ -105,7 +105,7 @@
           value="{{endDateStr}}"/>
         </view>
       </view>
-      <view class="form-line" />
+      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>立项文件上传</view>
         <view class="form-row-content">
@@ -125,5 +125,4 @@
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
   </form>
-
 </view>

@@ -167,7 +167,7 @@ Page({
 
   scroll(){
     this.data.size=this.data.size + 5;
-    console.log(this.data.size);
+    // console.log(this.data.size);
     this.getApproveList(this.data.activeItem);
   },
 

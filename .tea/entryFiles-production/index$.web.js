@@ -43,3 +43,4 @@ require('../../page/start/maintain/maintain');
 require('../../page/approveDetail/maintain/maintain');
 require('../../page/start/pickingManage/pickingManage');
 require('../../page/approveDetail/maintain/maintain');
+require('../../page/start/technicalSupport/technicalSupport');
