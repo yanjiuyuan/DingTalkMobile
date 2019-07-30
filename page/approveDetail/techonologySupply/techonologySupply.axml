@@ -23,7 +23,7 @@
       <view class="form-row">
         <view class="form-row-label">技术支持部门</view>
         <view class="form-row-content">
-          <input class="input" name="DeptName" value="{{table.DeptName}}" disabled="{{true}}" />
+          <textarea auto-height="true" name="DeptName" maxlength="800" class="input" value="{{table.DeptName}}" disabled="{{true}}" />
         </view>
       </view>
       <!-- <view class="form-line" />  -->
