@@ -25,7 +25,39 @@ Page({
       this.data.table['ProjectName'] = value.ProjectName
     }
     if(this.data.nodeid == 4){
-      this.data.table['ProjectNo'] = value.ProjectNo
+      this.data.table['IsCreateProject'] = true
+      var param2 = {
+          "CreateTime": this._getTime(),
+          "IsEnable": true,
+          "ProjectState": '在研',
+          "IsFinish": false,
+          "ApplyMan": this.data.nodeInfo.NodePeople,
+          "ApplyManId": this.data.nodeInfo.PeopleId,
+          "StartTime": this.data.table.StartTime,
+          "EndTime": this.data.table.EndTime,
+          "TeamMembers": this.data.table.TeamMembers,
+          "TeamMembersId": this.data.table.TeamMembersId,
+          "ProjectName": this.data.table.ProjectName,
+          "ProjectId": this.data.table.ProjectNo,
+          "CompanyName": this.data.table.CompanyName,
+          "CooperativeUnit": this.data.table.Customer,
+          "DeptName": this.data.table.DeptName,
+          "ProjectType": this.data.table.ProjectType,
+          "ProjectSmallType": '测试',
+          "ResponsibleMan": this.data.table.ResponsibleMan,
+          "ResponsibleManId": this.data.table.ResponsibleManId,
+          "ProjectFileUrl": this.data.tableInfo.FileUrl
+      }
+      console.log(param2)
+      return
+      this.setData({disablePage:true})
+      this._postData("TechnicalSupport/Modify",(res) => {
+          this._postData("ProjectNew/AddProject",(res) => {
+            that.aggreSubmit(param)
+          },param2)
+        },this.data.table
+      )
+      return
     }
     this.setData({disablePage:true})
     this._postData("TechnicalSupport/Modify",
@@ -76,33 +108,6 @@ Page({
 
       }
     })
-  },
-  //选择时间
-  selectStartDateTime(){
-    dd.datePicker({
-      format: 'yyyy-MM-dd',
-      currentDate: this.data.DateStr,
-      startDate: this.data.DateStr,
-      endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
-      success: (res) => {
-        this.setData({
-          'table.StartTime': res.date
-        })
-      },
-    });
-  },
-  selectEndDateTime(){
-    dd.datePicker({
-      format: 'yyyy-MM-dd',
-      currentDate: this.data.DateStr,
-      startDate: this.data.DateStr,
-      endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day ,
-      success: (res) => {
-        this.setData({
-          'table.EndTime': res.date
-        })
-      },
-    });
   },
   onReady(){
     var that = this
