@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -64,3 +65,5 @@ require('../../page/start/technicalSupport/technicalSupport');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
+=======
+>>>>>>> 88a8d21fdf93896942576c1bf97dbaf99a02e3d8

@@ -23,9 +23,9 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <!-- <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/> -->
+          <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
        
-          <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
+          <!-- <text auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text> -->
        
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
