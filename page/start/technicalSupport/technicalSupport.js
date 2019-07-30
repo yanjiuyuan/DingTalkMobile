@@ -33,6 +33,7 @@ Page({
     //选人控件方法
   choosePeoples(e){
     console.log('start choose people');
+    console.log(this.data.nodeList);
     var nodeId = e.target.targetDataset.NodeId;
     var that = this;
     dd.complexChoose({
@@ -41,10 +42,17 @@ Page({
       success: function(res) {
         console.log(res)
         let names = []//userId
-        for (let d of res.users) names.push(d.name)
+        for (let d of res.users) names.push(d.name);
+        let item1 = "nodeList[1].ApplyMan";
+        let item2 = "nodeList[1].NodePeople";
+
         that.setData({
           'table.PeerNumber':names.join(','),
-          ResponsibleMan:res.users[0]
+          ResponsibleMan:res.users[0],
+          [item1]:res.users[0].name,
+          [item2]:[res.users[0].name],
+
+          
         })
       },
       fail: function(err) {
