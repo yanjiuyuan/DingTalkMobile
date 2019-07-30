@@ -23,7 +23,8 @@ Page({
 
     OtherEngineers:"",
     ResponsibleMan:"",
-
+    rotate:"RotateToTheRight",
+    show:"hidden"
 
 
 
@@ -191,7 +192,19 @@ Page({
   },
 
   showOrClose(){
-    
+    if(this.data.rotate == "RotateToTheRight"){
+      this.setData({
+        rotate:"Rotate-downward",
+        show:"show"
+      })
+    }
+
+    else if(this.data.rotate == "Rotate-downward"){
+      this.setData({
+        rotate:"RotateToTheRight",
+        show:"hidden"
+      })
+    }
   }
 })
 
