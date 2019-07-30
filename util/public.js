@@ -110,7 +110,7 @@ export default {
             title:'项目技术支持',
             flowName:"项目技术支持",
             url: 'technicalSupport/technicalSupport',
-            position: (x + 6 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
+            position: (x + 2 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
         },
         {
             flowId: 35,
@@ -141,7 +141,7 @@ export default {
             sortId:4,
             title:'领料管理',
             url:'pickingManage/pickingManage',
-            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+            position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
         }
         ],
 
