@@ -1,4 +1,4 @@
 @import '/util/template/template.acss';
-.checkbox-group{
-  display: none;
+.margin-right{
+  margin-right: 20rpx;
 }

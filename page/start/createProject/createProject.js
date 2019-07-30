@@ -96,5 +96,48 @@ Page({
       this.setData({
       typeIndex: e.detail.value,
     })
-  }
+  },
+  upLoadFile(e){
+    console.log(e)
+
+
+    // dd.chooseImage({
+    //   sourceType: ['camera','album'],
+    //   count: 1,
+    //   success: (res) => {
+    //     console.log(res);
+    //     console.log("chooseImage success");
+    //     dd.uploadFile({
+    //             url: this.data.dormainName + '/drawingupload/Upload',
+    //             fileType: 'image',
+    //             fileName: 'file',
+    //             filePath: res.filePaths[0],
+    //             success: (res) => {
+    //             console.log(res);
+    //             console.log("uploadFile success");
+
+    //               dd.alert({
+    //               content: '上传成功'
+    //             });
+    //           },
+
+    //           fail:(res) => {
+
+    //             console.log("uploadFile fail");
+
+    //             console.log(res);
+    //           }
+    //     });
+    //   },
+    //   fail:()=>{
+    //     console.log("chooseImage fail");
+    //     my.showToast({
+    //       content: '选择失败',
+    //     });
+    //   }
+    // })
+
+
+
+  },
 });

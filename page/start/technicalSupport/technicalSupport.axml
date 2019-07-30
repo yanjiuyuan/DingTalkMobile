@@ -17,17 +17,21 @@
 			  </view>
       </view>
 
-      <view class="form-row">
-        <view class="form-row-label">技术支持部门</view>
-		  	<view class="form-row-content">
-          <checkbox-group onChange="onChange" name="DeptName" >
-            <label class="checkbox" a:for="{{items}}">
-              <checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
-              <text class="checkbox-text">{{item.value}}</text>
-           </label>
-          </checkbox-group>
-			  </view>
-      </view>    
+      <view>
+        <view class="form-row" onTap="showOrClose" >
+          <view class="form-row-label">技术支持部门</view>
+          <view class="form-row-content">
+            <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </view>    
+        <checkbox-group onChange="onChange" name="DeptName" class="checkbox-group">
+          <label class="checkbox" a:for="{{items}}">
+            <checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+            <text class="checkbox-text">{{item.value}}</text>
+          </label>
+        </checkbox-group>
+      </view>
+
 
       <view class="form-row">
         <view class="form-row-label">项目负责人</view>
