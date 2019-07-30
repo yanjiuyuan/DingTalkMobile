@@ -23,6 +23,7 @@ Page({
     value['IsChooseOccupyCar'] = true
     value['IsPublicCar'] = false
     value['OccupyCarId'] = ''
+    console.log(value)
     if(!value.DrivingMan || !value.MainContent || !value.PlantTravelWay || !value.StartTime || !value.EndTime || !value.CarNumber) 
     {
       dd.alert({content:'表单未填写完整'})

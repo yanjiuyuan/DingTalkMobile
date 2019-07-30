@@ -11,7 +11,8 @@ Page({
   uploadImg(e){
     var that = this
     dd.chooseImage({
-      count: 2,
+      count: 1,
+      sourceType: ['camera'],
       success: (res) => {
         that.setData({imageList:that.data.imageList})
         //dd.alert({content:'ues ' + JSON.stringify(res)})
@@ -38,11 +39,57 @@ Page({
       },
     });
   },
+  //添加定位
+  addPlace(){
+    var that = this
+    //上传图片
+    dd.chooseImage({
+      count: 1,
+      sourceType: ['camera'],
+      success: (res) => {
+        for(let p of res.apFilePaths){
+          that.setData({disablePage:true})
+          dd.showLoading({
+                content: '图片处理中...'
+              });
+          dd.uploadFile({
+            url: that.data.dormainName + 'drawingupload/Upload?IsWaterMark=true',
+            fileType: 'image',
+            fileName: p.substring(7),
+            IsWaterMark: true,
+            filePath: p,
+            success: (res) => {
+              console.log(res)
+              if(that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
+              else that.data.tableInfo['ImageUrl'] = ''
+              that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
+              that._postData("FlowInfoNew/TaskModify",
+                (res) => {
+                  that.getFormData()
+                  that.setData({disablePage:false})
+                  dd.hideLoading()
+                },that.data.tableInfo
+              )
+            },
+            fail:(err) => {
+              dd.alert({content:'sorry' + JSON.stringify(err)})
+            }
+          });
+        }
+      },
+    });
+  },
   deleteImg(){
+    this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(',')
     this.setData({
       imageList:this.data.imageList.splice(0,this.data.imageList.length-1)
     })
-    this.data.imgUrlList.splice(0,this.data.imgUrlList.length-1)
+    //
+    this.data.tableInfo['ImageUrl'] = this.data.imgUrlList.slice(0,this.data.imgUrlList.length-1).join(',')
+    this._postData("FlowInfoNew/TaskModify",
+        (res) => {
+        },this.data.tableInfo
+      )
   },
   submit(e) {
     var that = this
@@ -51,23 +98,14 @@ Page({
       dd.alert({content:'表单未填写完整'})
       return
     }
-    if(this.data.nodeid == 3 && this.data.imgUrlList.length <2){
+    if(this.data.nodeid == 3 && this.data.imageList.length <2){
+      console.log(this.data.imageList)
       dd.alert({content:'需要上传起止公里数图片'})
       return
     }
-    this.data.table['ImageUrl'] = this.data.imgUrlList.join(',')
-    if(this.data.table['ImageUrl'].length>6){
-      var param = {
-          Title: value.title,
-          Remark: value.remark,
-          ImageUrl: this.data.table['ImageUrl']
-      }
-    }else{
-      var param = {
-          Title: value.title,
-          Remark: value.remark,
-          ImageUrl: this.data.tableInfo.ImageUrl
-      }
+    var param = {
+        Title: value.title,
+        Remark: value.remark
     }
     this.data.table['FactTravelWay'] = value.FactTravelWay
     this.data.table['StartKilometres'] = value.StartKilometres
