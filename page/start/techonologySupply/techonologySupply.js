@@ -27,10 +27,10 @@ Page({
     show:"hidden"
   },
 
-   onLoad: function (options) {
-     console.log(options.table);
+  //  onLoad: function (options) {
+  //    console.log(options.table);
 
-  },
+  // },
     //选人控件方法
   choosePeoples(e){
     console.log('start choose people');

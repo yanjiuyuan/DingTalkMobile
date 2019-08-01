@@ -652,7 +652,7 @@ export default {
         FlowId:this.data.flowid,
         TaskId:this.data.taskid
       }
-      this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), function(res) {
+      this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
         let lastNode = {}
         let tempNodeList = []
         //审批人分组
@@ -679,11 +679,15 @@ export default {
                 }]
             }
         }
+        this.getNodeList_done(tempNodeList)
         that.setData({
           nodeList:tempNodeList,
           isBack:res[0].IsBack
         })
       })
+    },
+    getNodeList_done(nodeList){
+      
     },
     //获取项目列表
     getProjectList() {

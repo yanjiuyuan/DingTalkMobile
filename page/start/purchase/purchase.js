@@ -8,6 +8,7 @@ Page({
     hidden: true,
     tableOperate: '选择',
     purchaseList: [],
+    addPeopleNodes: [1],
     tableParam2: {
       size: 100,
       now: 1,

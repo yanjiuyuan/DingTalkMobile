@@ -6,6 +6,7 @@ Page({
     ...pub.data,
     addPeopleNodes: [], //额外添加审批人节点数组
     table:{},
+    show:true,
   },
   submit(e) {
     var that = this
@@ -15,7 +16,7 @@ Page({
     }
     if((!value.TeamMembers || !value.StartTime || !value.EndTime || !value.TechnicalProposal || !value.ProjectName) && (this.data.nodeid ==1)){
       dd.alert({content:'表单未填写完整'})
-      return
+      return;
     }
     if(this.data.nodeid == 1){
       this.data.table['TeamMembers'] = value.TeamMembers
@@ -114,6 +115,7 @@ Page({
     })
   },
   onReady(){
+    
     var that = this
 
      this._getData("TechnicalSupport/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
@@ -128,13 +130,28 @@ Page({
     )
   },
 
-  relaunch(e){
-    console.log("重新发起");
-    console.log(this.data.table);
-    let arr = this.route.split("/");
-    let url = "/page/start/" + arr[2] + "/" + arr[3];
-    dd.redirectTo({
-     url: url + "?" + "table=1" 
-    })
+
+  getNodeList_done(nodeList){
+    console.log(nodeList);
+    for (let node of nodeList){
+      if( node.NodeName == "抄送" && node.NodePeople.indexOf(this.data.DingData.nickName) !== -1){
+          this.setData({
+            show:false
+          })
+
+      } 
+    }
   }
+
+
+  
+  // relaunch(e){
+  //   console.log("重新发起");
+  //   console.log(this.data.table);
+  //   let arr = this.route.split("/");
+  //   let url = "/page/start/" + arr[2] + "/" + arr[3];
+  //   dd.redirectTo({
+  //    url: url + "?" + "table=1" 
+  //   })
+  // }
 });

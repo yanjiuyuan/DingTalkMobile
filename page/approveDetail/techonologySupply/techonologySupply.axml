@@ -8,7 +8,7 @@
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
-      <view class="form-row">
+      <view  class="form-row">
         <view class="form-row-label">标题</view>
         <view class="form-row-content">
           <input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
@@ -20,7 +20,7 @@
           <input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-row">
+      <view  class="form-row">
         <view class="form-row-label">技术支持部门</view>
         <view class="form-row-content">
           <textarea auto-height="true" name="DeptName" maxlength="800" class="input" value="{{table.DeptName}}" disabled="{{true}}" />
@@ -57,13 +57,13 @@
           <input auto-height="true" name="TimeRequired" class="input" value="{{table.TimeRequired}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-row">
+      <view a:if="{{show}}" class="form-row">
         <view class="form-row-label">客户项目整体情况</view>
         <view class="form-row-content">
           <textarea auto-height="true" name="ProjectOverview" maxlength="800" class="input" value="{{table.ProjectOverview}}" disabled="{{true}}" />
         </view>
       </view>
-       <view class="form-row">
+       <view a:if="{{show}}" class="form-row">
         <view class="form-row-label">技术支持内容要点</view>
         <view class="form-row-content">
           <textarea auto-height="true" name="MainPoints" maxlength="800" class="input" value="{{table.MainPoints}}" disabled="{{true}}" />
@@ -75,10 +75,10 @@
           <input class="input" name="ProjectState" value="{{table.ProjectState}}" disabled="{{true}}" />
         </view>
       </view>
-       <view class="form-row">
-        <view class="form-row-label">所属公司</view>
+       <view a:if="{{show}}" class="form-row">
+        <view class="form-row-label">合作单位</view>
         <view class="form-row-content">
-          <input class="input" name="CompanyName" value="{{table.CompanyName}}" disabled="{{true}}" />
+          <input class="input" name="CompanyName" value="{{table.Customer}}" disabled="{{true}}" />
         </view>
       </view>
        <view class="form-row">
@@ -110,7 +110,7 @@
           </view>
           <view onTap="selectEndDate" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
         </view>
-        <view class="form-row">
+        <view a:if="{{show}}" class="form-row">
           <view class="form-row-label"><template is="required"></template>处理方案</view>
           <view class="form-row-content">
             <textarea auto-height="true" name="TechnicalProposal" maxlength="800" class="input" value="{{table.TechnicalProposal}}" disabled="{{nodeid != 1}}" />
@@ -154,7 +154,7 @@
       <view a:if="{{index!=0}}">
         <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
       </view>
-      <view a:if="{{index==2 && state=='未完成'}}">
+      <view a:if="{{index == 2 && state=='未完成'}}">
         <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
         <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
       </view>
