@@ -12,6 +12,8 @@ Page({
     var that = this
     var value = e.detail.value
     value['LocationPlace'] = ''
+    value['Place'] = this.data.table.Place
+    console.log(value)
     if(!value.Place || !value.BeginTime || !value.EndTime || !value.Content || !value.Duration) 
     {
       dd.alert({content:'表单未填写完整'})
