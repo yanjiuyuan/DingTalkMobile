@@ -29,6 +29,36 @@ export default {
   func: {
 
 
+    //选人控件方法
+    choosePeople(e){
+      console.log('start choose people')
+      var nodeId = e.target.targetDataset.NodeId
+      var that = this
+      dd.complexChoose({
+        ...that.chooseParam,
+        success: function(res) {
+          console.log(res)
+          for (let node of that.data.nodeList) {
+              if (node.NodeId == nodeId) {
+                  node.AddPeople = res.users
+              }
+          }
+          that.setData({
+            nodeList:that.data.nodeList
+          })
+        },
+        fail: function(err) {
+
+        }
+      })
+    },
+
+
+
+
+
+
+
     choosePeopleOne(e){
       console.log('start choose people')
       var nodeId = e.target.dataset.NodeId;
