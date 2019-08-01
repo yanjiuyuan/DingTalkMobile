@@ -25,6 +25,11 @@ Page({
       this.data.table['ProjectName'] = value.ProjectName
     }
     if(this.data.nodeid == 4){
+      if(!value.ProjectNo){
+        dd.alert({content:'表单未填写完整'})
+        return
+      }
+      this.data.table['ProjectNo'] = value.ProjectNo
       this.data.table['IsCreateProject'] = true
       var param2 = {
           "CreateTime": this._getTime(),
@@ -38,7 +43,7 @@ Page({
           "TeamMembers": this.data.table.TeamMembers,
           "TeamMembersId": this.data.table.TeamMembersId,
           "ProjectName": this.data.table.ProjectName,
-          "ProjectId": this.data.table.ProjectNo,
+          "ProjectId": value.ProjectNo,
           "CompanyName": this.data.table.CompanyName,
           "CooperativeUnit": this.data.table.Customer,
           "DeptName": this.data.table.DeptName,
@@ -46,15 +51,14 @@ Page({
           "ProjectSmallType": '测试',
           "ResponsibleMan": this.data.table.ResponsibleMan,
           "ResponsibleManId": this.data.table.ResponsibleManId,
-          "ProjectFileUrl": this.data.tableInfo.FileUrl
+          "ProjectFileUrl": ''
       }
       console.log(param2)
-      return
       this.setData({disablePage:true})
       this._postData("TechnicalSupport/Modify",(res) => {
           this._postData("ProjectNew/AddProject",(res) => {
             that.aggreSubmit(param)
-          },param2)
+          },[param2])
         },this.data.table
       )
       return

@@ -6,7 +6,7 @@ Page({
   ...pub.func,
   onLoad(){
     this.getMenu();
-    this.checkLogin(function(){});
+    this.checkLogin2(function(){});
     this.getUserInfo();
   },
   data: {

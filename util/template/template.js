@@ -42,9 +42,9 @@ export default {
 				if (node.NodeId == nodeId) {
 					// node.AddPeople = [res.users[0].name];
 					node.AddPeople = res.users;
-          node.ApplyMan = res.users[0].name;
-          node.ApplyManId = res.users[0].userId;
-          node.NodePeople = [res.users[0].name];
+          //node.ApplyMan = res.users[0].name;
+          //node.ApplyManId = res.users[0].userId;
+          //node.NodePeople = [res.users[0].name];
           
 				}
 			}

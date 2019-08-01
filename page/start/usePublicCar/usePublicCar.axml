@@ -40,7 +40,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>用车事由</view>
         <view class="form-row-content">
-          <!-- <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/> -->
+          <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
         </view>
       </view>
       <view class="form-row">
