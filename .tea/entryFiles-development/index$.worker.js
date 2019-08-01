@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -65,3 +66,5 @@ require('../../page/start/overTime/overTime');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
+=======
+>>>>>>> 3e7b18c311da6144cd00a907ba6c6f989713cc7c

@@ -101,14 +101,14 @@
           <view class="form-row-content">
             <input name="StartTime" class="input" placeholder="开始时间" onTap="" disabled="{{true}}" value="{{table.StartTime}}"/>
           </view>
-          <view onTap="selectStartDateTime" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
+          <view onTap="selectStartDate" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
         </view>
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>结束日期</view>
           <view class="form-row-content">
             <input name="EndTime" class="input" placeholder="结束日期" onTap="" disabled="{{true}}" value="{{table.EndTime}}"/>
           </view>
-          <view onTap="selectEndDateTime" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
+          <view onTap="selectEndDate" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
         </view>
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>处理方案</view>

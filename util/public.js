@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.31,
+    version: 2.39,
     DingData:{
       nickName:'',
       departName:'',
@@ -716,7 +716,8 @@ export default {
           endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
           success: (res) => {
             this.setData({
-              startDateStr: res.date
+              startDateStr: res.date,
+              'table.StartTime': res.date
             })
           },
         });
@@ -729,7 +730,8 @@ export default {
           endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
           success: (res) => {
             this.setData({
-              endDateStr: res.date
+              endDateStr: res.date,
+              'table.EndTime': res.date
             })
           },
         });
@@ -742,7 +744,8 @@ export default {
           endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
           success: (res) => {
             this.setData({
-              dateStr: res.date
+              dateStr: res.date,
+              'table.dateStr': res.date
             })
           },
         });
@@ -755,7 +758,8 @@ export default {
           endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
           success: (res) => {
             this.setData({
-              startDateStr: res.date
+              startDateStr: res.date,
+              'table.StartTime': res.date
             })
           },
         });
@@ -768,7 +772,8 @@ export default {
           endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
           success: (res) => {
             this.setData({
-              endDateStr: res.date
+              endDateStr: res.date,
+              'table.EndTime': res.date
             })
           },
         });
@@ -925,6 +930,32 @@ export default {
         success: (res) => {
           console.log(res.authCode)
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
+            app.userInfo = res
+            var DingData = {
+              nickName:res.name,
+              departName:res.dept,
+              userid:res.userid
+            }
+            dd.hideLoading()
+            that.setData({ DingData:DingData })
+            callBack()
+          })
+        },
+      })
+    },
+    checkLogin2(callBack){
+      var that = this
+      var app = getApp()
+      dd.getAuthCode({
+        success: (res) => {
+          console.log(res.authCode)
+          lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
+            if(!res.userid){
+              dd.alert({
+                content:res.errmsg+',请关掉应用重新打开试试~'
+              });
+              return
+            }
             app.userInfo = res
             var DingData = {
               nickName:res.name,

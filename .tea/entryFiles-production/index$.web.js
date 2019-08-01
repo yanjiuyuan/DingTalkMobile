@@ -1,6 +1,5 @@
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
-
 require('../../util/table/table');
 require('../../util/table/column/column');
 require('../../node_modules/mini-ddui/es/list/index');
@@ -43,5 +42,9 @@ require('../../page/start/maintain/maintain');
 require('../../page/approveDetail/maintain/maintain');
 require('../../page/start/pickingManage/pickingManage');
 require('../../page/approveDetail/maintain/maintain');
+<<<<<<< HEAD
 require('../../page/start/techonologySupply/techonologySupply');
+=======
+require('../../page/start/technicalSupport/technicalSupport');
+>>>>>>> 3e7b18c311da6144cd00a907ba6c6f989713cc7c
 require('../../page/start/overTime/overTime');
