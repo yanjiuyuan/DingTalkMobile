@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.42,
+    version: 2.43,
     DingData:{
       nickName:'',
       departName:'',
@@ -982,11 +982,13 @@ export default {
                 userId: this.data.projectList[e.detail.value].ResponsibleManId
             }]
           this.setData({
-            projectIndex: e.detail.value,
             nodeList: this.data.nodeList
           });
         }
       }
+      this.setData({
+        projectIndex: e.detail.value
+      });
     },
     bindDeptChange(e){
         this.setData({

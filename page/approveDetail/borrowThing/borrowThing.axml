@@ -22,7 +22,7 @@
       <view class="form-row">
         <view class="form-row-label">项目编号</view>
         <view class="form-row-content">
-          <input class="input" value="{{tableInfo.ProjecId}}" disabled="{{true}}" />
+          <input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-row">
