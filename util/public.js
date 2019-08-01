@@ -974,6 +974,7 @@ export default {
       })
     },
     bindPickerChange(e){
+      console.log(this.data.nodeList);
       for(let i = 0;i<this.data.nodeList.length;i++){
         if(this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0){
           this.data.nodeList[i].AddPeople = 
@@ -982,11 +983,13 @@ export default {
                 userId: this.data.projectList[e.detail.value].ResponsibleManId
             }]
           this.setData({
-            projectIndex: e.detail.value,
             nodeList: this.data.nodeList
           });
         }
-      }
+      } 
+      this.setData({
+        projectIndex: e.detail.value,
+      });
     },
     bindDeptChange(e){
         this.setData({

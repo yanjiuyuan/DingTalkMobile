@@ -22,7 +22,7 @@
       <view class="form-row">
         <view class="form-row-label">项目编号</view>
         <view class="form-row-content">
-          <input class="input" value="{{tableInfo.ProjecId}}" disabled="{{true}}" />
+          <input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-row">
@@ -37,10 +37,7 @@
       <!-- 选人组件 -->
       
        <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-       <!-- <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/> -->
-      <view a:if="{{index==0}}">
-        <view class="page-section-suggest">
-       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+     
       <view a:if="{{index==0}}">
         <view class="page-section">
           <view class="page-section-title">同意建议</view>

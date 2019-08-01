@@ -46,7 +46,7 @@ Page({
           },value
         )
     }
-    this.approvalSubmit(value, callBack)
+    this.approvalSubmit(value, callBack,value['ProjectId']);
   },
   //选人控件方法
   chooseMans(e){

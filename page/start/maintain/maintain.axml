@@ -71,6 +71,16 @@
         <view class="form-row-content">
           <input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
         </view>
+      </view>      
+      
+      <view class="form-row">
+        <view class="form-row-label"><template is="required"></template>项目名</view>
+        <picker onChange="bindPickerChange" value="{{projectIndex}}" range="{{projectList}}" range-key="ProjectName">
+          <view class="row">
+            <view class="row-extra">{{projectList[projectIndex].ProjectName}}</view>
+            <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </picker>
       </view>
       <view class="form-row">
         <view class="form-row-label">申请人</view>
@@ -78,6 +88,9 @@
           <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
         </view>
       </view>
+
+
+      
 
       <!-- 搜索 -->
       <form onSubmit="searchCode">
