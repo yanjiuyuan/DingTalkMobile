@@ -18,9 +18,9 @@ App({
         },{authCode:res.authCode})
       },
       fail: (err) => {
-        console.log('免登失败')
+        console.log('免登失败');
         dd.alert({ content: "免登失败" });
-        dd.alert({ content: JSON.stringify(err) })
+        dd.alert({ content: JSON.stringify(err) });
       }
     })
   },

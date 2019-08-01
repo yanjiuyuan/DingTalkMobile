@@ -45,8 +45,8 @@ Page({
  
   //添加，输入外出地点
   addPlace(e){
-    var value = e.detail.value
-    console.log(value) 
+    var value = e.detail.value;
+    console.log(value);
     if (!value || !value.place) {
       dd.alert({
         content: `表单填写不完整`,
