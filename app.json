@@ -38,7 +38,8 @@
     "page/approveDetail/maintain/maintain",
     "page/start/pickingManage/pickingManage",
     "page/approveDetail/maintain/maintain",
-    "page/start/technicalSupport/technicalSupport"
+    "page/start/technicalSupport/technicalSupport",
+    "page/start/overTime/overTime"
   ],
   "window": {
     "enableWK": "YES",

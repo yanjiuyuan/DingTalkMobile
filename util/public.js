@@ -75,7 +75,14 @@ export default {
         sortId: 6,
         title:'私车申请',
         url: 'useCar/useCar',
-        position: '-504px -405px'}, {
+        position: '-504px -405px'},
+        {
+        flowId: 17,
+        sortId: 7,
+        title:'基地加班申请',
+        url: 'overTime/overTime',
+        position: (x + 3 * xTap) + 'px ' + (y + 0 * yTap) + 'px'},
+         {
         flowId: 26,
         sortId: 4,
         title:'领料申请',

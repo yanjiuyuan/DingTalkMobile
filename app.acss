@@ -341,7 +341,7 @@ button {
 }
 
 .form-row-label {
-  width: 240rpx;
+  width: 260rpx;
   font-size: 34rpx;
   margin-left: 10rpx;
   color: #000;
