@@ -103,7 +103,7 @@
 					</view>
 
 					<!-- 添加人选按钮 -->
-					<view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0 }}" data-NodeId="{{node.NodeId}}"  onTap="choosePeople"  class="choosePeople-view-right-plus">
+					<view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0 }}" data-NodeId="{{node.NodeId}}"  onTap="choosePeopleOne"  class="choosePeople-view-right-plus">
 						+	
 					</view>
 
@@ -142,7 +142,7 @@
             </view>
 
             <!-- 添加人选按钮 -->
-            <view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}"  onTap="choosePeople"  class="choosePeople-view-right-plus-new">
+            <view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}"  onTap="choosePeopleTwo"  class="choosePeople-view-right-plus-new">
 						+	
 					  </view>
             <view a:else = "{{!node.NodePeople}}" class="choosePeople-view-right-plus-new">

@@ -116,7 +116,7 @@ export default {
             sortId: 5,
             title:'项目技术支持',
             flowName:"项目技术支持",
-            url: 'technicalSupport/technicalSupport',
+            url: 'techonologySupply/techonologySupply',
             position: (x + 2 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
         },
         {
@@ -915,12 +915,12 @@ export default {
 
         that.setData({DingData:DingData })
         callBack()
-        return
+        return.0
       }
       dd.showLoading({
         content: '登录中...'
       });
-      
+      console.log("我执行了");
       dd.getAuthCode({
         success: (res) => {
           console.log(res.authCode)

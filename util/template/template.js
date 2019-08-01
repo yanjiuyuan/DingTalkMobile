@@ -27,8 +27,9 @@ export default {
     },
   },
   func: {
-    //选人控件方法
-    choosePeople(e){
+
+
+    choosePeopleOne(e){
       console.log('start choose people')
       var nodeId = e.target.dataset.NodeId;
       var that = this;
@@ -40,7 +41,42 @@ export default {
 			console.log(res);
 			for (let node of that.data.nodeList) {
 				if (node.NodeId == nodeId) {
-					// node.AddPeople = [res.users[0].name];
+					node.AddPeople = res.users;
+          // node.ApplyMan = res.users[0].name;
+          // node.ApplyManId = res.users[0].userId;
+          // node.NodePeople = [res.users[0].name];
+          
+				}
+			}
+				console.log(that.data.nodeList);
+
+			that.setData({
+				nodeList:that.data.nodeList,
+				ChoosePeople:true
+			})
+			},
+			fail: function(err) {
+				console.log("fail!!");
+			}
+		})	  
+	  }
+
+    },
+
+
+    //选人控件方法
+    choosePeopleTwo(e){
+      console.log('start choose people')
+      var nodeId = e.target.dataset.NodeId;
+      var that = this;
+      
+	  if(nodeId){
+		dd.complexChoose({
+			...that.data.chooseParam,
+			success: function(res) {
+			console.log(res);
+			for (let node of that.data.nodeList) {
+				if (node.NodeId == nodeId) {
 					node.AddPeople = res.users;
           node.ApplyMan = res.users[0].name;
           node.ApplyManId = res.users[0].userId;

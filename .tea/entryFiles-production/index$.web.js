@@ -43,4 +43,5 @@ require('../../page/start/maintain/maintain');
 require('../../page/approveDetail/maintain/maintain');
 require('../../page/start/pickingManage/pickingManage');
 require('../../page/approveDetail/maintain/maintain');
-require('../../page/start/technicalSupport/technicalSupport');
+require('../../page/start/techonologySupply/techonologySupply');
+require('../../page/start/overTime/overTime');
