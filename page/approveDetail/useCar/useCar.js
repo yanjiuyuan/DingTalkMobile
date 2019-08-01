@@ -11,7 +11,8 @@ Page({
   uploadImg(e){
     var that = this
     dd.chooseImage({
-      count: 2,
+      count: 1,
+      sourceType: ['camera'],
       success: (res) => {
         that.setData({imageList:that.data.imageList})
         //dd.alert({content:'ues ' + JSON.stringify(res)})
@@ -83,7 +84,6 @@ Page({
     this.setData({
       imageList:this.data.imageList.splice(0,this.data.imageList.length-1)
     })
-    this.data.imgUrlList.splice(0,this.data.imgUrlList.length-1)
     //
     this.data.tableInfo['ImageUrl'] = this.data.imgUrlList.slice(0,this.data.imgUrlList.length-1).join(',')
     this._postData("FlowInfoNew/TaskModify",
@@ -103,24 +103,10 @@ Page({
       dd.alert({content:'需要上传起止公里数图片'})
       return
     }
-    this.data.table['ImageUrl'] = this.data.imgUrlList.join(',')
-    if(this.data.table['ImageUrl'].length>6){
-      var param = {
-          Title: value.title,
-          Remark: value.remark,
-          ImageUrl: this.data.table['ImageUrl']
-      }
-    }else{
-      var param = {
-          Title: value.title,
-          Remark: value.remark,
-          ImageUrl: this.data.tableInfo.ImageUrl
-      }
+    var param = {
+        Title: value.title,
+        Remark: value.remark
     }
-    // var param = {
-    //     Title: value.title,
-    //     Remark: value.remark
-    // }
     this.data.table['FactTravelWay'] = value.FactTravelWay
     this.data.table['StartKilometres'] = value.StartKilometres
     this.data.table['EndKilometres'] = value.EndKilometres
