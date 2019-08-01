@@ -8,6 +8,7 @@ Page({
     hidden: true,
     tableOperate: '选择',
     purchaseList: [],
+    addPeopleNodes: [1],
     tableParam2: {
       size: 100,
       now: 1,
@@ -111,14 +112,17 @@ Page({
         ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
         ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
     }
+    if(!param.ProjectId || !this.data.purchaseList.length){
+      dd.alert({
+        content: `表单填写不完整`,
+      });
+      return
+    }
     let callBack = function (taskId) {
         that.bindAll(taskId)
     }
     console.log(param)
-    this.approvalSubmit(param, 
-    callBack, {
-            ProjectId: param.ProjectId
-        })
+    this.approvalSubmit(param, callBack)
   },
   bindAll(taskId) {
       var that = this
