@@ -11,31 +11,37 @@ Page({
   uploadImg(e){
     var that = this
     dd.chooseImage({
-      count: 1,
-      sourceType: ['camera'],
+      count: 2,
       success: (res) => {
-        that.setData({imageList:that.data.imageList})
-        //dd.alert({content:'ues ' + JSON.stringify(res)})
         for(let p of res.apFilePaths){
-          that.data.imageList.push(p)
           that.setData({disablePage:true})
+          dd.showLoading({
+                content: '图片处理中...'
+              });
           dd.uploadFile({
             url: that.data.dormainName + 'drawingupload/Upload',
             fileType: 'image',
             fileName: p.substring(7),
+            IsWaterMark: true,
             filePath: p,
             success: (res) => {
-              //dd.alert({content:'你返回的 ' + JSON.stringify(res)})
-              console.log(JSON.parse(res.data).Content)
-              that.data.imgUrlList.push(JSON.parse(res.data).Content)
-              that.setData({disablePage:false})
+              console.log(res)
+              if(that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
+              else that.data.tableInfo['ImageUrl'] = ''
+              that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
+              that._postData("FlowInfoNew/TaskModify",
+                (res) => {
+                  that.getFormData()
+                  that.setData({disablePage:false})
+                  dd.hideLoading()
+                },that.data.tableInfo
+              )
             },
             fail:(err) => {
               dd.alert({content:'sorry' + JSON.stringify(err)})
             }
           });
         }
-        that.setData({imageList:that.data.imageList})
       },
     });
   },
