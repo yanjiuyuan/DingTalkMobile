@@ -986,10 +986,16 @@ export default {
             nodeList: this.data.nodeList
           });
         }
+<<<<<<< HEAD
       }
       this.setData({
         projectIndex: e.detail.value
-      })
+=======
+      } 
+      this.setData({
+        projectIndex: e.detail.value,
+>>>>>>> cc80a90e59095eb12d4be6184b598b62c8a7f825
+      });
     },
     bindDeptChange(e){
         this.setData({

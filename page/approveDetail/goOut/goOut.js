@@ -132,4 +132,9 @@ Page({
         })
       })
   },
+  //删除照片
+  deletePhoto(e){
+    console.log("deletePhoto");
+    console.log(this.data.imageList);
+  }
 });

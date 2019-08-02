@@ -92,7 +92,9 @@ Page({
     var value = e.detail.value
     var param = {
         Title: value.title,
-        Remark: value.remark
+        Remark: value.remark,
+        ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
+        ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
     }
     let callBack = function (taskId) {
         that.bindAll(taskId)
