@@ -168,6 +168,8 @@ Page({
   submit(e) {
     var that = this
     var value = e.detail.value
+    console.log("asdasdsss");
+    console.log(e.detail.value);
     var param = {
         Title: value.title,
         Remark: value.remark

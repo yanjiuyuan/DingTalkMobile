@@ -237,7 +237,9 @@ export default {
               if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf('申请人') >= 0 && node.NodeId>0)) {
                   if (node.AddPeople.length == 0) {
                       dd.alert({ content:'您尚未选择审批人'})
-                      that.data.disablePage = false
+                      that.setData({
+                        disablePage:false
+                      })
                       return
                   }
                   for (let a of node.AddPeople) {
@@ -581,6 +583,7 @@ export default {
       },
       //打印流程表单
       print(){
+        console.log("public");
         this._postData('PurchaseNew/PrintAndSend',
           function(res){
             dd.alert({content:'获取成功'})
