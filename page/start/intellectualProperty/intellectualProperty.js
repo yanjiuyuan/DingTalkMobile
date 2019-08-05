@@ -6,7 +6,7 @@ Page({
   data: {
     ...pub.data,
     disablePage:false,
-    addPeopleNodes: [5], //额外添加审批人节点数组
+    addPeopleNodes: [2,5], //额外添加审批人节点数组
     managers: [{
         name: '詹姆斯',
         emplId: 'manager325'

@@ -54,7 +54,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>项目负责人</view>
         <view class="form-row-content">
-          <text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
+          <text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.ResponsibleMan}}">{{table.ResponsibleMan}}</text>
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
@@ -62,7 +62,7 @@
       <view class="form-row">
         <view class="form-row-label">其他工程师</view>
         <view class="form-row-content">
-          <text auto-height="true" name="OtherEngineers" class="input" disabled="{{true}}" value="{{table.Inventor}}">{{table.Inventor}}</text>
+          <text auto-height="true" name="OtherEngineers" class="input" disabled="{{true}}" value="{{table.OtherEngineers}}">{{table.OtherEngineers}}</text>
         </view>
         <view onTap="choosePeople" class="tag tag-info">+ 选人</view>
       </view>
@@ -71,7 +71,7 @@
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>合作单位</view>
           <view class="form-row-content">
-            <input name="Customer" class="input" placeholder="合作单位" />
+            <input name="Customer" class="input" placeholder="合作单位" value="{{table.Customer}}" />
           </view>
         </view>
       </view>
@@ -107,14 +107,14 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>客户项目整体情况</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="ProjectOverview" class="input" value="{{table.PlantTravelWay}}"/>
+          <textarea auto-height="true" name="ProjectOverview" class="input" value="{{table.ProjectOverview}}"/>
         </view>
       </view>
 
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>技术支持内容要点</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="MainPoints" class="input" value="{{table.PlantTravelWay}}"/>
+          <textarea auto-height="true" name="MainPoints" class="input" value="{{table.MainPoints}}"/>
         </view>
       </view>
 

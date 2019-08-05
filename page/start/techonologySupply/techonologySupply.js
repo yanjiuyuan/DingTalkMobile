@@ -27,14 +27,9 @@ Page({
     show:"hidden"
   },
 
-  //  onLoad: function (options) {
-  //    console.log(options.table);
-
-  // },
     //选人控件方法
   choosePeoples(e){
     console.log('start choose people');
-    console.log(this.data.nodeList);
     var nodeId = e.target.targetDataset.NodeId;
     var that = this;
     dd.complexChoose({
@@ -48,7 +43,7 @@ Page({
         let item2 = "nodeList[1].NodePeople";
 
         that.setData({
-          'table.PeerNumber':names.join(','),
+          'table.ResponsibleMan':names.join(','),
           ResponsibleMan:res.users[0],
           [item1]:res.users[0].name,
           [item2]:[res.users[0].name],
@@ -76,7 +71,7 @@ Page({
         let names = []//userId
         for (let d of res.users) names.push(d.name)
         that.setData({
-          'table.Inventor':names.join(','),
+          'table.OtherEngineers':names.join(','),
            OtherEngineers:res.users,
 
         })
@@ -162,7 +157,6 @@ Page({
       }
     ]
 
-    // console.log(CreateTaskInfo);
 
 
     let body = {

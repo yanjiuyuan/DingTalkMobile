@@ -21,7 +21,7 @@
        <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请名称</view>
         <view class="form-row-content">
-          <input name="Name" class="input" value="{{tableInfo.Name}}"/>
+          <input name="Name" class="input" value="{{table.Name}}"/>
         </view>
       </view>
       <view class="form-row">

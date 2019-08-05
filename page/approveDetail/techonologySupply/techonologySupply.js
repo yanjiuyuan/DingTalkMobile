@@ -141,17 +141,9 @@ Page({
 
       } 
     }
-  }
+  },
+
 
 
   
-  // relaunch(e){
-  //   console.log("重新发起");
-  //   console.log(this.data.table);
-  //   let arr = this.route.split("/");
-  //   let url = "/page/start/" + arr[2] + "/" + arr[3];
-  //   dd.redirectTo({
-  //    url: url + "?" + "table=1" 
-  //   })
-  // }
 });

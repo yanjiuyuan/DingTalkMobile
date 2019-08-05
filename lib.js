@@ -8,6 +8,7 @@ function doWithErrcode(result){
   }
   if(result.error && result.error.errorCode !=0){
     dd.alert({content:result.error.errorMessage})
+    dd.alert({content:result.error.errorMessage})
     return 1
   }
   return 0

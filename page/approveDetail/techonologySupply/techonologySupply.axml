@@ -159,7 +159,7 @@
         <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
       </view>
 
-      <view a:if="{{index == 2 && state == '已撤回'}}">
+      <view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
         <button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
 
       </view>
