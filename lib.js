@@ -1,6 +1,6 @@
 
-//let dormainName = 'http://17e245o364.imwork.net:49415/' //
-let dormainName = 'http://47.96.172.122:8093/'  //研究院
+let dormainName = 'http://17e245o364.imwork.net:49415/' //
+// let dormainName = 'http://47.96.172.122:8093/'  //研究院
 
 function doWithErrcode(result){
   if(!result) {
@@ -56,6 +56,8 @@ export default {
           }
           console.log(url)
           console.log(res)
+
+
           if(doWithErrcode(res.data)) {
             postErrorMsg('GET',url,res.data.error,userInfo)
             return
@@ -84,6 +86,7 @@ export default {
           console.log(url)
           console.log(param)
           console.log(res)
+                    
           if(doWithErrcode(res.data)) {
             postErrorMsg('GET',url,res.data.error,userInfo)
             return

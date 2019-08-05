@@ -1,6 +1,6 @@
-import lib from "/lib.js"
-import template from "/util/template/template.js"
-
+import lib from "/lib.js";
+import template from "/util/template/template.js";
+let app =getApp();
 let logs = [];
 var x = -54
 var y = -46
@@ -174,6 +174,17 @@ export default {
     start: {
       onLoad(param) {
         console.log('start page on load~~~~~~~~~~')
+        console.log("sssssss");
+        if(app.globalData.valid == true){
+            dd.alert({
+              content:"日期、选人、项目请重新选择"
+            })
+            this.setData({
+                table:app.globalData.table
+            })
+            app.globalData.valid = false;
+        }
+    
         console.log(param)
         var that = this
         let title = ''
@@ -226,7 +237,13 @@ export default {
               if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf('申请人') >= 0 && node.NodeId>0)) {
                   if (node.AddPeople.length == 0) {
                       dd.alert({ content:'您尚未选择审批人'})
+<<<<<<< HEAD
                       that.setData({disablePage:false})
+=======
+                      that.setData({
+                        disablePage:false
+                      })
+>>>>>>> a916581c83e95093869267efa7b398b51a2e910d
                       return
                   }
                   for (let a of node.AddPeople) {
@@ -570,6 +587,7 @@ export default {
       },
       //打印流程表单
       print(){
+        console.log("public");
         this._postData('PurchaseNew/PrintAndSend',
           function(res){
             dd.alert({content:'获取成功'})
@@ -655,6 +673,8 @@ export default {
       this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
         let lastNode = {}
         let tempNodeList = []
+        console.log("aaaaaaaaaaaaaaaaa")
+        console.log(res);
         //审批人分组
         for (let node of res) {
             if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime) {
@@ -974,7 +994,6 @@ export default {
       })
     },
     bindPickerChange(e){
-      console.log(this.data.nodeList);
       for(let i = 0;i<this.data.nodeList.length;i++){
         if(this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0){
           this.data.nodeList[i].AddPeople = 
@@ -982,6 +1001,9 @@ export default {
                 name: this.data.projectList[e.detail.value].ResponsibleMan,
                 userId: this.data.projectList[e.detail.value].ResponsibleManId
             }]
+          this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
+          // this.data.nodeList[i].NodePeople=[ this.data.projectList[e.detail.value].ResponsibleMan];
+          console.log(this.data.nodeList);
           this.setData({
             nodeList: this.data.nodeList
           });
@@ -995,8 +1017,22 @@ export default {
         this.setData({
         departIndex: e.detail.value,
       });
-    }
+    },
 
+    //重新发起审批
+    relaunch(e){
+      console.log("重新发起审批");
+      console.log(this.data.table);
+      app.globalData.table = this.data.table;
+      app.globalData.valid = true;
+      console.log(app.globalData.table);
+
+      let arr = this.route.split("/");
+      let url = "/page/start/" + arr[2] + "/" + arr[3];
+      dd.redirectTo({
+      url: url + "?" + "flowid=" + this.data.tableInfo.FlowId
+      })
+    }
 
     },
 };

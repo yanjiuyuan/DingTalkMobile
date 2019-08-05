@@ -103,6 +103,17 @@
           </view>
         </view>
       </view>
+
+      <view class="form-row" style="height:100%;">
+        <view class="form-row-label">相关文件</view>
+        <view class="form-row-content">
+          <view a:for="{{fileList}}">
+            <text>{{item.name}}</text>
+            <button type="primary" data-mediaId="{{item.mediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+          </view>
+        </view>
+      </view>
+
       <!-- 选人组件 -->
        <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">

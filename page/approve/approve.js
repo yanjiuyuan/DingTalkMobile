@@ -156,6 +156,7 @@ Page({
           case 36: url = '/page/approveDetail/intellectualProperty/intellectualProperty'; break;
           case 67: url = '/page/approveDetail/borrowThing/borrowThing'; break;
           case 68: url = '/page/approveDetail/maintain/maintain'; break;
+          case 69: url = '/page/approveDetail/projectClosure/projectClosure'; break; 
         }
         dd.navigateTo({
             url: url + this._formatQueryStr(param)

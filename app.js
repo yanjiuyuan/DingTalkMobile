@@ -31,6 +31,8 @@ App({
   userInfo:null,
   globalData: {
     hasLogin: false,
-    appId: 189694580
+    appId: 189694580,
+    table:{},
+    valid: false,//表示全局table变量是否可用
   },
 });
