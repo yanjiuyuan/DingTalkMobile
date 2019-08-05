@@ -90,6 +90,12 @@ Page({
   submit(e) {
     var that = this
     var value = e.detail.value
+    if(!this.data.projectIndex || this.data.purchaseList.length == 0){
+       dd.alert({
+        content: `表单填写不完整`,
+      });
+      return
+    }
     var param = {
         Title: value.title,
         Remark: value.remark,
