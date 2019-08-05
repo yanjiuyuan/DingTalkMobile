@@ -1,6 +1,6 @@
-import lib from "/lib.js";
-import template from "/util/template/template.js";
-let app =getApp();
+import lib from "/lib.js"
+import template from "/util/template/template.js"
+
 let logs = [];
 var x = -54
 var y = -46
@@ -174,17 +174,6 @@ export default {
     start: {
       onLoad(param) {
         console.log('start page on load~~~~~~~~~~')
-        console.log("sssssss");
-        if(app.globalData.valid == true){
-            dd.alert({
-              content:"日期、选人、项目请重新选择"
-            })
-            this.setData({
-                table:app.globalData.table
-            })
-            app.globalData.valid = false;
-        }
-    
         console.log(param)
         var that = this
         let title = ''
@@ -666,8 +655,6 @@ export default {
       this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
         let lastNode = {}
         let tempNodeList = []
-        console.log("aaaaaaaaaaaaaaaaa")
-        console.log(res);
         //审批人分组
         for (let node of res) {
             if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime) {
@@ -987,6 +974,7 @@ export default {
       })
     },
     bindPickerChange(e){
+      console.log(this.data.nodeList);
       for(let i = 0;i<this.data.nodeList.length;i++){
         if(this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0){
           this.data.nodeList[i].AddPeople = 
@@ -994,38 +982,27 @@ export default {
                 name: this.data.projectList[e.detail.value].ResponsibleMan,
                 userId: this.data.projectList[e.detail.value].ResponsibleManId
             }]
-          this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
-          // this.data.nodeList[i].NodePeople=[ this.data.projectList[e.detail.value].ResponsibleMan];
-          console.log(this.data.nodeList);
           this.setData({
             nodeList: this.data.nodeList
           });
         }
+<<<<<<< HEAD
       }
       this.setData({
         projectIndex: e.detail.value
-      })
+=======
+      } 
+      this.setData({
+        projectIndex: e.detail.value,
+>>>>>>> cc80a90e59095eb12d4be6184b598b62c8a7f825
+      });
     },
     bindDeptChange(e){
         this.setData({
         departIndex: e.detail.value,
       });
-    },
-
-    //重新发起审批
-    relaunch(e){
-      console.log("重新发起审批");
-      console.log(this.data.table);
-      app.globalData.table = this.data.table;
-      app.globalData.valid = true;
-      console.log(app.globalData.table);
-
-      let arr = this.route.split("/");
-      let url = "/page/start/" + arr[2] + "/" + arr[3];
-      dd.redirectTo({
-      url: url + "?" + "flowid=" + this.data.tableInfo.FlowId
-      })
     }
+
 
     },
 };

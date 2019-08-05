@@ -39,10 +39,10 @@
           <input auto-height="true" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" disabled="{{true}}" />
         </view>
       </view>
-      <view class="form-row">
-        <view class="form-row-label">客户名称</view>
+       <view a:if="{{show}}" class="form-row">
+        <view class="form-row-label">合作单位</view>
         <view class="form-row-content">
-          <input auto-height="true" name="Customer" class="input" value="{{table.Customer}}" disabled="{{true}}" />
+          <input class="input" name="Customer" value="{{table.Customer}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-row">
@@ -73,12 +73,6 @@
         <view class="form-row-label">状态</view>
         <view class="form-row-content">
           <input class="input" name="ProjectState" value="{{table.ProjectState}}" disabled="{{true}}" />
-        </view>
-      </view>
-       <view a:if="{{show}}" class="form-row">
-        <view class="form-row-label">合作单位</view>
-        <view class="form-row-content">
-          <input class="input" name="CompanyName" value="{{table.Customer}}" disabled="{{true}}" />
         </view>
       </view>
        <view class="form-row">
