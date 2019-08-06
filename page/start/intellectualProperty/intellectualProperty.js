@@ -7,20 +7,23 @@ Page({
     ...pub.data,
     disablePage:false,
     addPeopleNodes: [2,5], //额外添加审批人节点数组
+<<<<<<< HEAD
+    // managers: [{
+    //     name: '詹姆斯',
+    //     emplId: 'manager325'
+    // }, {
+    //     name: '蔡兴桐',
+    //     emplId: '083452125733424957'
+    // }],
+=======
+>>>>>>> a916581c83e95093869267efa7b398b51a2e910d
     managers: [{
-        name: '詹姆斯',
-        emplId: 'manager325'
+       name: '徐丽华',
+       emplId: '15543527578095619'
     }, {
-        name: '蔡兴桐',
-        emplId: '083452125733424957'
+       name: '陈思杨',
+       emplId: '15545554432996107'
     }],
-    //managers: [{
-    //    name: '徐丽华',
-    //    emplId: '15543527578095619'
-    //}, {
-    //    name: '陈思杨',
-    //    emplId: '15545554432996107'
-    //}],
   },
   submit(e) {
     var value = e.detail.value
