@@ -68,6 +68,10 @@ Page({
               
               if(that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
               else that.data.tableInfo['ImageUrl'] = ''
+              if(JSON.parse(res.data).Content == 'null' || !JSON.parse(res.data).Content){
+                dd.alert({ title: '图片处理发生异常，请联系管理员' });
+                return
+              }
               that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
               that._postData("FlowInfoNew/TaskModify",
                 (res) => {

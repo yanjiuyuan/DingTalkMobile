@@ -40,8 +40,7 @@
     "page/start/pickingManage/pickingManage",
     "page/approveDetail/maintain/maintain",
     "page/start/techonologySupply/techonologySupply",
-    "page/start/overTime/overTime",
-    "page/approveDetail/projectClosure/projectClosure"
+    "page/start/overTime/overTime"
   ],
   "window": {
     "enableWK": "YES",
