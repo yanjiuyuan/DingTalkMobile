@@ -36,7 +36,7 @@
           <view class="form-row-content">
             <view a:for="{{imageList}}">
               <image  onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
-              <button size="mini" type="primary"  data-url="{{item}}" data-index="{{index}}" onTap="deletePhoto">删除</button>
+              <button a:if="{{nodeid == 2 && index == 0}}" size="mini" type="primary"  data-url="{{item}}" data-index="{{index}}" onTap="deletePhoto">删除</button>
             </view>
             <view a:if="{{nodeid == 2 && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view>
             <!-- <view a:if="{{nodeid == 2 && index == 0}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view> -->

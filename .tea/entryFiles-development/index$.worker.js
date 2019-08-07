@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -71,5 +70,3 @@ require('../../page/approveDetail/projectClosure/projectClosure');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
-=======
->>>>>>> 778b0dd008a3a257fe6adadc14b8f3a8dc5ea024
