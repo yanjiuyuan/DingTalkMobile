@@ -527,6 +527,7 @@ export default {
           case '33': url = "DrawingChange/Read"; break;
           case '67': url = "Borrow/Read"; break;
           case '68': url = "Maintain/Read"; break;
+          // case '69': url = "ProjectClosure/Read"; break;
         }
         if(!url) return
         if(flowid == '12'){
