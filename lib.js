@@ -1,5 +1,9 @@
 let dormainName = 'http://17e245o364.imwork.net:49415/' //
+<<<<<<< HEAD
 // let dormainName = 'http://47.96.172.122:8093/'  //研究院
+=======
+//let dormainName = 'http://47.96.172.122:8093/'  //研究院
+>>>>>>> 035c0895c6add23b05f64901a7ea274331b0f988
 
 function doWithErrcode(result){
   if(!result) {
