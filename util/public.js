@@ -237,13 +237,9 @@ export default {
               if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf('申请人') >= 0 && node.NodeId>0)) {
                   if (node.AddPeople.length == 0) {
                       dd.alert({ content:'您尚未选择审批人'})
-<<<<<<< HEAD
-                      that.setData({disablePage:false})
-=======
                       that.setData({
                         disablePage:false
                       })
->>>>>>> a916581c83e95093869267efa7b398b51a2e910d
                       return
                   }
                   for (let a of node.AddPeople) {
@@ -531,6 +527,7 @@ export default {
           case '33': url = "DrawingChange/Read"; break;
           case '67': url = "Borrow/Read"; break;
           case '68': url = "Maintain/Read"; break;
+          // case '69': url = "ProjectClosure/Read"; break;
         }
         if(!url) return
         if(flowid == '12'){
