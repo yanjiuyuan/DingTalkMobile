@@ -130,7 +130,6 @@ Page({
         // this.data.planLength = res.Place.split('-').length
         // //初始定位长度，不能删除初始值
         // this.data.locationLength = this.data.placeArr.length
-        console.error(res)
         this.setData({
           table: res
         })
