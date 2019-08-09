@@ -696,7 +696,8 @@ export default {
                 }]
             }
         }
-        this.getNodeList_done(tempNodeList)
+        this.getNodeList_done(tempNodeList);
+        // this.data.nodeList = tempNodeList;
         that.setData({
           nodeList:tempNodeList,
           isBack:res[0].IsBack
@@ -1033,4 +1034,3 @@ export default {
 
     },
 };
-
