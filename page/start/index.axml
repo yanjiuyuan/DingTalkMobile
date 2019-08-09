@@ -12,7 +12,7 @@
 				<text class="desc-name">{{DingData.nickName}}</text>
             	<text class="desc"> - 正在工作中</text>
 			</view>
-            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉'  }}"
+            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉' || DingData.nickName == '陈思扬' || DingData.nickName == '林淑珍' ||DingData.nickName == '徐丽华'    }}"
              onTap="choosePeople" class="tag tag-info">+ 选人</view>
              <picker onChange="selectUser" value="{{userIndex}}" range="{{userList}}" range-key="NodePeople" a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯'}}">
               <view class="row">

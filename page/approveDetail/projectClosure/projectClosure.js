@@ -7,6 +7,23 @@ Page({
     hidden: true,
     good: {},
     result:{},
+
+
+    rotate:"RotateToTheRight",
+    show:"hidden",
+
+    rotate1:"RotateToTheRight",
+    show1:"hidden",
+
+    rotate2:"RotateToTheRight",
+    show2:"hidden",
+
+    rotate3:"RotateToTheRight",
+    show3:"hidden",
+
+    rotate4:"RotateToTheRight",
+    show4:"hidden",
+
     tableItems1: [
       {
         prop: 'Type',
@@ -268,7 +285,7 @@ Page({
               this.setData({
                nodeid : i.NodeId,
               })
-              break;
+              break;//申请人是否可以是部长
           }
         }
         let arr1 = [];
@@ -362,7 +379,11 @@ PrintOne(){
     UserId: this.data.DingData.userid, 
     TaskId: this.data.taskid, 
     Type: 1};
-  this._postData("ProjectClosure/PrintExcel",(res) => {},param);
+  this._postData("ProjectClosure/PrintExcel",(res) => {
+    dd.alert({
+      content:"打印完成，请在钉钉内查收"
+    })
+  },param);
 
 },
 PrintTwo(){
@@ -370,14 +391,118 @@ PrintTwo(){
     UserId: this.data.DingData.userid, 
     TaskId: this.data.taskid, 
     Type: 2};
-  this._postData("ProjectClosure/PrintExcel",(res) => {},param);
+  this._postData("ProjectClosure/PrintExcel",(res) => {
+    dd.alert({
+      content:"打印完成，请在钉钉内查收"
+    })
+  },param);
 },
 PrintThree(){
   let param = {
     UserId: this.data.DingData.userid, 
     TaskId: this.data.taskid, 
     Type: 3};
-  this._postData("ProjectClosure/PrintExcel",(res) => {},param);
-}
+  this._postData("ProjectClosure/PrintExcel",(res) => {
+    dd.alert({
+      content:"打印完成，请在钉钉内查收"
+    })
+  },param);
+},
+
+printTable(){
+  console.log("printTable");
+    let param = {
+    UserId: this.data.DingData.userid, 
+    TaskId: this.data.taskid, 
+   };
+
+    this._postData("ProjectClosure/PrintAndSend",(res) => {
+    dd.alert({
+      content:"打印完成，请在钉钉内查收"
+    })
+    },param);
+  },
+
+
+    // 展示和隐藏
+    showOrClose(){
+    if(this.data.rotate == "RotateToTheRight"){
+      this.setData({
+        rotate:"Rotate-downward",
+        show:"show"
+      })
+    }
+
+    else if(this.data.rotate == "Rotate-downward"){
+      this.setData({
+        rotate:"RotateToTheRight",
+        show:"hidden"
+      })
+    }
+  },
+
+
+  showOrCloseOne(){
+  if(this.data.rotate1 == "RotateToTheRight"){
+    this.setData({
+      rotate1:"Rotate-downward",
+      show1:"show"
+    })
+  }
+
+  else if(this.data.rotate1 == "Rotate-downward"){
+    this.setData({
+      rotate1:"RotateToTheRight",
+      show1:"hidden"
+    })
+  }
+},
+ showOrCloseTwo(){
+  if(this.data.rotate2 == "RotateToTheRight"){
+    this.setData({
+      rotate2:"Rotate-downward",
+      show2:"show"
+    })
+  }
+
+  else if(this.data.rotate2 == "Rotate-downward"){
+    this.setData({
+      rotate2:"RotateToTheRight",
+      show2:"hidden"
+    })
+  }
+},
+showOrCloseThree(){
+  if(this.data.rotate3 == "RotateToTheRight"){
+    this.setData({
+      rotate3:"Rotate-downward",
+      show3:"show"
+    })
+  }
+
+  else if(this.data.rotate3 == "Rotate-downward"){
+    this.setData({
+      rotate3:"RotateToTheRight",
+      show3:"hidden"
+    })
+  }
+},
+
+
+showOrCloseFour(){
+  if(this.data.rotate4 == "RotateToTheRight"){
+    this.setData({
+      rotate4:"Rotate-downward",
+      show4:"show"
+    })
+  }
+
+  else if(this.data.rotate4 == "Rotate-downward"){
+    this.setData({
+      rotate4:"RotateToTheRight",
+      show4:"hidden"
+    })
+  }
+},
 
 });
