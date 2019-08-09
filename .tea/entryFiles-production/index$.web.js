@@ -44,4 +44,3 @@ require('../../page/start/pickingManage/pickingManage');
 require('../../page/approveDetail/maintain/maintain');
 require('../../page/start/techonologySupply/techonologySupply');
 require('../../page/start/overTime/overTime');
-require('../../page/approveDetail/projectClosure/projectClosure');

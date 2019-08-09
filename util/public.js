@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.52,
+    version: 2.53,
     DingData:{
       nickName:'',
       departName:'',
