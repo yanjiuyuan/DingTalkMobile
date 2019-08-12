@@ -119,11 +119,6 @@
   <!-- 基本表单 -->
   <form onSubmit="submit">
 
-    <view class="page-section">
-
-    <form onSubmit="addGood" onReset="asd">
-
-  
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
@@ -137,6 +132,14 @@
           <input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
         </view>
       </view>
+
+
+
+    <view class="page-section">
+
+    <form onSubmit="addGood" onReset="asd">
+
+
 
       <view class="form-row">
         <view class="form-row-label" >选择类型</view>

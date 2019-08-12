@@ -120,9 +120,15 @@ Page({
   //表单操作相关
   search(e){
     let that = this
-    dd.showLoading({
+    if(!e.detail.value.keyWord){
+        dd.showToast({content: '请输入关键字'});
+    }
+    else{
+      dd.showLoading({
         content: '获取中...'
       });
+    
+    }
     var value = e.detail.value
     console.log(value.keyWord) 
     if (!value || !value.keyWord) return
@@ -152,10 +158,19 @@ Page({
     });
   },
   searchAndAdd2(e){
-    dd.showLoading({
+    
+    if(!e.detail.value.keyWord){
+        dd.showToast({content: '请输入流水号'});
+    }
+    else{
+      dd.showLoading({
         content: '获取中...'
       });
+    
+    }
     var value = e.detail.value
+
+
     console.log(value.keyWord) 
     if (!value || !value.keyWord) return
     var that = this
@@ -186,9 +201,15 @@ Page({
     })
   },
   searchAndAdd(e){
-    dd.showLoading({
+    if(!e.detail.value.keyWord){
+        dd.showToast({content: '请输入流水号'});
+    }
+    else{
+      dd.showLoading({
         content: '获取中...'
       });
+    
+    }
     var value = e.detail.value
     console.log(value.keyWord) 
     if (!value || !value.keyWord) return

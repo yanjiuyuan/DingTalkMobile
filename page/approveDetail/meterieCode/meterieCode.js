@@ -151,4 +151,7 @@ Page({
     this.createMaskShowAnim();
     this.createContentShowAnim();
   },
+  onReady(){
+    console.log(this.data.tableInfo);
+  }
 });

@@ -97,21 +97,28 @@ Page({
 
   //表单相关
   search(e){
-    console.log(e);
     let that = this;
     let value = e.detail.value;
-    if(e.buttonTarget.dataset.isSend == undefined) {
-      this._getData("Pick/Query" + that.formatQueryStr({ applyManId:this.data.DingData.userid,startTime:value.StartTime,endTime:value.EndTime,Key:value.keyWord}),(data)=>{
-      console.log(data);
+    console.log(value);
+    if(value.keyWord == "" || value.StartTime == "" || value.EndTime == ""){
+        dd.alert({content: '表单填写不完整'});
+      
+    }
+   else if(e.buttonTarget.dataset.isSend == undefined) {
+      this._getData("Pick/Query" + that.formatQueryStr({ applyManId:this.data.DingData.userid,startTime:value.StartTime,endTime:value.EndTime,Key:value.keyWord}),(res)=>{
+      console.log(res);
+      if(res.length == 0){
+        dd.showToast({content: '暂无数据'});
+      }
       that.setData({
-        purchaseList:data
+        purchaseList:res
       })
     });
     }
-    if(e.buttonTarget.dataset.isSend == true){
+    else if(e.buttonTarget.dataset.isSend == true){
       this._getData("Pick/Query" + that.formatQueryStr({ applyManId:this.data.DingData.userid,startTime:value.StartTime,endTime:value.EndTime,Key:value.keyWord,isSend:true
-        }),(data)=>{
-      console.log("已推送至钉钉");
+        }),(res)=>{
+        dd.alert({content: '已推送至钉钉'});
     });
     }
 
