@@ -279,7 +279,7 @@ Page({
      this._getData("ProjectClosure/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
       (res) => {
     
-        console.log(res);
+        console.log(res);  
         for(let i of this.data.nodeList){
           if(i.ApplyMan == this.data.DingData.nickName){
               this.setData({

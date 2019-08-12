@@ -11,8 +11,10 @@ Page({
     var that = this
     var value = e.detail.value
     value['CooperateDept'] = this.data.DeptNames[this.data.departIndex]
-    console.log(value)
-    if(!value.CooperateDept || !value.CooperateMan || !value.PlanBeginTime || !value.PlanEndTime || !value.CooperateContent || !value.PlanDays) 
+    console.log(value);
+
+
+    if(value.CooperateDept == "" || value.CooperateMan == "" || value.PlanBeginTime == "" || value.PlanEndTime == "" || value.CooperateContent == "" || value.PlanDays == "") 
     {
       dd.alert({content:'表单未填写完整'})
       return
