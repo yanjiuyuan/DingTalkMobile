@@ -25,11 +25,11 @@ Page({
       this.data.table['ActualType'] = this.data.IntellectualPropertyTypes[this.data.iptIndex]
     }
     this.setData({disablePage:true})
-    this._postData("IntellectualProperty/Modify",
-      (res) => {
-        that.aggreSubmit(param)
-      },this.data.table
-    )
+    // this._postData("IntellectualProperty/Modify",
+    //   (res) => {
+    //     that.aggreSubmit(param)
+    //   },this.data.table
+    // )
   },
   print(){
     var that = this
@@ -46,7 +46,7 @@ Page({
   //下拉框选择处理
   changeIptIndex(e){
       this.setData({
-      iptIndex: e.detail.value,
+      stateIndex: e.detail.value,
     })
   },
   changeCompany(e){
@@ -86,7 +86,16 @@ Page({
         for(let r in res){
             if(res[r] === null) res[r] = ''
           }
+          console.log("asdasda");
+          console.log(res);
+          let index =0;
+          for(let i = 0, len = this.data.IntellectualPropertyTypes.length; i < len;i++){
+            if(res.Type == this.data.IntellectualPropertyTypes[i]){
+              index = i;
+            }
+          }
         this.setData({
+          stateIndex:index,
           table: res
         })
       }

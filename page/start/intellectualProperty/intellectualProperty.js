@@ -7,29 +7,43 @@ Page({
     ...pub.data,
     disablePage:false,
     addPeopleNodes: [2,5], //额外添加审批人节点数组
+
     managers: [{
        name: '徐丽华',
-       emplId: '15543527578095619'
+       userId: '15543527578095619'
     }, {
        name: '陈思杨',
-       emplId: '15545554432996107'
+       userId: '15545554432996107'
     }],
+
+
+    //研究院id
+    // managers: [{
+    //     name: '徐丽华',
+    //     userId: '15543527578095619'
+    // }, {
+    //     name: '陈思杨',
+    //     userId: '15545554432996107'
+    // }],
   },
   submit(e) {
     var value = e.detail.value
-    value['Type'] = this.data.IntellectualPropertyTypes[this.data.iptIndex]
+    value['Type'] = this.data.IntellectualPropertyTypes[this.data.stateIndex]
     value['Project'] = this.data.projectList[this.data.projectIndex].ProjectName
     value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
     value['InventorId'] = this.data.tableInfo.InventorId
     value['ActualInventor'] = this.data.tableInfo.ActualInventor
     value['ActualInventorId'] = this.data.tableInfo.ActualInventorId
-    if(!value.Type || !value.ProjectId || !value.InventorId|| !value.Name) 
+
+    if(!value.Type || !value.ProjectId || !value.InventorId || !value.Name) 
     {
       console.log(value)
       dd.alert({content:'表单未填写完整'})
       return
     }
     value['Type'] == '软件著作权' ? this.data.nodeList[5].AddPeople = [this.data.managers[1]] : this.data.nodeList[5].AddPeople = [this.data.managers[0]]
+    console.log(value);
+    console.log(this.data.nodeList);
     let callBack = (taskId) => {
         console.log("提交审批ok!")
         value.TaskId = taskId
@@ -65,8 +79,13 @@ Page({
     })
   },
   changeState(e){
+    console.log(e.detail.value);
+    let Type = this.data.IntellectualPropertyTypes[e.detail.value];
+    Type == '软件著作权' ? this.data.nodeList[5].AddPeople = [this.data.managers[1]] : this.data.nodeList[5].AddPeople = [this.data.managers[0]];
+
       this.setData({
       stateIndex: e.detail.value,
+      nodeList: this.data.nodeList
     })
   },
   changeCompany(e){

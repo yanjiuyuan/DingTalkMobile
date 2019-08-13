@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "page/start/index",
     "page/approve/approve",
     "page/start/purchase/purchase",
@@ -41,7 +40,8 @@
     "page/approveDetail/maintain/maintain",
     "page/start/techonologySupply/techonologySupply",
     "page/start/overTime/overTime",
-    "page/approveDetail/projectClosure/projectClosure"
+    "page/approveDetail/projectClosure/projectClosure",
+    "page/approveDetail/gift/gift"
   ],
   "window": {
     "enableWK": "YES",
