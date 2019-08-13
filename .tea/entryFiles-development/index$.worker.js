@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -67,3 +68,5 @@ require('../../page/approveDetail/gift/gift');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
+=======
+>>>>>>> 9e9dec65ccb7aacdbeb70eb537109f3646a0725b
