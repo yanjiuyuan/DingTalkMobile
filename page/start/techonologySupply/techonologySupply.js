@@ -191,7 +191,7 @@ Page({
             this._postData("TechnicalSupport/Save",(data) => {
               
               dd.alert({
-                content:"保存成功",
+                content:"提交审批成功",
                 success:() => {
                 dd.navigateBack({
                       delta: 2

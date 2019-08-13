@@ -144,6 +144,7 @@ Page({
           case 13: url = '/page/approveDetail/usePublicCar/usePublicCar'; break;
           case 14: url = '/page/approveDetail/useCar/useCar'; break;
           case 18: url = '/page/approveDetail/officePurchase/officePurchase'; break;
+          case 24: url = '/page/approveDetail/gift/gift'; break;
           case 19: url = '/page/approveDetail/sendRead/sendRead'; break;
           case 26: url = '/page/approveDetail/picking/picking'; break;
           case 27: url = '/page/approveDetail/intoStorage/intoStorage'; break;
