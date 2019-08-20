@@ -25,11 +25,11 @@ Page({
       this.data.table['ActualType'] = this.data.IntellectualPropertyTypes[this.data.iptIndex]
     }
     this.setData({disablePage:true})
-    // this._postData("IntellectualProperty/Modify",
-    //   (res) => {
-    //     that.aggreSubmit(param)
-    //   },this.data.table
-    // )
+    this._postData("IntellectualProperty/Modify",
+      (res) => {
+        that.aggreSubmit(param)
+      },this.data.table
+    )
   },
   print(){
     var that = this

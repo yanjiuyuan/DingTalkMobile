@@ -11,6 +11,7 @@
         <view class="form-row-label">标题</view>
         <view class="form-row-content">
           <textarea  name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+          <!-- {{tableInfo.Title}} -->
         </view>
       </view>
       <!-- <view class="form-line" /> -->
@@ -18,6 +19,7 @@
         <view class="form-row-label">项目名</view>
         <view class="form-row-content">
           <textarea  name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+          <!-- {{tableInfo.ProjectName}} -->
         </view>
       </view>
       <!-- <view class="form-line" />  -->
@@ -25,6 +27,12 @@
         <view class="form-row-label">申请人</view>
         <view class="form-row-content">
           <input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label">图纸设计人</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" value="{{tableInfo.counts.Designer}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-row" style="height:auto;">

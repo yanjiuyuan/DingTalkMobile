@@ -30,12 +30,14 @@ Page({
     var value = e.detail.value
     value['Type'] = this.data.IntellectualPropertyTypes[this.data.stateIndex]
     value['Project'] = this.data.projectList[this.data.projectIndex].ProjectName
+    value['ProjectNo'] = this.data.projectList[this.data.projectIndex].ProjectId,
     value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
+    value['ProjectName'] = this.data.projectList[this.data.projectIndex].ProjectName
     value['InventorId'] = this.data.tableInfo.InventorId
     value['ActualInventor'] = this.data.tableInfo.ActualInventor
     value['ActualInventorId'] = this.data.tableInfo.ActualInventorId
 
-    if(!value.Type || !value.ProjectId || !value.InventorId || !value.Name) 
+    if(value.Type == "" || value.ProjectNo == "" || value.InventorId == "" || value.Name == "") 
     {
       console.log(value)
       dd.alert({content:'表单未填写完整'})
