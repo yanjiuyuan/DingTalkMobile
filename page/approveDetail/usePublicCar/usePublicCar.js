@@ -26,6 +26,12 @@ Page({
     }
     if(this.data.nodeid == 2){
       if(!this.data.table['CarId']) return
+      if(!this.data.carList[this.data.carIndex]){
+        dd.alert({
+          content:"表单填写未完整"
+        })
+        return;
+      }
       param['Title'] = this.data.tableInfo.Title + '-' + this.data.carList[this.data.carIndex].Name
     }
     this.setData({disablePage:true})
@@ -106,6 +112,7 @@ Page({
         let data = res[0]
         if(!data.FactTravelWay) data.FactTravelWay = data.PlantTravelWay
         if(!data.PeerNumber) data.PeerNumber = ''
+        console.log(data);
         this.setData({
           table: data
         })

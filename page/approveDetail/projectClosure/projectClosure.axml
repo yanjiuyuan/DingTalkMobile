@@ -186,9 +186,9 @@
         </view>
       </view>
 
-      <view a:if="{{table.IsPortrait}}">纵向基本情况表</view>
-      <template a:if="{{table.IsPortrait}}" is="datatable" data="{{items:tableItems3,data:tableData3,param:tableParam}}"/>
-      <button a:if="{{table.IsPortrait}}" size="default" type="primary" onTap="PrintOne">打印纵向基本情况表</button>
+      <view a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}">纵向基本情况表</view>
+      <template a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" is="datatable" data="{{items:tableItems3,data:tableData3,param:tableParam}}"/>
+      <button a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" size="default" type="primary" onTap="PrintOne">打印纵向基本情况表</button>
 
       <view style="height:50rpx;"></view>
 
@@ -200,7 +200,7 @@
             <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
           </view>
         </view>    
-        <view class="filelistn {{show}}">
+        <view class="{{show}}">
           <view class="form-row" a:if="{{SuggestBook1 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
             <view class="form-row-label">立项书或建议书</view>
             <view class="form-row-content">
@@ -345,7 +345,7 @@
       </view>
 
       <!-- 知识产权表 -->
-      <view a:if="{{nodeid !== 1}}">
+      <view a:if="{{nodeid !== 1 && intellectualProperty.length > 0}}">
         <view class="form-row margin" onTap="showOrCloseTwo" >
           <view style = "font-size:0.34rem">知识产权表</view>
           <view class="form-row-content">

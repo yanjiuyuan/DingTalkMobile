@@ -43,6 +43,8 @@ export default {
                   node.AddPeople = res.users
               }
           }
+          console.log("选择了一个人");
+          console.log(that.data.nodeList);
           that.setData({
             nodeList:that.data.nodeList
           })

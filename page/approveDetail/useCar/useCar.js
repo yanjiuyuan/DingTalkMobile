@@ -163,4 +163,35 @@ Page({
       }
     )
   },
+
+
+  deletePhoto(e){
+    my.confirm({
+      title: '温馨提示',
+      content: '是否需要删除？',
+      confirmButtonText: 'YES',
+      cancelButtonText: 'NO',
+      success: (result) => {
+          if(result.confirm == true){
+
+              let index = e.currentTarget.dataset.index;
+              this.data.imageList.splice(index,1);
+              this.setData({
+                imageList:this.data.imageList
+              })
+              this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(',');
+              this.data.imgUrlList.splice(index,1);
+              this.data.tableInfo['ImageUrl'] = this.data.imgUrlList.join(',');
+              this._postData("FlowInfoNew/TaskModify",
+                (res) => {
+                },this.data.tableInfo
+              )
+              
+          }
+      },
+    });
+            
+
+    
+  },
 });

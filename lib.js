@@ -53,9 +53,8 @@ export default {
           if (app.userInfo) {
             userInfo = app.userInfo
           }
-          console.log(url)
-          console.log(res)
-
+          console.log(url);
+          console.log(res);
 
           if(doWithErrcode(res.data)) {
             postErrorMsg('GET',url,res.data.error,userInfo)

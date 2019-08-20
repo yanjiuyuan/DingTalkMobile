@@ -4,7 +4,7 @@ Page({
   ...pub.func.dowith,
   data: {
     ...pub.data,
-    table:{},
+    table:{}
   },
   submit(e) {
     var that = this
@@ -21,6 +21,7 @@ Page({
       this.data.table['FactEndTime'] = value.FactEndTime
       this.data.table['FactDays'] = value.FactDays
       this.data.table['FactCooperateContent'] = value.FactCooperateContent
+      this.data.addPeopleNodes = [6]
       //this.data.table['FactCooperateMan'] = value.FactCooperateMan
     }
     
@@ -42,11 +43,19 @@ Page({
         let ids = []
         for (let d of res.users){
           names.push(d.name)
-          ids.push(d.emplId)
+          ids.push(d.userId)
+
         } 
+        let a = [];
+        for(let i = 0; i<names.length;i++){
+          a.push({name:names[i],userId:ids[i]});
+        }
+        that.data.nodeList[6].AddPeople = a;
+        console.log(that.data.nodeList);
         that.setData({
           'table.FactCooperateMan':names.join(','),
-          'table.FactCooperateManId':ids.join(',')
+          'table.FactCooperateManId':ids.join(','),
+          nodeList:that.data.nodeList
         })
       },
       fail: function(err) {
@@ -55,7 +64,8 @@ Page({
     })
   },
   onReady(){
-    var that = this
+    let that = this
+      
      this._getData("Cooperate/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
       (res) => {
         if (this.data.nodeid == 1) {
@@ -65,8 +75,18 @@ Page({
             res['FactCooperateContent'] = res.CooperateContent
             res['FactCooperateMan'] = res.CooperateMan
         }
+        if(this.data.nodeid == 4){
+          let CooperateMan = res.CooperateMan.split(",");;
+          let CooperateManId = res.CooperateManId.split(",");
+          for(let i = 0;i<CooperateMan.length;i++){
+            that.data.nodeList[6].AddPeople.push({name:CooperateMan[i],userId:CooperateManId[i]})
+          }      
+        }
+
+
         this.setData({
-          table: res
+          table: res,
+          nodeList: that.data.nodeList
         })
       }
     )

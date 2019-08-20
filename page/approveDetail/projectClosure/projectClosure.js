@@ -331,7 +331,6 @@ Page({
   //显示弹窗表单
   chooseItem(e){
     if(!e) return;
-    console.log("asdasd");
     console.log(e);
     this.data.good = e.target.targetDataset.row;
     if(!this.data.good) return;
@@ -366,8 +365,24 @@ Page({
     }
     let index = e.buttonTarget.dataset.index;
     console.log(param);
+
+    let Money = 0;
+    let NameAndMoney = 0;
+    this.data.tableData4[index] = param;
+    for(let i = 0 ,len = this.data.tableData4.length - 1; i<len; i++){
+        
+        Money += (this.data.tableData4[i].Money - 0);
+        NameAndMoney += (this.data.tableData4[i].NameAndMoney - 0);
+    }
+    console.log(this.data.tableData4);
+    console.log(Money);
+    console.log(NameAndMoney);
+
     this.setData({
       [`tableData4[${index}]`]: param,
+      [`tableData4[14].Money`]:Money,
+      [`tableData4[14].NameAndMoney`]:NameAndMoney,
+
     })
     this.onModalCloseTap();//隐藏
 

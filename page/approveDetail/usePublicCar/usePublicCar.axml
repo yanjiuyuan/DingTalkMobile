@@ -121,8 +121,8 @@
       <view a:if="{{index!=0}}">
         <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
       </view>
-      <view a:if="{{index==2 && state=='未完成'}}">
-        <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+      <view a:if="{{(index == 2 || index == 1 ) && state=='未完成'}}">
+        <button a:if = "{{index == 2}}" onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
         <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
       </view>
     </view>

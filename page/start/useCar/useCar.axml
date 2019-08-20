@@ -54,18 +54,18 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
-          <input name="StartTime" class="input" placeholder="开始时间" onTap="" disabled="{{true}}"
+          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" 
           value="{{table.StartTime}}"/>
         </view>
-        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
+        <!-- <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view> -->
       </view>
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="结束时间" disabled="{{true}}"
+          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
           value="{{table.EndTime}}"/>
         </view>
-        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
+        <!-- <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view> -->
       </view>
       <checkbox-group onChange="onChecked">
         <label class="checkbox" a:for="{{items}}">

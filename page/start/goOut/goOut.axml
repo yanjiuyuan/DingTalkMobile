@@ -60,6 +60,7 @@
         <button type="primary" onTap="showInput" class="button-inline" style='margin-left:10rpx;'>添加地点</button>
         <button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除地点</button>
       </view>
+
       <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>外出事由</view>
@@ -67,33 +68,38 @@
           <textarea auto-height="true" name="Content" class="input" value="{{table.Content}}"/>
         </view>
       </view>
+
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
-          <input name="BeginTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="{{true}}"
+          <input name="BeginTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" 
           value="{{table.BeginTime}}"/>
         </view>
-        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
+        <!-- <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view> -->
       </view>
+
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime" disabled="{{true}}"
+          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime" 
           value="{{table.EndTime}}"/>
         </view>
-        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
+        <!-- <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view> -->
       </view>
+
       <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>时长/小时</view>
+        <view class="form-row-label"><template is="required"></template>时长(小时)</view>
         <view class="form-row-content">
           <input name="Duration" class="input" value="{{table.Duration}}" />
         </view>
       </view>
-      <view class="form-row">
+
+      <!-- <view class="form-row">
         <view style="margin-left:25%;">
           <button type="primary" onTap="upLoadFile" class="button-inline" style='margin-left:10rpx;'>上传文件</button>
         </view>
-      </view>
+      </view> -->
+
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>

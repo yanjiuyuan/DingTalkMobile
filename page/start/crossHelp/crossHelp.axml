@@ -37,11 +37,11 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>协作人</view>
         <view class="form-row-content">
-          <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}">{{tableInfo.CooperateMan}}</text>
+          <text auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}">{{tableInfo.CooperateMan}}</text>
          
           <!-- <textarea auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}"/> -->
         </view>
-        <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
+        <view onTap="choosePeopleOne" class="tag tag-info">+ 选人</view>
       </view>
       <!-- <view class="form-line" /> -->
       <view class="form-row">

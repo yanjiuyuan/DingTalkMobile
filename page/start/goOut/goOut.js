@@ -150,11 +150,22 @@ Page({
             'table.Duration': this._computeDurTime(new Date(this.data.startDateStr.replace(/-/g,'/')),new Date(res.date.replace(/-/g,'/')),'h')
           })
         }
+        // this.calculatingTime(this.data.table.BeginTime,res.date);
+
         this.setData({
-          'table.EndTime': res.date
+          'table.EndTime': res.date,
         })
       },
     });
   },
+
+  //  计算时长
+  // calculatingTime(startTime,endTime){
+  
+  //     let start = startTime;
+  //     let end = endTime;
+      
+
+  //   }
  
 });

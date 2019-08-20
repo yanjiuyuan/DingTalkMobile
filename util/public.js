@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.55,
+    version: 2.57,
     DingData:{
       nickName:'',
       departName:'',
@@ -82,6 +82,12 @@ export default {
         title:'基地加班申请',
         url: 'overTime/overTime',
         position: (x + 3 * xTap) + 'px ' + (y + 0 * yTap) + 'px'},
+        {
+        flowId: 24,
+        sortId: 7,
+        title:'礼品招待领用申请',
+        url: 'gift/gift',
+        position: (x + 0 * xTap) + 'px ' + (y + 4 * yTap) + 'px'},
          {
         flowId: 26,
         sortId: 4,
@@ -107,7 +113,7 @@ export default {
         {
             flowId: 32,
             sortId: 7,
-            title:'跨部门协助',
+            title:'跨部门协作申请',
             url: 'crossHelp/crossHelp',
             position: (x + 6 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
         },
@@ -149,6 +155,13 @@ export default {
             title:'领料管理',
             url:'pickingManage/pickingManage',
             position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+        },{
+            flowId:70,
+            sortId:9,
+            title:'生产进度监控',
+            flowName:"生产进度监控",
+            url:'productionMonitoring/productionMonitoring',
+            position: (x + 5 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
         }
         ],
 
@@ -174,7 +187,6 @@ export default {
     start: {
       onLoad(param) {
         console.log('start page on load~~~~~~~~~~')
-        console.log("sssssss");
         if(app.globalData.valid == true){
             dd.alert({
               content:"日期、选人、项目请重新选择"
@@ -249,7 +261,7 @@ export default {
                           "IsEnable": 1,
                           "FlowId": that.data.flowid + '',
                           "NodeId": node.NodeId + '',
-                          "IsSend": false,
+                          "IsSend": node.IsSend,
                           "State": 0,
                           "OldFileUrl": null,
                           "IsBack": null
@@ -261,6 +273,8 @@ export default {
                   }
               }
           }
+          // console.log("assssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+          // console.log(paramArr);
          
           that._postData("FlowInfoNew/CreateTaskInfo", function(res) {
             let taskid = res
@@ -575,12 +589,50 @@ export default {
       },
       //钉一下功能
       ding(){
-        dd.createDing({
-          users : this.data.dingList,// 用户列表，工号
-          type: 1, // 附件类型 1：image  2：link
-          alertType: 2, // 钉发送方式 0:电话, 1:短信, 2:应用内
-          text: '请帮我审批一下，审批编号为:'+ this.data.taskid,  // 正文
-        });
+        //电脑接收
+        // dd.createDing({
+        //   users : this.data.dingList,// 用户列表，工号
+        //   type: 1, // 附件类型 1：image  2：link
+        //   alertType: 2, // 钉发送方式 0:电话, 1:短信, 2:应用内
+        //   text: '请帮我审批一下，审批编号为:'+ this.data.taskid,  // 正文
+        
+        //   success:function(res){
+        //     console.log(res);
+        //   },
+        //   fail:function(err){
+        //     console.log(err);
+            
+        //   }
+        // })  
+          // 电脑手机接收
+          console.log(this.data.dingList);
+          console.log(this.data.DingData.userid);
+          console.log(this.route);
+          // let obj = {
+          // flowid:this.data.flowid,
+          // index:this.data.index,
+          // nodeid:this.data.nodeid,
+          // taskid:this.data.taskid,
+          // state:this.data.state
+          // }
+          // console.log(obj);
+          let param = {
+              userId: this.data.dingList[0],
+              title: '请帮我审核一下流水号为 ' + this.data.taskid + ' 的流程',
+              applyMan: this.data.DingData.userid,
+              linkUrl: "eapp://page/approve/approve?index=0"
+              // linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
+          }
+          this._postData('DingTalkServers/sendOaMessage' + this.formatQueryStr(param),(res) => {
+                dd.alert({
+                  content:"已为你催办~"
+                })
+          },)
+
+ 
+
+
+
       },
       //打印流程表单
       print(){
@@ -662,7 +714,7 @@ export default {
     },
     //获取节点列表
     getNodeList() {
-      var that = this
+      let that = this
       let param = {
         FlowId:this.data.flowid,
         TaskId:this.data.taskid
@@ -670,26 +722,30 @@ export default {
       this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
         let lastNode = {}
         let tempNodeList = []
-        console.log("aaaaaaaaaaaaaaaaa")
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         console.log(res);
-        //审批人分组
+        //审批人分组         
         for (let node of res) {
-            if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime) {
-                tempNodeList[tempNodeList.length - 1].ApplyMan = tempNodeList[tempNodeList.length - 1].ApplyMan + ',' + node.ApplyMan
+            if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime && (lastNode.NodeName == "抄送" || lastNode.NodeName == "抄送相关人员" || lastNode.NodeName == "抄送小组成员" || lastNode.NodeName == "抄送所有人") && (node.NodeName == "抄送" || node.NodeName == "抄送相关人员" || node.NodeName == "抄送小组成员" || node.NodeName == "抄送所有人")) {
+                tempNodeList[tempNodeList.length - 1].ApplyMan = tempNodeList[tempNodeList.length - 1].ApplyMan + ',' + node.ApplyMan;
             }
             else {
-                tempNodeList.push(node)
+                tempNodeList.push(node);
             }
-            lastNode = node
+            lastNode = node;
         }
+        console.log(tempNodeList);
+
         for (let node of tempNodeList) {
-            node['AddPeople'] = []
+            node['AddPeople'] = [];
             //抄送人分组
-            if (node.ApplyMan && node.ApplyMan.length > 0)
-                node.NodePeople = node.ApplyMan.split(',')
+            if (node.ApplyMan && node.ApplyMan.length > 0){
+               node.NodePeople = node.ApplyMan.split(',');        
+            }
+ 
             //申请人设置当前人信息
             if (node.NodeName.indexOf('申请人') >= 0 && !node.ApplyMan) {
-                node.ApplyMan = that.data.DingData.nickName
+                node.ApplyMan = that.data.DingData.nickName;
                 node.AddPeople = [{
                     name: that.data.DingData.nickName,
                     userId: that.data.DingData.userid
@@ -999,7 +1055,7 @@ export default {
                 name: this.data.projectList[e.detail.value].ResponsibleMan,
                 userId: this.data.projectList[e.detail.value].ResponsibleManId
             }]
-          this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
+          // this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
           // this.data.nodeList[i].NodePeople=[ this.data.projectList[e.detail.value].ResponsibleMan];
           console.log(this.data.nodeList);
           this.setData({

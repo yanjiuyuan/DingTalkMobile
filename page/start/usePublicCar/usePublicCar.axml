@@ -12,23 +12,24 @@
         </view>
       </view>
       <!-- <view class="form-line" /> -->
+
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>驾驶员</view>
         <view class="form-row-content">
           <input name="DrivingMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
         </view>
-        
       </view>
+
       <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
           <!-- <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/> -->
-          <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
-
+          <text  name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
+
       <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>计划行车路线</view>
@@ -36,6 +37,7 @@
           <textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}"/>
         </view>
       </view>
+
       <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>用车事由</view>
@@ -43,6 +45,7 @@
           <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
         </view>
       </view>
+
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
@@ -50,6 +53,7 @@
           value="{{table.StartTime}}"/>
         </view>
       </view>
+
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">

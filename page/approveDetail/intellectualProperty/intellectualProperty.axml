@@ -37,7 +37,7 @@
         <view class="form-row-label">项目名称</view>
         <view class="form-row-content">
           <!-- <input auto-height="true" name="Project" class="input" value="{{table.Project}}" disabled="{{true}}" /> -->
-          {{table.Project}} 
+          {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}} 
 
         </view>
       </view>

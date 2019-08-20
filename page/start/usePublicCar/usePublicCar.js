@@ -23,6 +23,8 @@ Page({
     value['IsChooseOccupyCar'] = true
     value['IsPublicCar'] = true
     value['OccupyCarId'] = ''
+    value['PeerNumber'] = this.data.table.PeerNumber || "";
+    console.log(value);
     if(!value.DrivingMan || !value.MainContent || !value.PlantTravelWay || !value.StartTime || !value.EndTime) 
     {
       dd.alert({content:'表单未填写完整'})
