@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
 
@@ -51,5 +50,3 @@ require('../../page/approveDetail/gift/gift');
 require('../../page/start/productionMonitoring/productionMonitoring');
 require('../../page/start/gift/gift');
 require('../../page/processOn/processOn');
-=======
->>>>>>> 36db198c5626fcdc8399a1c8e31ea5d80df8a9ad

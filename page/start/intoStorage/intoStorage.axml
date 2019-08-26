@@ -111,3 +111,5 @@
     <!-- <button onTap="saveTempData">临时保存</button> -->
   </form>
 </view>
+
+        <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button>

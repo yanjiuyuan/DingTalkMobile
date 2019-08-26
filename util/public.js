@@ -16,7 +16,7 @@ export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.57,
+    version: 2.58,
     DingData:{
       nickName:'',
       departName:'',
@@ -959,6 +959,7 @@ export default {
       setTimeout(() => {
         this.setData({
           hidden: true,
+          a:true
         });
       }, 210);
     },
@@ -1085,6 +1086,16 @@ export default {
       let url = "/page/start/" + arr[2] + "/" + arr[3];
       dd.redirectTo({
       url: url + "?" + "flowid=" + this.data.tableInfo.FlowId
+      })
+    },
+
+
+
+    //流程图
+    processOn(){
+      console.log("我执行了");
+      dd.navigateTo({
+      url: "/page/processOn/processOn" + "?" + "flowid=" + this.data.flowid
       })
     }
 

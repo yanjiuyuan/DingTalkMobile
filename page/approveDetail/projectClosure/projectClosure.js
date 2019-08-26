@@ -369,17 +369,26 @@ Page({
     let Money = 0;
     let NameAndMoney = 0;
     this.data.tableData4[index] = param;
-    for(let i = 0 ,len = this.data.tableData4.length - 1; i<len; i++){
+    for(let i = 1 ,len = this.data.tableData4.length - 1; i<len; i++){
         
         Money += (this.data.tableData4[i].Money - 0);
         NameAndMoney += (this.data.tableData4[i].NameAndMoney - 0);
     }
+    let oneMoney = (this.data.tableData4[1].Money-0) + (this.data.tableData4[2].Money - 0);
+    let oneNameAndMoney = (this.data.tableData4[1].NameAndMoney - 0) + (this.data.tableData4[2].NameAndMoney - 0);
+
+
+
     console.log(this.data.tableData4);
+
+
     console.log(Money);
     console.log(NameAndMoney);
 
     this.setData({
       [`tableData4[${index}]`]: param,
+      [`tableData4[0].Money`]:oneMoney,
+      [`tableData4[0].NameAndMoney`]:oneNameAndMoney,
       [`tableData4[14].Money`]:Money,
       [`tableData4[14].NameAndMoney`]:NameAndMoney,
 

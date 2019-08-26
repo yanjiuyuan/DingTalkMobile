@@ -20,6 +20,8 @@ page {
 .choosePeople-view{
 	background-color: #fff;
 	height: 150rpx;
+	border-bottom: 1px solid #F7F7F7;	background-color: #fff;
+	height: 150rpx;
 	border-bottom: 1px solid #F7F7F7;
 	display: flex;
 	align-items: center;

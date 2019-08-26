@@ -69,6 +69,10 @@
       </form>
       <!-- 物料表单 -->
 
+
+        <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button>
+
+
       <view onTap="chooseItem">
         <text>办公用品列表</text>
         <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>

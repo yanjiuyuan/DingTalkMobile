@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -75,5 +74,3 @@ require('../../page/processOn/processOn');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
-=======
->>>>>>> 36db198c5626fcdc8399a1c8e31ea5d80df8a9ad

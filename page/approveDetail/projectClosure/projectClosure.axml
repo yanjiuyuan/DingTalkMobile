@@ -103,10 +103,10 @@
         </view>
       </view>
 
-      <view class="form-row">
+      <view class="form-row" style="height:auto;">
         <view class="form-row-label">项目成员</view>
         <view class="form-row-content">
-          <input class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
+          <textarea class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
         </view>
       </view>
 
@@ -201,6 +201,7 @@
           </view>
         </view>    
         <view class="{{show}}">
+          {{nodeid}}
           <view class="form-row" a:if="{{SuggestBook1 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
             <view class="form-row-label">立项书或建议书</view>
             <view class="form-row-content">
