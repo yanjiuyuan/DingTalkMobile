@@ -84,4 +84,4 @@
   </form>
 </view>
 
-        <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button>
+        <!-- <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button> -->

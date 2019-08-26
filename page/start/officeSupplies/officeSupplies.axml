@@ -70,7 +70,7 @@
       <!-- 物料表单 -->
 
 
-        <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button>
+        <!-- <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button> -->
 
 
       <view onTap="chooseItem">
