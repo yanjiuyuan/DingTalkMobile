@@ -42,9 +42,9 @@
     "page/start/overTime/overTime",
     "page/approveDetail/projectClosure/projectClosure",
     "page/approveDetail/gift/gift",
-    "page/start/productionMonitoring/productionMonitoring",
     "page/start/gift/gift",
-    "page/processOn/processOn"
+    "page/processOn/processOn",
+    "page/start/productionMonitoring/productionMonitoring"
   ],
   "window": {
     "enableWK": "YES",

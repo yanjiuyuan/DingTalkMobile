@@ -1,10 +1,15 @@
 
 var globalData = getApp().globalData
+import pub from '/util/public';
+import lib from '/lib.js';
+
 
 export default {
   data: {
+   
     animMaskData: [],
     animContentData: [],
+    
     //选人变量
     nodeList:[],
     chooseParam: {
@@ -38,16 +43,31 @@ export default {
         ...that.chooseParam,
         success: function(res) {
           console.log(res)
-          for (let node of that.data.nodeList) {
-              if (node.NodeId == nodeId) {
-                  node.AddPeople = res.users
-              }
-          }
-          console.log("选择了一个人");
-          console.log(that.data.nodeList);
-          that.setData({
-            nodeList:that.data.nodeList
-          })
+          let result = res;
+
+              dd.httpRequest({
+                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.users[0].userId}),
+                    method: 'POST',
+                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+                    success: function(res) {
+        
+                      let name = JSON.parse(res.data).name;
+
+                      for (let node of that.data.nodeList) {
+                          if (node.NodeId == nodeId) {
+                              result.users.name = name;
+                              node.AddPeople =  result.users;
+                          }
+                      }      
+                      console.log("选择了一个人");
+                      console.log(that.data.nodeList);
+                      that.setData({
+                        nodeList:that.data.nodeList
+                      })       
+
+                    }
+
+                  }) 
         },
         fail: function(err) {
 

@@ -8,7 +8,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"   />
         </view>
       </view>
       <!-- <view class="form-line" /> -->
@@ -23,7 +23,7 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
+          <textarea auto-height="true"  name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
        
           <!-- <text auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text> -->
        
@@ -54,18 +54,18 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
-          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" 
-          value="{{table.StartTime}}"/>
+          <input name="StartTime" class="input"  placeholder="开始时间" onFocus="selectStartDateTime" 
+          value="{{table.StartTime}}" />
         </view>
-        <!-- <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view> -->
+        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
       </view>
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
-          value="{{table.EndTime}}"/>
+          <input name="EndTime" class="input"  placeholder="结束时间" onFocus="selectEndDateTime"
+          value="{{table.EndTime}}" />
         </view>
-        <!-- <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view> -->
+        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
       </view>
       <checkbox-group onChange="onChecked">
         <label class="checkbox" a:for="{{items}}">

@@ -17,7 +17,7 @@ Page({
     console.log(value);
 
 
-    if(value.CooperateDept == "" || value.CooperateMan == "" || value.PlanBeginTime == "" || value.PlanEndTime == "" || value.CooperateContent == "" || value.PlanDays == "") 
+    if(value.CooperateDept == "" || value.CooperateMan == undefined || value.PlanBeginTime == "" || value.PlanEndTime == "" || value.CooperateContent == "" || value.PlanDays == "" ) 
     {
       dd.alert({content:'表单未填写完整'})
       return

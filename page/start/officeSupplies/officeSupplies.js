@@ -242,5 +242,9 @@ Page({
     //this.loadTempData()
   },
 
-  
+  // test(){
+  //   dd.navigateTo({
+  //     url:"/page/start/productionMonitoring/productionMonitoring?taskid=497" 
+  //   })
+  // }
 });

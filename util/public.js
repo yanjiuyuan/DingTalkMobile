@@ -11,17 +11,21 @@ let ProjectTypes = ['自研项目', '纵向项目', '横向项目','测试项目
 let DeptNames = ['', '智慧工厂事业部', '数控一代事业部', '机器人事业部', '行政部', '财务部', '制造试验部', '项目推进部']
 let CompanyNames = ['泉州华中科技大学智能制造研究院', '泉州华数机器人有限公司']
 let IntellectualPropertyTypes = ['','发明','实用新型','外观','软件著作权']
+let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
+// let dormainName = 'http://47.96.172.122:8093/'  //线上研究院
 let localStorage = ''
 export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.58,
+    version: 2.60,
     DingData:{
       nickName:'',
       departName:'',
       userid:''
     },
+     dormainName : dormainName,//线下测试
+
     hideMask: false,
     param: {},
     IsNeedChose:false,
@@ -155,7 +159,8 @@ export default {
             title:'领料管理',
             url:'pickingManage/pickingManage',
             position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
-        },{
+        },
+        {
             flowId:70,
             sortId:9,
             title:'生产进度监控',
@@ -1009,7 +1014,7 @@ export default {
         success: (res) => {
           console.log(res.authCode)
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
-            app.userInfo = res
+            app.userInfo = res;
             var DingData = {
               nickName:res.name,
               departName:res.dept,
@@ -1027,23 +1032,37 @@ export default {
       var app = getApp()
       dd.getAuthCode({
         success: (res) => {
-          console.log(res.authCode)
-          lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
-            if(!res.userid){
-              dd.alert({
-                content:res.errmsg+',请关掉应用重新打开试试~'
-              });
-              return
-            }
-            app.userInfo = res
-            var DingData = {
-              nickName:res.name,
-              departName:res.dept,
-              userid:res.userid
-            }
-            dd.hideLoading()
-            that.setData({ DingData:DingData })
-            callBack()
+          // console.log(res.authCode)
+          lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
+              let result = res;          
+              dd.httpRequest({
+                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
+                    method: 'POST',
+                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+                    success: function(res) {
+        
+                      let name = JSON.parse(res.data).name;
+                      if(!result.userid){
+                        dd.alert({
+                          content:res.errmsg+',请关掉应用重新打开试试~'
+                        });
+                        return
+                      }
+                      app.userInfo = result
+                      var DingData = {
+                        // nickName:result.name,
+                        nickName:name || result.name,
+                        departName:result.dept,
+                        userid:result.userid
+                      }
+                      dd.hideLoading()
+                      that.setData({ DingData:DingData })
+                      callBack()
+                    }
+
+
+                  }) 
+
           })
         },
       })

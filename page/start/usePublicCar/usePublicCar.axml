@@ -52,6 +52,7 @@
           <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime"
           value="{{table.StartTime}}"/>
         </view>
+        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>        
       </view>
 
       <view class="form-row">
@@ -60,6 +61,8 @@
           <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
           value="{{table.EndTime}}"/>
         </view>
+        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
+
       </view>
 
       <checkbox-group onChange="onChecked">

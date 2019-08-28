@@ -1,0 +1,315 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  <form onSubmit="confirm">
+    <view class="page-section" a:if="{{!hidden && tableInfo}}">
+
+      <view class="form-row">
+        <view class="form-row-label"><template is="required" ></template>标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="生产进度监控" placeholder="输入 标题"  />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">单位</view> 
+        <view class="form-row-content">
+          <input name="CompanyName" class="input" disabled="{{true}}" value="{{tableInfo.AccountKeeping || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">大类别</view>
+        <view class="form-row-content">
+          <input name="ProjectType" class="input" disabled="{{true}}" value="{{tableInfo.ProjectType || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">小类别</view>
+        <view class="form-row-content">
+          <input name="ProjectSmallType" class="input" disabled="{{true}}" value="{{tableInfo.ProjectSmallType || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">备注（图纸初审员）</view>
+        <view class="form-row-content">
+          <input name="Remark1" class="input" disabled="{{true}}" value="{{tableInfo.Remark1 || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">项目名称</view>
+        <view class="form-row-content">
+          <input name="ProjectName" class="input" disabled="{{true}}" value="{{tableInfo.ProjectName || '未填写'}}" />
+        </view>
+      </view>
+      <view class="form-row">
+        <view class="form-row-label">流水号</view>
+        <view class="form-row-content">
+          <input name="TaskId" class="input" disabled="{{true}}" value="{{tableInfo.TaskId || '未填写'}}" />
+        </view>
+      </view>
+
+
+      <view class="form-row">
+        <view class="form-row-label">走账</view>
+        <view class="form-row-content">
+          <input name="AccountKeeping" class="input" disabled="{{true}}" value="{{tableInfo.AccountKeeping || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">设计员</view>
+        <view class="form-row-content">
+          <input name="Designer" class="input" disabled="{{true}}" value="{{tableInfo.Designer || '未填写'}}" />
+        </view>
+      </view>
+
+      <view style="height:30rpx;"></view>
+
+
+      <view>
+        <view class="form-row margin" onTap="showOrClose" >
+          <view class="form-row-label">资料接收时间</view>
+          <view class="form-row-content">
+            <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </view>  
+
+        <view class="{{show}}">
+          <view class="form-row">
+            <view class="form-row-label">bom</view>
+            <view class="form-row-content">
+              <input name="BomTime" class="input" disabled="{{true}}" value="{{tableInfo.BomTime || '未填写'}}" />
+            </view>
+          </view>
+                <view class="form-row">
+            <view class="form-row-label">2D</view>
+            <view class="form-row-content">
+              <input name="TwoD" class="input" disabled="{{true}}" value="{{tableInfo.TwoD || '未填写'}}" />
+            </view>
+          </view>
+          <view class="form-row">
+            <view class="form-row-label">3D</view>
+            <view class="form-row-content">
+              <input name="ThreeD" class="input" disabled="{{true}}" value="{{tableInfo.ThreeD || '未填写'}}" />
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+
+
+
+      <view class="form-row">
+        <view class="form-row-label">需求时间</view>
+        <view class="form-row-content">
+          <input name="NeedTime" class="input" disabled="{{true}}" value="{{tableInfo.NeedTime || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">需求建议</view>
+        <view class="form-row-content">
+          <input name="applyman" class="input" disabled="{{true}}" value="{{tableInfo.NeedCount || '未填写' }}" />
+        </view>
+      </view>
+
+      <view style="height:30rpx;"></view>
+
+      <view class="form-row">
+        <view class="form-row-label">预计开工时间</view>
+        <view class="form-row-content">
+          <input name="ScheduledDate" class="input" disabled="{{true}}" value="{{tableInfo.ScheduledDate || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">预计完成时间</view>
+        <view class="form-row-content">
+          <input name="CompletionTime " class="input" disabled="{{true}}" value="{{tableInfo.CompletionTime || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">开始时间</view>
+        <view class="form-row-content">
+          <input name="BeginTime" class="input" disabled="{{true}}" value="{{tableInfo.BeginTime || '未填写'}}" />
+        </view>
+      </view>
+
+      <view>
+
+        <view class="form-row margin" onTap="showOrCloseOne" >
+          <view class="form-row-label">零件加工</view>
+          <view class="form-row-content">
+            <image class="row-arrow margin-right {{rotate1}}" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </view>  
+
+        <view class="{{show1}}">
+          <view class="form-row">
+            <view class="form-row-label">自制数（件）</view>
+            <view class="form-row-content">
+              <input name="HomemadeNumberZZ" class="input" disabled="{{true}}" value="{{tableInfo.HomemadeNumberZZ || '未填写'}}" />
+            </view>
+          </view>      
+          <view class="form-row">
+            <view class="form-row-label">加工时间（天）</view>
+            <view class="form-row-content">
+              <input name="ProcessingTimeZZ " class="input" disabled="{{true}}" value="{{tableInfo.ProcessingTimeZZ || '未填写'}}" />
+            </view>
+          </view>      
+          <view class="form-row">
+            <view class="form-row-label">进度（件）</view>
+            <view class="form-row-content">
+              <input name="ProgressNumberZZ" class="input" disabled="{{true}}" value="{{tableInfo.ProgressNumberZZ || '未填写'}}" />
+            </view>
+          </view>      <view class="form-row">
+            <view class="form-row-label">外协数（件）</view>
+            <view class="form-row-content">
+              <input name="ExternalNumberYX" class="input" disabled="{{true}}" value="{{tableInfo.ExternalNumberYX || '未填写'}}" />
+            </view>
+          </view>      
+          <view class="form-row">
+            <view class="form-row-label">加工时间（天）</view>
+            <view class="form-row-content">
+              <input name="ProcessingTimeYX " class="input" disabled="{{true}}" value="{{tableInfo.ProcessingTimeYX || '未填写'}}" />
+            </view>
+          </view>
+          <view class="form-row">
+            <view class="form-row-label">进度</view>
+            <view class="form-row-content">
+              <input name="SpeedOfProgress" class="input" disabled="{{true}}" value="{{tableInfo.SpeedOfProgress || '未填写'}}" />
+            </view>
+          </view>
+        </view>
+
+      </view>
+                                                            
+      <view class="form-row">
+        <view class="form-row-label">实际加工完成时间</view>
+        <view class="form-row-content">
+          <input name="ActualCompletionTime " class="input" disabled="{{true}}" value="{{tableInfo.ActualCompletionTime || '未填写'}}" />
+        </view>
+      </view>
+
+
+      <view>
+        <view class="form-row margin" onTap="showOrCloseTwo" >
+          <view class="form-row-label">组装</view>
+          <view class="form-row-content">
+            <image class="row-arrow margin-right {{rotate2}}" src="/image/arrowright.png" mode="aspectFill" />
+          </view>
+        </view> 
+        <view class="{{show2}}">
+          <view class="form-row">
+            <view class="form-row-label">组装（%）</view>
+            <view class="form-row-content">
+              <input name="Assemble" class="input" disabled="{{true}}" value="{{tableInfo.Assemble || '未填写'}}" />
+            </view>
+          </view>
+
+          <view class="form-row">
+            <view class="form-row-label">调试（%）</view>
+            <view class="form-row-content">
+              <input name="Debugging" class="input" disabled="{{true}}" value="{{tableInfo.Debugging  || '未填写'}}" />
+            </view>
+          </view>
+
+          <view class="form-row">
+            <view class="form-row-label">进度说明</view>
+            <view class="form-row-content">
+              <input name="ProgressStatement" class="input" disabled="{{true}}" value="{{tableInfo.ProgressStatement  || '未填写'}}" />
+            </view>
+          </view>  
+        </view>
+      </view>
+
+
+
+
+      <view class="form-row">
+        <view class="form-row-label">备注（生产负责人）</view>
+        <view class="form-row-content">
+          <input name="Remark2 " class="input" disabled="{{true}}" value="{{tableInfo.Remark2  || '未填写'}}" />
+        </view>
+      </view>
+
+      <view class="form-row">
+        <view class="form-row-label">记录人</view>
+        <view class="form-row-content">
+          <input name="NoteTaker " class="input" disabled="{{true}}" value="{{tableInfo.NoteTaker || '未填写'}}" />
+        </view>
+      </view>  
+
+      <view style="height:30rpx;"></view>
+
+      <!-- <view class="form-row">
+        <view class="form-row-label">设计员确认收货</view>
+        <view class="form-row-content">
+          <input name="IsAlreadyRead " class="input" disabled="{{true}}" value="{{tableInfo.IsAlreadyRead }}" />
+        </view>
+      </view>   -->
+
+      <view class="form-row" a:if ="{{power == 2}}">
+        <view class="form-row-label">备注（设计员验收）</view>
+        <view class="form-row-content">
+          <input name="Remark3" class="input" disabled="{{false}}" value="{{tableInfo.Remark3 }}" />
+        </view>
+      </view>      
+
+      <button a:if ="{{power == 2}}" type="primary" formType="submit" class='confirmButton'>设计人员确认收货</button>
+
+
+    </view>
+    <view class="page-section" a:if="{{hidden && data}}">
+
+      <view class="form-row">
+        <view class="form-row-label"><template is="required" ></template>标题</view>
+        <view class="form-row-content">
+          <input name="title" class="input" value="生产进度监控" placeholder="输入 标题"  />
+        </view>
+      </view>
+    
+    <!-- 生产加工进度表 -->
+      <view onTap="updateItem">
+        <text>生产加工进度表</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
+      </view>
+
+    </view>
+
+     <!-- 待编辑物料表单 -->
+  <view class="modal" a:if="{{!a}}" key="modal">
+    <view class="modal-mask" animation="{{animMaskData}}"/>
+      <view class="modal-container" animation="{{animContentData}}">
+          <view class="modal-close" onTap="onModalCloseTap">×</view>
+          <view class="modal-content">
+
+            <form onSubmit="addRemark">
+              <view class="page-section">
+                <view class="form-row">
+                  <view class="form-row-label"></template>备注（设计员验收）</view>
+                  <view class="form-row-content">
+                    <input name="remark3" class="input" value="{{remar3}}" placeholder="请输入是否已读" />
+                  </view>
+                </view>
+              </view>
+
+              <button type="primary" style="margin-bottom:0;" formType="submit" data-index="{{idx}}">添加</button>
+            </form>
+
+          </view>
+      </view>
+
+
+  </view>
+  </form> 
+</view>
+
+<button a:if="{{hidden && data}}" type="primary" onTap="updateTable">更新进度表</button>
+
+
