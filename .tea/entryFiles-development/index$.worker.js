@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 if(!self.__appxInited) {
 self.__appxInited = 1;
 
@@ -74,3 +75,5 @@ require('../../page/start/productionMonitoring/productionMonitoring');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
+=======
+>>>>>>> f69cee334b0cf3836779f963ce62d3b2902874b2
