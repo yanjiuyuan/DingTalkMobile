@@ -30,8 +30,12 @@
         <view class="icon" a:if="{{item.ApplyMan.length == 3}}">{{item.ApplyMan.substring(1)}}</view>
         <view class="text">
           <view onTap="toDetial" data-row="{{item}}">{{item.ApplyMan}} 的 {{item.FlowName}} 
-          <view class="tag {{item.State=='已完成'?'tag-success':'tag-danger'}}" 
-          style="float:right;font-size:10px;padding:2rpx;">{{item.State}}</view>
+            <view class="block tag {{item.IsRead==true ?'tag-success':'tag-danger'}}" a:if ="{{ activeItem == 3 && item.IsRead == true }}">已读</view>
+            <view class="block tag {{item.IsRead==true ?'tag-success':'tag-danger'}}" a:if ="{{ activeItem == 3 && item.IsRead == false }}">未读</view>
+
+            <view class="tag {{item.State=='已完成'?'tag-success':'tag-danger'}}" 
+            style="float:right;font-size:10px;padding:2rpx;">{{item.State}}
+            </view>
           </view>
           <view class="text-font" onTap="toDetial" data-row="{{item}}">标题:{{item.Title}}</view>
           <view class="text-font" onTap="toDetial" data-row="{{item}}">流水号:{{item.TaskId}}</view>
@@ -47,7 +51,7 @@
     </block>
       <view slot="footer"></view>
     </list>
-    </scroll-view>
+  </scroll-view>
 
 <!-- 
       <scroll-view scroll-y="{{true}}" style="height: 100%;" onScrollToUpper="upper" onScrollToLower="lower" onScroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">

@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
 // let dormainName = 'http://47.96.172.122:8093/'  //线上研究院
-=======
-//let dormainName = 'http://17e245o364.imwork.net:49415/' //
-let dormainName = 'http://47.96.172.122:8093/'  //研究院
->>>>>>> f69cee334b0cf3836779f963ce62d3b2902874b2
 
 function doWithErrcode(result){
   if(!result) {

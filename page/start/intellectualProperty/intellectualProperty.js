@@ -8,23 +8,23 @@ Page({
     disablePage:false,
     addPeopleNodes: [2,5], //额外添加审批人节点数组
 
-    managers: [{
-       name: '徐丽华',
-       userId: '15543527578095619'
-    }, {
-       name: '陈思杨',
-       userId: '15545554432996107'
-    }],
+    // managers: [{
+    //    name: '徐丽华',
+    //    userId: '15543527578095619'
+    // }, {
+    //    name: '陈思杨',
+    //    userId: '15545554432996107'
+    // }],
 
 
     //研究院id
-    // managers: [{
-    //     name: '徐丽华',
-    //     userId: '15543527578095619'
-    // }, {
-    //     name: '陈思杨',
-    //     userId: '15545554432996107'
-    // }],
+    managers: [{
+        name: '徐丽华',
+        userId: '15543527578095619'
+    }, {
+        name: '陈思杨',
+        userId: '15545554432996107'
+    }],
   },
   submit(e) {
     var value = e.detail.value

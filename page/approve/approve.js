@@ -53,7 +53,7 @@ Page({
     //this.getApproveList(this.data.activeItem)
   },
   onReady() {
-    let that=this;
+    let that = this;
     dd.getSystemInfo({
       success: function(res) {
         console.log(res);
@@ -96,7 +96,7 @@ Page({
       Index:index,
       ApplyManId:that.data.DingData.userid,
       IsSupportMobile:true,
-      pageIndex:1,
+      ageIndex:1,
       pageSize:this.data.size,
       }
     if(keyword) param['Key'] = keyword
@@ -169,7 +169,7 @@ Page({
 
 
   scroll(){
-    this.data.size=this.data.size + 5;
+    this.data.size = this.data.size + 5;
     // console.log(this.data.size);
     this.getApproveList(this.data.activeItem);
   },

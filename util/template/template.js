@@ -43,8 +43,8 @@ export default {
         ...that.chooseParam,
         success: function(res) {
           console.log(res)
-          let result = res;
 
+          let result = res;
               dd.httpRequest({
                     url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.users[0].userId}),
                     method: 'POST',
@@ -68,6 +68,7 @@ export default {
                     }
 
                   }) 
+
         },
         fail: function(err) {
 

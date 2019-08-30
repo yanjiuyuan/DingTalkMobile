@@ -39,7 +39,6 @@
   </view>
 </template>
 
-
 <!-- 选人控件 -->
 <!-- <template name="choosePeople">
   	<view class="choosePeople">
@@ -91,7 +90,7 @@
 						<view class="choosePeople-view-right-text">{{ad.name}}</view>
 					</view>
 
-					<view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0 }}" data-NodeId="{{node.NodeId}}"  onTap="choosePeopleOne"  class="choosePeople-view-right-plus">
+					<view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0 }}" data-NodeId="{{node.NodeId}}"  onTap="choosePeople"  class="choosePeople-view-right-plus">
 						+	
 					</view>
 

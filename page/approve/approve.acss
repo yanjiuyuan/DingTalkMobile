@@ -202,3 +202,11 @@
 	width: 200rpx;
 
 }
+.block{
+  display: inline-block;
+  font-size:10px;
+  float:right;
+  padding:2rpx;
+  margin-left: 10rpx;
+  /* border-left: #fff; */
+}

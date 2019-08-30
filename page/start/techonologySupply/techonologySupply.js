@@ -37,19 +37,39 @@ Page({
       multiple: false,
       success: function(res) {
         console.log(res)
-        let names = []//userId
-        for (let d of res.users) names.push(d.name);
-        let item1 = "nodeList[1].ApplyMan";
-        let item2 = "nodeList[1].NodePeople";
 
-        that.setData({
-          'table.ResponsibleMan':names.join(','),
-          ResponsibleMan:res.users[0],
-          [item1]:res.users[0].name,
-          [item2]:[res.users[0].name],
 
-          
-        })
+          let result = res;
+
+              dd.httpRequest({
+                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.users[0].userId}),
+                    method: 'POST',
+                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+                    success: function(res) {
+        
+                    let name = JSON.parse(res.data).name;
+
+                    let names = []//userId
+                    for (let d of res.users) names.push(d.name);
+                    let item1 = "nodeList[1].ApplyMan";
+                    let item2 = "nodeList[1].NodePeople";
+
+                    that.setData({
+                      'table.ResponsibleMan':names.join(','),
+                      ResponsibleMan:res.users[0],
+                      [item1]:res.users[0].name,
+                      [item2]:[res.users[0].name],
+                    })    
+
+                    }
+
+                  }) 
+
+
+
+
+
+
       },
       fail: function(err) {
 

@@ -136,6 +136,8 @@ page {
 	align-items: center;
 	justify-content:center;
 	flex-wrap: nowrap;
+  margin-right:0.1rem;
+
 }
 
 .choosePeople-view-right-item{
