@@ -12,19 +12,36 @@
 				<text class="desc-name">{{DingData.nickName}}</text>
             	<text class="desc"> - 正在工作中</text>
 			</view>
-            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉' }}"
-             onTap="choosePeople" class="tag tag-info">+ 选人</view>
-             <picker onChange="selectUser" value="{{userIndex}}" range="{{userList}}" range-key="NodePeople" a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉' || DingData.nickName == '陈思扬' || DingData.nickName == '林淑珍' ||DingData.nickName == '徐丽华' }}">
-              <view class="row">
-                <!-- <view class="row-extra">{{userList[userIndex].NodePeople}}-{{userList[userIndex].PeopleId}}</view>
-                <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" /> -->
-
+            <view a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉' || DingData.nickName == '许瑜瑜'}}"
+             onTap="choosePeople" class="tag tag-info choose">+ 选人</view>
+             <picker onChange="selectUser"  class="picker" value="{{userIndex}}" range="{{userList}}" range-key="NodePeople" a:if="{{DingData.nickName == '蔡兴桐' || DingData.nickName == '黄浩炜' || DingData.nickName == '詹姆斯' || DingData.nickName == '胡晓辉' || DingData.nickName == '许瑜瑜' }}">
+              <view class="row choose">
                 <view class="row-extra">选人</view>
               </view>
             </picker>
         </view>
     </view>
 </view>
+
+<view class="sort"> 
+			<text class="sort-name">管理控制台<text class="small-font">(仅管理员可见)</text></text>	
+			<text class="sort-open blue">管理</text>
+      <view class="menu">
+        <view  class="grid-item-new" data-index="{{index}}">
+            <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
+              <view class="grid-item-wrapper-new" >
+                <view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
+                <text class="grid-text-new">管理控制台</text>
+              </view>
+              </navigator>
+        </view>
+      </view>
+</view>
+
+
+
+
+
 <view  a:for="{{sort}}" a:for-item="m" a:if="{{m.show}} " class="sort" >
 		<view onTap="showOrClose" data-index="{{index}}" >
 			<text class="sort-name" a:if="{{m.show}}"> {{m.SORT_NAME}}</text>	

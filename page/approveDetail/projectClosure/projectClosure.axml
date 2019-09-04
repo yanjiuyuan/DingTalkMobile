@@ -335,7 +335,7 @@
       <!-- 项目采购清单、借用清单、维修清单 -->
       <view>
         <view class="form-row margin" onTap="showOrCloseOne" >
-          <view style = "font-size:0.34rem">项目采购清单、借用清单、维修清单</view>
+          <view style = "font-size:0.34rem">项目采购清单、借用清单、领料清单、入库清单</view>
           <view class="form-row-content">
             <image class="row-arrow margin-right {{rotate1}}" src="/image/arrowright.png" mode="aspectFill" />
           </view>

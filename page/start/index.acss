@@ -160,3 +160,18 @@
 	font-family: "微软雅黑";
 	font-size: 32rpx;
 }
+.picker{
+  height: 100prx;
+}
+.choose{
+  width:100rpx;
+  height: 30rpx;
+}
+
+.small-font{
+  font-size: 25rpx;
+  color: rgb(136, 136, 136);
+}
+.blue{
+  color: #4796FA;
+}

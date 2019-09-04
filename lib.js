@@ -19,7 +19,7 @@ var hour = d.getHours()
 var minutes = d.getMinutes()
 export default {
   data:{
-    //jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
+    // jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
     jinDomarn:'http://wuliao5222.55555.io:35705/api/',
     dormainName:dormainName,
     currentPage: 1,
@@ -169,7 +169,7 @@ export default {
         }
       });
     },
-    //
+    //通过prop合并两个数组
     mergeObjectArr(arr1, arr2, prop) {
       for (var a = 0; a < arr1.length; a++) {
         for (var b = 0; b < arr2.length; b++) {

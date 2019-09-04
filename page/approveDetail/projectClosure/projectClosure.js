@@ -27,7 +27,7 @@ Page({
     tableItems1: [
       {
         prop: 'Type',
-        label: '类型',
+        label: '类别',
         width: 200
       },
       {

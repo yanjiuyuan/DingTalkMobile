@@ -11,7 +11,7 @@
       <view class="form-row">
         <view class="form-row-label">标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+          <textarea name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
         </view>
       </view>
       <view class="form-row">

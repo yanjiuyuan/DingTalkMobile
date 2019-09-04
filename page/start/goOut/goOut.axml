@@ -75,7 +75,7 @@
           <input name="BeginTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" 
           value="{{table.BeginTime}}"/>
         </view>
-        <!-- <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view> -->
+        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
       </view>
 
       <view class="form-row">
@@ -84,7 +84,7 @@
           <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime" 
           value="{{table.EndTime}}"/>
         </view>
-        <!-- <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view> -->
+        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
       </view>
 
       <view class="form-row">

@@ -310,15 +310,23 @@ Page({
             let obj = {
               applyManId:this.data.DingData.userid,
               pageIndex:1,
-              pageSize:99
+              pageSize:99,
+              companyId:0,
               }
               this._getData("ProcessingProgress/Read" + this.formatQueryStr(obj),(res) => {
                 console.log(res);
+                if(res.length > 0){
                   that.setData({
                     data:res,
                     ["tableParam.total"]:res.length
                   })
                   this.getData();
+                }
+                else{
+                  dd.navigateTo({
+                    url: '../../../page/start/index'
+                  })
+                }
               })      
             }    
 

@@ -11,20 +11,17 @@ let ProjectTypes = ['自研项目', '纵向项目', '横向项目','测试项目
 let DeptNames = ['', '智慧工厂事业部', '数控一代事业部', '机器人事业部', '行政部', '财务部', '制造试验部', '项目推进部']
 let CompanyNames = ['泉州华中科技大学智能制造研究院', '泉州华数机器人有限公司']
 let IntellectualPropertyTypes = ['','发明','实用新型','外观','软件著作权']
-let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
-// let dormainName = 'http://47.96.172.122:8093/'  //线上研究院
 let localStorage = ''
 export default {
   data:{
     ...lib.data,
     ...template.data,
-    version: 2.60,
+    version: 2.66,
     DingData:{
       nickName:'',
       departName:'',
       userid:''
     },
-     dormainName : dormainName,//线下测试
 
     hideMask: false,
     param: {},
@@ -54,121 +51,137 @@ export default {
     changeRemarkId:0,
     changeRemarkNodeid:0,
     hehe:'',
-    menu:[ {
+    menu:
+    [ 
+      {
         flowId: 1,
         sortId: 4,
         title:'办公用品申请',
         url: 'officeSupplies/officeSupplies',
-        position: (x + 4 * xTap) +  'px ' + (y + 0 * yTap) + 'px'},{
-      flowId: 8,
-      sortId: 4,
-      title:'零部件采购申请',
-      url: 'purchase/purchase',
-      position: '-414px -137px'},{
-      flowId: 12,
-      sortId: 4,
-      title:'物料编码申请',
-      url: 'meterieCode/meterieCode',
-      position: '-54px -227px'},{
+        position: (x + 4 * xTap) +  'px ' + (y + 0 * yTap) + 'px'
+      },
+      {
+        flowId: 8,
+        sortId: 4,
+        title:'零部件采购申请',
+        url: 'purchase/purchase',
+        position: '-414px -137px'
+      },
+      {
+        flowId: 12,
+        sortId: 4,
+        title:'物料编码申请',
+        url: 'meterieCode/meterieCode',
+        position: '-54px -227px'
+      },
+      {
         flowId: 13,
         sortId: 6,
         title:'公车申请',
         url: 'usePublicCar/usePublicCar',
-        position: '-775px -317px'},{
+        position: '-775px -317px'
+      },
+      {
         flowId: 14,
         sortId: 6,
         title:'私车申请',
         url: 'useCar/useCar',
-        position: '-504px -405px'},
-        {
+        position: '-504px -405px'
+      },
+      {
         flowId: 17,
         sortId: 7,
         title:'基地加班申请',
         url: 'overTime/overTime',
-        position: (x + 3 * xTap) + 'px ' + (y + 0 * yTap) + 'px'},
-        {
+        position: (x + 3 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+      },
+      {
         flowId: 24,
         sortId: 7,
         title:'礼品招待领用申请',
         url: 'gift/gift',
-        position: (x + 0 * xTap) + 'px ' + (y + 4 * yTap) + 'px'},
-         {
+        position: (x + 0 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+      },
+      {
         flowId: 26,
         sortId: 4,
         title:'领料申请',
         url: 'picking/picking',
-        position: (x + 1 * xTap) + 'px ' + (y + 4 * yTap) + 'px'}, {
+        position: (x + 1 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+      }, 
+      {
         flowId: 27,
         sortId: 4,
         title:'入库申请',
         url: 'intoStorage/intoStorage',
-        position: (x + 3 * xTap) + 'px ' + (y + 4 * yTap) + 'px' }, {
+        position: (x + 3 * xTap) + 'px ' + (y + 4 * yTap) + 'px' 
+      }, 
+      {
         flowId: 30,
         sortId: 7,
         title:'外出申请',
         url: 'goOut/goOut',
-        position: (x + 1 * xTap) + 'px ' + (y + 3 * yTap) + 'px' },
-        //  {
-        // flowId: 31,
-        // sortId: 5,
-        // title:'立项申请',
-        // url: 'createProject/createProject',
-        // position: (x + 8 * xTap -3) + 'px ' + (y + 1 * yTap - 3) + 'px'},
-        {
-            flowId: 32,
-            sortId: 7,
-            title:'跨部门协作申请',
-            url: 'crossHelp/crossHelp',
-            position: (x + 6 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
-        },
-          {
-            flowId: 34,
-            sortId: 5,
-            title:'项目技术支持',
-            flowName:"项目技术支持",
-            url: 'techonologySupply/techonologySupply',
-            position: (x + 2 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
-        },
-        {
-            flowId: 35,
-            sortId: 7,
-            title:'跨部门协助',
-            url: 'letGoodsGo/letGoodsGo',
-            position: (x + 8 * xTap -4) + 'px ' + (y + 0 * yTap) + 'px'
-        },{
-            flowId: 36,
-            sortId: 5,
-            title:'知识产权申请',
-            url: 'intellectualProperty/intellectualProperty',
-            position: (x + 2 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
-        },{
-            flowId: 67,
-            sortId: 4,
-            title:'借入申请',
-            url: 'borrowThing/borrowThing',
-            position: (x + 6 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
-        },{
-            flowId: 68,
-            sortId: 4,
-            title:'维修申请',
-            url: 'maintain/maintain',
-            position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
-        },{
-            flowId:66,
-            sortId:4,
-            title:'领料管理',
-            url:'pickingManage/pickingManage',
-            position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
-        },
-        {
-            flowId:70,
-            sortId:9,
-            title:'生产进度监控',
-            flowName:"生产进度监控",
-            url:'productionMonitoring/productionMonitoring',
-            position: (x + 5 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
-        }
-        ],
+        position: (x + 1 * xTap) + 'px ' + (y + 3 * yTap) + 'px' 
+      },
+      {
+        flowId: 32,
+        sortId: 7,
+        title:'跨部门协作申请',
+        url: 'crossHelp/crossHelp',
+        position: (x + 6 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
+      },
+      {
+        flowId: 34,
+        sortId: 5,
+        title:'项目技术支持',
+        flowName:"项目技术支持",
+        url: 'techonologySupply/techonologySupply',
+        position: (x + 2 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
+      },
+      {
+        flowId: 35,
+        sortId: 7,
+        title:'跨部门协助',
+        url: 'letGoodsGo/letGoodsGo',
+        position: (x + 8 * xTap -4) + 'px ' + (y + 0 * yTap) + 'px'
+      },
+      {
+        flowId: 36,
+        sortId: 5,
+        title:'知识产权申请',
+        url: 'intellectualProperty/intellectualProperty',
+        position: (x + 2 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
+      },
+      {
+        flowId: 67,
+        sortId: 4,
+        title:'借入申请',
+        url: 'borrowThing/borrowThing',
+        position: (x + 6 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+      },
+      {
+        flowId: 68,
+        sortId: 4,
+        title:'维修申请',
+        url: 'maintain/maintain',
+        position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+      },
+      {
+        flowId:66,
+        sortId:4,
+        title:'领料管理',
+        url:'pickingManage/pickingManage',
+        position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+      },
+      {
+        flowId:70,
+        sortId:9,
+        title:'生产进度监控',
+        flowName:"生产进度监控",
+        url:'productionMonitoring/productionMonitoring',
+        position: (x + 5 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
+      }
+    ],
 
         //审批页面变量
         imgUrlList:[],
@@ -586,7 +599,7 @@ export default {
       getDingList(taskId) {
           var that = this
           this._getData('DingTalkServers/Ding?taskId=' + taskId, function (data) {
-              if (data.ApplyManId) {
+              if (data.ApplyManId)  {
                   that.data.dingList.push(data.ApplyManId)
               }
               else that.data.dingList = []
@@ -1027,21 +1040,58 @@ export default {
         },
       })
     },
-    checkLogin2(callBack){
+
+
+     checkLogin2(callBack){
       var that = this
       var app = getApp()
+      //检查登录
+      if (app.userInfo) {
+        var DingData = {
+          nickName:app.userInfo.name,
+          departName:app.userInfo.dept,
+          userid:app.userInfo.userid
+        }
+
+        that.setData({DingData:DingData })
+        callBack()
+        return
+      }
+      dd.showLoading({
+        content: '登录中...'
+      });
+      
       dd.getAuthCode({
         success: (res) => {
-          // console.log(res.authCode)
+          console.log(res.authCode);
+          // lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
+          //   app.userInfo = res
+            
+          //   console.log("sssssssssssssssssssssssss");
+          //   console.log(res);
+            
+          //   var DingData = {
+          //     nickName:res.name,
+          //     departName:res.dept,
+          //     userid:res.userid
+          //   }
+          //   dd.hideLoading()
+
+          //   that.setData({ DingData:DingData })
+          //   callBack()
+          // })
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
               let result = res;          
               dd.httpRequest({
                     url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
                     method: 'POST',
+                    data:'',
                     headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
                     success: function(res) {
-        
+
+                      console.log(res);
                       let name = JSON.parse(res.data).name;
+              
                       if(!result.userid){
                         dd.alert({
                           content:res.errmsg+',请关掉应用重新打开试试~'
@@ -1055,6 +1105,7 @@ export default {
                         departName:result.dept,
                         userid:result.userid
                       }
+                      console.log(DingData)
                       dd.hideLoading()
                       that.setData({ DingData:DingData })
                       callBack()
@@ -1065,8 +1116,56 @@ export default {
 
           })
         },
+        // fail: (err) => {
+        //   console.log('免登失败')
+        //   dd.alert({ content: "免登失败" });
+        //   //dd.alert({ content: JSON.stringify(err) })
+        // }
       })
     },
+    // checkLogin2(callBack){
+    //   var that = this
+    //   var app = getApp()
+    //   dd.getAuthCode({
+    //     success: (res) => {
+    //       // console.log(res.authCode)
+    //       lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
+    //           let result = res;          
+    //           dd.httpRequest({
+    //                 url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
+    //                 method: 'POST',
+    //                 headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+    //                 success: function(res) {
+        
+    //                   let name = JSON.parse(res.data).name;
+    //                   if(!result.userid){
+    //                     dd.alert({
+    //                       content:res.errmsg+',请关掉应用重新打开试试~'
+    //                     });
+    //                     return
+    //                   }
+    //                   app.userInfo = result
+    //                   var DingData = {
+    //                     // nickName:result.name,
+    //                     nickName:name || result.name,
+    //                     departName:result.dept,
+    //                     userid:result.userid
+    //                   }
+    //                   dd.hideLoading()
+    //                   that.setData({ DingData:DingData })
+    //                   callBack()
+    //                 }
+
+
+    //               }) 
+
+    //       })
+    //     },
+    //   })
+    // },
+
+
+
     bindPickerChange(e){
       for(let i = 0;i<this.data.nodeList.length;i++){
         if(this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0){
@@ -1078,7 +1177,18 @@ export default {
           // this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
           // this.data.nodeList[i].NodePeople=[ this.data.projectList[e.detail.value].ResponsibleMan];
           console.log(this.data.nodeList);
+
+
+          let newTitle = this.data.projectList[e.detail.value].ProjectId  + "-" + this.data.projectList[e.detail.value].ProjectName;
+            if(newTitle.indexOf("undefined") > -1){
+              newTitle = undefined;
+            }
+            let a = this.data.projectList[e.detail.value].ContractNo + "-" + this.data.projectList[e.detail.value].ContractName;
+
+            console.log(this.data.projectList);
           this.setData({
+            ['tableInfo.Title']:newTitle || a,
+            projectIndex: e.detail.value,
             nodeList: this.data.nodeList
           });
         }

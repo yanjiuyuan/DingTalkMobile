@@ -76,7 +76,7 @@
 						</view>
 					</view>
 
-					<view a:if="{{node.NodePeople.length > 2}}" data-NodePeople="{{node.NodePeople}}"  onTap="NodePeople" class="choosePeople-view-right-plus">...</view>
+					<view a:if="{{node.NodePeople.length > 2}}" data-NodePeople="{{node.NodePeople}}" class="choosePeople-view-right-plus">...</view>
 
 					<view a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;" >
 						<view class="choosePeople-view-right-item" >
@@ -138,8 +138,8 @@
   </view>
 </template>
 
-
-<!-- <template name="test">
+<!-- 
+<template name="test">
     <view class="choosePeople">
       <view class="choosePeople-title">审批流程</view>
         <view a:for="{{nodeList}}" a:for-item="node" a:if="{{node}}">

@@ -98,34 +98,52 @@ Page({
       })
   },
   getMenu(){
-    var that = this
-    this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
+      let that = this;
+      this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
       let sorts = data;
+      console.log(data);
       that.setData({sort:data});
-	  let sortItem=[];
-      that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
-        var temp = that.mergeObjectArr(data,that.data.menu,'flowId')
+	    let sortItem = [];//用于存放sort打开展开收起的数据
+      let tempdata = [];//用于存放流程数据
+      // that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
         for(let s of sorts){
-			let item={
-				text:"收起",
-				class:"dropdown-content-show"
-			}
-			sortItem.push(item);
-          s['show'] = false
+          for(let f of s.flows){
+              f.flowId = f.FlowId;
+              f.sortName = s.SORT_NAME;
+              f.flowName = f.FlowName;
+
+               tempdata.push(f);
+          }
+         
+        }
+       let temp = that.mergeObjectArr(tempdata,that.data.menu,'flowId');
+        for(let s of sorts){
+          let item = {
+            text:"收起",
+            class:"dropdown-content-show"
+          }
+          sortItem.push(item);
+              // s['show'] = false;
+          s['show'] = false;
+
           for(let t of temp){
-            if(t.url && t.sortId == s.SORT_ID){
+    
+            if(t.url && t.sortId == s.Sort_ID){
               s['show'] = true;
               break;
             }
           }
         }
+        console.log(sorts);
+        console.log(temp);
+
         that.setData({
           sort:sorts,
           menu: temp,
-		  sortItems: sortItem
+		      sortItems:sortItem
         })
       })
-    })
+    // })
   },
 
 
