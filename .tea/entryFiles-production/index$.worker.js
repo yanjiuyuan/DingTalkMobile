@@ -70,9 +70,12 @@ require('../../page/start/techonologySupply/techonologySupply');
 require('../../page/start/overTime/overTime');
 require('../../page/approveDetail/projectClosure/projectClosure');
 require('../../page/approveDetail/gift/gift');
-require('../../page/start/productionMonitoring/productionMonitoring');
 require('../../page/start/gift/gift');
 require('../../page/processOn/processOn');
+require('../../page/start/productionMonitoring/productionMonitoring');
+require('../../page/managementConsole/managementConsole');
+require('../../page/managementConsole/addShortcut/addShortcut');
+require('../../page/managementConsole/sort/sort');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

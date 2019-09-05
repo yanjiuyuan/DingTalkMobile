@@ -44,7 +44,10 @@
     "page/approveDetail/gift/gift",
     "page/start/gift/gift",
     "page/processOn/processOn",
-    "page/start/productionMonitoring/productionMonitoring"
+    "page/start/productionMonitoring/productionMonitoring",
+    "page/managementConsole/managementConsole",
+    "page/managementConsole/addShortcut/addShortcut",
+    "page/managementConsole/sort/sort"
   ],
   "window": {
     "enableWK": "YES",

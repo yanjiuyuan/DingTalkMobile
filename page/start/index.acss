@@ -15,7 +15,10 @@
     
 }
 
-
+.approval-box-image{
+    width: 40px;
+    height: 40px;
+}
 
 .slogon {
   text-align: center;
@@ -171,6 +174,7 @@
 .small-font{
   font-size: 25rpx;
   color: rgb(136, 136, 136);
+  margin-left: 20rpx;
 }
 .blue{
   color: #4796FA;

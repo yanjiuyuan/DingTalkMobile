@@ -28,10 +28,10 @@ Page({
           },value
         )
     }
-    // this.approvalSubmit(value, 
-    // callBack, {
-    //         Title: value.Title
-    //     })
+    this.approvalSubmit(value, 
+    callBack, {
+            Title: value.Title
+        })
   },
 
   //显示外出地点输入框

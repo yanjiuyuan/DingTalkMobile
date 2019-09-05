@@ -28,9 +28,9 @@
 			<text class="sort-open blue">管理</text>
       <view class="menu">
         <view  class="grid-item-new" data-index="{{index}}">
-            <navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
-              <view class="grid-item-wrapper-new" >
-                <view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
+            <navigator url="../../page/managementConsole/managementConsole">
+              <view class="grid-item-wrapper-new">
+                <image mode="scaleToFill"  class="approval-box-image" src="/image/manage.png"/>
                 <text class="grid-text-new">管理控制台</text>
               </view>
               </navigator>

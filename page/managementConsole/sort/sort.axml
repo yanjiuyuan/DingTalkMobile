@@ -1,0 +1,47 @@
+<!-- 排序页面 -->
+<view class="text">
+  按住拖动排序
+</view>
+<view a:for="{{sort}}" a:for-item="m"  a:if="{{m.show}}" class="sort" onTap="showOrClose" >
+
+    <view a:if="{{m.show}}" class="item">
+
+      <view class="plus">
+        {{str}}
+      </view>
+
+      <view class="item-text">
+             {{m.SORT_NAME}}
+      </view>
+
+      <view class="item-right">
+         <view class="one-line"></view> 
+         <view class="one-line"></view> 
+         <view class="one-line"></view> 
+      </view>
+ 
+    </view>
+
+
+    <view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="item">
+
+        <view class="left-item"></view>
+
+        <view class="box"> 
+          <view class="middle-item">
+              <view class="middle-item-icon">
+              </view>
+              <view>{{item.FlowName}}</view>
+          </view>
+
+          <view class="item-right">
+            <view class="one-line"></view> 
+            <view class="one-line"></view> 
+            <view class="one-line"></view> 
+          </view>
+
+        </view>
+
+    </view>
+
+</view>

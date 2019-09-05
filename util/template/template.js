@@ -1,5 +1,5 @@
 
-var globalData = getApp().globalData
+var globalData = getApp().globalData;
 import pub from '/util/public';
 import lib from '/lib.js';
 

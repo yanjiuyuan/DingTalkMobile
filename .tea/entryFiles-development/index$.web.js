@@ -50,3 +50,6 @@ require('../../page/approveDetail/gift/gift');
 require('../../page/start/gift/gift');
 require('../../page/processOn/processOn');
 require('../../page/start/productionMonitoring/productionMonitoring');
+require('../../page/managementConsole/managementConsole');
+require('../../page/managementConsole/addShortcut/addShortcut');
+require('../../page/managementConsole/sort/sort');

@@ -1,9 +1,12 @@
 import pub from '/util/public';let good = {}
+import lib from '/lib.js';
+
 Page({
   ...pub.func,
   ...pub.func.start,
   data: {
     ...pub.data,
+    addPeopleNodes: [1],
 
   items: [
       {name: '智慧工厂事业部', value: '智慧工厂事业部',checked: true},
@@ -37,33 +40,42 @@ Page({
       multiple: false,
       success: function(res) {
         console.log(res)
+        let names = []//userId
+        for (let d of res.users) names.push(d.name);
+        for (let node of that.data.nodeList) {
+				if (node.NodeId == 1) {
+					node.AddPeople = res.users;
+				}
+			}
+        that.setData({
+          'table.ResponsibleMan':names.join(','),
+          ResponsibleMan:res.users[0],
+          nodeList:that.data.nodeList
+        })
+          // let result = res;
+          // dd.httpRequest({
+          //       url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({userid:res.users[0].userId}),
+          //       method: 'POST',
+          //       headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+          //       success: function(res) {
+    
+          //       let name = JSON.parse(res.data).name;
 
+          //       let names = []//userId
+          //       for (let d of res.users) names.push(d.name);
+          //       let item1 = "nodeList[1].ApplyMan";
+          //       let item2 = "nodeList[1].NodePeople";
 
-          let result = res;
+          //       that.setData({
+          //         'table.ResponsibleMan':names.join(','),
+          //         ResponsibleMan:res.users[0],
+          //         [item1]:res.users[0].name,
+          //         [item2]:[res.users[0].name],
+          //       })    
 
-              dd.httpRequest({
-                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.users[0].userId}),
-                    method: 'POST',
-                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
-                    success: function(res) {
-        
-                    let name = JSON.parse(res.data).name;
+          //       }
 
-                    let names = []//userId
-                    for (let d of res.users) names.push(d.name);
-                    let item1 = "nodeList[1].ApplyMan";
-                    let item2 = "nodeList[1].NodePeople";
-
-                    that.setData({
-                      'table.ResponsibleMan':names.join(','),
-                      ResponsibleMan:res.users[0],
-                      [item1]:res.users[0].name,
-                      [item2]:[res.users[0].name],
-                    })    
-
-                    }
-
-                  }) 
+          //     }) 
 
 
 

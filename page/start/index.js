@@ -1,7 +1,8 @@
 import pub from '/util/public';
 
 
-var globalData = getApp().globalData
+var globalData = getApp().globalData;
+let app = getApp();
 Page({
   ...pub.func,
   onLoad(){
@@ -97,6 +98,7 @@ Page({
         })
       })
   },
+  
   getMenu(){
       let that = this;
       this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
@@ -134,10 +136,14 @@ Page({
             }
           }
         }
-        console.log(sorts);
-        console.log(temp);
+
+
+        app.globalData.sort = sorts;
+        app.globalData.menu = temp;
+        app.globalData.sortItems = sortItem;
 
         that.setData({
+          
           sort:sorts,
           menu: temp,
 		      sortItems:sortItem
@@ -146,7 +152,36 @@ Page({
     // })
   },
 
-
+  // getMenu(){
+  //   var that = this
+  //   this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
+  //     let sorts = data;
+  //     that.setData({sort:data});
+	//   let sortItem=[];
+  //     that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
+  //       var temp = that.mergeObjectArr(data,that.data.menu,'flowId')
+  //       for(let s of sorts){
+	// 		let item={
+	// 			text:"收起",
+	// 			class:"dropdown-content-show"
+	// 		}
+	// 		sortItem.push(item);
+  //         s['show'] = false
+  //         for(let t of temp){
+  //           if(t.url && t.sortId == s.SORT_ID){
+  //             s['show'] = true;
+  //             break;
+  //           }
+  //         }
+  //       }
+  //       that.setData({
+  //         sort:sorts,
+  //         menu: temp,
+	// 	  sortItems: sortItem
+  //       })
+  //     })
+  //   })
+  // },
 
 
 
