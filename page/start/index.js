@@ -20,7 +20,7 @@ Page({
     userIndex: -1,
     userList:[],
     sort: [],
-	sortItems:[],
+	  sortItems:[],
 
 
   },
@@ -194,7 +194,7 @@ Page({
 		// console.log(this.data.menu);
 		let index=event.target.dataset.index;
 		if(this.data.sortItems[index].text == "展开"){
-		  let item=this.data.sortItems;
+		  let item = this.data.sortItems;
 		  item[index]={
 			  text:"收起",
 			  class:"dropdown-content-show"
