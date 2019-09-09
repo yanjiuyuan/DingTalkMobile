@@ -74,6 +74,8 @@ require('../../page/start/productionMonitoring/productionMonitoring');
 require('../../page/managementConsole/managementConsole');
 require('../../page/managementConsole/addShortcut/addShortcut');
 require('../../page/managementConsole/sort/sort');
+require('../../page/managementConsole/sortTest/sortTest');
+require('../../page/managementConsole/sortTest_1/sortTest_1');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

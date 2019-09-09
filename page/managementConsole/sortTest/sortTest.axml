@@ -1,0 +1,21 @@
+<!-- 排序页面 -->
+<view class="text">
+  长按拖动排序
+</view>
+<view class='item_container'>
+  <view a:for='{{all_list}}' a:for-item="m"   class="item {{index==current?'moving':'normal'}}" hover-class='item_select' longTap="longTab" style="left:{{item.left}}px;top:{{item.top}}px"  onTouchMove="move" onTouchStart="moveStart" onTouchEnd="moveEnd" data-index="{{index}}">
+      <view  class="items"  data-item="{{index}}">
+        <view class="plus">
+          {{showOrClose[index-1].str}} 
+        </view>
+        <view class="item-text">
+              {{m.text}}
+        </view>
+        <view class="item-right">
+          <view class="one-line"></view> 
+          <view class="one-line"></view> 
+          <view class="one-line"></view> 
+        </view>
+    </view>
+  </view>      
+</view> 

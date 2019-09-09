@@ -47,7 +47,9 @@
     "page/start/productionMonitoring/productionMonitoring",
     "page/managementConsole/managementConsole",
     "page/managementConsole/addShortcut/addShortcut",
-    "page/managementConsole/sort/sort"
+    "page/managementConsole/sort/sort",
+    "page/managementConsole/sortTest/sortTest",
+    "page/managementConsole/sortTest_1/sortTest_1"
   ],
   "window": {
     "enableWK": "YES",
