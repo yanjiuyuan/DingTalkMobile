@@ -1026,6 +1026,7 @@ export default {
       dd.getAuthCode({
         success: (res) => {
           console.log(res.authCode)
+  
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
             app.userInfo = res;
             var DingData = {
@@ -1073,6 +1074,7 @@ export default {
           //   var DingData = {
           //     nickName:res.name,
           //     departName:res.dept,
+          
           //     userid:res.userid
           //   }
           //   dd.hideLoading()
@@ -1080,6 +1082,7 @@ export default {
           //   that.setData({ DingData:DingData })
           //   callBack()
           // })
+
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
               let result = res;          
               dd.httpRequest({

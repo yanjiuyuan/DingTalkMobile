@@ -5,9 +5,9 @@
 <view a:for="{{sort}}" a:for-item="m" a:if="{{m.show}}"  class="sort" >
 
     <view a:if="{{m.show}}" class="item relative" onTap="toggle"  data-item="{{index}}">
+      
       <view class="plus">
-        {{showOrClose[index-1].str}} 
-        <!-- {{str1}} -->
+        {{showOrClose[index-1].str}}
       </view>
       <view class="item-text">
              {{m.SORT_NAME}}

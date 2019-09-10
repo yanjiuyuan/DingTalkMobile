@@ -61,7 +61,12 @@ Page({
     if(this.data.imgUrlList.length>0){
       param['ImageUrl'] = this.data.imgUrlList.join(',')
     }
-    console.log(param)
+    else if(this.data.nodeid == 3 && this.data.imgUrlList.length == 0){
+      dd.alert({
+        content:"请上传图片"
+      })
+      return;
+    }
     //return
     this.aggreSubmit(param)
   },

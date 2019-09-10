@@ -30,19 +30,19 @@ Page({
        });
     }
     //过滤数据,
-    // for(let i = 0 ,len = app.globalData.sort.length;i < len; i++){
-    //     if(app.globalData.sort[i].show){
-    //        processedSort.push(app.globalData.sort[i]);////////////可能还需要处理
-    //     }
-    // } 
+    for(let i = 0 ,len = app.globalData.sort.length;i < len; i++){
+        if(app.globalData.sort[i].show){
+           processedSort.push(app.globalData.sort[i]);////////////可能还需要处理
+        }
+    } 
     
-    // console.log(app.globalData.sort);
+    console.log(app.globalData.sort);
 
-    // this.setData({
-    //   menu:app.globalData.menu,
-    //   sort:app.globalData.sort,
-    //   all_list:processedSort
-    // })
+    this.setData({
+      menu:app.globalData.menu,
+      sort:app.globalData.sort,
+      all_list:processedSort
+    })
 
     //给每个项分配位置
     dd.getSystemInfo({

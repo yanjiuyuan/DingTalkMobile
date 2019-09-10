@@ -63,3 +63,26 @@ height: 100rpx;
   margin: 20rpx;
   font-size: 25rpx;
 }
+.left-item{
+  height: 100rpx;
+  width: 80rpx;
+}
+.middle-item{
+  /* border: 1px red solid; */
+  display: flex;
+}
+
+.middle-item-icon{
+  height: 35rpx;
+  width: 35rpx;
+  border: 1px #4796FA solid;
+  margin-right: 20rpx;
+}
+.items{
+  height: 100rpx;
+  width:100%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+
+}

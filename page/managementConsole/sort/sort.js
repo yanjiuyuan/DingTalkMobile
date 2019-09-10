@@ -1,14 +1,13 @@
 const app = getApp();
 Page({
   data: {
-    str1:"+",
+  str1:"+",
   state:false,
   first_click:false,
   showOrClose:[],
   },
   onLoad() {
     
-
     //生成每个项的隐藏参数
     for(let i = 0; i < app.globalData.sort.length; i++){
      this.data.showOrClose.push(
@@ -19,6 +18,8 @@ Page({
        });
     }
     console.log(app.globalData);
+    console.log(this.data.showOrClose);
+
     this.setData({
       menu:app.globalData.menu,
       sort:app.globalData.sort
@@ -28,8 +29,9 @@ Page({
 
   //打开显示隐藏
   toggle(e){
-      console.log(e);
+        console.log(e);
         let item = e.target.dataset.item;
+        console.log(item);
         console.log(this.data.showOrClose[item-1].str);
       if(this.data.showOrClose[item-1].str == "+"){
         	let sortItem = this.data.showOrClose;
