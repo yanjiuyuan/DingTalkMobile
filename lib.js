@@ -1,6 +1,6 @@
-// let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
+let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
 // let dormainName = 'http://47.96.172.122:8093/'  //线上研究院
-let dormainName = 'http://caixingtong.qicp.vip:48392/'; //测试人员测试
+// let dormainName = 'http://caixingtong.qicp.vip:48392/'; //测试人员测试
 
 function doWithErrcode(result){
   if(!result) {

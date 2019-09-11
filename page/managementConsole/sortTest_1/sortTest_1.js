@@ -30,9 +30,7 @@ Page({
        class:"dropdown-content-show",
        });
     }
-
-    console.log(app.globalData.sort);
-
+    
     //过滤数据
     for(let i = 0 ,len = app.globalData.sort.length;i < len; i++){
       let father = app.globalData.sort[i];
@@ -48,10 +46,8 @@ Page({
           
       }
     } 
-    console.log("sssssssssssss");
-    console.log(processedSort);
     this.setData({
-      all_list:processedSort
+      all_list:processedSort,
     })
 
     //计算父级节点的位置
@@ -60,18 +56,49 @@ Page({
         var width = that.data.all_width = res.windowWidth, _w = 0, row = 0, column = 0;
         var arr = [].concat(that.data.all_list);
 
+        //项和下标
+        // row是列，colum是列
+        let sonHeight = 0;
         arr.forEach(function (n, i) {
+
           n.left = (that.data.fatherWidth + that.data.fatherLeftDistance) * row + that.data.fatherLeftDistance;
-          n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance;
+          n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance + sonHeight;
           n._left = n.left;
           n._top = n.top;
+
+          // 定义孩子的行和列和宽度
+          let son_w = 0, sonRow = 0, sonColumn = 1;
+      
+          for(let index = 0,len = n.flows.length; index < len; index++){
+           
+            n.flows[index].left = 0;
+            // n.flows[index].top = n.top + (that.data.fatherHeight + that.data.sonTopDistance) * sonColumn + that.data.sonTopDistance;
+            n.flows[index].top =  (that.data.fatherHeight + that.data.sonTopDistance) * sonColumn + that.data.sonTopDistance;
+            n.flows[index]._left = n.flows[index].left;
+            n.flows[index]._top = n.flows[index].top;
+
+             son_w = that.data.sonWidth + that.data.sonLeftDistance;
+
+             if(index == len - 1){
+              sonHeight += sonColumn * that.data.sonHeight;
+             }
+            if(son_w + that.data.sonWidth + that.data.sonLeftDistance > width){
+                son_w = 0;
+                sonRow = 0;
+                sonColumn++;
+            }
+            else{
+              sonRow++;
+            }
+          }
           _w += that.data.fatherWidth + that.data.fatherLeftDistance;
+            
           if (_w + that.data.fatherWidth + that.data.fatherLeftDistance > width) {
             _w = 0;
             row = 0;
             column++;
           } else {
-            row++;
+            row++;            
           }
         });
 
@@ -83,24 +110,35 @@ Page({
   },
   //onTouchStart
   moveStart: function (e) {
-    console.log('start');
-    console.log(e);
-    console.log(e.target.dataset.index);
+    console.log("moveStart");
+
+    for(let i = 0,len = this.data.showOrClose.length; i<len;i++){
+      
+      this.data.showOrClose[i] = {
+        show:true,
+        index:i,
+        str:"+",
+        class:"dropdown-content",
+      };
+    }
     x = e.changedTouches[0].clientX;
     y = e.changedTouches[0].clientY;
-
-
     x1 = this.data.all_list[e.target.dataset.index].left;//和左的距离
     y1 = this.data.all_list[e.target.dataset.index].top;//和上的距离
     
+    console.log("ssssssssss");    
+    console.log(this.data.showOrClose);
+    // console.log("current:" + e.target.dataset.index);
 
     this.setData({
-      current: e.target.dataset.index
+      current: e.target.dataset.index,
+      showOrClose: this.data.showOrClose
     })
   },
   //onTouchMove
   move: function (e) {
     console.log("move");
+
     var that = this;
     x2 = e.changedTouches[0].clientX - x + x1;
     y2 = e.changedTouches[0].clientY - y + y1;
@@ -131,6 +169,7 @@ Page({
   moveEnd: function (e) {
     console.log("moveEnd");
     var underIndex = this.getCurrnetUnderIndex();
+    // console.log("underIndex:" + underIndex);
     var arr = [].concat(this.data.all_list);
     if (underIndex != null && underIndex != this.data.current) {
       this.changeArrayData(arr, underIndex, this.data.current);
@@ -140,10 +179,13 @@ Page({
       n.top = n._top;
     })
   
+    console.log(this.data.showOrClose);
     this.setData({
       all_list: arr
     })
   },
+
+  //更换位置：数组，下标一，下标二
   changeArrayData: function (arr, i1, i2) {
     var temp = arr[i1];
     arr[i1] = arr[i2];
@@ -154,13 +196,14 @@ Page({
     arr[i1]._top = arr[i2]._top;
     arr[i2]._left = _left;
     arr[i2]._top = _top;
-    /////////////////////////////////////////////////////////////////////////////////换id
-    let id = arr[i1].id;
-    arr[i1].id = arr[i2].id;
-    arr[i2].id = id;
+    /////////////////////////////////////////////////////////////////////////////////换showOrClose
+    
+
 
   },
-  getCurrnetUnderIndex: function (endx, endy) {//获取当前移动下方index
+
+  //获取当前移动下方index
+  getCurrnetUnderIndex: function (endx, endy) {
     var endx = x2 + this.data.fatherWidth / 2,
       endy = y2 + this.data.fatherHeight / 2;
     var v_judge = false, h_judge = false, column_num = (this.data.all_width - this.data.fatherLeftDistance) / (this.data.fatherLeftDistance + this.data.fatherWidth) >> 0;
@@ -188,8 +231,68 @@ Page({
     }
   },
 
-  a(e){
-    console.log("sss");
-    console.log(e);
+  //打开显示隐藏
+  toggle(e){
+      let item = e.target.dataset.item;
+      //这是展开px需要增加
+      if(this.data.showOrClose[item].str == "+"){
+        	let sortItem = this.data.showOrClose;
+          sortItem[item] = {
+            index : item,
+            str : "-",
+            class : "dropdown-content-show",
+          }
+          this.calculatedAltitudeIncrease(this.data.all_list,item);
+          this.setData({
+            showOrClose:sortItem
+            })
+      }
+
+      //隐藏位置需要减少
+      else if(this.data.showOrClose[item].str == "-"){
+        	let sortItem = this.data.showOrClose;
+          sortItem[item] = {
+            index:item,
+            str:"+",
+            class:"dropdown-content",
+          }
+          this.calculatedAltitudeReduce(this.data.all_list,item);
+          this.setData({
+            showOrClose:sortItem
+            })
+      }
+  },
+
+  // 重新计算高度减小
+  calculatedAltitudeReduce(array,index){
+      console.log(array);
+      let prevHeight = array[index].flows.length * this.data.sonHeight;
+      for(let i = index + 1,len = array.length; i<len; i++){
+          array[i].top = array[i].top - prevHeight;
+          array[i]._top = array[i]._top - prevHeight;
+      }
+      this.setData({
+        all_list:array
+      })
+  },
+  //重新计算高度增加
+  calculatedAltitudeIncrease(array,index){
+      let prevHeight = array[index].flows.length * this.data.sonHeight;
+      for(let i = index + 1,len = array.length; i<len; i++){
+          array[i].top = array[i].top + prevHeight;
+          array[i]._top = array[i]._top + prevHeight;
+      }
+    this.setData({
+        all_list:array
+    })
+  },
+  sonStart(){
+    console.log("sonStart");
+  },
+  sonMove(){
+    console.log("sonMove");
+  },
+  sonMoveEnd(){
+    console.log("sonMoveEnd");
   }
 })

@@ -3,21 +3,40 @@
   长按拖动排序
 </view>
 <view class='item_container'>
-  <view a:for='{{all_list}}' class="item {{index==current?'moving':'normal'}}" hover-class='item_select' longTap="longTab" style="left:{{item.left}}px;top:{{item.top}}px"  onTouchMove="move" onTouchStart="moveStart" onTouchEnd="moveEnd" data-index="{{index}}">
-    <view class="plus">
-        {{showOrClose[index].str}}
+  <view a:for='{{all_list}}' class="item {{index==current?'moving':'normal'}}" longTap="longTab" style="left:{{item.left}}px;top:{{item.top}}px" onTouchMove="move" onTouchStart="moveStart" onTouchEnd="moveEnd" data-index="{{index}}" data-item="{{index}}">
+    <view onTap="toggle" data-item="{{index}}" style="display: flex;align-items: center;">
+      <view class="plus">
+          {{showOrClose[index].str}}
+      </view>
+
+      <view class="item-text">
+              {{item.SORT_NAME}}:{{item.top}}
+      </view>
+
+      <view class="item-right">
+          <view class="one-line"></view> 
+          <view class="one-line"></view> 
+          <view class="one-line"></view> 
+      </view>      
     </view>
 
-    <view class="item-text">
-            {{item.SORT_NAME}}
+    <view class="{{showOrClose[index].class}}">
+      <view a:for="{{item.flows}}"  style="left:{{item.left}}px;top:{{item.top}}px" class="items" onTouchMove="sonMove" onTouchStart="sonStart" onTouchEnd="sonMoveEnd" data-index="{{index}}" data-item="{{index}}">
+          <view class="left-item"></view>
+          <view class="middle-item">
+              <view class="middle-item-icon">
+              </view>
+              <view>{{item.FlowName}}</view>
+              <view>{{item.top}}</view>
+          </view>
+          <view class="item-right">
+            <view class="one-line"></view> 
+            <view class="one-line"></view> 
+            <view class="one-line"></view> 
+          </view>
+      </view>
     </view>
-
-    <view class="item-right">
-        <view class="one-line"></view> 
-        <view class="one-line"></view> 
-        <view class="one-line"></view> 
-    </view>
-
+    
   </view>
 </view>      
 

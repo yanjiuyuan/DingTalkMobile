@@ -47,12 +47,6 @@ height: 100rpx;
   margin-bottom: 10rpx;
   border-radius: 5px;
 }
-.item-right{
-  height: 33rpx;
-  width: 40rpx;
-  position: absolute;
-  right: 40rpx;
-}
 
 .item-text{
   font-weight: bold;
@@ -79,10 +73,20 @@ height: 100rpx;
   margin-right: 20rpx;
 }
 .items{
+  position: absolute;
   height: 100rpx;
   width:100%;
   background-color: #FFF;
   display: flex;
-  align-items: center;
+  align-items: center; 
 
+}
+.dropdown-content{
+	display: none;
+  position: absolute;
+
+}
+.dropdown-content-show{
+	background-color: #fff;
+	display: block;
 }
