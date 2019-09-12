@@ -49,7 +49,8 @@
     "page/managementConsole/addShortcut/addShortcut",
     "page/managementConsole/sort/sort",
     "page/managementConsole/sortTest/sortTest",
-    "page/managementConsole/sortTest_1/sortTest_1"
+    "page/managementConsole/sortTest_1/sortTest_1",
+    "page/approveDetail/projectDetail/projectDetail"
   ],
   "window": {
     "enableWK": "YES",

@@ -78,6 +78,7 @@ require('../../page/managementConsole/addShortcut/addShortcut');
 require('../../page/managementConsole/sort/sort');
 require('../../page/managementConsole/sortTest/sortTest');
 require('../../page/managementConsole/sortTest_1/sortTest_1');
+require('../../page/approveDetail/projectDetail/projectDetail');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

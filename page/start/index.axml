@@ -28,6 +28,7 @@
 			<text class="sort-open blue">管理</text>
       <view class="menu">
         <view  class="grid-item-new" data-index="{{index}}">
+            <!-- <navigator url="../../page/approveDetail/projectDetail/projectDetail?projectId=2020QZH100"> -->
             <navigator url="../../page/managementConsole/managementConsole">
               <view class="grid-item-wrapper-new">
                 <image mode="scaleToFill"  class="approval-box-image" src="/image/manage.png"/>

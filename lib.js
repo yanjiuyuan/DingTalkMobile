@@ -6,7 +6,7 @@ function doWithErrcode(result){
   if(!result) {
     return 1
   }
-  if(result.error && result.error.errorCode !=0){
+  if(result.error && result.error.errorCode != 0){
     dd.alert({content:result.error.errorMessage}) 
     return 1
   }
@@ -16,7 +16,8 @@ var d = new Date()
 var year = d.getFullYear()
 var month = d.getMonth() + 1
 var day = d.getDate()
-var hour = d.getHours()
+var hour = d.getHours() 
+47
 var minutes = d.getMinutes()
 export default {
   data:{
@@ -54,8 +55,8 @@ export default {
           if (app.userInfo) {
             userInfo = app.userInfo
           }
-          console.log(url);
-          console.log(res);
+          // console.log(url);
+          // console.log(res);
 
           if(doWithErrcode(res.data)) {
             postErrorMsg('GET',url,res.data.error,userInfo)

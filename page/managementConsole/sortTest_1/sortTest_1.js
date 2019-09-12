@@ -112,15 +112,15 @@ Page({
   moveStart: function (e) {
     console.log("moveStart");
 
-    for(let i = 0,len = this.data.showOrClose.length; i<len;i++){
+    // for(let i = 0,len = this.data.showOrClose.length; i<len;i++){
       
-      this.data.showOrClose[i] = {
-        show:true,
-        index:i,
-        str:"+",
-        class:"dropdown-content",
-      };
-    }
+    //   this.data.showOrClose[i] = {
+    //     show:true,
+    //     index:i,
+    //     str:"+",
+    //     class:"dropdown-content",
+    //   };
+    // }
     x = e.changedTouches[0].clientX;
     y = e.changedTouches[0].clientY;
     x1 = this.data.all_list[e.target.dataset.index].left;//和左的距离

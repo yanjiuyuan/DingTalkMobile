@@ -240,7 +240,7 @@ Page({
     let that = this;
     this.checkLogin(() => {
 
-      // let TaskId = 511;
+      // let TaskId = 654;
       let TaskId = options.taskid;
       that.data.CompanyId = options.companyId;
 
@@ -400,7 +400,6 @@ addRemark(e){
   },
   // 设计人员确认收货
   confirm(e){
-    if(this.data.SpeedOfProgress)
     if(this.data.SpeedOfProgress == "已完成"){
 
       this.data.tableInfo.IsAlreadyRead = true;

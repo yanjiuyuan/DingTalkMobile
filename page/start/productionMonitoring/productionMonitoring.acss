@@ -26,5 +26,5 @@
   display: none;
 }
 .form-row-label{
-  width: 3.06rem
+  width: 4rem
 }

@@ -26,6 +26,13 @@ Page({
       this.data.table['ProjectName'] = value.ProjectName
     }
     if(this.data.nodeid == 4){
+      let reg = /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/;
+      if(!reg.test(value.ProjectNo)){
+          dd.alert({
+            content:"请规范填写测试项目编号"
+          })
+          return;
+      }
       if(!value.ProjectNo){
         dd.alert({content:'表单未填写完整'})
         return

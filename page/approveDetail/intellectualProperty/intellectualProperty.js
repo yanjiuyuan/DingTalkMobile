@@ -33,7 +33,7 @@ Page({
   },
   print(){
     var that = this
-    this._postData('IntellectualProperty/PrintAndSend',
+    this._postData('IntellectualProperty/Print',
       function(res){
         dd.alert({content:'获取成功，请在钉钉工作通知中查收'})
       },
