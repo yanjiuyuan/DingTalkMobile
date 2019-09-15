@@ -63,6 +63,8 @@ Page({
 
           n.left = (that.data.fatherWidth + that.data.fatherLeftDistance) * row + that.data.fatherLeftDistance;
           n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance + sonHeight;
+          // n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance ;
+          
           n._left = n.left;
           n._top = n.top;
 

@@ -56,8 +56,9 @@ Page({
   sort(){
     dd.navigateTo({
         // url: "/page/managementConsole/sort/sort"
-        // url: "/page/managementConsole/sortTest/sortTest"
-        url: "/page/managementConsole/sortTest_1/sortTest_1"
+        url: "/page/managementConsole/sortTest/sortTest"
+        // url: "/page/managementConsole/sortTest_1/sortTest_1"
+
 
 
     })

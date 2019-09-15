@@ -1065,107 +1065,57 @@ export default {
       dd.getAuthCode({
         success: (res) => {
           console.log(res.authCode);
-          // lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
-          //   app.userInfo = res
-            
-          //   console.log("sssssssssssssssssssssssss");
-          //   console.log(res);
-            
-          //   var DingData = {
-          //     nickName:res.name,
-          //     departName:res.dept,
-          
-          //     userid:res.userid
-          //   }
-          //   dd.hideLoading()
-
-          //   that.setData({ DingData:DingData })
-          //   callBack()
-          // })
-
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
-              let result = res;          
-              dd.httpRequest({
-                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
-                    method: 'POST',
-                    data:'',
-                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
-                    success: function(res) {
+              let result = res;     
 
-                      console.log(res);
-                      let name = JSON.parse(res.data).name;
-              
-                      if(!result.userid){
-                        dd.alert({
-                          content:res.errmsg+',请关掉应用重新打开试试~'
-                        });
-                        return
-                      }
-                      app.userInfo = result
-                      var DingData = {
-                        // nickName:result.name,
-                        nickName:name || result.name,
-                        departName:result.dept,
-                        userid:result.userid
+                    var DingData = {
+   
+                        nickName:"胡晓辉",
+                        departName:"图书馆",
+                        userid:283763135732555063
                       }
                       console.log(DingData)
                       dd.hideLoading()
                       that.setData({ DingData:DingData })
                       callBack()
-                    }
+
+            //   dd.httpRequest({
+            //         url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
+            //         method: 'POST',
+            //         data:'',
+            //         headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+            //         success: function(res) {
+
+            //           console.log(res);
+            //           let name = JSON.parse(res.data).name;
+              
+            //           if(!result.userid){
+            //             dd.alert({
+            //               content:res.errmsg+',请关掉应用重新打开试试~'
+            //             });
+            //             return
+            //           }
+            //           app.userInfo = result
+            //           var DingData = {
+            //             // nickName:result.name,
+            //             nickName:name || result.name,
+            //             departName:result.dept,
+            //             userid:result.userid
+            //           }
+            //           console.log(DingData)
+            //           dd.hideLoading()
+            //           that.setData({ DingData:DingData })
+            //           callBack()
+            //         }
 
 
-                  }) 
+            // }) 
 
           })
         },
-        // fail: (err) => {
-        //   console.log('免登失败')
-        //   dd.alert({ content: "免登失败" });
-        //   //dd.alert({ content: JSON.stringify(err) })
-        // }
       })
     },
-    // checkLogin2(callBack){
-    //   var that = this
-    //   var app = getApp()
-    //   dd.getAuthCode({
-    //     success: (res) => {
-    //       // console.log(res.authCode)
-    //       lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
-    //           let result = res;          
-    //           dd.httpRequest({
-    //                 url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
-    //                 method: 'POST',
-    //                 headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
-    //                 success: function(res) {
-        
-    //                   let name = JSON.parse(res.data).name;
-    //                   if(!result.userid){
-    //                     dd.alert({
-    //                       content:res.errmsg+',请关掉应用重新打开试试~'
-    //                     });
-    //                     return
-    //                   }
-    //                   app.userInfo = result
-    //                   var DingData = {
-    //                     // nickName:result.name,
-    //                     nickName:name || result.name,
-    //                     departName:result.dept,
-    //                     userid:result.userid
-    //                   }
-    //                   dd.hideLoading()
-    //                   that.setData({ DingData:DingData })
-    //                   callBack()
-    //                 }
 
-
-    //               }) 
-
-    //       })
-    //     },
-    //   })
-    // },
 
 
 
