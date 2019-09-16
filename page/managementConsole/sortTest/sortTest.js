@@ -1,11 +1,12 @@
 var app = getApp();
 var x, y, x1, y1, x2, y2; //父亲使用的
-var a, b, a1, b1, a2, b2; //父亲使用的
+var a, b, a1, b1, a2, b2; //孩子使用的
 
 
 Page({
   data: {
     current: -1,
+    sonCurrent: -1,
     //父级元素间的信息
     fatherTopDistance: 12.5,//上边的距离
     fatherLeftDistance: 0,//左边的距离
@@ -67,7 +68,7 @@ Page({
 
           n.left = (that.data.fatherWidth + that.data.fatherLeftDistance) * row + that.data.fatherLeftDistance;
           n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance + sonHeight;
-          // n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance ;
+          // n.top = (that.data.fatherHeight + that.data.fatherTopDistance) * column + that.data.fatherTopDistance;
           
           n._left = n.left;
           n._top = n.top;
@@ -118,15 +119,26 @@ Page({
   moveStart: function (e) {
     console.log("moveStart");
 
-    // for(let i = 0,len = this.data.showOrClose.length; i<len;i++){
-      
-    //   this.data.showOrClose[i] = {
-    //     show:true,
-    //     index:i,
-    //     str:"+",
-    //     class:"dropdown-content",
-    //   };
-    // }
+    //闭合父级
+    for(let i = 0,len = this.data.showOrClose.length; i<len;i++){
+      this.data.showOrClose[i] = {
+        show:true,
+        index:i,
+        str:"+",
+        class:"dropdown-content",
+      };
+    }
+    //重新给父级元素定位
+    for(let i = 0,len = this.data.all_list.length;i<len; i++){
+      if(i + 1 < len){
+        this.data.all_list[i+1].top = this.data.all_list[i].top + this.data.fatherHeight + this.data.fatherTopDistance;
+        this.data.all_list[i+1]._top = this.data.all_list[i+1].top;
+      }
+    }
+    this.setData({ 
+      showOrClose:this.data.showOrClose,
+      all_list:this.data.all_list
+    })
     x = e.changedTouches[0].clientX;
     y = e.changedTouches[0].clientY;
     x1 = this.data.all_list[e.target.dataset.index].left;//和左的距离
@@ -139,6 +151,7 @@ Page({
   //onTouchMove
   move: function (e) {
     console.log("move");
+
 
     var that = this;
     x2 = e.changedTouches[0].clientX - x + x1;
@@ -161,6 +174,7 @@ Page({
         n.top = n._top;
       }
     });
+    console.log(arr);
     this.setData({
       all_list: arr
     })
@@ -170,7 +184,6 @@ Page({
   moveEnd: function (e) {
     console.log("moveEnd");
     var underIndex = this.getCurrnetUnderIndex();
-    // console.log("underIndex:" + underIndex);
     var arr = [].concat(this.data.all_list);
     if (underIndex != null && underIndex != this.data.current) {
       this.changeArrayData(arr, underIndex, this.data.current);
@@ -236,6 +249,7 @@ Page({
     console.log(e);
       let item = e.target.dataset.item;
       //这是展开px需要增加
+      console.log(item);
       if(this.data.showOrClose[item].str == "+"){
         	let sortItem = this.data.showOrClose;
           sortItem[item] = {
@@ -287,52 +301,120 @@ Page({
         all_list:array
     })
   },
+
+
   sonStart(e){
     console.log("sonStart");
-    console.log(e.target.dataset.item);
 
-    console.log(e.target.dataset.index);
+    let fatherIndex = e.target.dataset.fatherIndex;
+    let index = e.target.dataset.index;
+
+    console.log(fatherIndex);
+    console.log(index);
 
     a = e.changedTouches[0].clientX;
     b = e.changedTouches[0].clientY;
-    a1 = this.data.all_list[0].flows[e.target.dataset.index].left;//和左的距离
-    b1 = this.data.all_list[0].flows[e.target.dataset.index].top;//和上的距离
-    
+    a1 = this.data.all_list[fatherIndex].flows[index].left;//和左的距离
+    b1 = this.data.all_list[fatherIndex].flows[index].top;//和上的距离
+
     this.setData({
-      current: e.target.dataset.index,
+      sonCurrent: e.target.dataset.index,
     })
 
   },
-  sonMove(){
+  sonMove(e){
+
     console.log("sonMove");
+    let fatherIndex = e.target.dataset.fatherIndex;
+    let index = e.target.dataset.index;
+
+    console.log(fatherIndex);
+    console.log(index);
 
     var that = this;
-    x2 = e.changedTouches[0].clientX - x + x1;
-    y2 = e.changedTouches[0].clientY - y + y1;
-    var underIndex = this.getCurrnetUnderIndex();
+    a2 = e.changedTouches[0].clientX - a + a1;
+    b2 = e.changedTouches[0].clientY - b + b1;
+    var underIndex = this.getSonCurrnetUnderIndex(fatherIndex);
     var arr = [].concat(this.data.all_list);
-    if (underIndex != null && underIndex != this.data.current) {
-      this.changeArrayData(arr, underIndex, this.data.current);
+    if (underIndex != null && underIndex != this.data.sonCurrent) {
+      this.changeSonArrayData(arr[fatherIndex].flows, underIndex, this.data.sonCurrent);
       this.setData({
-        current: underIndex
+        sonCurrent: underIndex
       })
     }
 
-    arr.forEach(function (n, i) {
-      if (i == that.data.current) {
-        n.left = x2;
-        n.top = y2;
+    arr[fatherIndex].flows.forEach(function (n, i) {
+      if (i == that.data.sonCurrent) {
+        n.left = a2;
+        n.top = b2;
       } else {
         n.left = n._left;
         n.top = n._top;
       }
     });
     this.setData({
-      all_list: arr
+      all_list:arr
     })
 
   },
-  sonMoveEnd(){
+  sonMoveEnd(e){
     console.log("sonMoveEnd");
-  }
+    let fatherIndex = e.target.dataset.fatherIndex;
+    var underIndex = this.getSonCurrnetUnderIndex(fatherIndex);
+    var arr = [].concat(this.data.all_list);
+    if (underIndex != null && underIndex != this.data.sonCurrent) {
+      this.changeSonArrayData(arr[fatherIndex].flows, underIndex, this.data.sonCurrent);
+    }
+    arr[fatherIndex].flows.forEach(function (n, i) {//重置
+      n.left = n._left;
+      n.top = n._top;
+    })
+    this.setData({
+      all_list:arr
+    })
+  },
+
+    changeSonArrayData(arr,i1,i2){
+    var temp = arr[i1];
+    arr[i1] = arr[i2];
+    arr[i2] = temp;
+    //换位置
+    var _left = arr[i1]._left, _top = arr[i1]._top;
+    arr[i1]._left = arr[i2]._left;
+    arr[i1]._top = arr[i2]._top;
+    arr[i2]._left = _left;
+    arr[i2]._top = _top;
+    },
+
+  //获取子节点的下一个index
+  getSonCurrnetUnderIndex: function (fatherIndex) {
+    var endx = a2 + this.data.sonWidth / 2,
+      endy = b2 + this.data.sonHeight / 2;
+    var v_judge = false, h_judge = false, column_num = (this.data.all_width - this.data.sonLeftDistance) / (this.data.sonLeftDistance + this.data.sonWidth) >> 0;
+    var _column = (endy - this.data.sonTopDistance) / (this.data.sonHeight + this.data.sonTopDistance) >> 0;
+    var min_top = this.data.sonTopDistance + (_column) * (this.data.sonHeight + this.data.sonTopDistance),
+      max_top = min_top + this.data.sonHeight;
+    if (endy > min_top && endy < max_top) {
+      v_judge = true;
+    }
+    var _row = (endx - this.data.sonLeftDistance) / (this.data.sonWidth + this.data.sonLeftDistance) >> 0;
+    var min_left = this.data.sonLeftDistance + (_row) * (this.data.sonWidth + this.data.sonLeftDistance),
+      max_left = min_left + this.data.sonWidth;
+    if (endx > min_left && endx < max_left) {
+      h_judge = true;
+    }
+    if (v_judge && h_judge) {
+      var index = _column * column_num + _row;
+      if (index > this.data.all_list[fatherIndex].flows.length - 1) {//超过了
+        return null;
+      } else {
+        return index;
+      }
+    } else {
+      return null;
+    }
+  },
+
+
+
 })

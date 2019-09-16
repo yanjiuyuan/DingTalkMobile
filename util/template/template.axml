@@ -314,4 +314,35 @@ margin-right:0.1rem;">*</view>
   </view>
 </template>
 
-<!-- 遮罩和列表 -->
+<!-- 带input的确认框 -->
+
+<template name="inputConfirm">
+    <view class='toast-box' a:if='{{ifName}}' >
+
+        <view class='toastbg' animation="{{animMaskData}}"></view>
+      
+        <view class='showToast'>
+            <view class='toast-title'>
+                <text>{{title}}</text>
+            </view>
+            <form onSubmit="Submit">
+              <view class='toast-main'>
+                  <view class='toast-input'>
+                      <input  name="groupName" ></input>
+                  </view>
+              </view>
+              <view class='toast-button'>
+                  <view class='button1'>
+                      <button onTap='cancel'>取消</button>
+                  </view>
+                  <view class='button2'>
+                      <button  formType="submit">确定</button>
+                  </view>
+              </view>              
+            </form>
+
+        </view>
+    </view>
+</template>
+
+

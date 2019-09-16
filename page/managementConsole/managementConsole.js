@@ -1,6 +1,10 @@
 const app = getApp();
 Page({
-  data: {},
+  data: {
+    ifName: false,
+    title:"请输入分组名称",
+    animMaskData:[],//遮罩层
+  },
   onLoad() {
     console.log(app.globalData.sort);
     this.setData({
@@ -47,8 +51,8 @@ Page({
 
   // 新增
   increase(){
-      dd.alert({
-      content:"是否新增"
+    this.setData({
+      ifName:!this.data.ifName
     })
   },
 
@@ -61,6 +65,18 @@ Page({
 
 
 
+    })
+  },
+  Submit(e){
+    let groupName = e.detail.value.groupName;
+    this.setData({
+      ifName:!this.data.ifName
+    })
+  },
+
+  cancel(){
+    this.setData({
+      ifName:!this.data.ifName
     })
   }
 

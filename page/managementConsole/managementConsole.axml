@@ -50,3 +50,5 @@
          </view>
   </view>
 </view>
+
+<template is="inputConfirm" data="{{ifName:ifName,title:title,animContentData:animContentData,animMaskData:animMaskData}}"/>
