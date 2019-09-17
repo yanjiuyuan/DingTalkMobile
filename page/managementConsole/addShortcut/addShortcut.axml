@@ -11,7 +11,7 @@
         {{item.FlowName}}  
       </view>
     </view>
-    <view class="add">
+    <view class="add" onTap="add" data-item="{{item}}">
       添加
     </view>
 </view>
