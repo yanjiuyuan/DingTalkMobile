@@ -11,14 +11,25 @@ Page({
   submit(e) {
     var that = this
     var value = e.detail.value
+    console.log(value)
+    if( !value.BeginTime || !value.EndTime || !value.Content || !value.Duration) 
+    {
+      dd.alert({content:'表单未填写完整'})
+      return
+    }
+
     value['LocationPlace'] = ''
-    value['Place'] = this.data.table.Place
+    value['Place'] = this.data.table.Place;
+    value["EvectionMan"] = this.data.table.EvectionMan;
+    value["EvectionManId"] = this.data.table.EvectionManId;
     console.log(value)
     if(!value.Place || !value.BeginTime || !value.EndTime || !value.Content || !value.Duration) 
     {
       dd.alert({content:'表单未填写完整'})
       return
     }
+
+
     let callBack = function (taskId) {
         console.log("提交审批ok!")
         value.TaskId = taskId
@@ -47,15 +58,17 @@ Page({
   addPlace(e){
     var value = e.detail.value;
     console.log(value);
-    if (!value || !value.place) {
+    if (!value || !value.place.trim() ) {
       dd.alert({
-        content: `表单填写不完整`,
+        content: `请输入外出地点!`,
+        buttonText:"确认"
       });
-      return
+      return;
     }
-    this.data.placeArr.push(value.place)
+    this.data.placeArr.push(value.place.trim());
+    console.log(this.data.placeArr);
     this.setData({
-      'table.Place': this.data.placeArr.join('-')
+      'table.Place': this.data.placeArr.join(',')
     })
     this.onModalCloseTap()
   },
@@ -99,8 +112,9 @@ Page({
     var nodeId = e.target.targetDataset.NodeId
     var that = this
     dd.complexChoose({
-      ...that.chooseParam,
-      multiple: true,
+      ...that.data.chooseParam,
+      title: "同行人",  
+      multiple: true,//是否多选
       success: function(res) {
         console.log(res)
         let names = []//userId
@@ -159,13 +173,8 @@ Page({
     });
   },
 
-  //  计算时长
-  // calculatingTime(startTime,endTime){
-  
-  //     let start = startTime;
-  //     let end = endTime;
-      
+ onReady(){
 
-  //   }
- 
+   this.data.placeArr = [];
+ }
 });

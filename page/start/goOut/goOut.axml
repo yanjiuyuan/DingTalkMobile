@@ -12,7 +12,7 @@
                 <view class="form-row">
                   <view class="form-row-label"><template is="required"></template>外出地点</view>
                   <view class="form-row-content">
-                    <input name="place" class="input" placeholder="外出地点" />
+                    <input name="place" class="input" placeholder="外出地点" maxlength="14" />
                   </view>
                 </view>
               </view>
@@ -28,7 +28,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
         </view>
       </view>
       <!-- <view class="form-line" /> -->
@@ -42,8 +42,9 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/>
-          <textarea auto-height="true" name="EvectionManId" class="input" style="display:none;" value="{{table.EvectionManId}}"/>
+          <!-- <textarea auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/>
+          <textarea auto-height="true" name="EvectionManId" class="input" style="display:none;" value="{{table.EvectionManId}}"/> -->
+           <text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text>
         </view>
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
@@ -51,7 +52,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>外出地点</view>
         <view class="form-row-content">
-          <!-- <textarea auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}"/> -->
+          <!-- <textarea auto-height="true" name="Place" class="input" value="{{table.Place}}" placeholder="" /> -->
           <text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.Place}}">{{table.Place}}</text>
 
         </view>

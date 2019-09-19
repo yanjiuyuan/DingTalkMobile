@@ -8,7 +8,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" placeholder="输入 标题"  />
+          <input name="Title" class="input" placeholder="输入 标题"  disabled="{{true}}"/>
         </view>
       </view>
       <!-- <view class="form-line" /> -->

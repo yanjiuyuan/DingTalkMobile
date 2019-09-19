@@ -1,4 +1,5 @@
 import pub from '/util/public';
+var app = getApp();
 let good = {}
 Page({
   ...pub.func,
@@ -23,7 +24,8 @@ Page({
     value['IsChooseOccupyCar'] = true
     value['IsPublicCar'] = false
     value['OccupyCarId'] = ''
-    console.log(value)
+    value["PeerNumber"] = this.data.table.PeerNumber;
+    console.log(value);
     if(!value.DrivingMan || !value.MainContent || !value.PlantTravelWay || !value.StartTime || !value.EndTime || !value.CarNumber) 
     {
       dd.alert({content:'表单未填写完整'})
@@ -51,10 +53,12 @@ Page({
   choosePeoples(e){
     console.log('start choose people')
     var nodeId = e.target.targetDataset.NodeId
-    var that = this
+    var that = this;
+    console.log(that.chooseParam);
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: true,
+      title: "同行人",  
       success: function(res) {
         console.log(res)
         let names = []

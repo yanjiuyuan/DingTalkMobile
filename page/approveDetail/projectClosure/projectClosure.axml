@@ -394,7 +394,8 @@
 
 
       <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-      <button  a:if = "{{index == 1 }}" type="primary" onTap="printTable" disabled="{{disablePage}}" >打印表单</button>
+
+      <button  a:if="{{ index!= 0 && state == '已完成' }}" type="primary" onTap="printTable" disabled="{{disablePage}}" >打印表单</button>
       <view a:if="{{index==0}}">
         <view class="page-section-suggest">
           <view class="page-section-title">建议</view>

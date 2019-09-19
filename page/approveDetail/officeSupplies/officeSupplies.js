@@ -27,6 +27,11 @@ Page({
         width: 100
       },
       {
+        prop: 'ExpectPrice',
+        label: '预计单价',
+        width: 100
+      },
+      {
         prop: 'Count',
         label: '数量',
         width: 100

@@ -50,8 +50,10 @@ Page({
     var nodeId = e.target.targetDataset.NodeId
     var that = this
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: true,
+      title: "同行人",  
+      
       success: function(res) {
         console.log(res)
         let names = []//userId

@@ -1022,21 +1022,44 @@ export default {
       dd.showLoading({
         content: '登录中...'
       });
-      console.log("我执行了");
       dd.getAuthCode({
         success: (res) => {
           console.log(res.authCode)
   
-          lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),function(res){
-            app.userInfo = res;
-            var DingData = {
-              nickName:res.name,
-              departName:res.dept,
-              userid:res.userid
-            }
-            dd.hideLoading()
-            that.setData({ DingData:DingData })
-            callBack()
+          lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
+              let result = res;     
+              dd.httpRequest({
+                    url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
+                    method: 'POST',
+                    data:'',
+                    headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
+                    success: function(res) {
+
+                      console.log(res);
+                      let name = JSON.parse(res.data).name;
+              
+                      if(!result.userid){
+                        dd.alert({
+                          content:res.errmsg+',请关掉应用重新打开试试~'
+                        });
+                        return
+                      }
+                      app.userInfo = result
+                      var DingData = {
+                        // nickName:result.name,
+                        nickName:name || result.name,
+                        departName:result.dept,
+                        userid:result.userid
+                      }
+                      console.log(DingData)
+                      dd.hideLoading()
+                      that.setData({ DingData:DingData })
+                      callBack()
+                    }
+
+
+            }) 
+
           })
         },
       })

@@ -9,6 +9,9 @@ Page({
     imgUrlList:[],
     locationLength: 0,
     table:{},
+    rotate:"RotateToTheRight",
+    show:"hidden",
+    fileLists:[],// 相关文件数组
   },
   submit(e) {
     var value = e.detail.value
@@ -121,6 +124,8 @@ Page({
   },
 
   onReady(){
+    let that = this;
+    console.log(this.data.tableInfo);
      this._getData("Evection/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
       (res) => {
         // this.data.placeArr = res.LocationPlace.split('-')
@@ -134,6 +139,31 @@ Page({
           table: res
         })
       })
+
+      let param = {
+          ApplyManId:this.data.DingData.userid,
+          nodeId:this.data.nodeid,
+          TaskId:this.data.taskid
+        }
+        this._getData("FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
+        function(res) {
+          if( typeof res.MediaId === 'string'){
+            let MediaId = res.MediaId.split(",");
+            let OldFileUrl = res.OldFileUrl.split(",");
+            for(let i = 0,len = OldFileUrl.length;i<len;i++ ){
+              that.data.fileLists.push({
+                OldFileUrl:OldFileUrl[i],
+                MediaId:MediaId[i],
+              })
+            }
+          }
+
+          that.setData({
+            fileLists:that.data.fileLists,
+            tableInfo: res
+          })
+          that.handleUrlData(res)
+        },this.data.DingData)
   },
   //删除照片
   deleteImg(){
@@ -180,5 +210,23 @@ Page({
 
     
   },
+
+      // 展示和隐藏
+    showOrClose(){
+    if(this.data.rotate == "RotateToTheRight"){
+      this.setData({
+        rotate:"Rotate-downward",
+        show:"show"
+      })
+    }
+
+    else if(this.data.rotate == "Rotate-downward"){
+      this.setData({
+        rotate:"RotateToTheRight",
+        show:"hidden"
+      })
+    }
+  },
+
 
 });

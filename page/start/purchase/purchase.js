@@ -92,10 +92,23 @@ Page({
   search(e){
     var value = e.detail.value
     console.log(value) 
-    if (!value || !value.keyWord) return
+    if (!value || !value.keyWord.trim()){
+      dd.alert({
+        content:"请输入关键字",
+        buttonText:"确认"
+      })
+       return;
+    }
     var that = this
     that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) { 
       console.log(JSON.parse(res.data))
+      if(JSON.parse(res.data).length == 0){
+        dd.alert({
+          content:"暂无数据",
+          buttonText:"确认"
+        })
+        return;
+      }
       that.setData({
         'tableParam.total': JSON.parse(res.data).length
       })
@@ -114,7 +127,9 @@ Page({
     }
     if(!param.ProjectId || !this.data.purchaseList.length){
       dd.alert({
-        content: `表单填写不完整`,
+        content: `请选择零部件！`,
+        buttonText:"确认"
+
       });
       return
     }
@@ -178,32 +193,67 @@ Page({
   //提交弹窗表单
   addGood(e){
     var value = e.detail.value
-    console.log(value) 
+    console.log(value);
     for (let p of this.data.purchaseList) {
-        if (p.CodeNo == good.FNumber) return
+
+        if (p.CodeNo == good.FNumber) {
+          dd.alert({
+            content:"禁止选择相同的物料编码！",
+            buttonText:"确认"
+          })
+          this.onModalCloseTap();
+          return;
+          }
     }
-    if (!value || !value.Unit || !value.Count|| !value.UrgentDate|| !value.Purpose) {
+      let reg  = /^-?\d+$/; //只能是整数数字
+     
+      let reg2 = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /; //正浮点数
+    if (!value || !value.Unit.trim() || !value.Count.trim() || !value.UrgentDate.trim() || !value.Purpose.trim() ) {
       dd.alert({
-        content: `表单填写不完整`,
+        content: `请填写已选零部件信息！`,
+        buttonText:'确认'
       });
-      return
+      return;
+    }
+    if(value.Count == 0){
+      dd.alert({
+        content:"数量必须大于0！",
+        buttonText:"确认"
+      })
+      return;
+    }
+
+    if(!reg.test(value.Count)){
+      dd.alert({
+        content:"数量必须为整数！",
+        buttonText:"确认"
+      })
+      return;
+    }
+    console.log(reg2.test(value.Price));
+    if( !reg2.test(value.Price) == false && value.Price){
+      dd.alert({
+        content:"单价必须为纯数字！",
+        buttonText:"确认"
+      })
+      return;
     }
     let param = {
         CodeNo: good.FNumber,
         Name: good.FName,
         Standard: good.FModel,
-        Unit: value.Unit,
-        Price: value.Price ? value.Price + '' : '0',
-        Count: value.Count,
-        Purpose: value.Purpose,
+        Unit: value.Unit.trim(),
+        Price: value.Price ? value.Price  + '' : '0',
+        Count: value.Count.trim(),
+        Purpose: value.Purpose.trim(),
         UrgentDate: value.UrgentDate,
-        Mark: value.Mark
+        Mark: value.Mark.trim()
     }
     let length = this.data.purchaseList.length
     let setStr = 'purchaseList[' + length + ']'
     this.setData({
       [`purchaseList[${length}]`]: param,
-      totalPrice: (this.data.totalPrice + param.Price * param.Count) + ''
+      totalPrice: (this.data.totalPrice - 0 + param.Price * param.Count) + ''
     })
     console.log(param.Purpose)
     this.onModalCloseTap()

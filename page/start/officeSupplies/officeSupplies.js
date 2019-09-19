@@ -13,7 +13,7 @@ Page({
       now: 1,
       total: 0
     },
-    // tableOperate2: '删除',
+    tableOperate2: '删除',
     good: {},
     totalPrice: 0,
     tableItems: [
@@ -89,13 +89,18 @@ Page({
   },
   //表单操作相关
   search(e){
-    var that = this
-    var value = e.detail.value
-    //this.data.chooseParam[]
-    console.log(this.data.chooseParam)
-    console.log(value) 
-    if (!value || !value.keyWord) return
-    let url =  that.data.jinDomarn + 'OfficeSupply/GetOfficeInfo' + that.formatQueryStr({Key:value.keyWord})
+    var that = this;
+    var value = e.detail.value;
+    console.log(this.data.chooseParam);
+    console.log(value);
+    if (!value || !value.keyWord.trim()) {
+      dd.alert({
+        content:"请输入关键字",
+        buttonText:"确认"
+      })
+      return;
+      }
+    let url =  that.data.jinDomarn + 'OfficeSupply/GetOfficeInfo' + that.formatQueryStr({Key:value.keyWord.trim()})
     dd.httpRequest({
       url:url,
       method: 'GET',
@@ -104,6 +109,12 @@ Page({
         let data = res.data.data
         console.log(url)
         console.log(data)
+        if(data.length == 0){
+          dd.alert({
+            content:"未搜索到相关结果",
+            buttonText:"确认"
+          })
+        }
         that.setData({
           'tableParam.total': data.length
         })
@@ -196,17 +207,36 @@ Page({
   },
   //提交弹窗表单
   addGood(e){
-    var value = e.detail.value
-    console.log(value) 
+    var value = e.detail.value;
+    console.log(value);
     for (let p of this.data.purchaseList) {
         if (p.CodeNo == good.FNumber) return
     }
+
+    let reg  = /^-?\d+$/;
+    if(!reg.test(value.Count)){
+      dd.alert({
+        content: `数量必须为整数，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
+    if(value.Count == 0){
+      dd.alert({
+        content: `数量不允许为0，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
     if (!value || !value.Count) {
       dd.alert({
-        content: `表单填写不完整`,
+        content: `数量不允许为空，请输入！`,
+        buttonText:"确认"
       });
       return
     }
+
+
     let param = {
         CodeNo: good.fNumber,
         Name: good.fName,
@@ -214,12 +244,15 @@ Page({
         Unit: good.unitName,
         ExpectPrice: good.fNote,
         Count: value.Count,
-        Purpose: value.Purpose,
-        Mark: value.Mark
+        Purpose: value.Purpose.trim(),
+        Mark: value.Mark.trim()
     }
     let length = this.data.purchaseList.length
+    console.log("ssssss")
+    console.log(length);
     let setStr = 'purchaseList[' + length + ']'
     this.setData({
+      'tableParam2.total': length + 1,
       [`purchaseList[${length}]`]: param,
       totalPrice: (this.data.totalPrice + param.Price * param.Count) + ''
     })

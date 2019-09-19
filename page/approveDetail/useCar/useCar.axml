@@ -17,7 +17,9 @@
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="PeerNumber" class="input" value="{{table.PeerNumber}}" disabled="{{true}}" />
+          <!-- <textarea auto-height="true" name="PeerNumber" class="input" value="{{table.PeerNumber}}" disabled="{{true}}" /> -->
+          <text auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
+       
         </view>
       </view>
       <!-- <view class="form-line" />  -->
@@ -122,7 +124,7 @@
       <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
         <button type="primary" onTap="reApproval" disabled="{{disablePage}}">重新发起</button>
       </view>
-      <view a:if="{{index!=0}}">
+      <view a:if="{{ index!= 0 && state == '已完成' }}">
         <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
       </view>
       <view a:if="{{index==2 && state=='未完成'}}">

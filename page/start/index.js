@@ -29,7 +29,7 @@ Page({
 
     // this.upLoadFile()
     // return
-    console.log('start choose people')
+    console.log('start choose people');
     var that = this
     dd.complexChoose({
       ...that.chooseParam,

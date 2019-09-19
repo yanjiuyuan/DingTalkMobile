@@ -12,7 +12,7 @@
                 <view class="form-row">
                   <view class="form-row-label"><template is="required"></template>数量</view>
                   <view class="form-row-content">
-                    <input name="Count" class="input" placeholder="数量" />
+                    <input name="Count" class="input" placeholder="数量" maxlength="5" />
                   </view>
                 </view>
               </view>
@@ -20,7 +20,7 @@
                 <view class="form-row">
                   <view class="form-row-label">用途</view>
                   <view class="form-row-content">
-                    <input name="Purpose" class="input" placeholder="用途" />
+                    <input name="Purpose" class="input" placeholder="用途" maxlength="14" />
                   </view>
                 </view>
               </view>
@@ -28,7 +28,7 @@
                 <view class="form-row">
                   <view class="form-row-label">备注</view>
                   <view class="form-row-content">
-                    <input name="Mark" class="input" placeholder="备注" />
+                    <input name="Mark" class="input" placeholder="备注" maxlength="14" />
                   </view>
                 </view>
               </view>
@@ -45,7 +45,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required" ></template>标题</view>
 			<view class="form-row-content">
-				<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+				<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  disabled="{{true}}" />
 			</view>
       </view>
       <view class="form-row">
@@ -61,7 +61,7 @@
           <view class="form-row">
             <view class="form-row-label">关键字</view>
             <view class="form-row-content">
-              <input name="keyWord" class="input" placeholder="请输入" />
+              <input name="keyWord" class="input" placeholder="请输入办公用品关键字" maxlength="14" />
             </view>
           </view>
         </view>
