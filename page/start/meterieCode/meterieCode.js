@@ -17,81 +17,81 @@ Page({
     }],
 
     bigCodes2 : [
-    {
-        "materialCodeNumber": "60",
-        "materialName": "办公用品",
-        "smallMaterialCodes": [
-            {
-                "materialCodeNumber": "000",
-                "materialName": "文件档案管理类"
-            },
-            {
-                "materialCodeNumber": "001",
-                "materialName": "桌面用品"
-            },
-            {
-                "materialCodeNumber": "002",
-                "materialName": "办公本薄"
-            },
-            {
-                "materialCodeNumber": "003",
-                "materialName": "书写修正用品"
-            },
-            {
-                "materialCodeNumber": "004",
-                "materialName": "财务用品"
-            },
-            {
-                "materialCodeNumber": "005",
-                "materialName": "辅助用品"
-            },
-            {
-                "materialCodeNumber": "006",
-                "materialName": "电脑周边用品"
-            },
-            {
-                "materialCodeNumber": "040",
-                "materialName": "打印耗材"
-            },
-            {
-                "materialCodeNumber": "041",
-                "materialName": "装订耗材"
-            },
-            {
-                "materialCodeNumber": "042",
-                "materialName": "办公用纸"
-            },
-            {
-                "materialCodeNumber": "043",
-                "materialName": "IT耗材"
-            },
-            {
-                "materialCodeNumber": "080",
-                "materialName": "日用品"
-            },
-            {
-                "materialCodeNumber": "081",
-                "materialName": "清洁用品"
-            },
-            {
-                "materialCodeNumber": "120",
-                "materialName": "事务设备"
-            },
-            {
-                "materialCodeNumber": "121",
-                "materialName": "IT设备"
-            },
-            {
-                "materialCodeNumber": "122",
-                "materialName": "办公电器"
-            },
-            {
-                "materialCodeNumber": "160",
-                "materialName": "办公家具"
-            }
-        ]
-    }
-  ],
+      {
+          "materialCodeNumber": "60",
+          "materialName": "办公用品",
+          "smallMaterialCodes": [
+              {
+                  "materialCodeNumber": "000",
+                  "materialName": "文件档案管理类"
+              },
+              {
+                  "materialCodeNumber": "001",
+                  "materialName": "桌面用品"
+              },
+              {
+                  "materialCodeNumber": "002",
+                  "materialName": "办公本薄"
+              },
+              {
+                  "materialCodeNumber": "003",
+                  "materialName": "书写修正用品"
+              },
+              {
+                  "materialCodeNumber": "004",
+                  "materialName": "财务用品"
+              },
+              {
+                  "materialCodeNumber": "005",
+                  "materialName": "辅助用品"
+              },
+              {
+                  "materialCodeNumber": "006",
+                  "materialName": "电脑周边用品"
+              },
+              {
+                  "materialCodeNumber": "040",
+                  "materialName": "打印耗材"
+              },
+              {
+                  "materialCodeNumber": "041",
+                  "materialName": "装订耗材"
+              },
+              {
+                  "materialCodeNumber": "042",
+                  "materialName": "办公用纸"
+              },
+              {
+                  "materialCodeNumber": "043",
+                  "materialName": "IT耗材"
+              },
+              {
+                  "materialCodeNumber": "080",
+                  "materialName": "日用品"
+              },
+              {
+                  "materialCodeNumber": "081",
+                  "materialName": "清洁用品"
+              },
+              {
+                  "materialCodeNumber": "120",
+                  "materialName": "事务设备"
+              },
+              {
+                  "materialCodeNumber": "121",
+                  "materialName": "IT设备"
+              },
+              {
+                  "materialCodeNumber": "122",
+                  "materialName": "办公电器"
+              },
+              {
+                  "materialCodeNumber": "160",
+                  "materialName": "办公家具"
+              }
+          ]
+      }
+    ],
 
     smallMaterialCodes: [],
     codeType: '1',
@@ -163,16 +163,21 @@ Page({
         width: 100
       }
     ]
-    //data:[]
   },
   submit(e) {
     var that = this
     var value = e.detail.value
-    console.log("asdasdsss");
     console.log(e.detail.value);
     var param = {
         Title: value.title,
         Remark: value.remark
+    }
+    if(this.data.tableData.length  == 0){
+      dd.alert({
+        content:"表单数据不全或有误，请重新输入！",
+        buttonText:"确认",
+      })
+      return;
     }
     let callBack = function (taskId) {
         that.bindAll(taskId)
@@ -193,24 +198,39 @@ Page({
       },JSON.stringify(paramArr))
   },
   radioChange: function(e) {
-    this.setData({
-      tableData: []
-      
-    })
+    
+    console.log("radioChange");
+    let that = this;
+      that.setData({
+        bigCodes: [{
+          materialCodeNumber: "",
+          materialName:''
+        }],
+        smallMaterialCodes: [],
+        table:{},
+        tableData: []
+      })
+      that.data.codeType = e.detail.value;
+      that.getMaterielCode();
 
-    this.data.codeType = e.detail.value
-
-    this.getMaterielCode()
   },
+
+  setInputData(e){
+    console.log(e);
+    let Name = e.currentTarget.dataset.Name;
+    this.setData({
+      [`table.${Name}`]:e.detail.value
+    })
+  },
+
   //获取编码
   getMaterielCode() {
+    console.log("getMaterielCode");
       let url = '';
-      console.log(this.data.codeType);
-      console.log(this.data.bigCodes);
       if(this.data.codeType == '2'){
         this.setData({
           bigCodes:this.data.bigCodes2,
-
+          smallMaterialCodes: this.data.bigCodes2[0].smallMaterialCodes
           });
       }
       else if(this.data.codeType == '1'){
@@ -218,20 +238,16 @@ Page({
         this._getData(url, (res) => {
         console.log(res);
         this.setData({
-          bigCodes: res
+          bigCodes: res,
+          smallMaterialCodes:res[0].smallMaterialCodes
           });
       })
       } 
 
   },
-
-  asd(){
-    console.log("发生了重置");
-  },
   changeBigCode(e){
     let index = e.detail.value;
     console.log('changeBigCode')
-    console.log(this.data.codeType);
     if(index == this.data.bigIndex) return;
     this.setData({
       bigIndex: index,
@@ -269,14 +285,20 @@ Page({
   },
   //提交弹窗表单
   addGood(e){
-    var value = e.detail.value;
-    console.log(e);
-    console.log(value);
-    console.log(!value);
-    console.log(!value.Name);
-    console.log(!value.Standard);
-    console.log(this.data.bigIndex);
-    console.log(this.data.smallIndex);
+    console.log(this.data.tableData);
+     let value = e.detail.value;
+    //判断是否重复
+    if(this.data.tableData.length > 0){
+        for(let i = 0,len = this.data.tableData.length; i<len;i++){
+            if(value.Name == this.data.tableData[i].Name && value.Standard == this.data.tableData[i].Standard){
+                dd.alert({
+                  content:"物料名称、规格型号不可重复",
+                  buttonText:"确认"
+                })
+                return;
+            }
+        }
+    }
 
 
     if (!value || !value.Name || !value.Standard || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
@@ -292,11 +314,14 @@ Page({
     console.log(value);
     let length = this.data.tableData.length;
     this.setData({
+      table:value,
       [`tableData[${length}]`]: value
     })
-    // this.onModalCloseTap();
   },
   onShow() {
+    console.log(this.data.bigCodes);
+    console.log(this.data.smallMaterialCodes);
+
     this.getMaterielCode();
     //this.loadTempData()
   },

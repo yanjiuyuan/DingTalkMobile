@@ -8,7 +8,7 @@ var xTap = -90
 var yTap = -90
 let States = ['在研', '已完成', '终止']
 let ProjectTypes = ['自研项目', '纵向项目', '横向项目','测试项目']
-let DeptNames = ['', '智慧工厂事业部', '数控一代事业部', '机器人事业部', '行政部', '财务部', '制造试验部', '项目推进部']
+let DeptNames = ['', '智慧工厂事业部', '数控一代事业部', '机器人事业部', '行政部', '财务部', '制造试验部', '项目推进部',"自动化事业部"]
 let CompanyNames = ['泉州华中科技大学智能制造研究院', '泉州华数机器人有限公司']
 let IntellectualPropertyTypes = ['','发明','实用新型','外观','软件著作权']
 let localStorage = ''
@@ -214,8 +214,7 @@ export default {
             })
             app.globalData.valid = false;
         }
-    
-        console.log(param)
+  
         var that = this
         let title = ''
         for(let m of this.data.menu){
@@ -654,7 +653,6 @@ export default {
       },
       //打印流程表单
       print(){
-        console.log("public");
         this._postData('PurchaseNew/PrintAndSend',
           function(res){
             dd.alert({content:'获取成功'})

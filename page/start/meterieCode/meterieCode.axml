@@ -137,18 +137,16 @@
 
     <view class="page-section">
 
-    <form onSubmit="addGood" onReset="asd">
-
-
+    <form onSubmit="addGood">
 
       <view class="form-row">
-        <view class="form-row-label" >选择类型</view>
+        <view class="form-row-label" style="width:2.5rem">选择类型</view>
         <radio-group class="radio-group" name="codeType" onChange="radioChange" >
           <label  class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
             <radio value="{{item.label}}" checked="{{item.checked}}"  />{{item.name}}
           </label>
         </radio-group>
-        <button size="mini" type="primary" style="width:1rem;height:0.5rem;font-size:25rpx;margin-left:0.8rem" formType="reset">重置</button>
+        <view style="color:red">切换清空数据！</view>
       </view>
        
       <view class="form-row">
@@ -176,7 +174,7 @@
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>物料名称</view>
           <view class="form-row-content">
-            <input name="Name" class="input" placeholder="物料名称" />
+            <input name="Name" class="input" placeholder="物料名称" value="{{table.Name}}" onBlur="setInputData" data-Name="Name" />
           </view>
         </view>
       </view>
@@ -185,7 +183,7 @@
         <view class="form-row">
           <view class="form-row-label"><template is="required"></template>规格型号</view>
           <view class="form-row-content">
-            <input name="Standard" class="input" placeholder="规格型号" />
+            <input name="Standard" class="input" placeholder="规格型号" value="{{table.Standard}}" onBlur="setInputData" data-Name="Standard"/>
           </view>
         </view>
       </view>
@@ -194,7 +192,7 @@
         <view class="form-row">
           <view class="form-row-label">单位</view>
           <view class="form-row-content">
-            <input name="Unit" class="input" placeholder="单位" />
+            <input name="Unit" class="input" placeholder="单位" value="{{table.Unit}}" onBlur="setInputData" data-Name="Unit"/>
           </view>
         </view>
       </view>
@@ -203,7 +201,7 @@
         <view class="form-row">
           <view class="form-row-label">表面处理</view>
           <view class="form-row-content">
-            <input name="SurfaceTreatment" class="input" placeholder="表面处理" />
+            <input name="SurfaceTreatment" class="input" placeholder="表面处理" value="{{table.SurfaceTreatment}}"   onBlur="setInputData" data-Name="SurfaceTreatment"/>
           </view>
         </view>
       </view>
@@ -212,7 +210,7 @@
         <view class="form-row">
           <view class="form-row-label">性能等级</view>
           <view class="form-row-content">
-            <input name="PerformanceLevel" class="input" placeholder="性能等级" />
+            <input name="PerformanceLevel" class="input" placeholder="性能等级"  value="{{table.PerformanceLevel}}"  onBlur="setInputData" data-Name="PerformanceLevel"/>
           </view>
         </view>
       </view>
@@ -221,7 +219,7 @@
         <view class="form-row">
           <view class="form-row-label">标准号</view>
           <view class="form-row-content">
-            <input name="StandardNumber" class="input" placeholder="标准号" />
+            <input name="StandardNumber" class="input" placeholder="标准号" value="{{table.StandardNumber}}"  onBlur="setInputData" data-Name="StandardNumber"/>
           </view>
         </view>
       </view>
@@ -230,7 +228,7 @@
         <view class="form-row">
           <view class="form-row-label">典型特征</view>
           <view class="form-row-content">
-            <input name="Features" class="input" placeholder="典型特征" />
+            <input name="Features" class="input" placeholder="典型特征" value="{{table.Features}}"  onBlur="setInputData" data-Name="Features"/>
           </view>
         </view>
       </view>
@@ -239,7 +237,7 @@
         <view class="form-row">
           <view class="form-row-label">用途</view>
           <view class="form-row-content">
-            <input name="purpose" class="input" placeholder="用途" />
+            <input name="purpose" class="input" placeholder="用途" value="{{table.purpose}}"  onBlur="setInputData" data-Name="purpose"/>
           </view>
         </view>
       </view>
@@ -248,7 +246,7 @@
         <view class="form-row">
           <view class="form-row-label">备注</view>
           <view class="form-row-content">
-            <input name="Remark" class="input" placeholder="备注" />
+            <input name="Remark" class="input" placeholder="备注" value="{{table.Remark}}"  onBlur="setInputData" data-Name="Remark"/>
           </view>
         </view>
       </view>
@@ -279,7 +277,6 @@
     </view>
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
-    <!-- <button onTap="saveTempData">临时保存</button> -->
   </form>
 </view>
 

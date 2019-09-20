@@ -136,7 +136,7 @@
       <view a:if="{{index < length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
     </view>
   </view>
-</template>
+</template>·  
 
 <!-- 
 <template name="test">
