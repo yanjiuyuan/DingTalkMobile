@@ -1,5 +1,6 @@
 import pub from '/util/public';
-let good = {}
+let good = {};
+let index;
 Page({
   ...pub.func,
   ...pub.func.dowith,
@@ -100,27 +101,32 @@ Page({
           this.aggreSubmit(param)
         },JSON.stringify(this.data.tableData))
       },JSON.stringify(this.data.tableData))
-      return
+      return;
     }
     this.aggreSubmit(param)
   },
   //提交弹窗表单
   addGood(e){
-    var value = e.detail.value
-    console.log(value) 
+    var value = e.detail.value;
+    console.log(this.data.index);
     if (!value || !value.CodeNumber) {
       dd.alert({
         content: `表单填写不完整`,
       });
-      return
+      return;
     }
     for (let p of this.data.tableData) {
-      if (p.Name == good.Name) {
-        p['CodeNumber'] = value.CodeNumber
-        p['FNote'] = value.FNote
+      if (p.CodeNumber == value.CodeNumber) {
+          dd.alert({
+            content: `物料编码不可重复，请重新输入！`,
+          });
+        return;
       }
     }
-    console.log(this.data.tableData)
+
+    this.data.tableData[this.data.index].CodeNumber =  value.CodeNumber;
+    this.data.tableData[this.data.index].FNote =  value.FNote;
+
     this.setData({
       tableData : this.data.tableData
     })
@@ -140,10 +146,14 @@ Page({
     },
   //显示弹窗表单
   chooseItem(e){
-    if(!e) return
-    console.log(e)
-    good = e.target.targetDataset.row
-    if(!good) return
+    if(!e) return;
+    console.log(e);
+    good = e.target.targetDataset.row;
+    index = e.target.targetDataset.index;
+    this.data.good = good;
+    this.data.index = index;
+
+    if(!good) return;
     
     this.setData({
       hidden2: !this.data.hidden2
@@ -151,7 +161,12 @@ Page({
     this.createMaskShowAnim();
     this.createContentShowAnim();
   },
-  onReady(){
-    console.log(this.data.tableInfo);
+  onShow(){
+    this.data.pageIndex = this.data.index;
+    console.log(this.data.pageIndex);
+    if(this.data.pageIndex != 0){
+        this.data.tableOperate = "";
+    
+    }
   }
 });

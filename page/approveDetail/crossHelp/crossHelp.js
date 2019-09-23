@@ -64,10 +64,11 @@ Page({
     })
   },
   onReady(){
-    let that = this
-      
+    let that = this;
+        console.log
      this._getData("Cooperate/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
       (res) => {
+        
         if (this.data.nodeid == 1) {
             res['FactBeginTime'] = res.PlanBeginTime
             res['FactEndTime'] = res.PlanEndTime
@@ -76,10 +77,10 @@ Page({
             res['FactCooperateMan'] = res.CooperateMan
         }
         if(this.data.nodeid == 4){
-          let CooperateMan = res.CooperateMan.split(",");;
+          let CooperateMan = res.CooperateMan.split(",");
           let CooperateManId = res.CooperateManId.split(",");
           for(let i = 0;i<CooperateMan.length;i++){
-            that.data.nodeList[6].AddPeople.push({name:CooperateMan[i],userId:CooperateManId[i]})
+            that.data.nodeList[6].AddPeople.push({name:CooperateMan[i],userId:CooperateManId[i]});
           }      
         }
 

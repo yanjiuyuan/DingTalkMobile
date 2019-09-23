@@ -50,14 +50,24 @@
         </view>
       </view>
 
-      <view a:if="{{nodeid == 2}}" disabled="{{nodeid > 2}}">
+      <!-- <view>
         <view class="form-row-label" style="float:left;">添加到</view>
         <radio-group class="radio-group" style="float:left;" name="codeType" onChange="radioChange">
           <label class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
             <radio value="{{item.label}}" checked="{{item.checked}}"/>{{item.name}}
           </label>
         </radio-group>
+      </view> -->
+
+      <view class="form-row" a:if="{{nodeid == 2 && index == 0}}">
+        <view class="form-row-label" style="width:2.5rem">添加到</view>
+        <radio-group class="radio-group" name="codeType" onChange="radioChange" >
+          <label  class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
+            <radio value="{{item.label}}" checked="{{item.checked}}"  />{{item.name}}
+          </label>
+        </radio-group>
       </view>
+
 
       <!-- 物料表单 -->
       <template a:if="{{nodeid!=2}}" is="datatable" data="{{items:tableItems,data:tableData,param:tableParam}}"/>
@@ -76,10 +86,6 @@
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
         <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>
-      <!-- <view a:if="{{ index!= 0 && state == '已完成' }}">
-        <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
-        <button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
-      </view> -->
       <view a:if="{{index==2 && state=='未完成'}}">
         <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
         <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>

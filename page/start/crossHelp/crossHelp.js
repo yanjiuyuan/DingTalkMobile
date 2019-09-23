@@ -41,8 +41,9 @@ Page({
   choosePeopleOne(e){
     var that = this
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: true,
+      title: "协作人",  
       success: function(res) {
         let names = []//userId
         let ids = []
@@ -67,7 +68,29 @@ Page({
       }
     })
   },
-
+    selectEndDate(){
+      let that =this;
+        dd.datePicker({
+          format: 'yyyy-MM-dd',
+          currentDate: this.data.DateStr,
+          startDate: this.data.DateStr,
+          endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day,
+          success: (res) => {
+            let iDay = that.DateDiff(res.date,that.data.table.StartTime);//計算天數
+            if(iDay < 0){
+              dd.alert({
+                content:"结束时间要大于开始时间。"
+              })
+              return;
+            }
+            this.setData({
+              'table.PlanDays':iDay,
+              endDateStr: res.date,
+              'table.EndTime': res.date
+            })
+          },
+        });
+      },
   //选择协作部门
     bindDeptChange(e){
         this.setData({
