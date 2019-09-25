@@ -332,11 +332,34 @@ Page({
     let value = e.detail.value
     console.log(value) 
     
+    let reg  = /^-?\d+$/;
+    if(!reg.test(value.fQty)){
+      dd.alert({
+        content: `数量必须为整数，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
+    if(value.fQty == 0){
+      dd.alert({
+        content: `数量不允许为0，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
+    if (!value || !value.fQty) {
+      dd.alert({
+        content: `数量不允许为空，请输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
+
     if (!value || !value.fQty) {
       dd.alert({
         content: `表单填写不完整`,
       });
-      return
+      return;
     }
     if(this.data.ifedit){
       for(let i = 0 ;i < this.data.purchaseList.length; i++){

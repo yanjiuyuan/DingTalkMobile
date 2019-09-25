@@ -1,6 +1,7 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
     <!-- 基本表单 -->
+      <template is="form" data="{{department:tableInfo.Dept}}"/>
   <form onSubmit="submit">
     <view class="page-section">
 

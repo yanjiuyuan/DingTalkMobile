@@ -233,7 +233,7 @@ Page({
         content: `数量不允许为空，请输入！`,
         buttonText:"确认"
       });
-      return
+      return;
     }
 
 

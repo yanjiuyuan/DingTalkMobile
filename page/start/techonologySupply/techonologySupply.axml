@@ -1,6 +1,9 @@
 <import src="/util/template/template.axml"/>
 <view>
   <form onSubmit="submit">
+
+          <!-- 选择部门 -->
+<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
     <view class="page-section">
 
       <view class="form-row">

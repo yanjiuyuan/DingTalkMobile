@@ -5,9 +5,10 @@
   <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
   <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
   <!-- 基本表单 -->
+  <template is="form" data="{{department:tableInfo.Dept}}"/>
   <form onSubmit="submit">
     <view class="page-section">
-
+  
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">

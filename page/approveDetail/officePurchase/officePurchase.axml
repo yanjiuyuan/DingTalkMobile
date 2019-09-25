@@ -5,6 +5,7 @@
   
   <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
   <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
+    <template is="form" data="{{department:tableInfo.Dept}}"/>
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
@@ -23,10 +24,17 @@
       </view>
       <!-- <view class="form-line" />  -->
       <!-- 物料表单 -->
-      <text style="font-size:0.6rem;margin:0 2rpx;">总价预计 <text style="color:red">{{totalPrice}}</text> 元</text>
-      <view class="form-line" /> 
+      <!-- <text style="font-size:0.6rem;margin:0 2rpx;">总价预计 <text style="color:red">{{totalPrice}}</text> 元</text> -->
+      
+      <view class="form-row">
+        <view class="form-row-label">预计总价（元）</view>
+        <view class="form-row-content">
+          <input name="totalPrice" class="input" disabled="{{true}}" value="{{totalPrice}}"/>
+        </view>
+      </view>
+
       <view a:for="{{dataList}}" onTap="deleteItem">
-        <text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计 <text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
+        <text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计 <text style="color:red">{{totalPrice}}</text> 元</text>
         <template is="datatable" data="{{items:tableItems,data:item.value,param:tableParam,tableOperate:tableOperate}}"/>
       </view>
       <!-- <view class="form-line" />  -->

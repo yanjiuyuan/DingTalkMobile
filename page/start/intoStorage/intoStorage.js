@@ -96,7 +96,6 @@ Page({
       // {
       //   prop: 'fAmount',
       //   label: '金额',
-      //   width: 200
       // },
       {
         prop: 'fFullName',
@@ -108,21 +107,26 @@ Page({
   },
   //表单操作相关
   search(e){
-    dd.showLoading({
+
+    var value = e.detail.value;
+    console.log(value.keyWord);
+    if (!value || !value.keyWord) {
+      dd.alert({
+        content:"请输入关键字",
+        buttonText:"确认"
+      })
+      return;
+      }
+    let that = this;
+        dd.showLoading({
         content: '获取中...'
       });
-    var value = e.detail.value
-    console.log(value.keyWord) 
-    if (!value || !value.keyWord) return
-    var that = this
     let url = this.data.jinDomarn + 'Godown/ReadGodownInfoSingle' + that.formatQueryStr({keyWord:value.keyWord})
     dd.httpRequest({
       url: url,
       method: 'GET',
       success: function(res) {
-        dd.hideLoading()
-        console.log(url)
-        console.log(res.data.data)
+        dd.hideLoading();
         if(res.data.data.length == 0){
           dd.showToast({content: '暂无数据'});
         }
@@ -138,13 +142,19 @@ Page({
     });
   },
   searchByNo(e){
-    dd.showLoading({
-        content: '获取中...'
-      });
     var value = e.detail.value
     console.log(value.no) 
-    if (!value || !value.no) return
-    var that = this
+    if (!value || !value.no)  {
+      dd.alert({
+        content:"请输入采购单编号",
+        buttonText:"确认"
+      })
+      return;
+      }
+    var that = this;
+        dd.showLoading({
+        content: '获取中...'
+      });
     let url = this.data.jinDomarn + 'Godown/GetGodownInfoByFBillNo' + that.formatQueryStr({FBillNo:value.no})
     dd.httpRequest({
       url: url,
@@ -213,11 +223,8 @@ Page({
     for(let p of this.data.purchaseList){
       arr.push(p.fFullName)
     }
-    var set = new Set(arr)
-    // if(set.size != 1){
-    //   dd.alert({content:'物料为空或供应商不唯一'})
-    //   return
-    // }
+    var set = new Set(arr);
+
     var that = this
     var value = e.detail.value
     var param = {

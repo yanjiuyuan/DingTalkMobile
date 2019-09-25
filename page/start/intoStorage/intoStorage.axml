@@ -1,6 +1,7 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-  
+        <!-- 选择部门 -->
+<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
   <!-- 待编辑物料表单 -->
   <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>
@@ -77,7 +78,7 @@
           <view class="form-row">
             <view class="form-row-label">采购单编号搜索</view>
             <view class="form-row-content">
-              <input name="no" class="input" placeholder="购单编号" />
+              <input name="no" class="input" placeholder="采购单编号" />
             </view>
             <button type="primary" formType="submit" disabled="{{disablePage}}" class="button-inline">搜索</button>
           </view>

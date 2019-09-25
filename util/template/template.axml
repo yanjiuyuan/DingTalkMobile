@@ -346,3 +346,31 @@ margin-right:0.1rem;">*</view>
 </template>
 
 
+<!-- 选择部门 -->
+<template name='chooseDepartment'>
+        <view class="form-row">
+        <view class="form-row-label"><template is="required" ></template>部门</view>
+		  	<view class="form-row-content">  
+          <picker onChange="bindObjPickerChange" value="{{index}}"  range="{{departmentList}}" name="department">
+            <view class="row">
+              <view class="row-title"></view>
+              <view class="row-extra">{{departmentList[index]}}</view>
+              <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+            </view>
+          </picker>
+        </view>
+				<!-- <input name="department" class="input" value="{{tableInfo.department}}" placeholder="选择部门"   onFocus="chooseDepartment"  /> -->
+      </view>
+</template>
+
+<!-- 表单 -->
+<template name='form'>
+    <view class="form-row">
+      <view class="form-row-label"><template is="required"></template>发起部门</view>
+      <view class="form-row-content">
+        <input name="Title" class="input" value="{{department}}" placeholder="" disabled="{{true}}" />
+      </view>
+    </view>
+</template>
+
+

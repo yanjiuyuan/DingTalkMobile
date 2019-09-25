@@ -9,7 +9,6 @@ export default {
    
     animMaskData: [],
     animContentData: [],
-    
     //选人变量
     nodeList:[],
     chooseParam: {
@@ -52,7 +51,7 @@ export default {
                     headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
                     success: function(res) {
         
-                      let name = JSON.parse(res.data).name;
+                      let name = res.data.name;
 
                       for (let node of that.data.nodeList) {
                           if (node.NodeId == nodeId) {
@@ -230,5 +229,11 @@ export default {
     },
 
 
+
+  bindObjPickerChange(e) {
+    this.setData({
+      departmentIdnex: e.detail.value,
+    });
+  },
   },
 };

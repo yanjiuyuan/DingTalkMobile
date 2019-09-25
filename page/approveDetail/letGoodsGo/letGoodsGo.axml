@@ -4,7 +4,7 @@
   <!-- 退回审批表单 -->
   <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
   <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
-  
+    <template is="form" data="{{department:tableInfo.Dept}}"/>
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">

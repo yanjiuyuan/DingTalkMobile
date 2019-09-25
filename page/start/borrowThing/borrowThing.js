@@ -126,7 +126,7 @@ Page({
         that.bindAll(taskId)
     }
     console.log(param)
-    this.approvalSubmit(param, callBack)
+    this.approvalSubmit(param, callBack);
   },
   bindAll(taskId) {
       var paramArr = []

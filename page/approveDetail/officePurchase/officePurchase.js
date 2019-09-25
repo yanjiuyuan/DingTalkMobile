@@ -7,7 +7,7 @@ Page({
     hidden: true,
     dataList: [],//循环多个表格需要
     deletedList: [],//删除的表格项
-    totalPrice: 0,
+    totalPrice: 0.00,
     tableOperate: '删除',
     tableParam: {
       size: 5000,
@@ -67,8 +67,8 @@ Page({
     if(this.data.nodeid == 2){
       let listParam = []
       for(let d of this.data.deletedList){
-        d.IsDelete = true
         listParam.push(d)
+        d.IsDelete = true
       }
       for(let dept of this.data.dataList){
         for(let v of dept.value){
@@ -97,25 +97,28 @@ Page({
   },
   deleteItem(e){
     if(!e) return
-    let row = e.target.targetDataset.row
-    let index = e.target.targetDataset.index
-    console.log(row)
-    if((!index) && index != 0)  return
+    let row = e.target.targetDataset.row;
+    let index = e.target.targetDataset.index;
+
+    if((!index) && index != 0) {
+      return;
+    } 
     for(let d of this.data.dataList){
       if(d.name == row.Dept){
-       this.data.totalPrice -= parseInt(row.Price * row.Count)
-       d.tmpTotalPrice -= parseInt(row.Price * row.Count)
-       this.data.deletedList.push(d.value.splice(index, 1)[0])
+        console.log(this.data.totalPrice);
+        this.data.totalPrice = (this.data.totalPrice - 0 - (row.Price - 0 ) * (row.Count - 0)).toFixed(2);
+        console.log(this.data.totalPrice);
+        d.tmpTotalPrice = this.data.totalPrice;
+       this.data.deletedList.push(d.value.splice(index, 1)[0]);
       }
     }
     this.setData({
-      dataList:this.data.dataList
+      dataList:this.data.dataList,
+      totalPrice:this.data.totalPrice
     })
-    console.log(this.data.dataList)
-    console.log(this.data.deletedList)
+
   },
   getBomInfo(){
-    //this._getData('OfficeSuppliesPurchase/ReadTable?TaskId='+this.data.taskid,(res) => {
     this.requestData('GET','OfficeSuppliesPurchase/ReadTable?TaskId='+this.data.taskid,(res) => {
       this.data.dataList = []
       var deptList = []
@@ -128,7 +131,6 @@ Page({
       }
       deptStr = deptStr.substring(0, deptStr.length - 1)
       deptList = deptStr.split(',')
-      console.log(deptList)
       for (let d of deptList) {
           this.data.dataList.push({
               name: d,
@@ -136,14 +138,18 @@ Page({
               tmpTotalPrice: 0
           })
       }
+      console.log("ssssss");
+      console.log(res);
+      console.log(this.data.dataList);
+
       for (let d of res) {
           for (let l of this.data.dataList) {
               if (d.Dept == l.name) {
-                  d['totalPrice'] = parseInt(d.Price * d.Count)
-                  l.value.push(d)
-                  l.tmpTotalPrice += parseInt(d.Price * d.Count)
-                  this.data.totalPrice += parseInt(d.Price * d.Count)
-                  break
+                  this.data.totalPrice = (this.data.totalPrice - 0 + (d.Price - 0 ) * (d.Count - 0)).toFixed(2);    
+                  d['totalPrice'] = this.data.totalPrice;
+                  l.value.push(d);
+                  l.tmpTotalPrice = this.data.totalPrice;
+                  break;
               }
           }
       }
@@ -152,5 +158,10 @@ Page({
         totalPrice:this.data.totalPrice
       })
     })
+  },
+  onShow(){
+    if(this.data.index != 0 || this.data.nodeid != 2){
+      this.data.tableOperate = "";
+    }
   }
 });

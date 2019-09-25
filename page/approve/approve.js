@@ -113,10 +113,10 @@ Page({
   },
   //跳转到详细页面
   toDetial(e){
-    let row = e.target.dataset.row
-    var that = this
-    console.log(row)
-    if(this.data.activeItem == 3){
+    let row = e.target.dataset.row;
+    var that = this;
+    console.log(row);
+    if(this.data.activeItem == 3 && row.IsRead == false){
       that._getData('FlowInfoNew/ChangeSendState' + that.formatQueryStr({TaskId:row.TaskId,UserId:that.data.DingData.userid}),
       function(res) { 
         that.router(row)

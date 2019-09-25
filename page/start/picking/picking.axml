@@ -1,6 +1,7 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-  
+        <!-- 选择部门 -->
+<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
   <!-- 待编辑物料表单 -->
   <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>
@@ -54,7 +55,7 @@
       <form onSubmit="searchAndAdd2">
         <view class="page-section">
           <view class="form-row">
-            <view class="form-row-label">采购流程流水号添加</view>
+            <view class="form-row-label">采购流程流水号</view>
             <view class="form-row-content">
               <input name="keyWord" class="input" placeholder="请输入入库单流水号" />
             </view>

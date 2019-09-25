@@ -22,7 +22,7 @@ export default {
       departName:'',
       userid:''
     },
-
+    departmentIdnex:0,//选择部门时用到的下标
     hideMask: false,
     param: {},
     IsNeedChose:false,
@@ -183,19 +183,19 @@ export default {
       }
     ],
 
-        //审批页面变量
-        imgUrlList:[],
-        imageList: [],
-        fileList: [],
-        pdfList: [],     
-        dingList:[],//需要钉一下的人
-        tableInfo:{},//审批表单信息
-        isback: false,
-        hidden: true,
-        hiddenCrmk: true,
-        remark:'',
-        ReApprovalTempData:{},//重新发起的临时变量
-        disablePage:false
+    //审批页面变量
+    imgUrlList:[],
+    imageList: [],
+    fileList: [],
+    pdfList: [],     
+    dingList:[],//需要钉一下的人
+    tableInfo:{},//审批表单信息
+    isback: false,
+    hidden: true,
+    hiddenCrmk: true,
+    remark:'',
+    ReApprovalTempData:{},//重新发起的临时变量
+    disablePage:false,
   },
 
   func:{
@@ -204,7 +204,7 @@ export default {
     
     start: {
       onLoad(param) {
-        console.log('start page on load~~~~~~~~~~')
+        console.log('start page on load~~~~~~~~~~');
         if(app.globalData.valid == true){
             dd.alert({
               content:"日期、选人、项目请重新选择"
@@ -219,8 +219,8 @@ export default {
         let title = ''
         for(let m of this.data.menu){
           if(m.flowId == param.flowid){
-            title = m.title
-            break
+            title = m.title;
+            break;
           }
         }
         this.setData({
@@ -228,12 +228,12 @@ export default {
           'tableInfo.Title':title
         })
         let callBack = function(){
-          that.getNodeList()
-          that.getProjectList()
-          that.getNodeInfo()
-          that.loadReApproval()
+          that.getNodeList();
+          that.getProjectList();
+          that.getNodeInfo();
+          that.loadReApproval();
         }
-        this.checkLogin(callBack)
+        this.checkLogin(callBack);
       },
       //提交审批
       approvalSubmit(param = {}, callBack, param2 = {}) {
@@ -249,7 +249,7 @@ export default {
           var applyObj = {
               "ApplyMan": that.data.DingData.nickName,
               "ApplyManId": that.data.DingData.userid,
-              "Dept": that.data.DingData.departName,
+              "Dept": that.data.DingData.departmentList[this.data.departmentIdnex],
               "NodeId": "0",
               "ApplyTime": that._getTime(),
               "IsEnable": "1",
@@ -289,14 +289,11 @@ export default {
                       paramArr.push(tmpParam)
                   }
               }
-          }
-          // console.log("assssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
-          // console.log(paramArr);
-         
+          }      
           that._postData("FlowInfoNew/CreateTaskInfo", function(res) {
-            let taskid = res
-            console.log(taskid)
-            callBack(taskid)
+            let taskid = res;
+            console.log(taskid);
+            callBack(taskid);
           },paramArr)
       },
       //加载重新发起数据
@@ -323,7 +320,7 @@ export default {
       //搜索物料编码
       searchCode(e){
         var value = e.detail.value
-        console.log(value) 
+        console.log(value) ;
         if (!value || !value.keyWord) return
         var that = this
         that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({Key:value.keyWord}) , function(res) { 
@@ -338,8 +335,8 @@ export default {
       //弹窗表单相关
       //显示弹窗表单
       chooseItem(e){
-        if(!e) return
-        console.log(e)
+        if(!e) return;
+        console.log(e);
         this.data.good = e.target.targetDataset.row
         if(!this.data.good) return
         this.setData({
@@ -622,9 +619,9 @@ export default {
         //   }
         // })  
           // 电脑手机接收
-          console.log(this.data.dingList);
-          console.log(this.data.DingData.userid);
-          console.log(this.route);
+          // console.log(this.data.dingList);
+          // console.log(this.data.DingData.userid);
+          // console.log(this.route);
           // let obj = {
           // flowid:this.data.flowid,
           // index:this.data.index,
@@ -738,7 +735,6 @@ export default {
       this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
         let lastNode = {}
         let tempNodeList = []
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         console.log(res);
         //审批人分组         
         for (let node of res) {
@@ -1003,19 +999,19 @@ export default {
     },
     //检查是否登录
     checkLogin(callBack){
-      var that = this
-      var app = getApp()
+      let that = this;
       //检查登录
       if (app.userInfo) {
         var DingData = {
-          nickName:app.userInfo.name,
-          departName:app.userInfo.dept,
-          userid:app.userInfo.userid
+          nickName:app.userInfo.nickName,
+          departName:app.userInfo.departName,
+          userid:app.userInfo.userid,
+          departmentList:app.userInfo.departmentList
         }
 
-        that.setData({DingData:DingData })
-        callBack()
-        return.0
+        that.setData({DingData:DingData });
+        callBack();
+        return;
       }
       dd.showLoading({
         content: '登录中...'
@@ -1034,7 +1030,7 @@ export default {
                     success: function(res) {
 
                       console.log(res);
-                      let name = JSON.parse(res.data).name;
+                      let name = res.data.name;
               
                       if(!result.userid){
                         dd.alert({
@@ -1044,12 +1040,13 @@ export default {
                       }
                       app.userInfo = result
                       var DingData = {
-                        // nickName:result.name,
                         nickName:name || result.name,
                         departName:result.dept,
-                        userid:result.userid
+                        userid:result.userid,
+                        departmentList:res.data.dept,
+
                       }
-                      console.log(DingData)
+                      // console.log(DingData);
                       dd.hideLoading()
                       that.setData({ DingData:DingData })
                       callBack()
@@ -1065,14 +1062,14 @@ export default {
 
 
      checkLogin2(callBack){
-      var that = this
-      var app = getApp()
+      let that = this;
       //检查登录
       if (app.userInfo) {
         var DingData = {
-          nickName:app.userInfo.name,
-          departName:app.userInfo.dept,
-          userid:app.userInfo.userid
+          nickName:app.userInfo.nickName,
+          departName:app.userInfo.departName,
+          userid:app.userInfo.userid,
+          departmentList:app.userInfo.departmentList
         }
 
         that.setData({DingData:DingData })
@@ -1088,7 +1085,7 @@ export default {
           console.log(res.authCode);
           lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({authCode:res.authCode}),(res) => {
               let result = res;     
-              dd.httpRequest({
+              dd.httpRequest({ 
                     url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.userid}),
                     method: 'POST',
                     data:'',
@@ -1096,25 +1093,25 @@ export default {
                     success: function(res) {
 
                       console.log(res);
-                      let name = JSON.parse(res.data).name;
-              
+                      let name = res.data.name;
                       if(!result.userid){
                         dd.alert({
-                          content:res.errmsg+',请关掉应用重新打开试试~'
+                          content:res.errmsg + ',请关掉应用重新打开试试~'
                         });
-                        return
+                        return;
                       }
-                      app.userInfo = result
-                      var DingData = {
-                        // nickName:result.name,
+                      
+                      let DingData = {
                         nickName:name || result.name,
                         departName:result.dept,
-                        userid:result.userid
+                        userid:result.userid,
+                        departmentList:res.data.dept,
                       }
-                      console.log(DingData)
-                      dd.hideLoading()
-                      that.setData({ DingData:DingData })
-                      callBack()
+                      app.userInfo = DingData;
+                      console.log(DingData);
+                      dd.hideLoading();
+                      that.setData({ DingData:DingData });
+                      callBack();
                     }
 
 

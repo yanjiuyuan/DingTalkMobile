@@ -1,14 +1,15 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
   
-  
+      <!-- 选择部门 -->
+<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" placeholder="输入 标题"  disabled="{{true}}"/>
+          <input name="Title" class="input" placeholder="输入 标题"  disabled="{{true}}" value="{{tableInfo.Title}}"/>
         </view>
       </view>
       <!-- <view class="form-line" /> -->

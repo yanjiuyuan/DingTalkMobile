@@ -1,12 +1,12 @@
 <import src="/util/template/template.axml"/>
 
 <!-- 退回审批表单 -->
-<!-- <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
-<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/> -->
+<template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
   
 <view class="page">
 
-
+  <template is="form" data="{{department:tableInfo.Dept}}"/>
   <!-- 待编辑物料表单 -->
   <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>

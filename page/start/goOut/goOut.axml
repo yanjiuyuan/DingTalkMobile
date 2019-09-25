@@ -1,6 +1,7 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-  
+    <!-- 选择部门 -->
+    <template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
     <!-- 待编辑物料表单 -->
   <view class="modal" a:if="{{!hidden}}" key="modal">
       <view class="modal-mask" animation="{{animMaskData}}"/>
