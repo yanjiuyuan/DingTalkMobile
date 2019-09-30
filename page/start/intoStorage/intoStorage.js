@@ -219,14 +219,34 @@ Page({
     });
   },
   submit(e) {
-    var arr = []
+    var arr = [];
+    console.log(this.data.purchaseList);
+    var that = this;
+
+
+    if(that.data.projectList[that.data.projectIndex] == undefined){
+      dd.alert({
+        content:"项目名称不能为空，请输入！",
+        buttonText:"确认"
+      })
+      return;
+    }
+
+
+    if(this.data.purchaseList.length == 0){
+      dd.alert({
+        content:"请选择物料",
+        buttonText:"确认"
+      })
+      return;
+    }
+    
     for(let p of this.data.purchaseList){
       arr.push(p.fFullName)
     }
     var set = new Set(arr);
 
-    var that = this
-    var value = e.detail.value
+    var value = e.detail.value;
     var param = {
         Title: value.title,
         Remark: value.remark,
@@ -284,9 +304,10 @@ Page({
     if((!index) && index != 0)  return
     //默认方法，删除选项
     if(!e.target.targetDataset.opt2){
-      console.log(this.data.purchaseList)
+      let length = this.data.purchaseList.length;
       this.data.purchaseList.splice(index, 1)
       this.setData({
+        [`tableParam2.total`]:length - 1,
         purchaseList:this.data.purchaseList
       })
       console.log(this.data.purchaseList)
@@ -306,14 +327,32 @@ Page({
   },
   //提交弹窗表单
   addGood(e){
-    let value = e.detail.value
-    console.log(value) 
+    let value = e.detail.value;
+
+
+    let reg  = /^-?\d+$/;
+    if(!reg.test(value.fQty)){
+      dd.alert({
+        content: `数量必须为整数，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
+    if(value.fQty == 0){
+      dd.alert({
+        content: `数量不允许为0，请重新输入！`,
+        buttonText:"确认"
+      });
+      return;
+    }
     if (!value || !value.fQty) {
       dd.alert({
-        content: `表单填写不完整`,
+        content: `数量不允许为空，请输入！`,
+        buttonText:"确认"
       });
-      return
+      return;
     }
+
     if(this.data.ifedit){
       for(let i = 0 ;i < this.data.purchaseList.length; i++){
         //数量判断
@@ -358,6 +397,7 @@ Page({
       let length = this.data.purchaseList.length
       let setStr = 'purchaseList[' + length + ']'
       this.setData({
+        [`tableParam2.total`]:length + 1,
         [`purchaseList[${length}]`]: param
       })
       //数量判断

@@ -37,13 +37,33 @@ export default {
     //选人控件方法
     choosePeople(e){
       console.log('start choose people');
+      console.log(this.data.nodeList);
+
       var nodeId = e.target.targetDataset.NodeId;
       var that = this;
+      let arr = that.data.nodeList;
+      let index = nodeId;
+      let IsMultipleSelection = 0;
+      for(let i = nodeId - 1;0 <= i;i--){
+        if(arr[i].NodeName.indexOf("项目负责人") == 0 || arr[i].NodeName.indexOf("抄送") == 0){
+            index--; 
+        }
+        if(arr[i].NodeName.indexOf("项目负责人") == -1 && arr[i].IsSelectMore != null){
+          let IsSelectMoreArray = arr[i].IsSelectMore.split(",");
+          console.log(IsSelectMoreArray);
+          IsMultipleSelection = IsSelectMoreArray[index -1];
+          console.log("index:"+ (index-1));
+          console.log(IsMultipleSelection);
+
+        }
+
+      }
+
+      
       dd.complexChoose({
         ...that.data.chooseParam,
+        multiple: IsMultipleSelection == 0 || IsMultipleSelection == undefined ? false : true, 
         success: function(res) {
-          console.log(res)
-
           let result = res;
               dd.httpRequest({
                     url: that.data.dormainName + "DingTalkServers/getUserDetail" +lib.func.formatQueryStr({userid:res.users[0].userId}),
@@ -82,75 +102,6 @@ export default {
 
 
 
-    choosePeopleOne(e){
-      console.log('start choose people')
-      var nodeId = e.target.dataset.NodeId;
-      var that = this;
-      
-	  if(nodeId){
-		dd.complexChoose({
-			...that.data.chooseParam,
-			success: function(res) {
-			console.log(res);
-			for (let node of that.data.nodeList) {
-				if (node.NodeId == nodeId) {
-					node.AddPeople = res.users;
-          // node.ApplyMan = res.users[0].name;
-          // node.ApplyManId = res.users[0].userId;
-          // node.NodePeople = [res.users[0].name];
-          
-				}
-			}
-				console.log(that.data.nodeList);
-
-			that.setData({
-				nodeList:that.data.nodeList,
-				ChoosePeople:true
-			})
-			},
-			fail: function(err) {
-				console.log("fail!!");
-			}
-		})	  
-	  }
-
-    },
-
-
-    //选人控件方法
-    choosePeopleTwo(e){
-      console.log('start choose people')
-      var nodeId = e.target.dataset.NodeId;
-      var that = this;
-      
-	  if(nodeId){
-		dd.complexChoose({
-			...that.data.chooseParam,
-			success: function(res) {
-			console.log(res);
-			for (let node of that.data.nodeList) {
-				if (node.NodeId == nodeId) {
-					node.AddPeople = res.users;
-          node.ApplyMan = res.users[0].name;
-          node.ApplyManId = res.users[0].userId;
-          node.NodePeople = [res.users[0].name];
-          
-				}
-			}
-				console.log(that.data.nodeList);
-
-			that.setData({
-				nodeList:that.data.nodeList,
-				ChoosePeople:true
-			})
-			},
-			fail: function(err) {
-				console.log("fail!!");
-			}
-		})	  
-	  }
-
-    },
 
 
 	NodePeople(e){

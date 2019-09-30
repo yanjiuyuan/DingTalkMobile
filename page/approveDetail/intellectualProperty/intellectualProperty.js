@@ -22,7 +22,7 @@ Page({
     if(this.data.nodeid == 5){
       this.data.table['ActualName'] = value.ActualName
       this.data.table['Company'] = this.data.CompanyNames[this.data.companyIndex]
-      this.data.table['ActualType'] = this.data.IntellectualPropertyTypes[this.data.iptIndex]
+      this.data.table['ActualType'] = this.data.IntellectualPropertyTypes[this.data.stateIndexs]
     }
     this.setData({disablePage:true})
     this._postData("IntellectualProperty/Modify",
@@ -46,7 +46,7 @@ Page({
   //下拉框选择处理
   changeIptIndex(e){
       this.setData({
-      stateIndex: e.detail.value,
+      stateIndexs: e.detail.value,
     })
   },
   changeCompany(e){

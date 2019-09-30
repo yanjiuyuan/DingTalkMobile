@@ -6,6 +6,13 @@ Page({
     ...pub.data,
 
       tableItems: [
+
+
+      {
+        prop: 'ApplyMan',
+        label: '申请人',
+        width: 200
+      },  
       {
         prop: 'fName',
         label: '物料名称',
@@ -99,23 +106,39 @@ Page({
   search(e){
     let that = this;
     let value = e.detail.value;
-    console.log(value);
     if(value.keyWord == "" || value.StartTime == "" || value.EndTime == ""){
         dd.alert({content: '表单填写不完整'});
       
     }
    else if(e.buttonTarget.dataset.isSend == undefined) {
       this._getData("Pick/Query" + that.formatQueryStr({ applyManId:this.data.DingData.userid,startTime:value.StartTime,endTime:value.EndTime,Key:value.keyWord}),(res)=>{
-      console.log(res);
+        console.log("sssssss");
+        console.log(res);
+      if(res == undefined){
+        dd.alert({
+          content:"您无权访问该系统，请联系管理员！",
+          buttonText:"确认"
+        })
+        return;
+      }
       if(res.length == 0){
-        dd.showToast({content: '暂无数据'});
+        dd.alert({content: '暂无数据',buttonText:"确认"});
+        return;
       }
       that.setData({
+        [`tableParams.total`]:res.length,
         purchaseList:res
       })
     });
     }
-    else if(e.buttonTarget.dataset.isSend == true){
+    else if(this.data.purchaseList.length == 0){
+      dd.alert({
+        content:"请选择物料",
+        buttonText:"确认"
+      })
+      return;
+    }
+    else if(e.buttonTarget.dataset.isSend == true && this.data.purchaseList.length != 0){
       this._getData("Pick/Query" + that.formatQueryStr({ applyManId:this.data.DingData.userid,startTime:value.StartTime,endTime:value.EndTime,Key:value.keyWord,isSend:true
         }),(res)=>{
         dd.alert({content: '已推送至钉钉'});

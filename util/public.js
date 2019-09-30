@@ -633,7 +633,7 @@ export default {
           let param = {
               userId: this.data.dingList[0],
               title: '请帮我审核一下流水号为 ' + this.data.taskid + ' 的流程',
-              applyMan: this.data.DingData.userid,
+              applyMan: this.data.DingData.nickName,
               linkUrl: "eapp://page/approve/approve?index=0"
               // linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
           }
@@ -669,10 +669,10 @@ export default {
       },
       //处理表单中的图片、PDF等文件显示
       handleUrlData(data) {
-        var that = this
-        let imageList = []
-        let fileList = []
-        let pdfList = []
+        var that = this;
+        let imageList = [];
+        let fileList = [];
+        let pdfList = [];
         if (data.ImageUrl && data.ImageUrl.length > 5) {
             var tempList = data.ImageUrl.split(',')
             for (let img of tempList) {
@@ -706,12 +706,18 @@ export default {
                     name: oldUrlList[i],
                     url: that.data.dormainName + (urlList[i].substring(2)).replace(/\\/g, "/"),
                     mediaId: MediaIdList[i],
-                    state: stateList[i]
+                    state: stateList[i] || 1,
                 })
             }
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
+            console.log(pdfList);
+            console.log(data);
+
             that.setData({pdfList:pdfList})
         }
-    }
+
+
+      }
     },
     //审批所有流程通过，后续处理
     doneSubmit(text) {
@@ -733,9 +739,8 @@ export default {
         TaskId:this.data.taskid
       }
       this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), (res)=> {
-        let lastNode = {}
-        let tempNodeList = []
-        console.log(res);
+        let lastNode = {};
+        let tempNodeList = [];
         //审批人分组         
         for (let node of res) {
             if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime && (lastNode.NodeName == "抄送" || lastNode.NodeName == "抄送相关人员" || lastNode.NodeName == "抄送小组成员" || lastNode.NodeName == "抄送所有人") && (node.NodeName == "抄送" || node.NodeName == "抄送相关人员" || node.NodeName == "抄送小组成员" || node.NodeName == "抄送所有人")) {
@@ -746,8 +751,6 @@ export default {
             }
             lastNode = node;
         }
-        console.log(tempNodeList);
-
         for (let node of tempNodeList) {
             node['AddPeople'] = [];
             //抄送人分组
@@ -764,14 +767,15 @@ export default {
                 }]
             }
         }
-        this.getNodeList_done(tempNodeList);
-        // this.data.nodeList = tempNodeList;
+               
+        console.log(tempNodeList);
         that.setData({
           nodeList:tempNodeList,
           isBack:res[0].IsBack
         })
       })
     },
+    
     getNodeList_done(nodeList){
       
     },
@@ -1143,8 +1147,6 @@ export default {
               newTitle = undefined;
             }
             let a = this.data.projectList[e.detail.value].ContractNo + "-" + this.data.projectList[e.detail.value].ContractName;
-
-            console.log(this.data.projectList);
           this.setData({
             ['tableInfo.Title']:newTitle || a,
             projectIndex: e.detail.value,

@@ -247,8 +247,7 @@ Page({
         Purpose: value.Purpose.trim(),
         Mark: value.Mark.trim()
     }
-    let length = this.data.purchaseList.length
-    console.log("ssssss")
+    let length = this.data.purchaseList.length;
     console.log(length);
     let setStr = 'purchaseList[' + length + ']'
     this.setData({

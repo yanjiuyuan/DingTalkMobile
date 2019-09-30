@@ -116,11 +116,13 @@ Page({
     }
     this._getData("FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
     function(res) {
-      console.log("ffffffffffffffffffffffffff")
       console.log(JSON.parse(res.counts).Designer);
       that.setData({
-        ["tableInfo.counts"]: JSON.parse(res.counts)
+        ["tableInfo.counts"]: JSON.parse(res.counts),
       })
     },this.data.DingData)
+ },
+
+ onReady(){
  }
 });

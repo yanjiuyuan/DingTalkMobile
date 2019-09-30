@@ -36,8 +36,9 @@ Page({
     var nodeId = e.target.targetDataset.NodeId;
     var that = this;
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: false,
+      title:"项目负责人",
       success: function(res) {
         console.log(res)
         let names = []//userId
@@ -96,8 +97,9 @@ Page({
     var nodeId = e.target.targetDataset.NodeId;
     var that = this;
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: true,
+      title:"其他工程师",
       success: function(res) {
         console.log(res)
         let names = []//userId

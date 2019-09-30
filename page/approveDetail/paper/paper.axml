@@ -12,18 +12,23 @@
         <view class="form-row-label">标题</view>
         <view class="form-row-content">
           <textarea  name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-          <!-- {{tableInfo.Title}} -->
         </view>
       </view>
-      <!-- <view class="form-line" /> -->
+
       <view class="form-row">
         <view class="form-row-label">项目名称</view>
         <view class="form-row-content">
-          <textarea  name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
-          <!-- {{tableInfo.ProjectName}} -->
+          <textarea  name="projectName" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
         </view>
       </view>
-      <!-- <view class="form-line" />  -->
+
+      <view class="form-row">
+        <view class="form-row-label">图纸用途</view>
+        <view class="form-row-content">
+          <input  name="title" class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
+        </view>
+      </view>
+
       <view class="form-row">
         <view class="form-row-label">申请人</view>
         <view class="form-row-content">
@@ -82,6 +87,7 @@
       <view a:if="{{ index!= 0 && state == '已完成' }}">
         <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
         <button type="primary" onTap="downloadAllPdf" disabled="{{disablePage}}">下载所有图纸</button>
+        <button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
       </view>
       <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
         <button type="primary" onTap="tapReturn" disabled="{{disablePage}}">重新发起</button>

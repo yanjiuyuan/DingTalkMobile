@@ -1,14 +1,20 @@
 <!-- 管理控制台 -->
-<import src="/util/template/template.axml"/>
+<import src="/util/template/template.axml" />
 
-<view class="top"> 
-  <view class="top-left" onTap='increase'>
+<view class="top">
+  <view
+    class="top-left"
+    onTap='increase'
+  >
     <view class="top-icon"></view>
     新增分组
   </view>
   <view class="vertical-line"></view>
-  <view class="top-right" onTap="sort">
-    <view class="top-icon"></view>    
+  <view
+    class="top-right"
+    onTap="sort"
+  >
+    <view class="top-icon"></view>
     排序功能
   </view>
 </view>
@@ -17,39 +23,87 @@
   <text class="text">设置可见范围时，若不选任何人和任何部门，则为全员可见(包含新加入的员工)</text>
 </view>
 <view>
-  <view  a:for="{{sort}}" a:for-item="m"  class="sort" >
-      <view onTap="showOrClose" data-index="{{index}}" >
-        <text class="sort-name" > {{m.SORT_NAME}} 
-          <image  data-item="{{m}}" onTap="modifyName" mode="scaleToFill" class="modify" src="/image/modify.png"/>  
-        </text>	
-        <text class="sort-open" >
-          <image onTap="delete" data-item="{{m}}" mode="scaleToFill" class="dustbin" src="/image/dustbin.png"/>
-        </text>
-      </view>
+  <view
+    a:for="{{sort}}"
+    a:for-item="m"
+    class="sort"
+  >
+    <view
+      onTap="showOrClose"
+      data-index="{{index}}"
+    >
+      <text class="sort-name"> {{m.SORT_NAME}}
+        <image
+          data-item="{{m}}"
+          onTap="modifyName"
+          mode="scaleToFill"
+          class="modify"
+          src="/image/modify.png"
+        />
+      </text>
+      <text class="sort-open">
+        <image
+          onTap="delete"
+          data-item="{{m}}"
+          mode="scaleToFill"
+          class="dustbin"
+          src="/image/dustbin.png"
+        />
+      </text>
+    </view>
 
-      <view class="">
-          <view class="menu">
-              <view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
-                    <view class="grid-item-wrapper-new" onTap="deleteItem" data-item="{{item}}">
-                      <view class="approval-box-img" style="backgroundPosition:{{item.position}}">
-                        <view class="delete-icon"><view class="delete-icon-line"></view></view>
-                      </view>
-                      <text class="grid-text-new">{{item.flowName.indexOf('申请')>0?item.flowName.substring(0,item.flowName.indexOf('申请')):item.flowName}}</text>
-                    </view>
-
+    <view class="">
+      <view class="menu">
+        <view
+          a:for="{{menu}}"
+          a:if="{{item.url && item.sortName == m.SORT_NAME}}"
+          class="grid-item-new"
+          data-index="{{index}}"
+        >
+          <view
+            class="grid-item-wrapper-new"
+            onTap="deleteItem"
+            data-item="{{item}}"
+          >
+            <view
+              class="approval-box-img"
+              style="backgroundPosition:{{item.position}}"
+            >
+              <view class="delete-icon">
+                <view class="delete-icon-line"></view>
               </view>
+            </view>
+            <text
+              class="grid-text-new">{{item.flowName.indexOf('申请')>0?item.flowName.substring(0,item.flowName.indexOf('申请')):item.flowName}}</text>
           </view>
 
-          <view class="menu" onTap="addShortcut" data-title = "{{m.SORT_NAME}}" data-item="{{m}}">
-              <view class="grid-item-new" data-index="{{index}}">
-                    <view class="grid-item-wrapper-new" >
-                      <view class="add"> + </view>
-                      <text class="grid-text-new blue" >添加</text>
-                    </view>
-              </view>
-         </view>
-  </view>
-</view>
+        </view>
+      </view>
 
-<template is="inputConfirm" data="{{ifName:ifName,title:title,animContentData:animContentData,animMaskData:animMaskData}}"/>
-<template is="inputConfirm" data="{{ifName:hidden,title:title_1,animContentData:animContentData,animMaskData:animMaskData}}"/>
+      <view
+        class="menu"
+        onTap="addShortcut"
+        data-title="{{m.SORT_NAME}}"
+        data-item="{{m}}"
+      >
+        <view
+          class="grid-item-new"
+          data-index="{{index}}"
+        >
+          <view class="grid-item-wrapper-new">
+            <view class="add"> + </view>
+            <text class="grid-text-new blue">添加</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <template
+    is="inputConfirm"
+    data="{{ifName:ifName,title:title,animContentData:animContentData,animMaskData:animMaskData}}"
+  />
+  <template
+    is="inputConfirm"
+    data="{{ifName:hidden,title:title_1,animContentData:animContentData,animMaskData:animMaskData}}"
+  />

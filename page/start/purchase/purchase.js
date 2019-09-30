@@ -118,6 +118,13 @@ Page({
   },
   submit(e) {
     var that = this
+    if(that.data.projectList[that.data.projectIndex] == undefined){
+      dd.alert({
+        content:"项目名称不能为空，请输入！",
+        buttonText:"确认"
+      })
+      return;
+      }
     var value = e.detail.value
     var param = {
         Title: value.title,
@@ -167,16 +174,18 @@ Page({
     this.createContentShowAnim();
   },
   deleteItem(e){
-    if(!e) return
+    if(!e) return;
     console.log(e)
     let index = e.target.targetDataset.index
-    if((!index) && index != 0)  return
-    console.log(this.data.purchaseList)
-    this.data.purchaseList.splice(index, 1)
+    if((!index) && index != 0)  return; 
+    let length = this.data.purchaseList.length;
+    this.data.purchaseList.splice(index, 1);
+  
     this.setData({
+      'tableParam2.total': length - 1,
       purchaseList:this.data.purchaseList
     })
-    console.log(this.data.purchaseList)
+
   },
   selectDate(){
     dd.datePicker({
@@ -252,6 +261,7 @@ Page({
     let length = this.data.purchaseList.length
     let setStr = 'purchaseList[' + length + ']'
     this.setData({
+      'tableParam2.total': length + 1,
       [`purchaseList[${length}]`]: param,
       totalPrice: (this.data.totalPrice - 0 + param.Price * param.Count) + ''
     })

@@ -248,7 +248,14 @@ Page({
     });
   },
   submit(e) {
-    var that = this
+    var that = this;
+    if(that.data.projectList[that.data.projectIndex] == undefined){
+      dd.alert({
+        content:"项目名称不能为空，请输入！",
+        buttonText:"确认"
+      })
+      return;
+      }
     var value = e.detail.value
     if(this.data.projectIndex < 0 || !value.title){
       console.log(value)
@@ -307,9 +314,10 @@ Page({
     if((!index) && index != 0)  return
     //默认方法，删除选项
     if(!e.target.targetDataset.opt2){
-      console.log(this.data.purchaseList)
+      let length = this.data.purchaseList.length;
       this.data.purchaseList.splice(index, 1)
       this.setData({
+        [`tableParam2.total`]:length - 1,
         purchaseList:this.data.purchaseList
       })
       console.log(this.data.purchaseList)
@@ -372,8 +380,9 @@ Page({
         }
 
         if(this.data.purchaseList[i].fNumber == good.fNumber){
-          good.fQty = (value.fQty ? value.fQty + '' : '1')
+          good.fQty = (value.fQty ? value.fQty + '' : '1');
           this.setData({
+         
             [`purchaseList[${i}]`]: good
           })
         }
@@ -402,9 +411,10 @@ Page({
         fAmount: good.fAmount ? good.fAmount + '' : '0',
         fFullName: good.fFullName
       }
-      let length = this.data.purchaseList.length
+      let length = this.data.purchaseList.length;
       let setStr = 'purchaseList[' + length + ']'
       this.setData({
+        [`tableParam2.total`]:length + 1,
         [`purchaseList[${length}]`]: param
       })
     }

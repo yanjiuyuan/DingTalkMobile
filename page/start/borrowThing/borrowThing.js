@@ -115,6 +115,13 @@ Page({
   },
   submit(e) {
     var that = this
+        if(that.data.projectList[that.data.projectIndex] == undefined){
+      dd.alert({
+        content:"项目名称不能为空，请输入！",
+        buttonText:"确认"
+      })
+      return;
+      }
     var value = e.detail.value
     var param = {
         Title: value.title,

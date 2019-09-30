@@ -34,6 +34,7 @@ Page({
     value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
     value['ProjectName'] = this.data.projectList[this.data.projectIndex].ProjectName
     value['InventorId'] = this.data.tableInfo.InventorId
+    value['Inventor'] = this.data.tableInfo.Inventor
     value['ActualInventor'] = this.data.tableInfo.ActualInventor
     value['ActualInventorId'] = this.data.tableInfo.ActualInventorId
 

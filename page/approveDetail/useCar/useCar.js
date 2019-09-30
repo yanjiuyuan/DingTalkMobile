@@ -86,7 +86,7 @@ Page({
     });
   },
   deleteImg(){
-    this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(',')
+    this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(',');
     this.setData({
       imageList:this.data.imageList.splice(0,this.data.imageList.length-1)
     })
@@ -100,7 +100,7 @@ Page({
   submit(e) {
     var that = this
     var value = e.detail.value
-    if((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid ==3 || this.data.nodeid ==4)){
+    if((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid ==3 || this.data.nodeid == 4)){
       dd.alert({content:'表单未填写完整'})
       return
     }

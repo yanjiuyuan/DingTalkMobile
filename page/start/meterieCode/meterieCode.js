@@ -8,6 +8,11 @@ Page({
     hidden: true,
     tableOperate: '删除',
     tableData: [],
+    tableParam: {
+      size: 100,
+      now: 1,
+      total: 0
+    },
     good: {},
     bigIndex: -1,
     smallIndex: -1,
@@ -272,20 +277,19 @@ Page({
     this.createContentShowAnim();
   },
   deleteItem(e){
-    if(!e) return
-    console.log(e)
-    let index = e.target.targetDataset.index
-    if((!index) && index != 0)  return
-    console.log(this.data.tableData)
-    this.data.tableData.splice(index, 1)
+    if(!e) return;
+    let index = e.target.targetDataset.index;
+    if((!index) && index != 0)  return;
+    let length = this.data.tableData.length;
+    this.data.tableData.splice(index, 1);
     this.setData({
+      ['tableParam.total']: length - 1,
       tableData:this.data.tableData
     })
     console.log(this.data.tableData)
   },
   //提交弹窗表单
   addGood(e){
-    console.log(this.data.tableData);
      let value = e.detail.value;
     //判断是否重复
     if(this.data.tableData.length > 0){
@@ -311,10 +315,10 @@ Page({
     value['BigCode'] = this.data.bigCodes[this.data.bigIndex].materialCodeNumber;
     value['SmallCodeName'] = this.data.smallMaterialCodes[this.data.smallIndex].materialName;
     value['SmallCode'] = this.data.smallMaterialCodes[this.data.smallIndex].materialCodeNumber;
-    console.log(value);
     let length = this.data.tableData.length;
     this.setData({
       table:value,
+      ['tableParam.total']: length + 1,
       [`tableData[${length}]`]: value
     })
   },
