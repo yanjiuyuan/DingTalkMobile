@@ -80,12 +80,7 @@
       <!-- 选人组件 -->
        <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
-        <view class="page-section-suggest">
-          <view class="page-section-title">建议</view>
-          <view class="page-section-demo">
-            <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />
-          </view>
-        </view>
+      <template is="suggest"/>
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
         <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>

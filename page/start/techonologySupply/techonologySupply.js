@@ -19,8 +19,8 @@ Page({
       {name: '自动化事业部', value: '自动化事业部'},
     ],
   
-    array1: ['','研发类', '产品类', '教育类'],
-    index1: 0,
+    array1: ['研发类', '产品类', '教育类'],
+    index1: -1,
     array2: ['高', '中', '低'],
     index2: 0,
 
@@ -151,7 +151,7 @@ Page({
     let value = e.detail.value;
     let that = this;
  
-    console.log(that.data.OtherEngineers);
+    console.log(value);
     let OtherEngineers = "";
     let OtherEngineersId = "";
     for( let i = 0,len = that.data.OtherEngineers.length; i<len; i++){

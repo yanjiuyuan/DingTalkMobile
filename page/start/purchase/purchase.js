@@ -261,6 +261,7 @@ Page({
     let length = this.data.purchaseList.length
     let setStr = 'purchaseList[' + length + ']'
     this.setData({
+      dateStr:"",
       'tableParam2.total': length + 1,
       [`purchaseList[${length}]`]: param,
       totalPrice: (this.data.totalPrice - 0 + param.Price * param.Count) + ''

@@ -11,8 +11,11 @@
       <view class="form-row">
         <view class="form-row-label">标题</view>
         <view class="form-row-content">
-          <textarea name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+          <textarea maxlength="-1" name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
         </view>
+
+
+        
       </view>
       <view class="form-row">
         <view class="form-row-label">申请人</view>
@@ -37,7 +40,8 @@
         <view class="form-row-label">项目名称</view>
         <view class="form-row-content">
           <!-- <input auto-height="true" name="Project" class="input" value="{{table.Project}}" disabled="{{true}}" /> -->
-          {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}} 
+          <!-- {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}  -->
+          <textarea maxlength="-1" name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 
         </view>
       </view>
@@ -45,7 +49,7 @@
       <view class="form-row">
         <view class="form-row-label">申请发明人</view>
         <view class="form-row-content">
-          <textarea auto-height="true" name="Inventor" maxlength="0" class="input" value="{{table.Inventor
+          <textarea  maxlength="-1" auto-height="true" name="Inventor" maxlength="0" class="input" value="{{table.Inventor
 }}" disabled="{{true}}" />
         </view>
       </view>
@@ -56,7 +60,7 @@
          <view class="form-row">
           <view class="form-row-label"><template is="required"></template>发明人或设计人</view>
           <view class="form-row-content">
-            <textarea auto-height="true" name="ActualInventor" class="input" disabled="{{true}}" value="{{table.ActualInventor}}"/>
+            <textarea  maxlength="-1" auto-height="true" name="ActualInventor" class="input" disabled="{{true}}" value="{{table.ActualInventor}}"/>
           </view>
           <view onTap="choosePeoples" class="tag tag-info" a:if="{{nodeid == 5 && index == 0}}">+ 选人</view>
         </view> 
@@ -108,12 +112,7 @@
       <!-- 选人组件 -->
       <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
       <view a:if="{{index==0}}">
-        <view class="page-section-suggest">
-          <view class="page-section-title">建议</view>
-          <view class="page-section-demo">
-            <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />
-          </view>
-        </view>
+      <template is="suggest"/>
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
         <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>

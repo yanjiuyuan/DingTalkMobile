@@ -6,8 +6,11 @@ let app = getApp();
 Page({
   ...pub.func,
   onLoad(){
-    this.getMenu();
-    this.checkLogin2(function(){});
+    let that = this;
+    this.checkLogin2(function(){
+      that.getMenu();
+    });
+   
     this.getUserInfo();
   },
   data: {
@@ -99,15 +102,13 @@ Page({
       })
   },
   
-  getMenu(){
+   getMenu(){
       let that = this;
-      this._getData('FlowInfoNew/LoadFlowSort?id=123', function(data) {
+      this._getData('FlowInfoNew/LoadFlowSort?userId=' + app.userInfo.userid, function(data) {
       let sorts = data;
-      console.log(data);
       that.setData({sort:data});
 	    let sortItem = [];//用于存放sort打开展开收起的数据
       let tempdata = [];//用于存放流程数据
-      // that._getData('FlowInfoNew/LoadFlowInfo?id=123',function(data){
         for(let s of sorts){
           for(let f of s.flows){
               f.flowId = f.FlowId;
@@ -125,7 +126,6 @@ Page({
             class:"dropdown-content-show"
           }
           sortItem.push(item);
-              // s['show'] = false;
           s['show'] = false;
 
           for(let t of temp){
@@ -137,11 +137,9 @@ Page({
           }
         }
 
-
         app.globalData.sort = sorts;
         app.globalData.menu = temp;
         app.globalData.sortItems = sortItem;
-
         that.setData({
           
           sort:sorts,
@@ -149,7 +147,6 @@ Page({
 		      sortItems:sortItem
         })
       })
-    // })
   },
 
   // getMenu(){

@@ -74,8 +74,8 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
-          <input name="BeginTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" 
-          value="{{table.BeginTime}}"/>
+          <input name="BeginTime" class="input" placeholder="开始时间" 
+          value="{{table.BeginTime}}" disabled="true"/>
         </view>
         <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
       </view>
@@ -83,8 +83,8 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>结束时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime" 
-          value="{{table.EndTime}}"/>
+          <input name="EndTime" class="input" placeholder="结束时间" 
+          value="{{table.EndTime}}" disabled="true"/>
         </view>
         <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
       </view>
@@ -92,7 +92,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>时长(小时)</view>
         <view class="form-row-content">
-          <input name="Duration" class="input" value="{{table.Duration}}" />
+          <input name="Duration" class="input" value="{{table.Duration}}" disabled="true" />
         </view>
       </view>
 

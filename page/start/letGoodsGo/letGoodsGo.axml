@@ -81,7 +81,7 @@
           <textarea auto-height="true" name="remark" class="input"/>
         </view>
       </view>
-      <view class="form-row" style="height:280rpx;">
+      <view class="form-row" style="height:auto;">
           <view class="form-row-label"><template is="required"></template>上传图片</view>
           <view class="form-row-content">
             <view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view>

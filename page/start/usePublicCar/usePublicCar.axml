@@ -6,13 +6,13 @@
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
+      
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
           <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  disabled="{{true}}" />
         </view>
       </view>
-      <!-- <view class="form-line" /> -->
 
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>驾驶员</view>
@@ -21,7 +21,7 @@
         </view>
       </view>
 
-      <!-- <view class="form-line" /> -->
+     
       <view class="form-row">
         <view class="form-row-label">同行人</view>
         <view class="form-row-content">
@@ -31,7 +31,7 @@
         <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
       </view>
 
-      <!-- <view class="form-line" /> -->
+     
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>计划行车路线</view>
         <view class="form-row-content">
@@ -39,7 +39,7 @@
         </view>
       </view>
 
-      <!-- <view class="form-line" /> -->
+     
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>用车事由</view>
         <view class="form-row-content">
@@ -50,16 +50,16 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>开始时间</view>
         <view class="form-row-content">
-          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime"
+          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="true"
           value="{{table.StartTime}}"/>
         </view>
         <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>        
       </view>
 
       <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>结束时间</view>
+        <view class="form-row-label"><template is="required"></template>返回时间</view>
         <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="结束时间" onFocus="selectEndDateTime"
+          <input name="EndTime" class="input" placeholder="返回时间" onFocus="selectEndDateTime" disabled="true"
           value="{{table.EndTime}}"/>
         </view>
         

@@ -14,8 +14,11 @@ Page({
   },
   submit(e) {
     if (this.data.nodeList[1].AddPeople[0].userId == "0907095238746571") {
-        dd.alert({content:'用车无需季老师审批,如是部长级请选本人'})
-        return
+        dd.alert({
+            content:'用车无需季老师审批,如是部长级请选本人',
+            bottonText:"确认",
+          })
+        return;
     }
     var that = this
     var value = e.detail.value
@@ -111,20 +114,46 @@ Page({
       startDate: this.data.DateStr + ' ' + this.data.TimeStr,
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
+       if(this.data.endDateStr){
+          //判断时间
+          let start = new  Date(res.date.replace(/-/g,'/')).getTime();
+          let end = new  Date(this.data.endDateStr.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
+        }
         this.setData({
+          startDateStr:res.date,
           'table.StartTime': res.date
         })
       },
     });
   },
-  selectEndDateTime(){
+  selectEndDateTime(){x
     dd.datePicker({
       format: 'yyyy-MM-dd HH:mm',
       currentDate: this.data.DateStr + ' ' + this.data.TimeStr,
       startDate: this.data.DateStr + ' ' + this.data.TimeStr,
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
+        if(this.data.startDateStr){
+          //判断时间
+          let start = new  Date(this.data.startDateStr.replace(/-/g,'/')).getTime();
+          let end = new  Date(res.date.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
+        }
         this.setData({
+          endDateStr:res.date,
           'table.EndTime': res.date
         })
       },

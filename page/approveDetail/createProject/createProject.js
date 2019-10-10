@@ -22,9 +22,7 @@ Page({
                 dd.alert({ content: "项目编号不能为空" });
                 return;
             }
-            //if(this.data.nodeid == 1) this.data.nodeList[5].AddPeople = this.data.copyMans
-            console.log(this.data.nodeList);
-            this.setData({ disablePage: true });
+            // this.setData({ disablePage: true });
             this._postData(
                 "CreateProject/Modify",
                 res => {
@@ -32,14 +30,11 @@ Page({
                         this.aggreSubmit(param);
                         return;
                     }
-                    this.requestData(
-                        "POST",
-                        "Project/AddProject?IsPower=true",
-                        res => {
-                            this.aggreSubmit(param);
-                        },
-                        this.data.table
-                    );
+
+                    this._postData('ProjectNew/AddProject',(res) => {
+                      this.aggreSubmit(param);
+                    },[this.data.table]);
+  
                 },
                 this.data.table
             );

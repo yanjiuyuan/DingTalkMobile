@@ -83,12 +83,13 @@
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
       
       <!-- 建议输入框 -->
-      <view class="page-section-suggest">
+      <template is="suggest"/>
+      <!-- <view class="page-section-suggest">
         <view class="page-section-title">建议</view>
           <view class="page-section-demo">
             <textarea name="remark" placeholder="输入 建议" />
           </view>
-      </view>
+      </view> -->
     </view>
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>

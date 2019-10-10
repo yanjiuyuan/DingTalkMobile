@@ -77,16 +77,18 @@
         </view>
       </view>
       
-      <view class="form-row">
+      <!-- <view class="form-row">
         <view class="form-row-label">建议</view>
         <view class="form-row-content">
           <textarea auto-height="true" name="remark" class="input"/>
         </view>
-      </view>
+      </view> -->
+
+      
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>
-    
+    <template is="suggest"/>
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
   </form>
 </view>

@@ -9,10 +9,10 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <textarea name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
+          <textarea name="Title" class="input" style="min-height:90rpx;padding:0;"
+value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}"  maxlength="0" auto-height="true"/>
         </view>
       </view>
-      <!-- <view class="form-line" /> -->
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请人</view>
         <view class="form-row-content">

@@ -115,7 +115,20 @@ Page({
       startDate: this.data.DateStr + ' ' + this.data.TimeStr,
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
+        if(this.data.endDateStr){
+          //判断时间
+          let start = new  Date(res.date.replace(/-/g,'/')).getTime();
+          let end = new  Date(this.data.endDateStr.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
+        }
         this.setData({
+          startDateStr: res.date,
           'table.StartTime': res.date
         })
       },
@@ -128,7 +141,21 @@ Page({
       startDate: this.data.DateStr + ' ' + this.data.TimeStr,
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
+
+        if(this.data.startDateStr){
+          //判断时间
+          let start = new  Date(this.data.startDateStr.replace(/-/g,'/')).getTime();
+          let end = new  Date(res.date.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
+        }
         this.setData({
+          endDateStr:res.date,
           'table.EndTime': res.date
         })
       },

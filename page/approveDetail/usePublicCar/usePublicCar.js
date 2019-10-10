@@ -11,6 +11,7 @@ Page({
     table:{},
   },
   submit(e) {
+    
     var that = this
     var value = e.detail.value
     var param = {
@@ -19,20 +20,17 @@ Page({
     this.data.table['CarNumber'] = this.data.table.CarId
     this.data.table['StartKilometres'] = value.StartKilometres
     this.data.table['EndKilometres'] = value.EndKilometres
-    // this.data.table['UseKilometres'] = parseInt(value.EndKilometres) - parseInt(value.StartKilometres)
     this.data.table['UseKilometres'] = ((value.EndKilometres - 0 ) - (value.StartKilometres - 0)).toFixed(1);
 
-    console.log("ssssss");
-    console.log(this.data.table['UseKilometres']);
     if((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid ==3 || this.data.nodeid ==4)){
-      dd.alert({content:'表单未填写完整'})
-      return
+      dd.alert({content:'表单未填写完整',buttonText:"确认"})
+      return;
     }
     if(this.data.nodeid == 2){
-      if(!this.data.table['CarId']) return
+      if(!this.data.table['CarId']) return;
       if(!this.data.carList[this.data.carIndex]){
         dd.alert({
-          content:"表单填写未完整"
+          content:"表单填写未完整",buttonText:"确认"
         })
         return;
       }

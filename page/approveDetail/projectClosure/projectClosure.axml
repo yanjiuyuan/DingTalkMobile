@@ -106,7 +106,7 @@
       <view class="form-row" style="height:auto;">
         <view class="form-row-label">项目成员</view>
         <view class="form-row-content">
-          <textarea class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
+          <textarea maxlength="-1" class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
         </view>
       </view>
 
@@ -397,13 +397,7 @@
 
       <button  a:if="{{ index!= 0 && state == '已完成' }}" type="primary" onTap="printTable" disabled="{{disablePage}}" >打印表单</button>
       <view a:if="{{index==0}}">
-        <view class="page-section-suggest">
-          <view class="page-section-title">建议</view>
-          <view class="page-section-demo">    
-            
-            <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />
-          </view>
-        </view>
+      <template is="suggest"/>
         <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
         <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
       </view>

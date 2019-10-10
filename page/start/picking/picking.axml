@@ -30,7 +30,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <textarea name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
+          <textarea maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
         </view>
       </view>
       <!-- <view class="form-line" /> -->
@@ -101,14 +101,15 @@
 
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
-      
-      <view class="page-section-suggest">
+      <template is="suggest"/>
+
+      <!-- <view class="page-section-suggest">
         <view class="page-section-title">建议</view>
           <view class="page-section-demo">
             <textarea name="remark"placeholder="输入 建议" />
           </view>
-        
-      </view>
+      </view> -->
+
     </view>
     
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
