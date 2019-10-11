@@ -19,7 +19,6 @@ export default {
 			appId: globalData.appId,              //微应用的Id
 			responseUserOnly: false,        //返回人，或者返回人和部门
 			startWithDepartmentId: 0,   // 0表示从企业最上层开始},
-
 		},
 		//表格变量
 		tableData: [],

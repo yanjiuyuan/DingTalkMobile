@@ -180,6 +180,16 @@ export default {
 					flowName: "生产进度监控",
 					url: 'productionMonitoring/productionMonitoring',
 					position: (x + 5 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
+				},
+				{
+					flowId: 71,
+					sortId: 11,
+					flowName: "流程管理",
+					title: '流程管理',
+					url: 'processManagement/processManagement',
+					position: (x + 3 * xTap) + 'px ' + (y + 1 * yTap) + 'px',
+					
+
 				}
 			],
 
@@ -709,9 +719,6 @@ export default {
 							state: stateList[i] || 1,
 						})
 					}
-					console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
-					console.log(pdfList);
-					console.log(data);
 
 					that.setData({ pdfList: pdfList })
 				}
