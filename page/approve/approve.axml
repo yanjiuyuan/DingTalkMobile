@@ -25,12 +25,14 @@
 						<view onTap="toDetial" data-row="{{item}}">{{item.ApplyMan}} 的 {{item.FlowName}}
 							<view class="block tag {{item.IsRead==true ?'tag-success':'tag-danger'}}" a:if="{{ activeItem == 3 && item.IsRead == true }}">已读</view>
 							<view class="block tag {{item.IsRead==true ?'tag-success':'tag-danger'}}" a:if="{{ activeItem == 3 && item.IsRead == false }}">未读</view>
-							<view class="tag {{item.State=='已完成'?'tag-success':'tag-danger'}}" style="float:right;font-size:10px;padding:2rpx;">{{item.State}}
+							<view class="tag {{item.FlowState=='已完成'?'tag-success':'tag-danger'}}" style="float:right;font-size:10px;padding:2rpx;">{{item.FlowState}}
 							</view>
 						</view>
 						<view class="text-font" onTap="toDetial" data-row="{{item}}">标题:{{item.Title}}</view>
 						<view class="text-font" onTap="toDetial" data-row="{{item}}">流水号:{{item.TaskId}}</view>
 						<view class="text-font" onTap="toDetial" data-row="{{item}}">申请时间:{{item.ApplyTime}}</view>
+						<view class="text-font" onTap="toDetial" data-row="{{item}}">最后处理时间:{{item.CurrentTime}}</view>
+
 					</view>
 				</list-item>
 			</block>

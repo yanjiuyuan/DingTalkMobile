@@ -1,7 +1,7 @@
 <!-- 项目结题情况 -->
 
 <import src="/util/template/template.axml"/>
-  <template is="form" data="{{department:tableInfo.Dept}}"/>
+
     <view class="page-section">
       <view class="form-row">
         <view class="form-row-label">标题</view>

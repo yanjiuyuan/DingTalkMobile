@@ -14,7 +14,7 @@ Page({
     var param = {
         Remark: value.remark
     }
-    if((!value.TeamMembers || !value.StartTime || !value.EndTime || !value.TechnicalProposal || !value.ProjectName) && (this.data.nodeid ==1)){
+    if((!value.TeamMembers || !value.StartTime || !value.EndTime || !value.TechnicalProposal || !value.ProjectName) && (this.data.nodeid == 1)){
       dd.alert({content:'表单未填写完整'})
       return;
     }
@@ -95,7 +95,7 @@ Page({
     this.data.addPeopleNodes = [5]
     var that = this
     dd.complexChoose({
-      ...that.chooseParam,
+      ...that.data.chooseParam,
       multiple: true,
       success: function(res) {
         let names = []//userId
@@ -137,7 +137,60 @@ Page({
     )
   },
 
+	selectStartDate() {
+		let that = this;
+		dd.datePicker({
+			format: 'yyyy-MM-dd',
+			currentDate: this.data.DateStr,
+			startDate: this.data.DateStr,
+			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
+			success: (res) => {
+				if (that.data.endDateStr) {
+					let iDay = that.DateDiff(res.date, that.data.endDateStr);//計算天數
+					if (iDay > 0) {
+						dd.alert({
+							content: "结束时间要大于开始时间。"
+						})
+						return;
+					}
+				}
 
+				this.setData({
+					startDateStr: res.date,
+					'table.StartTime': res.date
+				})
+			},
+		});
+
+	},
+
+	selectEndDate() {
+		let that = this;
+		let iDay = 0;
+		dd.datePicker({
+			format: 'yyyy-MM-dd',
+			currentDate: this.data.DateStr,
+			startDate: this.data.DateStr,
+			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
+			success: (res) => {
+				if (that.data.startDateStr) {
+					iDay = that.DateDiff(res.date, that.data.startDateStr);//計算天數
+					if (iDay < 0) {
+						dd.alert({
+							content: "结束时间要大于开始时间。"
+						})
+						return;
+					}
+				}
+
+				this.setData({
+					endDateStr: res.date,
+					'table.EndTime': res.date
+				})
+			},
+		});
+	},
+	
   getNodeList_done(nodeList){
     console.log(nodeList);
     for (let node of nodeList){
@@ -149,6 +202,7 @@ Page({
       } 
     }
   },
+
 
 
 

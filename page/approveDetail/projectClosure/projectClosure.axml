@@ -1,419 +1,343 @@
 <import src="/util/template/template.axml"/>
-
 <!-- 退回审批表单 -->
 <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
 <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
-  
 <view class="page">
-
-  <template is="form" data="{{department:tableInfo.Dept}}"/>
-  <!-- 待编辑物料表单 -->
-  <view class="modal" a:if="{{!hidden}}" key="modal">
-      <view class="modal-mask" animation="{{animMaskData}}"/>
-      <view class="modal-container" animation="{{animContentData}}">
-          <view class="modal-close" onTap="onModalCloseTap">×</view>
-          <view class="modal-content">
-            <form onSubmit="addGood">
-
-              <view class="page-section">
-                <view class="form-row">
-                  <view class="form-row-label"></template>科目/备注</view>
-                  <view class="form-row-content">
-                    <input name="Subject" class="input" value="{{Subject}}" disabled="true" />
-                  </view>
-                </view>
-              </view>
-
-              <view class="page-section">
-                <view class="form-row">
-                  <view class="form-row-label"><template is="required"></template>支出数(资料科目合计)</view>
-                  <view class="form-row-content">
-                    <input name="Money" class="input" placeholder="支出数(资料科目合计)" />
-                  </view>
-                </view>
-              </view>
-
-              <view class="page-section">
-                <view class="form-row">
-                  <view class="form-row-label"><template is="required"></template>支出数计算依据(名称+金额)</view>
-                  <view class="form-row-content">
-                    <input name="NameAndMoney" class="input" placeholder="支出数计算依据(名称+金额)" />
-                  </view>
-                </view>
-              </view>
-              <button type="primary" style="margin-bottom:0;" formType="submit" data-index="{{idx}}">添加</button>
-            </form>
-          </view>
-      </view>
-  </view>
-
-
-  <form onSubmit="submit">
-    <view class="page-section">
-
-      <view  class="form-row">
-        <view class="form-row-label">标题</view>
-        <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">申请人</view>
-        <view class="form-row-content">
-          <input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">申请部门</view>
-        <view class="form-row-content">
-          <input class="input" value="{{tableInfo.Dept}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view style="height:50rpx;"></view>
-      
-      <view class="form-row">
-        <view class="form-row-label">项目名称</view>
-        <view class="form-row-content">
-          <!-- <input class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" /> -->
+	<!-- 待编辑物料表单 -->
+	<view class="modal" a:if="{{!hidden}}" key="modal">
+		<view class="modal-mask" animation="{{animMaskData}}"/>
+		<view class="modal-container" animation="{{animContentData}}">
+			<view class="modal-close" onTap="onModalCloseTap">×</view>
+			<view class="modal-content">
+				<form onSubmit="addGood">
+					<view class="page-section">
+						<view class="form-row">
+							<view class="form-row-label"></template>科目/备注</view>
+							<view class="form-row-content">
+								<input name="Subject" class="input" value="{{Subject}}" disabled="true" />
+							</view>
+						</view>
+					</view>
+					<view class="page-section">
+						<view class="form-row">
+							<view class="form-row-label">
+								<template is="required"></template>支出数(资料科目合计)</view>
+							<view class="form-row-content">
+								<input name="Money" class="input" placeholder="支出数(资料科目合计)" />
+							</view>
+						</view>
+					</view>
+					<view class="page-section">
+						<view class="form-row">
+							<view class="form-row-label">
+								<template is="required"></template>支出数计算依据(名称+金额)</view>
+							<view class="form-row-content">
+								<input name="NameAndMoney" class="input" placeholder="支出数计算依据(名称+金额)" />
+							</view>
+						</view>
+					</view>
+					<button type="primary" style="margin-bottom:0;" formType="submit" data-index="{{idx}}">添加</button>
+				</form>
+			</view>
+		</view>
+	</view>
+	<form onSubmit="submit">
+		<view class="page-section">
+			<view class="form-row">
+				<view class="form-row-label">标题</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">申请人</view>
+				<view class="form-row-content">
+					<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<view style="height:50rpx;"></view>
+			<view class="form-row">
+				<view class="form-row-label">项目名称</view>
+				<view class="form-row-content">
+					<!--<input class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" /> -->
           {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}
-        </view>
-      </view>
-
-      <!-- <view class="form-row">
-        <view class="form-row-label">项目编号</view>
-        <view class="form-row-content">
-          <input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
-        </view>
-      </view> -->
-
-      <view class="form-row">
-        <view class="form-row-label">项目类别</view>
-        <view class="form-row-content">
-          <input class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">项目负责人</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.ResponsibleMan}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row" style="height:auto;">
-        <view class="form-row-label">项目成员</view>
-        <view class="form-row-content">
-          <textarea maxlength="-1" class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">计划开始时间</view>
-        <view class="form-row-content">
-            <input class="input" value="{{table.StartTime}}" disabled="{{true}}" />
-        </view>
-      </view>
-      
-      <view class="form-row">
-        <view class="form-row-label">计划结束时间</view>
-        <view class="form-row-content">
-            <input class="input" value="{{table.EndTime}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">实际开始时间</view>
-        <view class="form-row-content">
-            <input class="input" value="{{table.ActualCycleStart.slice(0,10)  }}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">实际结束时间</view>
-        <view class="form-row-content">
-            <input class="input" value="{{table.ActualCycleEnd.slice(0,10)  }}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view style="height:50rpx;"></view>
-
-<!-- 
-      <view class="form-row">
-        <view class="form-row-label">项目周期</view>
-        <view class="form-row-content">
-            <input class="input" value="{{table.ActualCycleStart + table.ActualCycleEnd}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<!--<view class="form-row"><view class="form-row-label">项目编号</view><view class="form-row-content"><input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" /></view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">项目类别</view>
+				<view class="form-row-content">
+					<input class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">项目负责人</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ResponsibleMan}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row" style="height:auto;">
+				<view class="form-row-label">项目成员</view>
+				<view class="form-row-content">
+					<textarea maxlength="-1" class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">计划开始时间</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.StartTime}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">计划结束时间</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.EndTime}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">实际开始时间</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ActualCycleStart.slice(0,10)  }}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">实际结束时间</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ActualCycleEnd.slice(0,10)  }}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view style="height:50rpx;"></view>
+			<!--<view class="form-row"><view class="form-row-label">项目周期</view><view class="form-row-content"><input class="input" value="{{table.ActualCycleStart + table.ActualCycleEnd}}" disabled="{{true}}" />
             {{table.ActualCycleStart}}
-            {{table.ActualCycleEnd}}
-        </view>
-      </view> -->
-    
-
-      <view class="form-row">
-        <view class="form-row-label">是否有横向合作单位</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.IsTransverse == true ? '是': '否'}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row" a:if="{{table.IsTransverse}}">
-        <view class="form-row-label">合同金额</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.ContractAmount}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row" a:if="{{table.IsTransverse}}">
-        <view class="form-row-label">合作编码</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.ContractNo}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row" a:if="{{table.IsTransverse}}">
-        <view class="form-row-label">实际到账</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.ActualMoney}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">是否有申报纵向项目</view>
-        <view class="form-row-content">
-          <input class="input" value="{{table.IsPortrait == true ? '是': '否'}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}">纵向基本情况表</view>
-      <template a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" is="datatable" data="{{items:tableItems3,data:tableData3,param:tableParam}}"/>
-      <button a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" size="default" type="primary" onTap="PrintOne">打印纵向基本情况表</button>
-
-      <view style="height:50rpx;"></view>
-
-    <!-- 分界线 -->
-      <view>
-        <view class="form-row margin" onTap="showOrClose" >
-          <view class="form-row-label">相关文件</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>    
-        <view class="{{show}}">
+            {{table.ActualCycleEnd}}</view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">是否有横向合作单位</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.IsTransverse == true ? '是': '否'}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row" a:if="{{table.IsTransverse}}">
+				<view class="form-row-label">合同金额</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ContractAmount}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row" a:if="{{table.IsTransverse}}">
+				<view class="form-row-label">合作编码</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ContractNo}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row" a:if="{{table.IsTransverse}}">
+				<view class="form-row-label">实际到账</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.ActualMoney}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">是否有申报纵向项目</view>
+				<view class="form-row-content">
+					<input class="input" value="{{table.IsPortrait == true ? '是': '否'}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}">纵向基本情况表</view>
+			<template a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" is="datatable" data="{{items:tableItems3,data:tableData3,param:tableParam}}"/>
+			<button a:if="{{table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" size="default" type="primary" onTap="PrintOne">打印纵向基本情况表</button>
+			<view style="height:50rpx;"></view>
+			<!-- 分界线 -->
+			<view>
+				<view class="form-row margin" onTap="showOrClose">
+					<view class="form-row-label">相关文件</view>
+					<view class="form-row-content">
+						<image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</view>
+				<view class="{{show}}">
           {{nodeid}}
-          <view class="form-row" a:if="{{SuggestBook1 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">立项书或建议书</view>
-            <view class="form-row-content">
+					<view class="form-row" a:if="{{SuggestBook1 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">立项书或建议书</view>
+						<view class="form-row-content">
               {{SuggestBook1.FileName}}
-            <button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{PPT2 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">评审PPT</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{PPT2 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">评审PPT</view>
+						<view class="form-row-content">
               {{PPT2.FileName}}
-            <button type="primary" data-mediaId="{{PPT2.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{DemandBook3 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">需求规格说明书、产品总体设计书</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{PPT2.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{DemandBook3 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">需求规格说明书、产品总体设计书</view>
+						<view class="form-row-content">
               {{DemandBook3.FileName}}
-            <button type="primary" data-mediaId="{{DemandBook3.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{Drawing4 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">机械设计图纸</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{DemandBook3.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{Drawing4 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">机械设计图纸</view>
+						<view class="form-row-content">
               {{Drawing4.FileName}}
-            <button type="primary" data-mediaId="{{Drawing4.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{Electrical5 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">电气图纸</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{Drawing4.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{Electrical5 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">电气图纸</view>
+						<view class="form-row-content">
               {{Electrical5.FileName}}
-            <button type="primary" data-mediaId="{{Electrical5.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{Bom6}}"  style="height:auto;">
-            <view class="form-row-label">BOM表</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{Electrical5.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{Bom6}}" style="height:auto;">
+						<view class="form-row-label">BOM表</view>
+						<view class="form-row-content">
               {{Bom6.FileName}}
-            <button type="primary" data-mediaId="{{Bom6.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{SourceCode7 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">软件源代码</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{Bom6.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{SourceCode7 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">软件源代码</view>
+						<view class="form-row-content">
               {{SourceCode7.FileName}}
-            <button type="primary" data-mediaId="{{SourceCode7.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{UseBook8 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">使用说明书</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{SourceCode7.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{UseBook8 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">使用说明书</view>
+						<view class="form-row-content">
               {{UseBook8.FileName}}
-            <button type="primary" data-mediaId="{{UseBook8.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{CooperationAgreement9 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">合作协议</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{UseBook8.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{CooperationAgreement9 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">合作协议</view>
+						<view class="form-row-content">
               {{CooperationAgreement9.FileName}}
-            <button type="primary" data-mediaId="{{CooperationAgreement9.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{Product10 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">产品(样机/成品) 图片影像</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{CooperationAgreement9.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{Product10 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">产品(样机/成品) 图片影像</view>
+						<view class="form-row-content">
               {{Product10.FileName}}
-            <button type="primary" data-mediaId="{{Product10.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{Solution11 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">阶段性成体的问题分析、解决方案及计划表</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{Product10.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{Solution11 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">阶段性成体的问题分析、解决方案及计划表</view>
+						<view class="form-row-content">
               {{Solution11.FileName}}
-            <button type="primary" data-mediaId="{{Solution11.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{AcceptanceData14 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">纵向项目申请/中期检查/验收材料</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{Solution11.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{AcceptanceData14 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">纵向项目申请/中期检查/验收材料</view>
+						<view class="form-row-content">
               {{AcceptanceData14.FileName}}
-            <button type="primary" data-mediaId="{{AcceptanceData14.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{ProcessDocumentation15 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">其他工程文档、设计报告、评审报告、项目计划、设计更改报告</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{AcceptanceData14.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{ProcessDocumentation15 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">其他工程文档、设计报告、评审报告、项目计划、设计更改报告</view>
+						<view class="form-row-content">
               {{ProcessDocumentation15.FileName}}
-            <button type="primary" data-mediaId="{{ProcessDocumentation15.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{TerminationReport16 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">项目终止情况报告</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{ProcessDocumentation15.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{TerminationReport16 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">项目终止情况报告</view>
+						<view class="form-row-content">
               {{TerminationReport16.FileName}}
-            <button type="primary" data-mediaId="{{PPT2.TerminationReport16}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{PackingList17 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">装箱单</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{PPT2.TerminationReport16}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{PackingList17 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">装箱单</view>
+						<view class="form-row-content">
               {{PackingList17.FileName}}
-            <button type="primary" data-mediaId="{{PackingList17.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-
-          <view class="form-row" a:if="{{AcceptanceSlip18 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}"  style="height:auto;">
-            <view class="form-row-label">客户验收单</view>
-            <view class="form-row-content">
+							<button type="primary" data-mediaId="{{PackingList17.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+					<view class="form-row" a:if="{{AcceptanceSlip18 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
+						<view class="form-row-label">客户验收单</view>
+						<view class="form-row-content">
               {{AcceptanceSlip18.FileName}}
-            <button type="primary" data-mediaId="{{AcceptanceSlip18.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <!-- 项目采购清单、借用清单、维修清单 -->
-      <view>
-        <view class="form-row margin" onTap="showOrCloseOne" >
-          <view style = "font-size:0.34rem">项目采购清单、借用清单、领料清单、入库清单</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate1}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>   
-        <view class="{{show1}}">
-          <template is="datatable" data="{{items:tableItems1,data:tableData1,param:tableParam}}"/>
-        </view>
-      </view>
-
-      <!-- 知识产权表 -->
-      <view a:if="{{nodeid !== 1 && intellectualProperty.length > 0}}">
-        <view class="form-row margin" onTap="showOrCloseTwo" >
-          <view style = "font-size:0.34rem">知识产权表</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate2}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>  
-        <view class="{{show2}}">
-          <template is="datatable" data="{{items:tableItems1,data:intellectualProperty,param:tableParam}}"/>
-        </view>
-      </view>
-
-      <!-- 转化/应用单位情况表 -->
-      <view a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}">
-        <view class="form-row margin" onTap="showOrCloseFour" >
-          <view style = "font-size:0.34rem">转化/应用单位情况表</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate4}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>  
-        <view class="{{show4}}">  
-          <template a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" is="datatable" data="{{items:tableItems2,data:tableData2,param:tableParam}}"/>
-          <button a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" size="default" type="primary" onTap="PrintTwo">打印转化/应用情况表</button>          
-        </view>
-      </view>
-
-
-      <!-- 项目经费使用情况表（实际支出） -->
-      <view a:if="{{nodeid >= 2}}">
-        <view class="form-row margin" onTap="showOrCloseThree" >
-          <view style = "font-size:0.34rem">项目经费使用情况表（实际支出）</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate3}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>  
-
-        <view class="{{show3}}">
-          <view onTap="chooseItem">
-            <template  is="datatable" data="{{items:tableItems4,data:tableData4,param:tableParam,tableOperate:tableOperate}}"/>
-          </view>  
-          <button a:if="{{nodeid >= 2}}" size="default" onTap="PrintThree" type="primary">打印项目经费使用情况表</button>      
-        </view>
-      </view>
-
-     
-
-
-      <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-
-      <button  a:if="{{ index!= 0 && state == '已完成' }}" type="primary" onTap="printTable" disabled="{{disablePage}}" >打印表单</button>
-      <view a:if="{{index==0}}">
-      <template is="suggest"/>
-        <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-        <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
-      </view>
-<!-- 
-      <view a:if="{{index!=0}}">
-        <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
-      </view> -->
-      
-      <view a:if="{{index == 2 && state=='未完成'}}">
-        <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
-        <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
-      </view>
-
-      <view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
-        <button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
-      </view>
-    </view>
-  </form>
+							<button type="primary" data-mediaId="{{AcceptanceSlip18.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 项目采购清单、借用清单、维修清单 -->
+			<view>
+				<view class="form-row margin" onTap="showOrCloseOne">
+					<view style = "font-size:0.34rem">项目采购清单、借用清单、领料清单、入库清单</view>
+					<view class="form-row-content">
+						<image class="row-arrow margin-right {{rotate1}}" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</view>
+				<view class="{{show1}}">
+					<template is="datatable" data="{{items:tableItems1,data:tableData1,param:tableParam}}"/>
+				</view>
+			</view>
+			<!-- 知识产权表 -->
+			<view a:if="{{nodeid !== 1 && intellectualProperty.length > 0}}">
+				<view class="form-row margin" onTap="showOrCloseTwo">
+					<view style = "font-size:0.34rem">知识产权表</view>
+					<view class="form-row-content">
+						<image class="row-arrow margin-right {{rotate2}}" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</view>
+				<view class="{{show2}}">
+					<template is="datatable" data="{{items:tableItems1,data:intellectualProperty,param:tableParam}}"/>
+				</view>
+			</view>
+			<!-- 转化/应用单位情况表 -->
+			<view a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}">
+				<view class="form-row margin" onTap="showOrCloseFour">
+					<view style = "font-size:0.34rem">转化/应用单位情况表</view>
+					<view class="form-row-content">
+						<image class="row-arrow margin-right {{rotate4}}" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</view>
+				<view class="{{show4}}">
+					<template a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" is="datatable" data="{{items:tableItems2,data:tableData2,param:tableParam}}"/>
+					<button a:if="{{table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" size="default" type="primary" onTap="PrintTwo">打印转化/应用情况表</button>
+				</view>
+			</view>
+			<!-- 项目经费使用情况表（实际支出） -->
+			<view a:if="{{nodeid >= 2}}">
+				<view class="form-row margin" onTap="showOrCloseThree">
+					<view style = "font-size:0.34rem">项目经费使用情况表（实际支出）</view>
+					<view class="form-row-content">
+						<image class="row-arrow margin-right {{rotate3}}" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</view>
+				<view class="{{show3}}">
+					<view onTap="chooseItem">
+						<template is="datatable" data="{{items:tableItems4,data:tableData4,param:tableParam,tableOperate:tableOperate}}"/>
+					</view>
+					<button a:if="{{nodeid >= 2}}" size="default" onTap="PrintThree" type="primary">打印项目经费使用情况表</button>
+				</view>
+			</view>
+			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+			<button a:if="{{ index!= 0 && state == '已完成' }}" type="primary" onTap="printTable" disabled="{{disablePage}}">打印表单</button>
+			<view a:if="{{index==0}}">
+				<template is="suggest"/>
+				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
+				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
+			</view>
+			<!--<view a:if="{{index!=0}}"><button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button></view> -->
+			<view a:if="{{index==2 && state=='未完成'}}">
+				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
+			</view>
+			<view a:if="{{index==2 && state=='未完成' && index == 0}}">
+				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+			</view>
+			<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
+				<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
+			</view>
+		</view>
+	</form>
 </view>

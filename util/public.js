@@ -605,7 +605,7 @@ export default {
 			getDingList(taskId) {
 				var that = this
 				this._getData('DingTalkServers/Ding?taskId=' + taskId, function(data) {
-					if (data.ApplyManId) {
+					if (data.ApplyManId != null) {
 						that.data.dingList.push(data.ApplyManId)
 					}
 					else that.data.dingList = []

@@ -30,8 +30,6 @@ Page({
 	//选人控件方法
 	choosePeople(e) {
 
-		// this.upLoadFile()
-		// return
 		console.log('start choose people');
 		var that = this
 		dd.complexChoose({

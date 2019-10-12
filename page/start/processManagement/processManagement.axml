@@ -1,6 +1,6 @@
 <import src="/util/template/template.axml"/>
 <!-- 流程管理 -->
-<view>
+<view class="page">
 	<view class="form-row">
 		<view class="form-row-label">
 			<template is="required"></template>离职人员</view>
@@ -18,7 +18,7 @@
 				<image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
 			</view>
 		</view>
-		<template is="choosePeople" data="{{nodeList:item.nodeList,nodedata:nodeInfo,length:item.nodeList.length}}"/>
+		<template is="choosePeopleAndChange" data="{{nodeList:item.nodeList,nodedata:nodeInfo,length:item.nodeList.length,i:index}}"/>
 	</view>
 	<block a:if="{{	processData == undefined }}">
 		<view class="DataIsNull">

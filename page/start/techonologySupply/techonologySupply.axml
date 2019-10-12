@@ -1,143 +1,109 @@
 <import src="/util/template/template.axml"/>
-<view>
-  <form onSubmit="submit">
-
-          <!-- 选择部门 -->
-<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
-    <view class="page-section">
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required" ></template>标题</view>
-		  	<view class="form-row-content">
-				<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  disabled="{{true}}" />
-			  </view>
-      </view>
-      
-      <view class="form-row">
-        <view class="form-row-label">申请人</view>
-		  	<view class="form-row-content">
-				<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
-			  </view>
-      </view>
-
-      <!-- <view class="sort"> 
-
-        <view class="form-row margin" onTap="showOrClose" >
-          <view class="form-row-label">技术支持部门</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>    
-
-        <checkbox-group onChange="onChange" name="DeptName" class="checkbox-group {{show}}">
-          <label class="checkbox" a:for="{{items}}">
-            <checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
-            <text class="checkbox-text">{{item.value}}</text>
-          </label>
-        </checkbox-group>
-
-      </view> -->
-
-
-      <view class="form-row " >
-          <view class="form-row-label">技术支持部门</view>
-          <view class="form-row-content">        
-           <checkbox-group onChange="onChange" name="DeptName" class="checkbox-group">
-              <label class="checkbox block" a:for="{{items}}">
-                  <checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
-                  <text class="checkbox-text">{{item.value}}</text>
-               </label>
-            </checkbox-group>
-          </view>
-        </view>    
-
-
-
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>项目负责人</view>
-        <view class="form-row-content">
-          <text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.ResponsibleMan}}">{{table.ResponsibleMan}}</text>
-        </view>
-        <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">其他工程师</view>
-        <view class="form-row-content">
-          <text auto-height="true" name="OtherEngineers" class="input" disabled="{{true}}" value="{{table.OtherEngineers}}">{{table.OtherEngineers}}</text>
-        </view>
-        <view onTap="choosePeople" class="tag tag-info">+ 选人</view>
-      </view>
-
-      <view class="page-section">
-        <view class="form-row">
-          <view class="form-row-label"><template is="required"></template>合作单位</view>
-          <view class="form-row-content">
-            <input name="Customer" class="input" placeholder="合作单位" value="{{table.Customer}}" />
-          </view>
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>项目大类</view>
-          <picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{array1}}">
-              <view class="row">
-                <view class="row-extra">{{array1[index1]}}</view>
-                <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-              </view>
-          </picker>
-      </view>
-    
-      <view class="form-row">
-        <view class="form-row-label">紧急情况</view>
-          <picker  onChange="bindPickerChangeTwo" value="{{index2}}" range="{{array2}}">
-              <view class="row">
-                <view class="row-extra">{{array2[index2]}}</view>
-                <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-              </view>
-          </picker>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>要求完成时间</view>
-        <view class="form-row-content">
-          <input name="TimeRequired" class="input" placeholder="要求完成时间" onFocus="selectStartDateTime"
-          value="{{table.StartTime}}"/>
-        </view>
-      </view>
-    
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>客户项目整体情况</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="ProjectOverview" class="input" value="{{table.ProjectOverview}}"/>
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>技术支持内容要点</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="MainPoints" class="input" value="{{table.MainPoints}}"/>
-        </view>
-      </view>
-
-      <!-- 选人组件 -->
-      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
-      
-      <!-- 建议输入框 -->
-      <template is="suggest"/>
-      <!-- <view class="page-section-suggest">
-        <view class="page-section-title">建议</view>
-          <view class="page-section-demo">
-            <textarea name="remark" placeholder="输入 建议" />
-          </view>
-      </view> -->
-
-    </view>
-    
-    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
-    </view>
-  </form>
+<view class="page">
+	<form onSubmit="submit">
+		<view class="page-section">
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>标题</view>
+				<view class="form-row-content">
+					<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>申请人</view>
+				<view class="form-row-content">
+					<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+				</view>
+			</view>
+			<!-- 选择部门 -->
+			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+			<!--<view class="sort"><view class="form-row margin" onTap="showOrClose"><view class="form-row-label">技术支持部门</view><view class="form-row-content"><image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" /></view></view><checkbox-group onChange="onChange" name="DeptName" class="checkbox-group {{show}}"><label class="checkbox" a:for="{{items}}"><checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" /><text class="checkbox-text">{{item.value}}</text></label></checkbox-group></view> -->
+			<view class="form-row ">
+				<view class="form-row-label">技术支持部门</view>
+				<view class="form-row-content">
+					<checkbox-group onChange="onChange" name="DeptName" class="checkbox-group">
+						<label class="checkbox block" a:for="{{items}}">
+							<checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+							<text class="checkbox-text">{{item.value}}</text>
+						</label>
+					</checkbox-group>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>项目负责人</view>
+				<view class="form-row-content">
+					<text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.ResponsibleMan}}">{{table.ResponsibleMan}}</text>
+				</view>
+				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">其他工程师</view>
+				<view class="form-row-content">
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" placeholder="" maxlength="-1"/>
+				</view>
+				<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
+			</view>
+			<view class="page-section">
+				<view class="form-row">
+					<view class="form-row-label">
+						<template is="required"></template>合作单位</view>
+					<view class="form-row-content">
+						<input name="Customer" class="input" placeholder="合作单位" value="{{table.Customer}}" />
+					</view>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>项目大类</view>
+				<picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{array1}}">
+					<view class="row">
+						<view class="row-extra">{{array1[index1]}}</view>
+						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</picker>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">紧急情况</view>
+				<picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{array2}}">
+					<view class="row">
+						<view class="row-extra">{{array2[index2]}}</view>
+						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</picker>
+			</view>
+			<!--<view class="form-row"><view class="form-row-label"><template is="required"></template>要求完成时间</view><view class="form-row-content"><input name="TimeRequired" class="input" placeholder="要求完成时间" onFocus="selectStartDateTime" value="{{table.StartTime}}"/></view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>要求完成时间</view>
+				<view class="form-row-content">
+					<input name="TimeRequired" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="true" value="{{table.StartTime}}"/>
+				</view>
+				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>客户项目整体情况</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="ProjectOverview" class="input" value="{{table.ProjectOverview}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>技术支持内容要点</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="MainPoints" class="input" value="{{table.MainPoints}}"/>
+				</view>
+			</view>
+			<!-- 选人组件 -->
+			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+			<!-- 建议输入框 -->
+			<template is="suggest"/>
+			<!--<view class="page-section-suggest"><view class="page-section-title">建议</view><view class="page-section-demo"><textarea name="remark" placeholder="输入 建议" /></view></view> -->
+		</view>
+		<button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+		</view>
+	</form>
 </view>
-
-        <!-- <button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button> -->
+<!--<button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button> -->

@@ -133,7 +133,7 @@ Page({
       },
     });
   },
-  selectEndDateTime(){x
+  selectEndDateTime(){
     dd.datePicker({
       format: 'yyyy-MM-dd HH:mm',
       currentDate: this.data.DateStr + ' ' + this.data.TimeStr,

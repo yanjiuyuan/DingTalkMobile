@@ -63,6 +63,24 @@
                 {{node.NodeName}}</view><view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
                 {{node.Remark}}</view></view><view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view><view a:if="{{!node.ApplyTime && node.NodeName !== '抄送'}}" class="choosePeople-view-text-right">未审批</view><view a:if="{{!node.ApplyTime && node.NodeName == '抄送'}}" class="choosePeople-view-text-right">未查看</view></view></view></view></view></template> -->
 <!-- 数据表 -->
+<!-- 通过选择改变流程配置的人员 -->
+<template name="choosePeopleAndChange">
+	<view style="padding:40rpx 0;clear:left;">
+		<view a:for="{{nodeList}}" a:for-item="node">
+			<view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
+			<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="display:inline-block;">
+				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}
+				</view>
+			</view>
+			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
+				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view>
+			</view>
+			<view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="tag tag-info">+ 选人
+			</view>
+			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
+		</view>
+	</view>
+</template>
 <template name="datatable">
 	<view class="table">
 		<scroll-view class="scroll-view_H" scroll-x="{{true}}">
@@ -183,10 +201,11 @@ margin-right:0.1rem;">*
 	</view>
 </template>
 <!-- 选择部门 -->
+<!----------------------------------------------- 表单模板 ----------------------------------------------->
 <template name='chooseDepartment'>
 	<view class="form-row">
 		<view class="form-row-label">
-			<template is="required"></template>部门</view>
+			<template is="required"></template>申请部门</view>
 		<view class="form-row-content">
 			<picker onChange="bindObjPickerChange" value="{{index}}" range="{{departmentList}}" name="department">
 				<view class="row">
@@ -199,12 +218,12 @@ margin-right:0.1rem;">*
 		<!--<input name="department" class="input" value="{{tableInfo.department}}" placeholder="选择部门" onFocus="chooseDepartment" /> -->
 	</view>
 </template>
-<!----------------------------------------------- 表单模板 ----------------------------------------------->
 <!-- 发起部门 -->
 <template name='form'>
 	<view class="form-row">
 		<view class="form-row-label">
-			<template is="required"></template>发起部门</view>
+		申请部门
+		</view>
 		<view class="form-row-content">
 			<input name="Title" class="input" value="{{department}}" placeholder="" disabled="{{true}}" />
 		</view>

@@ -1,102 +1,87 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-        <!-- 选择部门 -->
-<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
-  
-  <!-- 基本表单 -->
-  <form onSubmit="submit">
-    <view class="page-section">
-      
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>标题</view>
-        <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  disabled="{{true}}" />
-        </view>
-      </view>
 
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>驾驶员</view>
-        <view class="form-row-content">
-          <input name="DrivingMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
-        </view>
-      </view>
-
-     
-      <view class="form-row">
-        <view class="form-row-label">同行人</view>
-        <view class="form-row-content">
-          <!-- <textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/> -->
-          <text  name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
-        </view>
-        <view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
-      </view>
-
-     
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>计划行车路线</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}"/>
-        </view>
-      </view>
-
-     
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>用车事由</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>开始时间</view>
-        <view class="form-row-content">
-          <input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="true"
-          value="{{table.StartTime}}"/>
-        </view>
-        <view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>        
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>返回时间</view>
-        <view class="form-row-content">
-          <input name="EndTime" class="input" placeholder="返回时间" onFocus="selectEndDateTime" disabled="true"
-          value="{{table.EndTime}}"/>
-        </view>
-        
-        <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
-
-      </view>
-
-      <checkbox-group onChange="onChecked">
-        <label class="checkbox" a:for="{{items}}">
-          <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
-          <text class="checkbox-text">{{item.name}}</text>
-        </label>
-      </checkbox-group>
-       <checkbox-group onChange="onChecked2">
-        <label class="checkbox" a:for="{{items2}}">
-          <checkbox value="{{item.checked}}" checked="{{item.checked}}" />
-          <text class="checkbox-text">{{item.name}}</text>
-        </label>
-      </checkbox-group>
-
-      <!-- 选人组件 -->
-      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
-    </view>
-    
-    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
-    <button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
-  </form>
-<!-- 
-  <modal
-    onModalClick="onModalClick"
-		onModalClose="onModalClose"
-		show="{{modalOpened}}">
-		<view slot="header">车辆安全使用协议</view>
-		<view>甲方: 泉州华中科技大学智能制造研究院（泉州华数机器人有限公司）</view>
-    说明当前状态、提示用户解决方案，最好不要超过两行。
-		<view slot="footer">确定</view>
-	</modal> -->
-
-
+	<!-- 基本表单 -->
+	<form onSubmit="submit">
+		<view class="page-section">
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>标题</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题"  />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">申请人</view>
+				<view class="form-row-content">
+					<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+				</view>
+			</view>
+			<!-- 选择部门 -->
+			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>驾驶员</view>
+				<view class="form-row-content">
+					<input name="DrivingMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">同行人</view>
+				<view class="form-row-content">
+					<!--<textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/> -->
+					<text name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
+				</view>
+				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>计划行车路线</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>用车事由</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>开始时间</view>
+				<view class="form-row-content">
+					<input name="StartTime" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="true" value="{{table.StartTime}}"/>
+				</view>
+				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>返回时间</view>
+				<view class="form-row-content">
+					<input name="EndTime" class="input" placeholder="返回时间" onFocus="selectEndDateTime" disabled="true" value="{{table.EndTime}}"/>
+				</view>
+				<view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
+			</view>
+			<checkbox-group onChange="onChecked">
+				<label class="checkbox" a:for="{{items}}">
+					<checkbox value="{{item.checked}}" checked="{{item.checked}}" />
+					<text class="checkbox-text">{{item.name}}</text>
+				</label>
+			</checkbox-group>
+			<checkbox-group onChange="onChecked2">
+				<label class="checkbox" a:for="{{items2}}">
+					<checkbox value="{{item.checked}}" checked="{{item.checked}}" />
+					<text class="checkbox-text">{{item.name}}</text>
+				</label>
+			</checkbox-group>
+			<!-- 选人组件 -->
+			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+		</view>
+		<button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+		<button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
+	</form>
+	<!--<modal onModalClick="onModalClick" onModalClose="onModalClose" show="{{modalOpened}}"><view slot="header">车辆安全使用协议</view><view>甲方: 泉州华中科技大学智能制造研究院（泉州华数机器人有限公司）</view>
+    说明当前状态、提示用户解决方案，最好不要超过两行。<view slot="footer">确定</view></modal> -->
 </view>
