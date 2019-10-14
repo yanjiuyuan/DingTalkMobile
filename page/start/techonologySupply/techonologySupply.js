@@ -1,5 +1,6 @@
-import pub from '/util/public'; let good = {}
+import pub from '/util/public';
 import lib from '/lib.js';
+let good = {}
 
 Page({
 	...pub.func,
@@ -55,36 +56,6 @@ Page({
 					ResponsibleMan: res.users[0],
 					nodeList: that.data.nodeList
 				})
-				// let result = res;
-				// dd.httpRequest({
-				//       url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({userid:res.users[0].userId}),
-				//       method: 'POST',
-				//       headers:{'Content-Type':'application/json; charset=utf-8','Accept': 'application/json',},
-				//       success: function(res) {
-
-				//       let name = JSON.parse(res.data).name;
-
-				//       let names = []//userId
-				//       for (let d of res.users) names.push(d.name);
-				//       let item1 = "nodeList[1].ApplyMan";
-				//       let item2 = "nodeList[1].NodePeople";
-
-				//       that.setData({
-				//         'table.ResponsibleMan':names.join(','),
-				//         ResponsibleMan:res.users[0],
-				//         [item1]:res.users[0].name,
-				//         [item2]:[res.users[0].name],
-				//       })    
-
-				//       }
-
-				//     }) 
-
-
-
-
-
-
 			},
 			fail: function(err) {
 
@@ -103,15 +74,35 @@ Page({
 			multiple: true,
 			title: "其他工程师",
 			success: function(res) {
-				console.log(res)
+				console.log(res);
 				let names = []//userId
-				for (let d of res.users) names.push(d.name);
-				that.data.names = [...new Set(that.data.names)];
-				that.setData({
-					'table.OtherEngineers': names.join(','),
-					OtherEngineers: res.users,
+				if (res.departments.length == 0) {
+					for (let d of res.users) names.push(d.name);
+					that.data.names = [...new Set(that.data.names)];
+					that.setData({
+						'table.OtherEngineers': names.join(','),
+						OtherEngineers: res.users,
 
-				})
+					})
+				}
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptId=" + res.departments[0].id, (res) => {
+						for (let d of JSON.parse(res.data).userlist) {
+							names.push(d.name);
+						}
+						that.setData({
+							'table.OtherEngineers': names.join(','),
+							OtherEngineers: res.users,
+
+						})
+					})
+
+				}
+
 			},
 			fail: function(err) {
 

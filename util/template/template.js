@@ -176,12 +176,12 @@ export default {
 			})
 		},
 
-
-
 		bindObjPickerChange(e) {
 			this.setData({
 				departmentIdnex: e.detail.value,
 			});
 		},
+
+
 	},
 };

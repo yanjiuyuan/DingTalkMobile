@@ -62,25 +62,24 @@
 						null</view><view class="choosePeople-view-text"><view class="choosePeople-view-text-top">
                 {{node.NodeName}}</view><view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
                 {{node.Remark}}</view></view><view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view><view a:if="{{!node.ApplyTime && node.NodeName !== '抄送'}}" class="choosePeople-view-text-right">未审批</view><view a:if="{{!node.ApplyTime && node.NodeName == '抄送'}}" class="choosePeople-view-text-right">未查看</view></view></view></view></view></template> -->
-<!-- 数据表 -->
 <!-- 通过选择改变流程配置的人员 -->
 <template name="choosePeopleAndChange">
 	<view style="padding:40rpx 0;clear:left;">
 		<view a:for="{{nodeList}}" a:for-item="node">
 			<view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
 			<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}
-				</view>
-			</view>
+				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}</view></view>
 			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view>
-			</view>
-			<view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="tag tag-info">+ 选人
-			</view>
-			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
-		</view>
-	</view>
-</template>
+				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view></view>
+			<view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="tag tag-info">+ 选人</view>
+			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view></view></view></template>
+<!--<template name="choosePeopleAndChange"><view class="choosePeople"><view class="choosePeople-title">审批流程</view><view a:for="{{nodeList}}" a:for-item="node"><view class="choosePeople-view" a:if="{{node.NodeName !== '结束'}}"><view class="choosePeople-view-left"><view class="choosePeople-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view><view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom"></view></view><view class="choosePeople-view-left-text"><view>
+							{{node.NodeName}}</view></view></view><view class="choosePeople-view-right"><view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index"><view a:if="{{index< 2}}"><view class="choosePeople-view-right-item"><view a:if="{{p.length == 2}}">{{p}}</view><view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">
+								{{p}}</view></view></view><view a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;"><view class="choosePeople-view-right-item"><view a:if="{{ad.name.length == 2}}">
+									{{ad.name}}</view><view a:if="{{ad.name.length > 2}}">
+									{{ad.name.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">{{ad.name}}</view></view><view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="choosePeople-view-right-plus">
+						+</view></view></view></view></view></template> -->
+<!-- 数据表 -->
 <template name="datatable">
 	<view class="table">
 		<scroll-view class="scroll-view_H" scroll-x="{{true}}">
@@ -215,7 +214,6 @@ margin-right:0.1rem;">*
 				</view>
 			</picker>
 		</view>
-		<!--<input name="department" class="input" value="{{tableInfo.department}}" placeholder="选择部门" onFocus="chooseDepartment" /> -->
 	</view>
 </template>
 <!-- 发起部门 -->
@@ -266,4 +264,8 @@ margin-right:0.1rem;">*
 			<textarea name="remark" placeholder="输入建议" maxlength="20" value="{{remark}}"/>
 		</view>
 	</view>
+</template>
+<!-- 临时保存 -->
+<template name="temporaryPreservation">
+	<button size="default" type="primary" onTap ="temporaryPreservation">临时保存</button>
 </template>

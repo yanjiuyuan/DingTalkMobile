@@ -34,9 +34,14 @@ Page({
 						return;
 					}
 					let processData = [];
+					let sortItems = [];
 					let resultKey = Object.keys(result);
 					for (let i in result) {
 						processData.push(result[i]);
+						sortItems.push({
+							show: "hidden",
+							rotate: "RotateToTheRight"
+						})
 					}
 					for (let i in processData) {
 						processData[i] = {
@@ -44,10 +49,11 @@ Page({
 							nodeList: that.Arrangement(processData[i], res.users[0].name, res.users[0].userId)
 						}
 					}
-					console.log(processData);
+					console.log(sortItems);
 
 					that.setData({
 						processData: processData,
+						sortItems: sortItems,
 						severanceOfficer: res.users[0].name,
 						severanceOfficerId: res.users[0].userId
 					})
@@ -84,10 +90,41 @@ Page({
 			responseUserOnly: false,        //返回人，或者返回人和部门
 			startWithDepartmentId: 0,   // 0表示从企业最上层开始},
 			success: function(res) {
-				that.data.processData[index].nodeList[NodeId].AddPeople = [{ name: res.users[0].name, userId: res.users[0].userId }];			that.setData({
-					processData:that.data.processData
+				that.data.processData[index].nodeList[NodeId].AddPeople = [{ name: res.users[0].name, userId: res.users[0].userId }]; that.setData({
+					processData: that.data.processData
 				})
 			}
 		})
+	},
+	showOrClose(e) {
+		let index = e.target.dataset.index;
+		console.log(this.data.sortItems[index].rotate);
+		if (this.data.sortItems[index].rotate == "RotateToTheRight") {
+			let item = this.data.sortItems;
+			item[index] = {
+				show: "show",
+				rotate: "Rotate-downward",
+
+			}
+			console.log(item);
+			this.setData({
+				sortItems: item
+			})
+		}
+		else if (this.data.sortItems[index].rotate === "Rotate-downward") {
+			let item = this.data.sortItems;
+			item[index] = {
+				show: "hidden",
+				rotate: "RotateToTheRight",
+			}
+			console.log(item);
+			this.setData({
+				sortItems: item
+			})
+		}
+
+
+
 	}
+
 });

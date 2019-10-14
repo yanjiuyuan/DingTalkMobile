@@ -188,8 +188,6 @@ export default {
 					title: '流程管理',
 					url: 'processManagement/processManagement',
 					position: (x + 3 * xTap) + 'px ' + (y + 1 * yTap) + 'px',
-					
-
 				}
 			],
 
@@ -215,6 +213,10 @@ export default {
 		start: {
 			onLoad(param) {
 				console.log('start page on load~~~~~~~~~~');
+
+				//临时保存
+				this.readData();
+				//重新发起
 				if (app.globalData.valid == true) {
 					dd.alert({
 						content: "日期、选人、项目请重新选择"
@@ -1196,7 +1198,53 @@ export default {
 			iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数 
 			return iDays;
 		},
+		//临时保存
+		temporaryPreservation(e) {
+			
+			let that = this;
+			app.globalData.table = that.data.table;
+			dd.alert({
+				content: '临时保存成功，下次打开这个页面时生效。',
+				buttonText: "确认"
+			});
+			// dd.setStorage({
+			// 	key: 'cacheData',
+			// 	data: {
+			// 		table: that.data.table,
+			// 	},
+			// 	success: function() {
+			// 		dd.alert({
+			// 			content: '临时保存成功，下次打开这个页面时生效。',
+			// 			buttonText: "确认"
+			// 		});
 
+			// 	}
+			// });
+
+
+		},// 读取临时保存数据
+		readData() {
+			let that = this;
+			that.setData({
+				table: app.globalData.table,
+			})
+			app.globalData.table = {};
+			// dd.getStorage({
+			// 	key: 'cacheData',
+			// 	success: function(res) {
+			// 		console.log(res);
+			// 		that.setData({
+			// 			table: res.table,
+			// 		})
+			// 		dd.removeStorage({
+			// 			key: 'cacheData',
+			// 			success: function() {}
+			// 		});
+			// 	},
+			// 	fail: function(res) {
+			// 	}
+			// });
+		},
 		//流程图
 		processOn() {
 			console.log("我执行了");
