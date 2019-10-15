@@ -5,19 +5,10 @@
   <!-- 基本表单 -->
   <form onSubmit="submit">
     <view class="page-section">
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>标题</view>
-        <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" />
-        </view>
-      </view>
-      <!-- <view class="form-line" /> -->
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>申请人</view>
-        <view class="form-row-content">
-          <input class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
-        </view>
-      </view>
+			<!-- 标题 -->
+			<template is ="title" data="{{tableInfo}}"/>
+			<!-- 申请人 -->
+			<template is ="applyman" data="{{DingData}}"/>
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>申请部门</view>
         <view class="form-row-content">
@@ -86,7 +77,8 @@
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>
     <template is="suggest"/>
-    <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+		<!-- 提交按钮 -->
+		<template is ="submitButton"/>
   </form>
 </view>
 

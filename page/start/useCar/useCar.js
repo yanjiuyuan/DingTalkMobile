@@ -14,7 +14,14 @@ Page({
     items2:[{name:'本人已经提交外出申请'}]
   },
   submit(e) {
-    var that = this
+    let that = this;
+    if(this.data.nodeList[1].AddPeople[0] == undefined){
+      dd.alert({
+        content:"请选择审批人",
+        buttonText:"确认"
+      })
+      return;
+    }
     if (this.data.nodeList[1].AddPeople[0].userId == "0907095238746571") {
         dd.alert({content:'用车无需季老师审批,如是部长级请选本人'})
         return

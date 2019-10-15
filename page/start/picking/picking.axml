@@ -25,21 +25,10 @@
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>标题</view>
-				<view class="form-row-content">
-					<textarea style="min-height:90rpx;padding:0;" maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" />
-				</view>
-			</view>
-			<!--<view class="form-line" /> -->
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>申请人</view>
-				<view class="form-row-content">
-					<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
-				</view>
-			</view>
+      <!-- 标题 -->
+      <template is ="titleOfObject" data="{{tableInfo}}"/>
+      <!-- 申请人 -->
+      <template is ="applyman" data="{{DingData}}"/>
 			<!-- 选择部门 -->
 			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
 			<!--<view class="form-line" /> -->
@@ -94,7 +83,8 @@
 			<template is="suggest"/>
 			<!--<view class="page-section-suggest"><view class="page-section-title">建议</view><view class="page-section-demo"><textarea name="remark"placeholder="输入 建议" /></view></view> -->
 		</view>
-		<button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+		<!-- 提交按钮 -->
+		<template is ="submitButton"/>
 		<!--<button onTap="saveTempData">临时保存</button> -->
 	</form>
 </view>

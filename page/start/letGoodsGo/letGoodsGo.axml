@@ -3,21 +3,10 @@
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>标题</view>
-				<view class="form-row-content">
-					<input name="Title" class="input" placeholder="输入 标题" disabled="{{true}}" value="{{tableInfo.Title}}"/>
-				</view>
-			</view>
-			<!--<view class="form-line" /> -->
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>申请人</view>
-				<view class="form-row-content">
-					<input name="ApplyMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/>
-				</view>
-			</view>
+			<!-- 标题 -->
+			<template is ="title" data="{{tableInfo}}"/>
+			<!-- 申请人 -->
+			<template is ="applyman" data="{{DingData}}"/>
 			<!-- 选择部门 -->
 			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
 			<view class="form-row">
