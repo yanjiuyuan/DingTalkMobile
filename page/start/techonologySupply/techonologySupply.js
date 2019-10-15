@@ -96,7 +96,7 @@ Page({
 						}
 						that.setData({
 							'table.OtherEngineers': names.join(','),
-							OtherEngineers: res.users,
+							OtherEngineers: JSON.parse(res.data).userlist,
 
 						})
 					})
@@ -127,25 +127,12 @@ Page({
 		});
 	},
 
-	//时间选择
-	selectStartDateTime() {
-		dd.datePicker({
-			format: 'yyyy-MM-dd HH:mm',
-			currentDate: this.data.DateStr + ' ' + this.data.TimeStr,
-			startDate: this.data.DateStr + ' ' + this.data.TimeStr,
-			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
-			success: (res) => {
-				this.setData({
-					'table.StartTime': res.date
-				})
-			},
-		});
-	},
+
 
 	submit(e) {
 		let value = e.detail.value;
 		let that = this;
-
+		console.log(that.data.OtherEngineers);
 		let OtherEngineers = "";
 		let OtherEngineersId = "";
 		for (let i = 0, len = that.data.OtherEngineers.length; i < len; i++) {

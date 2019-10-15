@@ -54,7 +54,7 @@
 			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
 		</view>
 	</view>
-</template>·
+</template>
 <!--<template name="test"><view class="choosePeople"><view class="choosePeople-title">审批流程</view><view a:for="{{nodeList}}" a:for-item="node" a:if="{{node}}"><view class="choosePeople-view-new" a:if="{{node.NodeName !== '结束'}}"><view class="choosePeople-view-left"><view class="choosePeople-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view><view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom"></view></view></view><view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index"><view a:if="{{index< 2}}"><view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}"><view a:if="{{p.length == 2}}">{{p}}</view><view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view></view></view></view><view a:if="{{node.NodePeople.length<= 0 || node.NodePeople == undefined }}" a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;"><view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}"><view a:if="{{ad.name.length == 2}}">
 									{{ad.name}}</view><view a:if="{{ad.name.length > 2}}">
 									{{ad.name.substring(1,3)}}</view></view></view><view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleTwo" class="choosePeople-view-right-plus-new">
@@ -62,23 +62,6 @@
 						null</view><view class="choosePeople-view-text"><view class="choosePeople-view-text-top">
                 {{node.NodeName}}</view><view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
                 {{node.Remark}}</view></view><view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view><view a:if="{{!node.ApplyTime && node.NodeName !== '抄送'}}" class="choosePeople-view-text-right">未审批</view><view a:if="{{!node.ApplyTime && node.NodeName == '抄送'}}" class="choosePeople-view-text-right">未查看</view></view></view></view></view></template> -->
-<!-- 通过选择改变流程配置的人员 -->
-<template name="choosePeopleAndChange">
-	<view style="padding:40rpx 0;clear:left;">
-		<view a:for="{{nodeList}}" a:for-item="node">
-			<view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
-			<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}</view></view>
-			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view></view>
-			<view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="tag tag-info">+ 选人</view>
-			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view></view></view></template>
-<!--<template name="choosePeopleAndChange"><view class="choosePeople"><view class="choosePeople-title">审批流程</view><view a:for="{{nodeList}}" a:for-item="node"><view class="choosePeople-view" a:if="{{node.NodeName !== '结束'}}"><view class="choosePeople-view-left"><view class="choosePeople-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view><view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom"></view></view><view class="choosePeople-view-left-text"><view>
-							{{node.NodeName}}</view></view></view><view class="choosePeople-view-right"><view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index"><view a:if="{{index< 2}}"><view class="choosePeople-view-right-item"><view a:if="{{p.length == 2}}">{{p}}</view><view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">
-								{{p}}</view></view></view><view a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;"><view class="choosePeople-view-right-item"><view a:if="{{ad.name.length == 2}}">
-									{{ad.name}}</view><view a:if="{{ad.name.length > 2}}">
-									{{ad.name.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">{{ad.name}}</view></view><view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="choosePeople-view-right-plus">
-						+</view></view></view></view></view></template> -->
 <!-- 数据表 -->
 <template name="datatable">
 	<view class="table">
@@ -199,8 +182,8 @@ margin-right:0.1rem;">*
 		</view>
 	</view>
 </template>
-<!-- 选择部门 -->
 <!----------------------------------------------- 表单模板 ----------------------------------------------->
+<!-- 部门 --发起-->
 <template name='chooseDepartment'>
 	<view class="form-row">
 		<view class="form-row-label">
@@ -216,56 +199,79 @@ margin-right:0.1rem;">*
 		</view>
 	</view>
 </template>
-<!-- 发起部门 -->
-<template name='form'>
+<!-- 部门 --审批-->
+<template name='department'>
 	<view class="form-row">
 		<view class="form-row-label">
-		申请部门
-		</view>
+			<template is="required"></template>申请部门</view>
 		<view class="form-row-content">
 			<input name="Title" class="input" value="{{department}}" placeholder="" disabled="{{true}}" />
 		</view>
 	</view>
 </template>
-<!-- 标题 -->
+<!-- 普通标题 --发起-->
 <template name='title'>
 	<view class="form-row">
 		<view class="form-row-label">
 			<template is="required"></template>标题</view>
 		<view class="form-row-content">
-			<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
+			<input name="title" class="input" value="{{tableInfo.Title}}" placeholder="请输入标题" />
 		</view>
 	</view>
 </template>
-<!-- 带项目的标题 -->
+<!-- 带项目的标题 --发起-->
 <template name='titleOfObject'>
 	<view class="form-row">
 		<view class="form-row-label">
 			<template is="required"></template>标题</view>
 		<view class="form-row-content">
-			<textarea name="Title" class="input" style="min-height:90rpx;padding:0;" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" maxlength="0" auto-height="true"/>
+			<textarea name="Title" class="input" style="min-height:90rpx;padding:0;" value="{{tableInfo.Title}}" placeholder="请输入标题" maxlength="0" auto-height="true"/>
 		</view>
 	</view>
 </template>
 <!-- 申请人 -->
 <template name="applyman">
 	<view class="form-row">
-		<view class="form-row-label">申请人</view>
+		<view class="form-row-label">
+			<template is="required"></template>申请人</view>
 		<view class="form-row-content">
-			<input name="applyman" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+			<input name="applyman" class="input" disabled="{{true}}" placeholder="请输入申请人" value="{{DingData.nickName}}" />
 		</view>
 	</view>
+</template>
+<template name="submitButton">
+	<button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
 </template>
 <!-- 建议输入框 -->
 <template name="suggest">
 	<view class="page-section-suggest">
 		<view class="page-section-title">建议</view>
 		<view class="page-section-demo">
-			<textarea name="remark" placeholder="输入建议" maxlength="20" value="{{remark}}"/>
+			<textarea name="remark" placeholder="请输入建议" maxlength="20" value="{{remark}}"/>
 		</view>
 	</view>
 </template>
 <!-- 临时保存 -->
 <template name="temporaryPreservation">
-	<button size="default" type="primary" onTap ="temporaryPreservation">临时保存</button>
+	<button size="default" type="primary" onTap="temporaryPreservation">临时保存</button>
+</template>
+<!-- 各种按钮 -->
+<template name ="variousButtons">
+	<view a:if="{{index == 0}}">
+		<template is="suggest"/>
+		<button formType="submit" type="primary" disabled="{{disablePage}}">同意</button>
+		<button onTap="tapReturn" type="warn" disabled="{{disablePage}}">退回</button>
+	</view>
+	<view a:if="{{ index!= 0 && state == '已完成' }}">
+		<button onTap="print" type="primary" disabled="{{disablePage}}">打印表单</button>
+	</view>
+	<view a:if="{{index == 2 && state == '未完成'}}">
+		<button onTap="ding" type="primary" disabled="{{disablePage}}">钉一下</button>
+	</view>
+	<view a:if="{{index == 2 && state == '未完成' && nodeId == 0}}">
+		<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+	</view>
+	<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
+		<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
+	</view>
 </template>

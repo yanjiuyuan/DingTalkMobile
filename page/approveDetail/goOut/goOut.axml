@@ -111,7 +111,7 @@
 				<view a:if="{{index==2 && state=='未完成'}}">
 					<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
 				</view>
-				<view a:if="{{index==2 && state=='未完成' && index == 0}}">
+				<view a:if="{{index==2 && state=='未完成' && nodeid == 1}}">
 					<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 				</view>
 			</view>

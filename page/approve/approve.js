@@ -138,7 +138,8 @@ Page({
                 nodeid: row.NodeId,
                 id: row.Id,
                 index: this.data.activeItem,
-                state: row.FlowState
+                state: row.FlowState,
+				flowname:row.FlowName
             };
             let url = "";
             switch (row.FlowId) {

@@ -68,12 +68,12 @@
 					<textarea auto-height="true" name="MainPoints" maxlength="140" class="input" value="{{table.MainPoints}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<view class="form-row">
+			<!-- <view class="form-row">
 				<view class="form-row-label">状态</view>
 				<view class="form-row-content">
 					<input class="input" name="ProjectState" value="{{table.ProjectState}}" disabled="{{true}}" />
 				</view>
-			</view>
+			</view> -->
 			<view class="form-row">
 				<view class="form-row-label">项目大类</view>
 				<view class="form-row-content">
@@ -139,18 +139,18 @@
 			</view>
 			<!-- 选人组件 -->
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-			<template is="suggest"/>
 			<view a:if="{{index==0}}">
+				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
+				<button  onTap="tapReturn" type="warn"  disabled="{{disablePage}}">退回</button>
 			</view>
 			<view a:if="{{ index!= 0 && state == '已完成' }}">
-				<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+				<button  onTap="print" type="primary"  disabled="{{disablePage}}">打印表单</button>
 			</view>
 			<view a:if="{{index == 2 && state == '未完成'}}">
-				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
+				<button onTap="ding" type="primary"  disabled="{{disablePage}}">钉一下</button>
 			</view>
-			<view a:if="{{index == 2 && state == '未完成' && nodeId == 0}}">
+			<view a:if="{{index == 2 && state == '未完成' && nodeid == 1}}">
 				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 			</view>
 			<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">

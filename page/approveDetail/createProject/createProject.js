@@ -80,6 +80,7 @@ Page({
 	},
 	onReady() {
 		let that = this;
+		
 		this._getData(
 			"CreateProject/Read" +
 			this.formatQueryStr({ TaskId: this.data.taskid }),
@@ -87,6 +88,9 @@ Page({
 				if (that.data.nodeid > 2) {
 					that.data.IsReview = res.IsReview == true ? "是" : "否";
 				}
+				console.log(that.data.nodeid);
+				console.log(that.data.index == 2 && that.data.state=='未完成' && that.data.nodeid == 0);
+
 				this.setData({
 					table: res,
 					IsReview: that.data.IsReview

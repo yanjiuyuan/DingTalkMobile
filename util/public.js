@@ -16,7 +16,7 @@ export default {
 	data: {
 		...lib.data,
 		...template.data,
-		version: 2.69,
+		version: 2.691,
 		DingData: {
 			nickName: '',
 			departName: '',
@@ -198,6 +198,7 @@ export default {
 		pdfList: [],
 		dingList: [],//需要钉一下的人
 		tableInfo: {},//审批表单信息
+		table: {},
 		isback: false,
 		hidden: true,
 		hiddenCrmk: true,
@@ -215,7 +216,11 @@ export default {
 				console.log('start page on load~~~~~~~~~~');
 
 				//临时保存
-				this.readData();
+				console.log(app.globalData[`${param.flowid}`]);
+				if (app.globalData[`${param.flowid}`] == true) {
+					this.readData(param.flowid);
+				}
+
 				//重新发起
 				if (app.globalData.valid == true) {
 					dd.alert({
@@ -380,7 +385,8 @@ export default {
 					index: param.index,
 					nodeid: parseInt(param.nodeid),
 					taskid: param.taskid,
-					state: param.state
+					state: param.state,
+					flowname:param.flowname
 				})
 
 				let callBack = function() {
@@ -480,39 +486,51 @@ export default {
 
 			//退回审批
 			returnSubmit(e) {
-				this.setData({
-					disablePage: true
-				})
-				var that = this
-				var param = {
-					"TaskId": that.data.taskid,
-					"ApplyMan": that.data.DingData.nickName,
-					"ApplyManId": that.data.DingData.userid,
-					"Dept": that.data.DingData.departName,
-					"NodeId": that.data.nodeid,
-					"ApplyTime": that._getTime(),
-					"IsEnable": "1",
-					"FlowId": that.data.flowid,
-					"IsSend": "false",
-					"State": "1",
-					"BackNodeId": that.data.nodeInfo.BackNodeId,
-					"Id": that.data.tableInfo.Id
-				}
-				if (e && e.detail && e.detail.value) {
-					param["Remark"] = e.detail.value.remark
-				} else {
-					param["NodeId"] = 0
-				}
-				that._postData("FlowInfoNew/FlowBack", function(res) {
-					dd.alert({
-						content: '退回成功',
-						success: () => {
-							dd.switchTab({
-								url: '/page/approve/approve'
+				dd.confirm({
+					title: '温馨提示',
+					content: '是否确认撤回申请？',
+					confirmButtonText: '确认',
+					cancelButtonText: '取消',
+					success: (result) => {
+
+						if (result.confirm == true) {
+							this.setData({
+								disablePage: true
 							})
+							var that = this
+							var param = {
+								"TaskId": that.data.taskid,
+								"ApplyMan": that.data.DingData.nickName,
+								"ApplyManId": that.data.DingData.userid,
+								"Dept": that.data.DingData.departName,
+								"NodeId": that.data.nodeid,
+								"ApplyTime": that._getTime(),
+								"IsEnable": "1",
+								"FlowId": that.data.flowid,
+								"IsSend": "false",
+								"State": "1",
+								"BackNodeId": that.data.nodeInfo.BackNodeId,
+								"Id": that.data.tableInfo.Id
+							}
+							if (e && e.detail && e.detail.value) {
+								param["Remark"] = e.detail.value.remark
+							} else {
+								param["NodeId"] = 0
+							}
+							that._postData("FlowInfoNew/FlowBack", function(res) {
+								dd.alert({
+									content: '退回成功',
+									success: () => {
+										dd.switchTab({
+											url: '/page/approve/approve'
+										})
+									}
+								});
+							}, param)
 						}
-					});
-				}, param)
+					},
+				});
+
 			},
 
 			//重新发起
@@ -605,8 +623,11 @@ export default {
 			},
 			//根据taskId获取下一个需要审批的人，即要钉的人
 			getDingList(taskId) {
-				var that = this
+				let that = this
 				this._getData('DingTalkServers/Ding?taskId=' + taskId, function(data) {
+					if(data == null){
+						return;
+					}
 					if (data.ApplyManId != null) {
 						that.data.dingList.push(data.ApplyManId)
 					}
@@ -641,11 +662,13 @@ export default {
 				// taskid:this.data.taskid,
 				// state:this.data.state
 				// }
-				// console.log(obj);
+				console.log(this.data);
 				let param = {
 					userId: this.data.dingList[0],
 					title: '请帮我审核一下流水号为 ' + this.data.taskid + ' 的流程',
 					applyMan: this.data.DingData.nickName,
+					taskId:this.data.taskid,
+					flowName:this.data.flowname,
 					linkUrl: "eapp://page/approve/approve?index=0"
 					// linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
 				}
@@ -742,7 +765,7 @@ export default {
 		},
 		//获取节点列表
 		getNodeList() {
-			let that = this
+			let that = this;
 			let param = {
 				FlowId: this.data.flowid,
 				TaskId: this.data.taskid
@@ -1198,52 +1221,65 @@ export default {
 			iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数 
 			return iDays;
 		},
+
 		//临时保存
 		temporaryPreservation(e) {
-			
 			let that = this;
-			app.globalData.table = that.data.table;
-			dd.alert({
-				content: '临时保存成功，下次打开这个页面时生效。',
-				buttonText: "确认"
-			});
-			// dd.setStorage({
-			// 	key: 'cacheData',
-			// 	data: {
-			// 		table: that.data.table,
-			// 	},
-			// 	success: function() {
-			// 		dd.alert({
-			// 			content: '临时保存成功，下次打开这个页面时生效。',
-			// 			buttonText: "确认"
-			// 		});
-
-			// 	}
+			// app.globalData.table = that.data.table;
+			// dd.alert({
+			// 	content: '临时保存成功，下次打开这个页面时生效。',
+			// 	buttonText: "确认"
 			// });
+			dd.setStorage({
+				key: `${that.data.flowid}`,
+				data: {
+					data: that.data,
+				},
+				success: function() {
+					app.globalData[`${that.data.flowid}`] = true;
+					dd.alert({
+						content: '临时保存成功，下次打开这个页面时生效。',
+						buttonText: "确认"
+					});
+
+				}
+			});
 
 
 		},// 读取临时保存数据
-		readData() {
+		readData(flowid) {
 			let that = this;
-			that.setData({
-				table: app.globalData.table,
-			})
-			app.globalData.table = {};
-			// dd.getStorage({
-			// 	key: 'cacheData',
-			// 	success: function(res) {
-			// 		console.log(res);
-			// 		that.setData({
-			// 			table: res.table,
-			// 		})
-			// 		dd.removeStorage({
-			// 			key: 'cacheData',
-			// 			success: function() {}
-			// 		});
-			// 	},
-			// 	fail: function(res) {
-			// 	}
-			// });
+			// that.setData({
+			// 	table: app.globalData.table,
+			// })
+			// app.globalData.table = {};
+			dd.getStorage({
+				key: `${flowid}`,
+				success: function(res) {
+					console.log(res);
+					that.data = res.data.data;
+					console.log(that.data.table);
+					console.time();
+					for (let d in that.data) {
+						that.setData({
+							[`${d}`]: that.data[d]
+						})
+					}
+					console.timeEnd();
+					// that.setData({
+					// 	table:that.data.table,
+					// 	index1:that.data.index1
+					// })
+					dd.removeStorage({
+						key: `${flowid}`,
+						success: function() {
+							app.globalData[`${flowid}`] = false;
+						}
+					});
+				},
+				fail: function(res) {
+				}
+			});
 		},
 		//流程图
 		processOn() {
@@ -1251,6 +1287,11 @@ export default {
 			dd.navigateTo({
 				url: "/page/processOn/processOn" + "?" + "flowid=" + this.data.flowid
 			})
+		},
+		//临时保存表单数据函数
+		inputToTable(e) {
+			let name = e.currentTarget.dataset.name;
+			this.data.table[name] = e.detail.value;
 		}
 
 	},
