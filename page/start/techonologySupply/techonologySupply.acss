@@ -30,7 +30,6 @@
 .sort{
    position: relative;
 
-   /* border: 1px red solid; */
 }
 
 .show{

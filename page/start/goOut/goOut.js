@@ -12,23 +12,33 @@ Page({
     var that = this
     var value = e.detail.value
     console.log(value)
+    console.log(this.data.nodeList);
     if( !value.BeginTime || !value.EndTime || !value.Content || !value.Duration) 
     {
       dd.alert({content:'表单未填写完整'})
-      return
+      return;
     }
 
     value['LocationPlace'] = ''
     value['Place'] = this.data.table.Place;
     value["EvectionMan"] = this.data.table.EvectionMan;
     value["EvectionManId"] = this.data.table.EvectionManId;
+    value["Content"] = value.Content.replace(/\s+/g,"");
+   
+
     console.log(value)
     if(!value.Place || !value.BeginTime || !value.EndTime || !value.Content || !value.Duration) 
     {
       dd.alert({content:'表单未填写完整'})
       return
     }
-
+    if(this.data.nodeList[1].AddPeople.length > 0 && this.data.nodeList[1].AddPeople[0].userId == this.data.nodeList[0].AddPeople[0].userId){
+      dd.alert({
+        content:"主管审核无法选择自己，请重选。",
+        buttonText:"确认"
+      })
+      return;
+    }
 
     let callBack = function (taskId) {
         console.log("提交审批ok!")
@@ -142,11 +152,22 @@ Page({
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
         if(this.data.endDateStr){
+          //判断时间
+          let start = new  Date(res.date.replace(/-/g,'/')).getTime();
+          let end = new  Date(this.data.endDateStr.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
           this.setData({
             'table.Duration': this._computeDurTime(new Date(res.date.replace(/-/g,'/')),new Date(this.data.endDateStr.replace(/-/g,'/')),'h')
           })
         }
         this.setData({
+          startDateStr: res.date,
           'table.BeginTime': res.date
         })
       },
@@ -160,13 +181,25 @@ Page({
       endDate: this.data.Year+1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
       success: (res) => {
          if(this.data.startDateStr){
+          //判断时间
+          let end = new  Date(res.date.replace(/-/g,'/')).getTime();
+          let start = new  Date(this.data.startDateStr.replace(/-/g,'/')).getTime();
+          if(end < start){
+            dd.alert({
+              content:"结束时间必须大于开始时间，请重选。",
+              buttonText:"确认"
+            })
+            return;
+          }
+
+
+
           this.setData({
             'table.Duration': this._computeDurTime(new Date(this.data.startDateStr.replace(/-/g,'/')),new Date(res.date.replace(/-/g,'/')),'h')
           })
         }
-        // this.calculatingTime(this.data.table.BeginTime,res.date);
-
         this.setData({
+          endDateStr:res.date,
           'table.EndTime': res.date,
         })
       },

@@ -50,7 +50,8 @@
     "page/managementConsole/sort/sort",
     "page/managementConsole/sortTest/sortTest",
     "page/managementConsole/sortTest_1/sortTest_1",
-    "page/approveDetail/projectDetail/projectDetail"
+    "page/approveDetail/projectDetail/projectDetail",
+    "page/start/processManagement/processManagement"
   ],
   "window": {
     "enableWK": "YES",

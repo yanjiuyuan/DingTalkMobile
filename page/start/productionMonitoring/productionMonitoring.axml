@@ -2,7 +2,7 @@
 <view class="page">
 
       <!-- 选择部门 -->
-<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+<!-- <template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/> -->
 
   <form onSubmit="confirm">
     <view class="page-section" a:if="{{!hidden && tableInfo}}">

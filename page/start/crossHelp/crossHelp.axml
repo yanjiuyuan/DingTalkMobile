@@ -1,7 +1,6 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-      <!-- 选择部门 -->
-<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+
   
   <!-- 基本表单 -->
   <form onSubmit="submit">
@@ -9,7 +8,7 @@
       <view class="form-row">
         <view class="form-row-label"><template is="required"></template>标题</view>
         <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
+          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" />
         </view>
       </view>
       <!-- <view class="form-line" /> -->
@@ -39,8 +38,6 @@
         <view class="form-row-label"><template is="required"></template>协作人</view>
         <view class="form-row-content">
           <text auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}">{{tableInfo.CooperateMan}}</text>
-         
-          <!-- <textarea auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{tableInfo.CooperateMan}}"/> -->
         </view>
         <view onTap="choosePeopleOne" class="tag tag-info">+ 选人</view>
       </view>
@@ -77,16 +74,18 @@
         </view>
       </view>
       
-      <view class="form-row">
+      <!-- <view class="form-row">
         <view class="form-row-label">建议</view>
         <view class="form-row-content">
           <textarea auto-height="true" name="remark" class="input"/>
         </view>
-      </view>
+      </view> -->
+
+      
       <!-- 选人组件 -->
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
     </view>
-    
+    <template is="suggest"/>
     <button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
   </form>
 </view>

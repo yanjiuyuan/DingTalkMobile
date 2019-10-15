@@ -1,0 +1,33 @@
+<import src="/util/template/template.axml"/>
+<!-- 流程管理 -->
+<view class="page">
+	<view class="form-row">
+		<view class="form-row-label">
+			<template is="required"></template>离职人员</view>
+		<view class="form-row-content">
+			<text auto-height="true" name="CooperateMan" class="input" disabled="{{true}}" value="{{severanceOfficer}}" placeholder="请选择离职人员">{{severanceOfficer}}</text>
+		</view>
+		<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
+	</view>
+	<text a:if="{{ processData !== undefined }}">离职人员涉及相关流程</text>
+	<view a:if="{{ processData !== undefined }}" a:for="{{processData}}">
+		<view class="sort">
+			<view class="form-row margin" onTap="showOrClose" data-index="{{index}}">
+				<view class="form-row-label">{{item.flowName}}</view>
+				<view class="form-row-content">
+					<image class="row-arrow margin-right {{sortItems[index].rotate}}" src="/image/arrowright.png" mode="aspectFill" />
+				</view>
+			</view>
+			<view class="{{sortItems[index].show}}">
+			<template  is="choosePeopleAndChange" data="{{nodeList:item.nodeList,nodedata:nodeInfo,length:item.nodeList.length,i:index}}"/>				
+			</view>
+
+		</view>
+	</view>
+	<block a:if="{{	processData == undefined }}">
+		<view class="DataIsNull">
+			<image mode="scaleToFill" src="/image/ApprovalForm.png" />
+			<text>离职人员涉及的相关流程</text>
+		</view>
+	</block>
+</view>

@@ -1,146 +1,119 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
-  
-  <!-- 退回审批表单 -->
-  <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
-  <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
-  <!-- 基本表单 -->
-  <template is="form" data="{{department:tableInfo.Dept}}"/>
-  <form onSubmit="submit">
-    <view class="page-section">
-  
-      <view class="form-row">
-        <view class="form-row-label"><template is="required"></template>标题</view>
-        <view class="form-row-content">
-          <input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">申请人</view>
-        <view class="form-row-content">
-          <input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">同行人</view>
-        <view class="form-row-content">
-          <!-- <textarea auto-height="true" name="EvectionMan" class="input" value="{{table.EvectionMan}}" disabled="{{true}}" />
-          <textarea auto-height="true" name="EvectionManId" class="input" value="{{table.EvectionManId}}" style="display:none;" /> -->
-          <text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text>
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">外出地点</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}" />
-        </view>
-      </view>
-      
-      <view a:if="{{nodeid >= 2}}">
-        <view class="form-row" style="">
-          <view class="form-row-label"><template is="required"></template> 拍照上传</view>
-          <view class="form-row-content">
-            <view a:for="{{imageList}}" a:for-index="idx">
-              <image  onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />         <button a:if="{{nodeid == 2 && index == 0}}" size="mini" type="primary"  data-url="{{item}}" data-index="{{idx}}" onTap="deletePhoto">删除</button>
-            </view>
-            
-            <view a:if="{{nodeid == 2 && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view>
-            <!-- <view a:if="{{nodeid == 2 && index == 0}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view> -->
-          </view>
-        </view>
-        <!-- <view class="form-row">
-          <view class="form-row-label">定位地点</view>
-          <view class="form-row-content">
-            <textarea auto-height="true" name="LocationPlace" class="input" value="{{table.LocationPlace}}" disabled="{{false}}" />
-          </view>
-        </view> -->
-        <!-- <view a:if="{{nodeid == '2'}}">
-          <button type="primary" onTap="addPlace" class="button-inline" style='margin-left:10rpx;'>添加定位</button>
-          <button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除定位</button>
-          <button type="primary" onTap="savePlace" class="button-inline" style='margin-left:10rpx;'>保存定位</button>
-        </view> -->
-      </view>
-    
-      <!-- <view class="form-line" />  -->
-      <view class="form-row">
-        <view class="form-row-label">外出事由</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="Content" class="input" value="{{table.Content}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="page-section">
-      <view class="form-row">
-        <view class="form-row-label">开始时间</view>
-        <view class="form-row-content">
-          <input name="BeginTime" class="input" value="{{table.BeginTime}}" disabled="{{true}}" />
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">返回时间</view>
-        <view class="form-row-content">
-          <input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{true}}" />
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">时长/小时</view>
-        <view class="form-row-content">
-          <input name="Duration" class="input" value="{{table.Duration}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view a:if="{{fileLists.length > 0}}">
-        <view class="form-row " onTap="showOrClose" >
-          <view class="form-row-label">相关文件</view>
-          <view class="form-row-content">
-            <image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </view>  
-
-        <view class="{{show}}">
-          <view a:for="{{fileLists}}" a:for-item="a">
-            <view class="form-row"   style="height:auto;">
-            <view class="form-row-label">{{index + 1}}、</view>
-            <view class="form-row-content">
+	<!-- 退回审批表单 -->
+	<template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+	<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
+	<!-- 基本表单 -->
+	<form onSubmit="submit">
+		<view class="page-section">
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>标题</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">申请人</view>
+				<view class="form-row-content">
+					<input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<view class="form-row">
+				<view class="form-row-label">同行人</view>
+				<view class="form-row-content">
+					<!--<textarea auto-height="true" name="EvectionMan" class="input" value="{{table.EvectionMan}}" disabled="{{true}}" /><textarea auto-height="true" name="EvectionManId" class="input" value="{{table.EvectionManId}}" style="display:none;" /> -->
+					<text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">外出地点</view>
+				<view class="form-row-content">
+					<textarea maxlength="-1" auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view a:if="{{nodeid >= 2}}">
+				<view class="form-row" style="">
+					<view class="form-row-label">
+						<template is="required"></template> 拍照上传</view>
+					<view class="form-row-content">
+						<view a:for="{{imageList}}" a:for-index="idx">
+							<image onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
+							<button a:if="{{nodeid == 2 && index == 0}}" size="mini" type="primary" data-url="{{item}}" data-index="{{idx}}" onTap="deletePhoto">删除</button>
+						</view>
+						<view a:if="{{nodeid == 2 && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view>
+						<!--<view a:if="{{nodeid == 2 && index == 0}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view> -->
+					</view>
+				</view>
+				<!--<view class="form-row"><view class="form-row-label">定位地点</view><view class="form-row-content"><textarea auto-height="true" name="LocationPlace" class="input" value="{{table.LocationPlace}}" disabled="{{false}}" /></view></view> -->
+				<!--<view a:if="{{nodeid == '2'}}"><button type="primary" onTap="addPlace" class="button-inline" style='margin-left:10rpx;'>添加定位</button><button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除定位</button><button type="primary" onTap="savePlace" class="button-inline" style='margin-left:10rpx;'>保存定位</button></view> -->
+			</view>
+			<!--<view class="form-line" />  -->
+			<view class="form-row">
+				<view class="form-row-label">外出事由</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="Content" class="input" value="{{table.Content}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="page-section">
+				<view class="form-row">
+					<view class="form-row-label">开始时间</view>
+					<view class="form-row-content">
+						<input name="BeginTime" class="input" value="{{table.BeginTime}}" disabled="{{true}}" />
+					</view>
+				</view>
+				<view class="form-row">
+					<view class="form-row-label">返回时间</view>
+					<view class="form-row-content">
+						<input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{true}}" />
+					</view>
+				</view>
+				<view class="form-row">
+					<view class="form-row-label">时长/小时</view>
+					<view class="form-row-content">
+						<input name="Duration" class="input" value="{{table.Duration}}" disabled="{{true}}" />
+					</view>
+				</view>
+				<view a:if="{{fileLists.length > 0}}">
+					<view class="form-row " onTap="showOrClose">
+						<view class="form-row-label">相关文件</view>
+						<view class="form-row-content">
+							<image class="row-arrow margin-right {{rotate}}" src="/image/arrowright.png" mode="aspectFill" />
+						</view>
+					</view>
+					<view class="{{show}}">
+						<view a:for="{{fileLists}}" a:for-item="a">
+							<view class="form-row" style="height:auto;">
+								<view class="form-row-label">{{index + 1}}、</view>
+								<view class="form-row-content">
               {{a.OldFileUrl}}
-            <button type="primary" data-mediaId="{{a.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-            </view>
-            </view>
-          </view>
-        </view>        
-      </view>
-
-      <!-- <view class="form-row">
-        <view class="form-row-label">相关文件</view>
-        <view class="form-row-content">
-          <input name="Duration" class="input" value="{{tableInfo.OldFileUrl}}" disabled="{{true}}" />
-          <button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}"       style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-        </view>
-      </view> -->
-
-      <!-- 选人组件 -->
-       <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-      <view a:if="{{index==0}}">
-        <view class="page-section-suggest">
-          <view class="page-section-title">建议</view>
-          <view class="page-section-demo">
-            <textarea name="remark" placeholder="输入 建议" value="{{remark}}" />
-          </view>
-        </view>
-        <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-        <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
-      </view>
-      <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
-        <button type="primary" onTap="tapReturn" disabled="{{disablePage}}">重新发起</button>
-      </view>
-      <view a:if="{{ index!= 0 && state == '已完成' }}">
-        <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
-      </view>
-      <view a:if="{{index==2 && state=='未完成'}}">
-        <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
-        <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
-      </view>
-    </view>
-  </form>
-</view>
+									<button type="primary" data-mediaId="{{a.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!--<view class="form-row"><view class="form-row-label">相关文件</view><view class="form-row-content"><input name="Duration" class="input" value="{{tableInfo.OldFileUrl}}" disabled="{{true}}" /><button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button></view></view> -->
+				<!-- 选人组件 -->
+				<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+				<view a:if="{{index==0}}">
+					<template is="suggest"/>
+					<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
+					<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
+				</view>
+				<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
+					<button type="primary" onTap="tapReturn" disabled="{{disablePage}}">重新发起</button>
+				</view>
+				<view a:if="{{ index!= 0 && state == '已完成' }}">
+					<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+				</view>
+				<view a:if="{{index==2 && state=='未完成'}}">
+					<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
+				</view>
+				<view a:if="{{index==2 && state=='未完成' && nodeid == 1}}">
+					<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+				</view>
+			</view>
+			</form>
+		</view>
