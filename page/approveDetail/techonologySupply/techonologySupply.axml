@@ -18,11 +18,11 @@
 					<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">技术支持部门</view>
 				<view class="form-row-content">
-					<textarea maxlength="-1" auto-height="true" name="DeptName" maxlength="0" class="input" value="{{table.DeptName}}" disabled="{{true}}" />
+					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="DeptName" maxlength="0" class="input" value="{{table.DeptName}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<!--<view class="form-line" />  -->
@@ -68,12 +68,7 @@
 					<textarea auto-height="true" name="MainPoints" maxlength="140" class="input" value="{{table.MainPoints}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<!-- <view class="form-row">
-				<view class="form-row-label">状态</view>
-				<view class="form-row-content">
-					<input class="input" name="ProjectState" value="{{table.ProjectState}}" disabled="{{true}}" />
-				</view>
-			</view> -->
+			<!--<view class="form-row"><view class="form-row-label">状态</view><view class="form-row-content"><input class="input" name="ProjectState" value="{{table.ProjectState}}" disabled="{{true}}" /></view></view> -->
 			<view class="form-row">
 				<view class="form-row-label">项目大类</view>
 				<view class="form-row-content">
@@ -82,6 +77,13 @@
 			</view>
 			<!--<view class="form-line" />  -->
 			<view a:if="{{nodeid >= 1}}">
+				<view class="form-row">
+					<view class="form-row-label">
+						<template is="required"></template>测试项目名称</view>
+					<view class="form-row-content">
+						<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="ProjectName" class="input" value="{{table.ProjectName}}" disabled="{{nodeid != 1}}" />
+					</view>
+				</view>
 				<view class="form-row">
 					<view class="form-row-label">
 						<template is="required"></template>项目组成员</view>
@@ -113,11 +115,11 @@
 						<textarea auto-height="true" name="TechnicalProposal" maxlength="140" class="input" value="{{table.TechnicalProposal}}" disabled="{{nodeid != 1}}" />
 					</view>
 				</view>
-				<view class="form-row">
+				<view class="form-row" a:if="{{nodeid >= 4}}">
 					<view class="form-row-label">
-						<template is="required"></template>测试项目名称</view>
+						<template is="required"></template>测试项目编号</view>
 					<view class="form-row-content">
-						<textarea maxlength="-1" auto-height="true" name="ProjectName" class="input" value="{{table.ProjectName}}" disabled="{{nodeid != 1}}" />
+						<textarea maxlength="-1" style="min-height:90rpx;padding:0;"  auto-height="true" name="ProjectNo" class="input" placeholder="格式为2019XXX001 或者 2019XX001" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
 					</view>
 				</view>
 				<view class="form-row" style="height:100%;" a-if="{{fileList.length>0}}">
@@ -129,26 +131,20 @@
 						</view>
 					</view>
 				</view>
-				<view class="form-row" a:if="{{nodeid >= 4}}">
-					<view class="form-row-label">
-						<template is="required"></template>测试项目编号</view>
-					<view class="form-row-content">
-						<textarea maxlength="-1" auto-height="true" name="ProjectNo" class="input" placeholder="格式为2019XXX001 或者 2019XX001" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
-					</view>
-				</view>
+				<!--<button size="default" type="primary" onTap="test">上传文件</button><button size="default" type="primary" onTap="test2">上传文件2</button><button size="default" type="primary" onTap="test3">盯盘文件预览</button><button size="default" type="primary" onTap="test4">选取盯盘</button> -->
 			</view>
 			<!-- 选人组件 -->
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-				<button  onTap="tapReturn" type="warn"  disabled="{{disablePage}}">退回</button>
+				<button onTap="tapReturn" type="warn" disabled="{{disablePage}}">退回</button>
 			</view>
 			<view a:if="{{ index!= 0 && state == '已完成' }}">
-				<button  onTap="print" type="primary"  disabled="{{disablePage}}">打印表单</button>
+				<button onTap="print" type="primary" disabled="{{disablePage}}">打印表单</button>
 			</view>
 			<view a:if="{{index == 2 && state == '未完成'}}">
-				<button onTap="ding" type="primary"  disabled="{{disablePage}}">钉一下</button>
+				<button onTap="ding" type="primary" disabled="{{disablePage}}">钉一下</button>
 			</view>
 			<view a:if="{{index == 2 && state == '未完成' && nodeid == 1}}">
 				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>

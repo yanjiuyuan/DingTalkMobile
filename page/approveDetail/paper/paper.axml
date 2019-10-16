@@ -12,7 +12,7 @@
 					<textarea maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">项目名称</view>
 				<view class="form-row-content">

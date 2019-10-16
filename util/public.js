@@ -216,24 +216,34 @@ export default {
 				console.log('start page on load~~~~~~~~~~');
 
 				//临时保存
-				console.log(app.globalData[`${param.flowid}`]);
 				if (app.globalData[`${param.flowid}`] == true) {
 					this.readData(param.flowid);
 				}
 
 				//重新发起
 				if (app.globalData.valid == true) {
-					dd.alert({
-						content: "日期、选人、项目请重新选择"
-					})
+					console.log(param);
+					let data = JSON.parse(param.data);
+					console.log(data);
+					for (let d in data) {
+						this.setData({
+							[`${d}`]: data[d]
+						})
+					}
 					this.setData({
-						table: app.globalData.table
+						taskid: 0
 					})
+					// dd.alert({
+					// 	content: "日期、选人、项目请重新选择"
+					// })
+					// this.setData({
+					// 	table: app.globalData.table
+					// })
 					app.globalData.valid = false;
 				}
 
-				var that = this
-				let title = ''
+				let that = this;
+				let title = '';
 				for (let m of this.data.menu) {
 					if (m.flowId == param.flowid) {
 						title = m.title;
@@ -386,15 +396,16 @@ export default {
 					nodeid: parseInt(param.nodeid),
 					taskid: param.taskid,
 					state: param.state,
-					flowname:param.flowname
+					flowname: param.flowname
 				})
 
 				let callBack = function() {
-					that.getFormData()
+					that.getFormData();
 					that.getBomInfo(param.flowid)
-					that.getNodeList()
-					that.getNodeInfo()
-					that.getDingList(param.taskid)
+					that.getNodeList();
+					that.getNodeInfo();
+					that.getDingList(param.taskid);
+					that.isWithdraw();
 				}
 				this.checkLogin(callBack)
 			},
@@ -554,7 +565,12 @@ export default {
 					}
 				}
 			},
+			//判断是否可以撤回参数
+			isWithdraw() {
+				console.log(this.data.nodeList);
+				console.log(this.data.nodeInfo);
 
+			},
 			//获取审批表单信息
 			getFormData() {
 				var that = this
@@ -625,7 +641,7 @@ export default {
 			getDingList(taskId) {
 				let that = this
 				this._getData('DingTalkServers/Ding?taskId=' + taskId, function(data) {
-					if(data == null){
+					if (data == null) {
 						return;
 					}
 					if (data.ApplyManId != null) {
@@ -667,8 +683,8 @@ export default {
 					userId: this.data.dingList[0],
 					title: '请帮我审核一下流水号为 ' + this.data.taskid + ' 的流程',
 					applyMan: this.data.DingData.nickName,
-					taskId:this.data.taskid,
-					flowName:this.data.flowname,
+					taskId: this.data.taskid,
+					flowName: this.data.flowname,
 					linkUrl: "eapp://page/approve/approve?index=0"
 					// linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
 				}
@@ -766,6 +782,7 @@ export default {
 		//获取节点列表
 		getNodeList() {
 			let that = this;
+			console.log(this.data.nodeList);
 			let param = {
 				FlowId: this.data.flowid,
 				TaskId: this.data.taskid
@@ -1199,16 +1216,14 @@ export default {
 
 		//重新发起审批
 		relaunch(e) {
-			console.log("重新发起审批");
-			console.log(this.data.table);
 			app.globalData.table = this.data.table;
 			app.globalData.valid = true;
-			console.log(app.globalData.table);
-
+			console.log(this.data);
+			let str = JSON.stringify(this.data);
 			let arr = this.route.split("/");
 			let url = "/page/start/" + arr[2] + "/" + arr[3];
 			dd.redirectTo({
-				url: url + "?" + "flowid=" + this.data.tableInfo.FlowId
+				url: url + "?" + "flowid=" + this.data.tableInfo.FlowId + "&" + "data=" + str,
 			})
 		},
 		//計算相差天數
@@ -1292,6 +1307,11 @@ export default {
 		inputToTable(e) {
 			let name = e.currentTarget.dataset.name;
 			this.data.table[name] = e.detail.value;
+		},
+		inputToTableInfo(e) {
+			console.log(e.datail);
+			let name = e.currentTarget.dataset.name;
+			this.data.tableInfo[name] = e.detail.value;
 		}
 
 	},

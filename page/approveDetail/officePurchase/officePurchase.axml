@@ -19,7 +19,7 @@
 					<input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<!--<view class="form-line" />  -->
 			<!-- 物料表单 -->
 			<!--<text style="font-size:0.6rem;margin:0 2rpx;">总价预计<text style="color:red">{{totalPrice}}</text> 元</text> -->

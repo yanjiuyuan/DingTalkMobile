@@ -3,7 +3,7 @@
 	<!-- 退回审批表单 -->
 	<template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
 	<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
-	<template is="form" data="{{department:tableInfo.Dept}}"/>
+
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
@@ -19,7 +19,7 @@
 					<input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">来文单位</view>
 				<view class="form-row-content">

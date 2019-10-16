@@ -55,7 +55,7 @@
 					<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view style="height:50rpx;"></view>
 			<view class="form-row">
 				<view class="form-row-label">项目名称</view>

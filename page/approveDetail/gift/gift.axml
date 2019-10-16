@@ -1,7 +1,7 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
 	<!-- 基本表单 -->
-	<template is="form" data="{{department:tableInfo.Dept}}"/>
+	
 	<form onSubmit="submit">
 		<view class="page-section">
 			<view class="form-row">
@@ -16,7 +16,7 @@
 					<input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="form" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">用途及使用说明</view>
 				<view class="form-row-content">

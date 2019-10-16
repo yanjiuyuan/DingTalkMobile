@@ -12,7 +12,7 @@ Page({
 
 
 		items: [
-			{ name: '智慧工厂事业部', value: '智慧工厂事业部', checked: true },
+			{ name: '工业软件研发部', value: '工业软件研发部', checked: true },
 			{ name: '数控一代事业部', value: '数控一代事业部', },
 			{ name: '机器人事业部', value: '机器人事业部' },
 			{ name: '行政部', value: '行政部' },
@@ -64,21 +64,31 @@ Page({
 	},
 
 
-
+	//选人 可以实现 
 	choosePeople(e) {
 		console.log('start choose people');
 		let nodeId = e.target.targetDataset.NodeId;
 		let that = this;
 		dd.complexChoose({
 			...that.data.chooseParam,
+			pickedUsers: that.data.pickedUsers || [],            //已选用户
+			// pickedDepartments: that.data.pickedDepartments || [], //已选部门
+
 			multiple: true,
 			title: "其他工程师",
 			success: function(res) {
 				console.log(res);
-				let names = []//userId
+				dd.alert({
+					content:JSON.stringify(res),
+				});
+
+				let names = [];//userId
 				if (res.departments.length == 0) {
-					for (let d of res.users) names.push(d.name);
-					that.data.names = [...new Set(that.data.names)];
+					that.data.pickedUsers = [];
+					for (let d of res.users) {
+						that.data.pickedUsers.push(d.userId);
+						names.push(d.name);
+					}
 					that.setData({
 						'table.OtherEngineers': names.join(','),
 						OtherEngineers: res.users,
@@ -90,13 +100,27 @@ Page({
 					for (let i of res.departments) {
 						deptId.push(i.id);
 					}
-					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptId=" + res.departments[0].id, (res) => {
-						for (let d of JSON.parse(res.data).userlist) {
-							names.push(d.name);
+
+					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptIdList=" + deptId.join(","), (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								d.userId = d.userid;
+							}
 						}
+						that.data.pickedUsers= [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
 						that.setData({
 							'table.OtherEngineers': names.join(','),
-							OtherEngineers: JSON.parse(res.data).userlist,
+							OtherEngineers: userlist,
 
 						})
 					})
@@ -131,8 +155,9 @@ Page({
 
 	submit(e) {
 		let value = e.detail.value;
+		console.log(e);
+		console.log(this.data);
 		let that = this;
-		console.log(that.data.OtherEngineers);
 		let OtherEngineers = "";
 		let OtherEngineersId = "";
 		for (let i = 0, len = that.data.OtherEngineers.length; i < len; i++) {
@@ -233,7 +258,22 @@ Page({
 				show: "hidden"
 			})
 		}
-	}
+	},
+	//选择时间
+	selectStartDateTime() {
+		dd.datePicker({
+			format: 'yyyy-MM-dd HH:mm',
+			currentDate: this.data.DateStr + ' ' + this.data.TimeStr,
+			startDate: this.data.DateStr + ' ' + this.data.TimeStr,
+			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
+			success: (res) => {
+				this.setData({
+					startDateStr: res.date,
+					'table.TimeRequired': res.date
+				})
+			},
+		});
+	},
 })
 
 
