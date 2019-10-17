@@ -9,11 +9,13 @@ Page({
 		...pub.data,
 		addPeopleNodes: [1],
 		names: [],
-
-
+		array1: ['研发类', '产品类', '教育类'],
+		index1: -1,
+		array2: ['高', '中', '低'],
+		index2: 0,
 		items: [
-			{ name: '工业软件研发部', value: '工业软件研发部', checked: true },
-			{ name: '数控一代事业部', value: '数控一代事业部', },
+			{ name: '工业软件研发部', value: '工业软件研发部' },
+			{ name: '数控一代事业部', value: '数控一代事业部' },
 			{ name: '机器人事业部', value: '机器人事业部' },
 			{ name: '行政部', value: '行政部' },
 			{ name: '财务部', value: '财务部' },
@@ -21,12 +23,6 @@ Page({
 			{ name: '项目推进部', value: '项目推进部' },
 			{ name: '自动化事业部', value: '自动化事业部' },
 		],
-
-		array1: ['研发类', '产品类', '教育类'],
-		index1: -1,
-		array2: ['高', '中', '低'],
-		index2: 0,
-
 		OtherEngineers: "",
 		ResponsibleMan: "",
 		rotate: "RotateToTheRight",
@@ -72,16 +68,10 @@ Page({
 		dd.complexChoose({
 			...that.data.chooseParam,
 			pickedUsers: that.data.pickedUsers || [],            //已选用户
-			// pickedDepartments: that.data.pickedDepartments || [], //已选部门
-
 			multiple: true,
 			title: "其他工程师",
 			success: function(res) {
 				console.log(res);
-				dd.alert({
-					content:JSON.stringify(res),
-				});
-
 				let names = [];//userId
 				if (res.departments.length == 0) {
 					that.data.pickedUsers = [];
@@ -100,7 +90,6 @@ Page({
 					for (let i of res.departments) {
 						deptId.push(i.id);
 					}
-
 					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptIdList=" + deptId.join(","), (result) => {
 						console.log(result.data);
 						that.data.pickedUsers = [];
@@ -116,7 +105,7 @@ Page({
 								d.userId = d.userid;
 							}
 						}
-						that.data.pickedUsers= [...new Set(that.data.pickedUsers)];
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
 						names = [...new Set(names)];//数组去重
 						that.setData({
 							'table.OtherEngineers': names.join(','),
@@ -274,6 +263,9 @@ Page({
 			},
 		});
 	},
+
+	onReady() {
+	}
 })
 
 

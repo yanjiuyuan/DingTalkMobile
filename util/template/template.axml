@@ -216,7 +216,7 @@ margin-right:0.1rem;">*
 		<view class="form-row-label">
 			<template is="required"></template>标题</view>
 		<view class="form-row-content">
-			<input name="title" class="input" value="{{tableInfo.Title}}"  data-name="Title"  onInput="inputToTableInfo"  placeholder="请输入标题" />
+			<input name="title" class="input" value="{{tableInfo.Title}}" maxlength="12" data-name="Title"  onInput="inputToTableInfo"  placeholder="请输入标题" />
 		</view>
 	</view>
 </template>
@@ -248,7 +248,7 @@ margin-right:0.1rem;">*
 	<view class="page-section-suggest">
 		<view class="page-section-title">建议</view>
 		<view class="page-section-demo">
-			<textarea name="remark" placeholder="请输入建议" maxlength="20" value="{{remark}}"/>
+			<textarea name="remark" placeholder="请输入建议"  data-name="remark" onInput="inputToTable"  maxlength="20" value="{{table.remark}}" />
 		</view>
 	</view>
 </template>

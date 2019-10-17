@@ -1,0 +1,4 @@
+<form onSubmit="submit">
+	<my-picker  range ="{{['Spring', 'Summer', 'Autumn', 'Winter']}}" value="Winter" onChange="test"/>
+	<button size="default" form-type="submit" type="primary">Button</button>
+</form>
