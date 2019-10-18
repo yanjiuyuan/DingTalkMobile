@@ -144,8 +144,7 @@ Page({
 
 	submit(e) {
 		let value = e.detail.value;
-		console.log(e);
-		console.log(this.data);
+		console.log(value);
 		let that = this;
 		let OtherEngineers = "";
 		let OtherEngineersId = "";
@@ -164,7 +163,7 @@ Page({
 				ApplyMan: this.data.DingData.nickName,
 				ApplyManId: this.data.DingData.userid,
 				ApplyTime: value.TimeRequired,
-				Dept: this.data.DingData.departName,
+				Dept: this.data.DingData.departmentList[this.data.departmentIdnex],
 				FlowId: "34",
 				IsEnable: "1",
 				IsSend: false,
@@ -174,8 +173,8 @@ Page({
 				Title: value.title,
 			},
 			{
-				ApplyMan: that.data.ResponsibleMan.name,
-				ApplyManId: that.data.ResponsibleMan.userId,
+				ApplyMan: that.data.ResponsibleMan.name || value.ResponsibleMan,
+				ApplyManId: that.data.ResponsibleMan.userId || that.data.table.ResponsibleManId,
 				FlowId: "34",
 				IsBack: null,
 				IsEnable: 1,
@@ -186,17 +185,17 @@ Page({
 			}
 		]
 
-
+		console.log(CreateTaskInfo);
 
 		let body = {
 
 			"DeptName": value.DeptName.toString(),
 			"Customer": value.Customer,
 			"EmergencyLevel": that.data.array2[that.data.index2],
-			"OtherEngineers": OtherEngineers,
-			"OtherEngineersId": OtherEngineersId,
-			"ResponsibleMan": that.data.ResponsibleMan.name,
-			"ResponsibleManId": that.data.ResponsibleMan.userId,
+			"OtherEngineers": OtherEngineers || value.OtherEngineers,
+			"OtherEngineersId": OtherEngineersId || that.data.table.OtherEngineersId,
+			"ResponsibleMan": that.data.ResponsibleMan.name || value.ResponsibleMan,
+			"ResponsibleManId": that.data.ResponsibleMan.userId || that.data.table.ResponsibleManId,
 			"ProjectOverview": value.ProjectOverview.replace(/\s+/g, ""),
 			"ProjectType": that.data.array1[that.data.index1],
 			"Title": value.title,
@@ -263,9 +262,25 @@ Page({
 			},
 		});
 	},
+	onShow() {
+		// 页面被关闭
+		console.log(this.data.items);
+		this.data.items = [
+			{ name: '工业软件研发部', value: '工业软件研发部' },
+			{ name: '数控一代事业部', value: '数控一代事业部' },
+			{ name: '机器人事业部', value: '机器人事业部' },
+			{ name: '行政部', value: '行政部' },
+			{ name: '财务部', value: '财务部' },
+			{ name: '制造试验部', value: '制造试验部' },
+			{ name: '项目推进部', value: '项目推进部' },
+			{ name: '自动化事业部', value: '自动化事业部' },
+		];
+		this.setData({
+			items: this.data.items
+		})
 
-	onReady() {
-	}
+	},
+
 })
 
 

@@ -25,7 +25,6 @@
 					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="DeptName" maxlength="0" class="input" value="{{table.DeptName}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<!--<view class="form-line" />  -->
 			<view class="form-row">
 				<view class="form-row-label">项目负责人</view>
 				<view class="form-row-content">
@@ -74,7 +73,6 @@
 					<input class="input" name="ProjectType" value="{{table.ProjectType}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<!--<view class="form-line" />  -->
 			<view a:if="{{nodeid >= 1}}">
 				<view class="form-row">
 					<view class="form-row-label">
@@ -89,7 +87,7 @@
 					<view class="form-row-content">
 						<textarea style="min-height:90rpx;padding:0;" maxlength="-1" auto-height="true" name="TeamMembers" class="input" disabled="{{true}}" value="{{table.TeamMembers}}"/>
 					</view>
-					<view onTap="choosePeoples" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选人</view>
+					<view onTap="choosePeoples" class="tag tag-info" a:if="{{nodeid == 1 && index == 0}}">+ 选人</view>
 				</view>
 				<view class="form-row">
 					<view class="form-row-label">
@@ -97,7 +95,7 @@
 					<view class="form-row-content">
 						<input name="StartTime" class="input" placeholder="开始时间" onTap="" disabled="{{true}}" value="{{table.StartTime}}"/>
 					</view>
-					<view onTap="selectStartDate" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
+					<view onTap="selectStartDate" class="tag tag-info" a:if="{{nodeid == 1 && index == 0}}">+ 选择</view>
 				</view>
 				<view class="form-row">
 					<view class="form-row-label">
@@ -105,7 +103,7 @@
 					<view class="form-row-content">
 						<input name="EndTime" class="input" placeholder="结束日期" onTap="" disabled="{{true}}" value="{{table.EndTime}}"/>
 					</view>
-					<view onTap="selectEndDate" class="tag tag-info" a:if="{{nodeid == 1}}">+ 选择</view>
+					<view onTap="selectEndDate" class="tag tag-info" a:if="{{nodeid == 1 && index == 0}}">+ 选择</view>
 				</view>
 				<view a:if="{{show}}" class="form-row">
 					<view class="form-row-label">
@@ -118,10 +116,10 @@
 					<view class="form-row-label">
 						<template is="required"></template>测试项目编号</view>
 					<view class="form-row-content">
-						<textarea maxlength="-1" style="min-height:90rpx;padding:0;"  auto-height="true" name="ProjectNo" class="input" placeholder="格式为2019XXX001 或者 2019XX001" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
+						<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="ProjectNo" class="input" placeholder="格式为2019XXX001 或者 2019XX001" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
 					</view>
 				</view>
-				<view class="form-row" style="height:100%;" a-if="{{fileList.length>0}}">
+				<view class="form-row" style="height:100%;" a-if="{{fileList.length > 0}}">
 					<view class="form-row-label">相关文件</view>
 					<view class="form-row-content">
 						<view a:for="{{fileList}}">

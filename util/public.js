@@ -214,7 +214,6 @@ export default {
 		start: {
 			onLoad(param) {
 				console.log('start page on load~~~~~~~~~~');
-				console.log(this.data.items);
 				//临时保存
 				if (app.globalData[`${param.flowid}`] == true) {
 					this.readData(param.flowid);
@@ -233,12 +232,6 @@ export default {
 					this.setData({
 						taskid: 0
 					})
-					// dd.alert({
-					// 	content: "日期、选人、项目请重新选择"
-					// })
-					// this.setData({
-					// 	table: app.globalData.table
-					// })
 					app.globalData.valid = false;
 				}
 
@@ -1257,27 +1250,35 @@ export default {
 				url: "/page/processOn/processOn" + "?" + "flowid=" + this.data.flowid
 			})
 		},
-		//临时保存表单数据函数
+		//保存表单数据函数
 		inputToTable(e) {
 			let name = e.currentTarget.dataset.name;
 			this.data.table[name] = e.detail.value;
 		},
 		inputToTableInfo(e) {
-			console.log(e.datail);
 			let name = e.currentTarget.dataset.name;
 			this.data.tableInfo[name] = e.detail.value;
 		},
 		//checkBox选择按钮更新
 		onChange(e) {
 			let value = e.detail.value;
-			for (let i of value) {
-				for (let j of this.data.items) {
+			for (let j of this.data.items) {
+				j.checked = false;
+				for (let i of value) {
 					if (i == j.name) {
 						j.checked = true;
+						break;
 					}
 				}
 			}
-		}
+		},
+		//部门选择函数
+		bindObjPickerChange(e) {
+			console.log('picker发送选择改变，携带值为', e.detail.value);
+			this.setData({
+				departmentIdnex: e.detail.value,
+			});
+		},
 
 	},
 };

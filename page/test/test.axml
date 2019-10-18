@@ -1,4 +1,8 @@
 <form onSubmit="submit">
-	<my-picker  range ="{{['Spring', 'Summer', 'Autumn', 'Winter']}}" value="Winter" onChange="test"/>
-	<button size="default" form-type="submit" type="primary">Button</button>
+	<my-picker index="{{}}"  range ="{{['Spring', 'Summer', 'Autumn', 'Winter']}}" value="{{table}}" onChange="test"/>
+
+
+	<my-checkbox-group itemList="{{items}}" name="DeptName" selectedItem="工业软件研发部"></my-checkbox-group>
+	<button size="default" type="primary" form-type="submit">Button</button>
+
 </form>

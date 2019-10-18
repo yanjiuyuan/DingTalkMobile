@@ -1,7 +1,6 @@
 Component({
 	mixins: [],
 	data: {
-		index: -1,
 	},//存放组件内部数据
 	props: {
 		onChange() { },//传递index参数出去
@@ -22,7 +21,7 @@ Component({
 	},
 	//组件初始化
 	didMount() {
-		console.log(this);
+		console.log(this.props.value);
 		this.valueToIndex();
 	},
 
@@ -49,14 +48,14 @@ Component({
 			if (this.props.value != "") {
 				for (let i = 0, len = this.props.range.length; i < len; i++) {
 					if (this.props.value == this.props.range[i]) {
-
+						console.log(this.props.value);
 						this.setData({
 							index: i
 						});
 						this.props.onChange(
 							{
 								detail: {
-									value: e.detail.value
+									value: i
 								}
 
 							});//传递参数出去
