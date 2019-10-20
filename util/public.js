@@ -214,7 +214,6 @@ export default {
 		start: {
 			onLoad(param) {
 				console.log('start page on load~~~~~~~~~~');
-
 				//临时保存
 				if (app.globalData[`${param.flowid}`] == true) {
 					this.readData(param.flowid);
@@ -233,12 +232,6 @@ export default {
 					this.setData({
 						taskid: 0
 					})
-					// dd.alert({
-					// 	content: "日期、选人、项目请重新选择"
-					// })
-					// this.setData({
-					// 	table: app.globalData.table
-					// })
 					app.globalData.valid = false;
 				}
 
@@ -652,32 +645,6 @@ export default {
 			},
 			//钉一下功能
 			ding() {
-				//电脑接收
-				// dd.createDing({
-				//   users : this.data.dingList,// 用户列表，工号
-				//   type: 1, // 附件类型 1：image  2：link
-				//   alertType: 2, // 钉发送方式 0:电话, 1:短信, 2:应用内
-				//   text: '请帮我审批一下，审批编号为:'+ this.data.taskid,  // 正文
-
-				//   success:function(res){
-				//     console.log(res);
-				//   },
-				//   fail:function(err){
-				//     console.log(err);
-
-				//   }
-				// })  
-				// 电脑手机接收
-				// console.log(this.data.dingList);
-				// console.log(this.data.DingData.userid);
-				// console.log(this.route);
-				// let obj = {
-				// flowid:this.data.flowid,
-				// index:this.data.index,
-				// nodeid:this.data.nodeid,
-				// taskid:this.data.taskid,
-				// state:this.data.state
-				// }
 				console.log(this.data);
 				let param = {
 					userId: this.data.dingList[0],
@@ -693,11 +660,6 @@ export default {
 						content: "已为你催办~"
 					})
 				})
-
-
-
-
-
 			},
 			//打印流程表单
 			print() {
@@ -1240,11 +1202,6 @@ export default {
 		//临时保存
 		temporaryPreservation(e) {
 			let that = this;
-			// app.globalData.table = that.data.table;
-			// dd.alert({
-			// 	content: '临时保存成功，下次打开这个页面时生效。',
-			// 	buttonText: "确认"
-			// });
 			dd.setStorage({
 				key: `${that.data.flowid}`,
 				data: {
@@ -1264,27 +1221,17 @@ export default {
 		},// 读取临时保存数据
 		readData(flowid) {
 			let that = this;
-			// that.setData({
-			// 	table: app.globalData.table,
-			// })
-			// app.globalData.table = {};
 			dd.getStorage({
 				key: `${flowid}`,
 				success: function(res) {
-					console.log(res);
+					console.log(res.data.data);
+					console.log(res.data.data.items);
 					that.data = res.data.data;
-					console.log(that.data.table);
-					console.time();
 					for (let d in that.data) {
 						that.setData({
 							[`${d}`]: that.data[d]
 						})
 					}
-					console.timeEnd();
-					// that.setData({
-					// 	table:that.data.table,
-					// 	index1:that.data.index1
-					// })
 					dd.removeStorage({
 						key: `${flowid}`,
 						success: function() {
@@ -1303,16 +1250,35 @@ export default {
 				url: "/page/processOn/processOn" + "?" + "flowid=" + this.data.flowid
 			})
 		},
-		//临时保存表单数据函数
+		//保存表单数据函数
 		inputToTable(e) {
 			let name = e.currentTarget.dataset.name;
 			this.data.table[name] = e.detail.value;
 		},
 		inputToTableInfo(e) {
-			console.log(e.datail);
 			let name = e.currentTarget.dataset.name;
 			this.data.tableInfo[name] = e.detail.value;
-		}
+		},
+		//checkBox选择按钮更新
+		onChange(e) {
+			let value = e.detail.value;
+			for (let j of this.data.items) {
+				j.checked = false;
+				for (let i of value) {
+					if (i == j.name) {
+						j.checked = true;
+						break;
+					}
+				}
+			}
+		},
+		//部门选择函数
+		bindObjPickerChange(e) {
+			console.log('picker发送选择改变，携带值为', e.detail.value);
+			this.setData({
+				departmentIdnex: e.detail.value,
+			});
+		},
 
 	},
 };

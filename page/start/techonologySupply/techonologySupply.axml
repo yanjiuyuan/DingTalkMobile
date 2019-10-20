@@ -10,30 +10,32 @@
 			<!-- 申请人 -->
 			<template is ="applyman" data="{{DingData}}"/>
 			<!-- 选择部门 -->
-			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+			<!--<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex,chooseDept:tableInfo.dept}}"/> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>申请部门</view>
+				<view class="form-row-content">
+					<my-picker index="{{departmentIdnex}}" range ="{{DingData.departmentList}}" onChange="bindObjPickerChange" value="{{tableInfo.dept}}"/>
+				</view>
+			</view>
 			<view class="form-row">
 				<view class="form-row-label">技术支持部门</view>
 				<view class="form-row-content">
-					<checkbox-group onChange="onChange" name="DeptName" class="checkbox-group">
-						<label class="checkbox block" a:for="{{items}}">
-							<checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
-							<text class="checkbox-text">{{item.value}}</text>
-						</label>
-					</checkbox-group>
+					<my-checkbox-group onChange="onChange" itemList="{{items}}" name="DeptName" selectedItem="{{table.DeptName}}"></my-checkbox-group>
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>项目负责人</view>
 				<view class="form-row-content">
-					<text auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.ResponsibleMan}}">{{table.ResponsibleMan}}</text>
+					<input auto-height="true" name="ResponsibleMan" class="input" disabled="{{true}}" value="{{table.ResponsibleMan}}"></input>
 				</view>
 				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">其他工程师</view>
 				<view class="form-row-content">
-					<textarea style="min-height:90rpx;padding:0;" auto-height="true" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" placeholder="" maxlength="-1"/>
+					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" placeholder="" maxlength="-1"/>
 				</view>
 				<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
 			</view>
@@ -49,30 +51,19 @@
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>项目大类</view>
-				<picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{array1}}">
-					<view class="row">
-						<view class="row-title"></view>
-						<view class="row-extra">{{array1[index1]}}</view>
-						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-					</view>
-				</picker>
+				<!--<picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{array1}}"><view class="row"><view class="row-title"></view><view class="row-extra">{{array1[index1]}}</view><image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" /></view></picker> -->
+				<my-picker index="{{index1}}" range ="{{array1}}" onChange="bindPickerChangeOne" value="{{table.ProjectType}}"/>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">紧急情况</view>
-				<picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{array2}}">
-					<view class="row">
-						<view class="row-title"></view>
-						<view class="row-extra">{{array2[index2]}}</view>
-						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-					</view>
-				</picker>
+				<!--<picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{array2}}"><view class="row"><view class="row-title"></view><view class="row-extra">{{array2[index2]}}</view><image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" /></view></picker> -->
+				<my-picker index="{{index2}}" range ="{{array2}}" onChange="bindPickerChangeTwo" value="{{table.EmergencyLevel}}"/>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>要求完成时间</view>
 				<view class="form-row-content">
 					<input name="TimeRequired" class="input" placeholder="开始时间" onFocus="selectStartDateTime" disabled="true" value="{{table.TimeRequired}}"/>
-
 				</view>
 				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
 			</view>
@@ -80,20 +71,20 @@
 				<view class="form-row-label">
 					<template is="required"></template>客户项目整体情况</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="ProjectOverview" class="input" data-name="ProjectOverview" onInput="inputToTable"  value="{{table.ProjectOverview}}"/>
+					<textarea auto-height="true" name="ProjectOverview" class="input" data-name="ProjectOverview" onInput="inputToTable" value="{{table.ProjectOverview}}"/>
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>技术支持内容要点</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="MainPoints" class="input" data-name="MainPoints" onInput="inputToTable"  value="{{table.MainPoints}}"/>
+					<textarea auto-height="true" name="MainPoints" class="input" data-name="MainPoints" onInput="inputToTable" value="{{table.MainPoints}}"/>
 				</view>
 			</view>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
 			<!-- 建议输入框 -->
-			<template is="suggest"/>
+			<template is="suggest" data="{{table}}"/>
 		</view>
 		<!-- 提交按钮 -->
 		<template is ="submitButton"/>

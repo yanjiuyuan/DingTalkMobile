@@ -1,0 +1,9 @@
+<view>
+	<picker value="{{index}}" range="{{range}}" onChange="bindPickerChange">
+		<view class="row">
+			<view class="row-title"></view>
+			<view class="row-extra">{{range[index]}}</view>
+			<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+		</view>
+	</picker>
+</view>

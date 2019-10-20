@@ -2,6 +2,8 @@
 let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
 // let dormainName ="http://192.168.1.75:8888/"//swagger
 // let dormainName = 'http://caixingtong.qicp.vip:48392/'; //测试人员测试
+// let dormainName = 'http://caixingtong.qicp.vip:28032/'; //测试人员测试()
+
 
 function doWithErrcode(result) {
 	if (!result) {
