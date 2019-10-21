@@ -77,28 +77,10 @@ Page({
   submit(e){
     let value = e.detail.value;
     let that = this;
-    // let CreateTaskInfo = [
-    //   {
-    //     ApplyMan:this.data.DingData.nickName,
-    //     ApplyManId:this.data.DingData.userid,
-    //     ApplyTime:this.data.DateStr,
-    //     Dept:this.data.DingData.departmentList[this.data.departmentIdnex],
-    //     FlowId:"17",
-    //     IsEnable:"1",
-    //     IsSend:false,
-    //     NodeId:"0",
-    //     State:"1",
-    //     Title:value.title,
-    //   },
-    // ]
-    // console.log(CreateTaskInfo);
-
-
     let param = {
         Title: value.title,
         Remark: value.remark,
       }
-
     let body = {
       "DateTime":value.DateTime,
       "EndTimeTime": that.data.arrayOfTime[that.data.index2],
@@ -117,24 +99,6 @@ Page({
             })
         }
     else{
-
-
-
-      // this._postData("FlowInfoNew/CreateTaskInfo",(data) => {
-      //     body.TaskId = data;
-      //       this._postData("OverTimeTable/OverTimeTableSave",(data) => {
-      //         dd.alert({
-      //           content:"审批发起成功",
-      //           success:() => {
-      //           dd.navigateBack({
-      //                 delta: 2
-      //               })
-      //           }
-      //           });
-      //       },body);
-      // },CreateTaskInfo);
-
-
 
       let callBack = function (taskId) {
         body.TaskId = taskId;

@@ -226,7 +226,7 @@ margin-right:0.1rem;">*
 		<view class="form-row-label">
 			<template is="required"></template>标题</view>
 		<view class="form-row-content">
-			<textarea name="Title" class="input" auto-height="true" data-name="Title"  onInput="inputToTableInfo"   style="min-height:90rpx;padding:0;" value="{{tableInfo.Title}}" placeholder="请输入标题" maxlength="-1" />
+			<textarea name="title" class="input" auto-height="true" data-name="Title"  onInput="inputToTableInfo"   style="min-height:90rpx;padding:0;" value="{{tableInfo.Title}}" placeholder="请输入标题" maxlength="-1" />
 		</view>
 	</view>
 </template>

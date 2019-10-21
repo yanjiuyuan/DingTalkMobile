@@ -29,7 +29,8 @@ Page({
 			let reg = /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/;
 			if (!reg.test(value.ProjectNo)) {
 				dd.alert({
-					content: "请规范填写测试项目编号"
+					content: "请规范填写测试项目编号。",
+					buttonText: "确认"
 				})
 				return;
 			}
@@ -61,30 +62,24 @@ Page({
 				"ResponsibleManId": this.data.table.ResponsibleManId,
 				"ProjectFileUrl": ''
 			}
-			console.log(param2)
-			this.setData({ disablePage: true })
+
+			this._postData("ProjectNew/AddProject", (res) => {
+				that.aggreSubmit(param);
+			}, [param2])
 			this._postData("TechnicalSupport/Modify", (res) => {
-				this._postData("ProjectNew/AddProject", (res) => {
-					console.log(res);
-					
-					that.aggreSubmit(param);
-				}, [param2])
 			}, this.data.table
 			)
 			return;
 		}
-		this.setData({ disablePage: true })
-		this._postData("TechnicalSupport/Modify",
-			(res) => {
-				that.aggreSubmit(param)
-			}, this.data.table
-		)
 	},
 	print() {
-		var that = this
+		let that = this;
 		this._postData('TechnicalSupport/PrintAndSend',
 			function(res) {
-				dd.alert({ content: '获取成功，请在钉钉工作通知中查收' })
+				dd.alert({
+					content: '获取成功，请在钉钉工作通知中查收。',
+					buttonText: '确认'
+				})
 			},
 			{
 				UserId: that.data.DingData.userid,
@@ -173,7 +168,7 @@ Page({
 			}
 		})
 	},
-	
+
 	onReady() {
 
 		var that = this

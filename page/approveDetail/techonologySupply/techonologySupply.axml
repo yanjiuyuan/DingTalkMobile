@@ -116,7 +116,7 @@
 					<view class="form-row-label">
 						<template is="required"></template>测试项目编号</view>
 					<view class="form-row-content">
-						<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="ProjectNo" class="input" placeholder="格式为2019XXX001 或者 2019XX001" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
+						<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="ProjectNo" class="input" placeholder="格式为1234**567或者1234***567，*必须为英文字母" value="{{table.ProjectNo}}" disabled="{{index != 0}}" />
 					</view>
 				</view>
 				<view class="form-row" style="height:100%;" a-if="{{fileList.length > 0}}">

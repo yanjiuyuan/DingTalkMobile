@@ -43,6 +43,7 @@ Page({
 					var app = getApp()
 					app.userInfo.name = name
 					app.userInfo.userid = userId
+					app.userInfo.nickName = name
 					that.setData({
 						DingData: {
 							nickName: name,

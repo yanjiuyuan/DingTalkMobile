@@ -12,7 +12,18 @@
 					<input name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<!--<view class="form-row"><view class="form-row-label">项目名</view><view class="form-row-content"><input class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" /></view></view><view class="form-row"><view class="form-row-label">项目编号</view><view class="form-row-content"><input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" /></view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">项目名</view>
+				<view class="form-row-content">
+					<input class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">项目编号</view>
+				<view class="form-row-content">
+					<input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
+				</view>
+			</view>
 			<view class="form-row">
 				<view class="form-row-label">申请人</view>
 				<view class="form-row-content">

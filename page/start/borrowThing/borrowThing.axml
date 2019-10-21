@@ -1,3 +1,4 @@
+<!-- 借入申请 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
   <!-- 待编辑物料表单 -->

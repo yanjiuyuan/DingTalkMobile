@@ -21,9 +21,9 @@
 					<view class="page-section">
 						<view class="form-row">
 							<view class="form-row-label">
-								<template is="required"></template>支出数(资料科目合计)</view>
+								<template is="required"></template>支出数(各科目合计)</view>
 							<view class="form-row-content">
-								<input name="Money" class="input" placeholder="支出数(资料科目合计)" />
+								<input name="Money" class="input" placeholder="支出数(各科目合计)" />
 							</view>
 						</view>
 					</view>
@@ -78,7 +78,7 @@
 				</view>
 			</view>
 			<view class="form-row" style="height:auto;">
-				<view class="form-row-label">项目成员</view>
+				<view class="form-row-label">小组成员</view>
 				<view class="form-row-content">
 					<textarea maxlength="-1" class="input" value="{{table.TeamMembers}}" disabled="{{true}}" />
 				</view>
@@ -154,7 +154,6 @@
 					</view>
 				</view>
 				<view class="{{show}}">
-          {{nodeid}}
 					<view class="form-row" a:if="{{SuggestBook1 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">立项书或建议书</view>
 						<view class="form-row-content">
@@ -270,7 +269,7 @@
 				</view>
 			</view>
 			<!-- 项目采购清单、借用清单、维修清单 -->
-			<view>
+			<view a:if="{{tableData1.length > 0}}">
 				<view class="form-row margin" onTap="showOrCloseOne">
 					<view style = "font-size:0.34rem">项目采购清单、借用清单、领料清单、入库清单</view>
 					<view class="form-row-content">
@@ -322,13 +321,14 @@
 				</view>
 			</view>
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
-			<button a:if="{{ index!= 0 && state == '已完成' }}" type="primary" onTap="printTable" disabled="{{disablePage}}">打印表单</button>
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
 				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
 			</view>
-			<!--<view a:if="{{index!=0}}"><button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button></view> -->
+			<view a:if="{{ index!= 0 && state == '已完成' }}">
+				<button type="primary" onTap="printTable" disabled="{{disablePage}}">打印表单</button>
+			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
 			</view>

@@ -96,11 +96,11 @@ Page({
       });
       return
     }
-    var param = {
+    let param = {
         Title: value.title,
         Remark: value.remark,
-        // ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
-        // ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
+        ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
+        ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
     }
     let callBack = function (taskId) {
         that.bindAll(taskId)

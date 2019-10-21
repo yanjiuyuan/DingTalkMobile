@@ -2,25 +2,25 @@ import lib from "/lib.js";
 import template from "/util/template/template.js";
 let app = getApp();
 let logs = [];
-var x = -54;
-var y = -46;
-var xTap = -90;
-var yTap = -90;
-let States = ['在研', '已完成', '终止']
-let ProjectTypes = ['自研项目', '纵向项目', '横向项目', '测试项目']
-let DeptNames = ['智慧工厂事业部', '数控一代事业部', '机器人事业部', '行政部', '财务部', '制造试验部', '项目推进部', "自动化事业部"]
-let CompanyNames = ['泉州华中科技大学智能制造研究院', '泉州华数机器人有限公司']
-let IntellectualPropertyTypes = ['发明', '实用新型', '外观', '软件著作权']
-let localStorage = ''
+let x = -54;
+let y = -46;
+let xTap = -90;
+let yTap = -90;
+let States = ["在研", "已完成", "终止"]
+let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
+let DeptNames = ["智慧工厂事业部", "数控一代事业部", "机器人事业部", "行政部", "财务部", "制造试验部", "项目推进部", "自动化事业部"]
+let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"]
+let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]
+let localStorage = ""
 export default {
 	data: {
 		...lib.data,
 		...template.data,
 		version: 2.691,
 		DingData: {
-			nickName: '',
-			departName: '',
-			userid: ''
+			nickName: "",
+			departName: "",
+			userid: ""
 		},
 		departmentIdnex: 0,//选择部门时用到的下标
 		hideMask: false,
@@ -29,13 +29,13 @@ export default {
 		flowid: 0,
 		taskid: 0,
 		nodeid: 0,
-		state: '',
+		state: "",
 		id: 0,
 		nodeList: [],
 		projectList: [],
 		nodeInfo: {},
-		FileUrl: '',
-		FilePDFUrl: '',
+		FileUrl: "",
+		FilePDFUrl: "",
 		States: States, stateIndex: -1,
 		localStorage: localStorage,
 		ProjectTypes: ProjectTypes, projectIndex: -1,
@@ -44,150 +44,150 @@ export default {
 		CompanyNames: CompanyNames, companyIndex: 0,
 		IntellectualPropertyTypes: IntellectualPropertyTypes, iptIndex: -1,
 
-		dateStr: '',
-		startDateStr: '',
-		endDateStr: '',
+		dateStr: "",
+		startDateStr: "",
+		endDateStr: "",
 
 		changeRemarkId: 0,
 		changeRemarkNodeid: 0,
-		hehe: '',
+		hehe: "",
 		menu:
 			[
 				{
 					flowId: 1,
 					sortId: 4,
-					title: '办公用品申请',
-					url: 'officeSupplies/officeSupplies',
-					position: (x + 4 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+					title: "办公用品申请",
+					url: "officeSupplies/officeSupplies",
+					position: (x + 4 * xTap) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
 					flowId: 8,
 					sortId: 4,
-					title: '零部件采购申请',
-					url: 'purchase/purchase',
-					position: '-414px -137px'
+					title: "零部件采购申请",
+					url: "purchase/purchase",
+					position: "-414px -137px"
 				},
 				{
 					flowId: 12,
 					sortId: 4,
-					title: '物料编码申请',
-					url: 'meterieCode/meterieCode',
-					position: '-54px -227px'
+					title: "物料编码申请",
+					url: "meterieCode/meterieCode",
+					position: "-54px -227px"
 				},
 				{
 					flowId: 13,
 					sortId: 6,
-					title: '公车申请',
-					url: 'usePublicCar/usePublicCar',
-					position: '-775px -317px'
+					title: "公车申请",
+					url: "usePublicCar/usePublicCar",
+					position: "-775px -317px"
 				},
 				{
 					flowId: 14,
 					sortId: 6,
-					title: '私车申请',
-					url: 'useCar/useCar',
-					position: '-504px -405px'
+					title: "私车申请",
+					url: "useCar/useCar",
+					position: "-504px -405px"
 				},
 				{
 					flowId: 17,
 					sortId: 7,
-					title: '基地加班申请',
-					url: 'overTime/overTime',
-					position: (x + 3 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+					title: "基地加班申请",
+					url: "overTime/overTime",
+					position: (x + 3 * xTap) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
 					flowId: 24,
 					sortId: 7,
-					title: '礼品招待领用申请',
-					url: 'gift/gift',
-					position: (x + 0 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+					title: "礼品招待领用申请",
+					url: "gift/gift",
+					position: (x + 0 * xTap) + "px " + (y + 4 * yTap) + "px"
 				},
 				{
 					flowId: 26,
 					sortId: 4,
-					title: '领料申请',
-					url: 'picking/picking',
-					position: (x + 1 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+					title: "领料申请",
+					url: "picking/picking",
+					position: (x + 1 * xTap) + "px " + (y + 4 * yTap) + "px"
 				},
 				{
 					flowId: 27,
 					sortId: 4,
-					title: '入库申请',
-					url: 'intoStorage/intoStorage',
-					position: (x + 3 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+					title: "入库申请",
+					url: "intoStorage/intoStorage",
+					position: (x + 3 * xTap) + "px " + (y + 4 * yTap) + "px"
 				},
 				{
 					flowId: 30,
 					sortId: 7,
-					title: '外出申请',
-					url: 'goOut/goOut',
-					position: (x + 1 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
+					title: "外出申请",
+					url: "goOut/goOut",
+					position: (x + 1 * xTap) + "px " + (y + 3 * yTap) + "px"
 				},
 				{
 					flowId: 32,
 					sortId: 7,
-					title: '跨部门协作申请',
-					url: 'crossHelp/crossHelp',
-					position: (x + 6 * xTap) + 'px ' + (y + 3 * yTap) + 'px'
+					title: "跨部门协作申请",
+					url: "crossHelp/crossHelp",
+					position: (x + 6 * xTap) + "px " + (y + 3 * yTap) + "px"
 				},
 				{
 					flowId: 34,
 					sortId: 5,
-					title: '项目技术支持',
+					title: "项目技术支持",
 					flowName: "项目技术支持",
-					url: 'techonologySupply/techonologySupply',
-					position: (x + 2 * xTap) + 'px ' + (y + 1 * yTap) + 'px'
+					url: "techonologySupply/techonologySupply",
+					position: (x + 2 * xTap) + "px " + (y + 1 * yTap) + "px"
 				},
 				{
 					flowId: 35,
 					sortId: 7,
-					title: '跨部门协助',
-					url: 'letGoodsGo/letGoodsGo',
-					position: (x + 8 * xTap - 4) + 'px ' + (y + 0 * yTap) + 'px'
+					title: "跨部门协助",
+					url: "letGoodsGo/letGoodsGo",
+					position: (x + 8 * xTap - 4) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
 					flowId: 36,
 					sortId: 5,
-					title: '知识产权申请',
-					url: 'intellectualProperty/intellectualProperty',
-					position: (x + 2 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
+					title: "知识产权申请",
+					url: "intellectualProperty/intellectualProperty",
+					position: (x + 2 * xTap) + "px " + (y + 2 * yTap) + "px"
 				},
 				{
 					flowId: 67,
 					sortId: 4,
-					title: '借入申请',
-					url: 'borrowThing/borrowThing',
-					position: (x + 6 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+					title: "借入申请",
+					url: "borrowThing/borrowThing",
+					position: (x + 6 * xTap) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
 					flowId: 68,
 					sortId: 4,
-					title: '维修申请',
-					url: 'maintain/maintain',
-					position: (x + 4 * xTap) + 'px ' + (y + 4 * yTap) + 'px'
+					title: "维修申请",
+					url: "maintain/maintain",
+					position: (x + 4 * xTap) + "px " + (y + 4 * yTap) + "px"
 				},
 				{
 					flowId: 66,
 					sortId: 4,
-					title: '领料管理',
-					url: 'pickingManage/pickingManage',
-					position: (x + 5 * xTap) + 'px ' + (y + 0 * yTap) + 'px'
+					title: "领料管理",
+					url: "pickingManage/pickingManage",
+					position: (x + 5 * xTap) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
 					flowId: 70,
 					sortId: 9,
-					title: '生产加工进度监控',
+					title: "生产加工进度监控",
 					flowName: "生产进度监控",
-					url: 'productionMonitoring/productionMonitoring',
-					position: (x + 5 * xTap) + 'px ' + (y + 2 * yTap) + 'px'
+					url: "productionMonitoring/productionMonitoring",
+					position: (x + 5 * xTap) + "px " + (y + 2 * yTap) + "px"
 				},
 				{
 					flowId: 71,
 					sortId: 11,
 					flowName: "流程管理",
-					title: '流程管理',
-					url: 'processManagement/processManagement',
-					position: (x + 3 * xTap) + 'px ' + (y + 1 * yTap) + 'px',
+					title: "流程管理",
+					url: "processManagement/processManagement",
+					position: (x + 3 * xTap) + "px " + (y + 1 * yTap) + "px",
 				}
 			],
 
@@ -202,7 +202,7 @@ export default {
 		isback: false,
 		hidden: true,
 		hiddenCrmk: true,
-		remark: '',
+		remark: "",
 		ReApprovalTempData: {},//重新发起的临时变量
 		disablePage: false,
 	},
@@ -213,7 +213,7 @@ export default {
 
 		start: {
 			onLoad(param) {
-				console.log('start page on load~~~~~~~~~~');
+				console.log("start page on load~~~~~~~~~~");
 				//临时保存
 				if (app.globalData[`${param.flowid}`] == true) {
 					this.readData(param.flowid);
@@ -236,7 +236,7 @@ export default {
 				}
 
 				let that = this;
-				let title = '';
+				let title = "";
 				for (let m of this.data.menu) {
 					if (m.flowId == param.flowid) {
 						title = m.title;
@@ -245,7 +245,7 @@ export default {
 				}
 				this.setData({
 					flowid: param.flowid,
-					'tableInfo.Title': title
+					"tableInfo.Title": title
 				})
 				let callBack = function() {
 					that.getNodeList();
@@ -259,21 +259,21 @@ export default {
 			approvalSubmit(param = {}, callBack, param2 = {}) {
 				if (!this.data.DingData.userid) {
 					dd.alert({
-						content: '尚未登录'
+						content: "尚未登录"
 					});
-					return
+					return;
 				}
-				var that = this
-				this.setData({ disablePage: true })
-				var paramArr = []
-				var applyObj = {
+				let that = this;
+				this.setData({ disablePage: true });
+				let paramArr = [];
+				let applyObj = {
 					"ApplyMan": that.data.DingData.nickName,
 					"ApplyManId": that.data.DingData.userid,
 					"Dept": that.data.DingData.departmentList[this.data.departmentIdnex],
 					"NodeId": "0",
 					"ApplyTime": that._getTime(),
 					"IsEnable": "1",
-					"FlowId": that.data.flowid + '',
+					"FlowId": that.data.flowid + "",
 					"IsSend": false,
 					"State": "1",
 				}
@@ -281,11 +281,11 @@ export default {
 					applyObj[p] = param[p]
 				}
 
-				paramArr.push(applyObj)
+				paramArr.push(applyObj);
 				for (let node of that.data.nodeList) {
-					if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf('申请人') >= 0 && node.NodeId > 0)) {
+					if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)) {
 						if (node.AddPeople.length == 0) {
-							dd.alert({ content: '您尚未选择审批人' })
+							dd.alert({ content: "您尚未选择审批人" })
 							that.setData({
 								disablePage: false
 							})
@@ -296,8 +296,8 @@ export default {
 								"ApplyMan": a.name,
 								"ApplyManId": a.userId,
 								"IsEnable": 1,
-								"FlowId": that.data.flowid + '',
-								"NodeId": node.NodeId + '',
+								"FlowId": that.data.flowid + "",
+								"NodeId": node.NodeId + "",
 								"IsSend": node.IsSend,
 								"State": 0,
 								"OldFileUrl": null,
@@ -312,7 +312,6 @@ export default {
 				}
 				that._postData("FlowInfoNew/CreateTaskInfo", function(res) {
 					let taskid = res;
-					console.log(taskid);
 					callBack(taskid);
 				}, paramArr)
 			},
@@ -331,7 +330,7 @@ export default {
 					})
 				}
 				this.setData({
-					'tableInfo.Title': localStorage.title,
+					"tableInfo.Title": localStorage.title,
 					flowid: localStorage.flowid,
 					tableItems: localStorage.tableItems,
 					localStorage: localStorage
@@ -339,14 +338,14 @@ export default {
 			},
 			//搜索物料编码
 			searchCode(e) {
-				var value = e.detail.value
+				let value = e.detail.value
 				console.log(value);
 				if (!value || !value.keyWord) return
-				var that = this
-				that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function(res) {
+				let that = this
+				that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function(res) {
 					console.log(JSON.parse(res.data))
 					that.setData({
-						'tableParam.total': JSON.parse(res.data).length
+						"tableParam.total": JSON.parse(res.data).length
 					})
 					that.data.data = JSON.parse(res.data)
 					that.getData()
@@ -380,9 +379,9 @@ export default {
 		},
 		dowith: {
 			onLoad(param) {
-				console.log('dowith page on load~~~~~~~~~~')
+				console.log("dowith page on load~~~~~~~~~~")
 				console.log(param)
-				var that = this
+				let that = this
 				this.setData({
 					flowid: param.flowid,
 					index: param.index,
@@ -407,15 +406,15 @@ export default {
 			aggreSubmit(param, param2 = {}) {
 				if (!this.data.DingData.userid) {
 					dd.alert({
-						content: '尚未登录'
+						content: "尚未登录"
 					});
 					return
 				}
 				this.setData({
 					disablePage: true
 				})
-				var paramArr = []
-				var that = this
+				let paramArr = []
+				let that = this
 				paramArr.push({
 					"TaskId": that.data.taskid,
 					"ApplyMan": that.data.DingData.nickName,
@@ -439,7 +438,7 @@ export default {
 						//if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)))) {
 						if (node.AddPeople.length == 0) {
 							dd.alert({
-								content: '您尚未选择审批人'
+								content: "您尚未选择审批人"
 							});
 							this.setData({
 								disablePage: false
@@ -477,11 +476,11 @@ export default {
 				// return
 				that._postData("FlowInfoNew/SubmitTaskInfo", function(res) {
 					dd.alert({
-						content: '审批成功',
+						content: "审批成功",
 						success: () => {
 							dd.switchTab({
-								url: '/page/approve/approve'
-								//url: '/page/start/index'
+								url: "/page/approve/approve"
+								//url: "/page/start/index"
 							})
 						}
 					});
@@ -491,18 +490,18 @@ export default {
 			//退回审批
 			returnSubmit(e) {
 				dd.confirm({
-					title: '温馨提示',
-					content: '是否确认撤回申请？',
-					confirmButtonText: '确认',
-					cancelButtonText: '取消',
+					title: "温馨提示",
+					content: "是否确认撤回申请？",
+					confirmButtonText: "确认",
+					cancelButtonText: "取消",
 					success: (result) => {
 
 						if (result.confirm == true) {
 							this.setData({
 								disablePage: true
 							})
-							var that = this
-							var param = {
+							let that = this
+							let param = {
 								"TaskId": that.data.taskid,
 								"ApplyMan": that.data.DingData.nickName,
 								"ApplyManId": that.data.DingData.userid,
@@ -523,10 +522,10 @@ export default {
 							}
 							that._postData("FlowInfoNew/FlowBack", function(res) {
 								dd.alert({
-									content: '退回成功',
+									content: "退回成功",
 									success: () => {
 										dd.switchTab({
-											url: '/page/approve/approve'
+											url: "/page/approve/approve"
 										})
 									}
 								});
@@ -553,7 +552,7 @@ export default {
 				for (let m of this.data.menu) {
 					if (m.flowId == this.data.flowid) {
 						dd.redirectTo({
-							url: '/page/start/' + m.url + '?flowid=' + m.flowId
+							url: "/page/start/" + m.url + "?flowid=" + m.flowId
 						})
 					}
 				}
@@ -566,8 +565,8 @@ export default {
 			},
 			//获取审批表单信息
 			getFormData() {
-				var that = this
-				var param = {
+				let that = this
+				let param = {
 					ApplyManId: this.data.DingData.userid,
 					nodeId: this.data.nodeid,
 					TaskId: this.data.taskid
@@ -582,33 +581,33 @@ export default {
 			},
 			//获取审批表单Bom表数据
 			getBomInfo(flowid) {
-				var that = this
-				var url = ''
+				let that = this
+				let url = ""
 				switch (flowid) {
-					case '1': url = "OfficeSupplies/ReadTable"; break;
-					case '6': url = "DrawingUploadNew/GetPurchase"; break;
-					case '8': url = "PurchaseNew/ReadPurchaseTable"; break;
-					case '12': url = "ItemCodeAdd/GetTable"; break;
-					case '26': url = "Pick/Read"; break;
-					case '27': url = "Godown/Read"; break;
-					case '33': url = "DrawingChange/Read"; break;
-					case '67': url = "Borrow/Read"; break;
-					case '68': url = "Maintain/Read"; break;
-					// case '69': url = "ProjectClosure/Read"; break;
+					case "1": url = "OfficeSupplies/ReadTable"; break;
+					case "6": url = "DrawingUploadNew/GetPurchase"; break;
+					case "8": url = "PurchaseNew/ReadPurchaseTable"; break;
+					case "12": url = "ItemCodeAdd/GetTable"; break;
+					case "26": url = "Pick/Read"; break;
+					case "27": url = "Godown/Read"; break;
+					case "33": url = "DrawingChange/Read"; break;
+					case "67": url = "Borrow/Read"; break;
+					case "68": url = "Maintain/Read"; break;
+					// case "69": url = "ProjectClosure/Read"; break;
 				}
 				if (!url) return
-				if (flowid == '12') {
-					this.requestData('GET', url, (res) => {
-						if (flowid == '1') {
+				if (flowid == "12") {
+					this.requestData("GET", url, (res) => {
+						if (flowid == "1") {
 							res = JSON.parse(res.data)
 						}
-						if (flowid == '12') {
+						if (flowid == "12") {
 							res = res.data
 						}
 
 						this.setData({
 							data: res,
-							'tableParam.total': res.length
+							"tableParam.total": res.length
 						})
 						this.getData()
 					}, { TaskId: this.data.taskid })
@@ -616,16 +615,16 @@ export default {
 				}
 				this._getData(url + this.formatQueryStr({ TaskId: this.data.taskid }),
 					function(res) {
-						if (flowid == '33') {
+						if (flowid == "33") {
 							res = res.DrawingChangeList
 							for (let r of res) {
-								r.ChangeType == 1 ? r.ChangeType = '添加' : r.ChangeType = '删除'
+								r.ChangeType == 1 ? r.ChangeType = "添加" : r.ChangeType = "删除"
 							}
 						}
 
 						that.setData({
 							data: res,
-							'tableParam.total': res.length
+							"tableParam.total": res.length
 						})
 						that.getData()
 					}, that.data.DingData)
@@ -633,7 +632,7 @@ export default {
 			//根据taskId获取下一个需要审批的人，即要钉的人
 			getDingList(taskId) {
 				let that = this
-				this._getData('DingTalkServers/Ding?taskId=' + taskId, function(data) {
+				this._getData("DingTalkServers/Ding?taskId=" + taskId, function(data) {
 					if (data == null) {
 						return;
 					}
@@ -648,14 +647,14 @@ export default {
 				console.log(this.data);
 				let param = {
 					userId: this.data.dingList[0],
-					title: '请帮我审核一下流水号为 ' + this.data.taskid + ' 的流程',
+					title: "请帮我审核一下流水号为 " + this.data.taskid + " 的流程",
 					applyMan: this.data.DingData.nickName,
 					taskId: this.data.taskid,
 					flowName: this.data.flowname,
 					linkUrl: "eapp://page/approve/approve?index=0"
 					// linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
 				}
-				this._postData('DingTalkServers/sendOaMessage' + this.formatQueryStr(param), (res) => {
+				this._postData("DingTalkServers/sendOaMessage" + this.formatQueryStr(param), (res) => {
 					dd.alert({
 						content: "已为你催办~"
 					})
@@ -663,9 +662,9 @@ export default {
 			},
 			//打印流程表单
 			print() {
-				this._postData('PurchaseNew/PrintAndSend',
+				this._postData("PurchaseNew/PrintAndSend",
 					function(res) {
-						dd.alert({ content: '获取成功' })
+						dd.alert({ content: "获取成功" })
 					},
 					{
 						UserId: this.data.DingData.userid,
@@ -674,20 +673,20 @@ export default {
 				)
 			},
 			output() {
-				this._getData('api/PurchaseManage' + this.formatQueryStr({ UserId: this.data.DingData.userid, TaskId: this.data.taskid }),
+				this._getData("api/PurchaseManage" + this.formatQueryStr({ UserId: this.data.DingData.userid, TaskId: this.data.taskid }),
 					function(res) {
-						dd.alert({ content: '获取成功' })
+						dd.alert({ content: "获取成功" })
 					}
 				)
 			},
 			//处理表单中的图片、PDF等文件显示
 			handleUrlData(data) {
-				var that = this;
+				let that = this;
 				let imageList = [];
 				let fileList = [];
 				let pdfList = [];
 				if (data.ImageUrl && data.ImageUrl.length > 5) {
-					var tempList = data.ImageUrl.split(',')
+					let tempList = data.ImageUrl.split(",")
 					for (let img of tempList) {
 						imageList.push(that.data.dormainName + (img.substring(2)).replace(/\\/g, "/"))
 					}
@@ -695,10 +694,10 @@ export default {
 				}
 				if (data.FileUrl && data.FileUrl.length > 5) {
 					that.data.FileUrl = data.FileUrl
-					var urlList = data.FileUrl.split(',')
-					var oldUrlList = data.OldFileUrl.split(',')
-					var MediaIdList = data.MediaId ? data.MediaId.split(',') : []
-					for (var i = 0; i < urlList.length; i++) {
+					let urlList = data.FileUrl.split(",")
+					let oldUrlList = data.OldFileUrl.split(",")
+					let MediaIdList = data.MediaId ? data.MediaId.split(",") : []
+					for (let i = 0; i < urlList.length; i++) {
 						fileList.push({
 							name: oldUrlList[i],
 							path: urlList[i].replace(/\\/g, "/"),
@@ -710,11 +709,11 @@ export default {
 				}
 				if (data.FilePDFUrl && data.FilePDFUrl.length > 5) {
 					that.data.FilePDFUrl = data.FilePDFUrl
-					var urlList = data.FilePDFUrl.split(',')
-					var oldUrlList = data.OldFilePDFUrl.split(',')
-					var MediaIdList = data.MediaIdPDF ? data.MediaIdPDF.split(',') : []
-					var stateList = data.PdfState ? data.PdfState.split(',') : []
-					for (var i = 0; i < urlList.length; i++) {
+					let urlList = data.FilePDFUrl.split(",")
+					let oldUrlList = data.OldFilePDFUrl.split(",")
+					let MediaIdList = data.MediaIdPDF ? data.MediaIdPDF.split(",") : []
+					let stateList = data.PdfState ? data.PdfState.split(",") : []
+					for (let i = 0; i < urlList.length; i++) {
 						pdfList.push({
 							name: oldUrlList[i],
 							url: that.data.dormainName + (urlList[i].substring(2)).replace(/\\/g, "/"),
@@ -731,12 +730,12 @@ export default {
 		},
 		//审批所有流程通过，后续处理
 		doneSubmit(text) {
-			if (!text) text = '提交审批成功'
+			if (!text) text = "提交审批成功"
 			dd.alert({
 				content: text,
 				success() {
 					dd.switchTab({
-						url: '/page/start/index'
+						url: "/page/start/index"
 					})
 				}
 			})
@@ -755,7 +754,7 @@ export default {
 				//审批人分组         
 				for (let node of res) {
 					if (lastNode.NodeName == node.NodeName && !lastNode.ApplyTime && !node.ApplyTime && (lastNode.NodeName == "抄送" || lastNode.NodeName == "抄送相关人员" || lastNode.NodeName == "抄送小组成员" || lastNode.NodeName == "抄送所有人") && (node.NodeName == "抄送" || node.NodeName == "抄送相关人员" || node.NodeName == "抄送小组成员" || node.NodeName == "抄送所有人")) {
-						tempNodeList[tempNodeList.length - 1].ApplyMan = tempNodeList[tempNodeList.length - 1].ApplyMan + ',' + node.ApplyMan;
+						tempNodeList[tempNodeList.length - 1].ApplyMan = tempNodeList[tempNodeList.length - 1].ApplyMan + "," + node.ApplyMan;
 					}
 					else {
 						tempNodeList.push(node);
@@ -763,14 +762,14 @@ export default {
 					lastNode = node;
 				}
 				for (let node of tempNodeList) {
-					node['AddPeople'] = [];
+					node["AddPeople"] = [];
 					//抄送人分组
 					if (node.ApplyMan && node.ApplyMan.length > 0) {
-						node.NodePeople = node.ApplyMan.split(',');
+						node.NodePeople = node.ApplyMan.split(",");
 					}
 
 					//申请人设置当前人信息
-					if (node.NodeName.indexOf('申请人') >= 0 && !node.ApplyMan) {
+					if (node.NodeName.indexOf("申请人") >= 0 && !node.ApplyMan) {
 						node.ApplyMan = that.data.DingData.nickName;
 						node.AddPeople = [{
 							name: that.data.DingData.nickName,
@@ -792,7 +791,7 @@ export default {
 		},
 		//获取项目列表
 		getProjectList() {
-			var that = this
+			let that = this
 			this._getData("ProjectNew/GetAllProJect", function(res) {
 				that.setData({
 					projectList: res
@@ -801,7 +800,7 @@ export default {
 		},
 		//获取当前节点信息
 		getNodeInfo() {
-			var that = this
+			let that = this
 			this._getData("FlowInfoNew/getnodeinfo" + this.formatQueryStr({ FlowId: this.data.flowid, nodeId: this.data.nodeid }),
 				function(res) {
 					that.setData({
@@ -815,28 +814,28 @@ export default {
 		//选择时间
 		selectStartDateTime() {
 			dd.datePicker({
-				format: 'yyyy-MM-dd HH:mm',
-				currentDate: this.data.DateStr + ' ' + this.data.TimeStr,
-				startDate: this.data.DateStr + ' ' + this.data.TimeStr,
-				endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
+				format: "yyyy-MM-dd HH:mm",
+				currentDate: this.data.DateStr + " " + this.data.TimeStr,
+				startDate: this.data.DateStr + " " + this.data.TimeStr,
+				endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
 				success: (res) => {
 					this.setData({
 						startDateStr: res.date,
-						'table.StartTime': res.date
+						"table.StartTime": res.date
 					})
 				},
 			});
 		},
 		selectEndDateTime() {
 			dd.datePicker({
-				format: 'yyyy-MM-dd HH:mm',
-				currentDate: this.data.DateStr + ' ' + this.data.TimeStr,
-				startDate: this.data.DateStr + ' ' + this.data.TimeStr,
-				endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day + ' ' + this.data.TimeStr,
+				format: "yyyy-MM-dd HH:mm",
+				currentDate: this.data.DateStr + " " + this.data.TimeStr,
+				startDate: this.data.DateStr + " " + this.data.TimeStr,
+				endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
 				success: (res) => {
 					this.setData({
 						endDateStr: res.date,
-						'table.EndTime': res.date
+						"table.EndTime": res.date
 					})
 				},
 			});
@@ -846,39 +845,39 @@ export default {
 			dd.datePicker({
 				currentDate: this.data.DateStr,
 				startDate: this.data.DateStr,
-				endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
+				endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
 				success: (res) => {
 					this.setData({
 						dateStr: res.date,
-						'table.dateStr': res.date
+						"table.dateStr": res.date
 					})
 				},
 			});
 		},
 		selectStartDate() {
 			dd.datePicker({
-				format: 'yyyy-MM-dd',
+				format: "yyyy-MM-dd",
 				currentDate: this.data.DateStr,
 				startDate: this.data.DateStr,
-				endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
+				endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
 				success: (res) => {
 					this.setData({
 						startDateStr: res.date,
-						'table.StartTime': res.date
+						"table.StartTime": res.date
 					})
 				},
 			});
 		},
 		selectEndDate() {
 			dd.datePicker({
-				format: 'yyyy-MM-dd',
+				format: "yyyy-MM-dd",
 				currentDate: this.data.DateStr,
 				startDate: this.data.DateStr,
-				endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
+				endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
 				success: (res) => {
 					this.setData({
 						endDateStr: res.date,
-						'table.EndTime': res.date
+						"table.EndTime": res.date
 					})
 				},
 			});
@@ -893,28 +892,28 @@ export default {
 		},
 		//上传图片
 		uploadImg(e) {
-			var that = this
+			let that = this
 			dd.chooseImage({
 				count: 2,
 				success: (res) => {
 					that.setData({ imageList: that.data.imageList })
-					//dd.alert({content:'ues ' + JSON.stringify(res)})
+					//dd.alert({content:"ues " + JSON.stringify(res)})
 					for (let p of res.apFilePaths) {
 						that.data.imageList.push(p)
 						that.setData({ disablePage: true })
 						dd.uploadFile({
-							url: that.data.dormainName + 'drawingupload/Upload',
-							fileType: 'image',
+							url: that.data.dormainName + "drawingupload/Upload",
+							fileType: "image",
 							fileName: p.substring(7),
 							filePath: p,
 							success: (res) => {
-								//dd.alert({content:'你返回的 ' + JSON.stringify(res)})
+								//dd.alert({content:"你返回的 " + JSON.stringify(res)})
 								console.log(JSON.parse(res.data).Content)
 								that.data.imgUrlList.push(JSON.parse(res.data).Content)
 								that.setData({ disablePage: false })
 							},
 							fail: (err) => {
-								dd.alert({ content: 'sorry' + JSON.stringify(err) })
+								dd.alert({ content: "sorry" + JSON.stringify(err) })
 							}
 						});
 					}
@@ -968,15 +967,15 @@ export default {
 				this.setData({
 					disablePage: false
 				})
-				dd.alert({ content: '修改成功' })
+				dd.alert({ content: "修改成功" })
 				this.onModalCloseTap2()
 			}, param)
 			return
-			this._getData("FlowInfoNew/ChangeRemark?Id=" + param.Id + '&Remark=' + param.Remark, (res) => {
+			this._getData("FlowInfoNew/ChangeRemark?Id=" + param.Id + "&Remark=" + param.Remark, (res) => {
 				this.setData({
 					disablePage: false
 				})
-				dd.alert({ content: '修改成功' })
+				dd.alert({ content: "修改成功" })
 			})
 		},
 		//隐藏弹窗表单
@@ -1001,15 +1000,15 @@ export default {
 		},
 		//下载文件
 		downloadFile(e) {
-			console.log('下载文件~~~~~~~~~~')
-			var url = "DingTalkServers/sendFileMessage"
-			var param = {
+			console.log("下载文件~~~~~~~~~~")
+			let url = "DingTalkServers/sendFileMessage"
+			let param = {
 				UserId: this.data.DingData.userid,
 				Media_Id: e.target.dataset.mediaId
 			}
 			console.log(e)
-			this.requestData('POST', url, function(res) {
-				dd.alert({ content: '提示信息:' + JSON.parse(res.data).errmsg })
+			this.requestData("POST", url, function(res) {
+				dd.alert({ content: "提示信息:" + JSON.parse(res.data).errmsg })
 			}, param)
 		},
 		//检查是否登录
@@ -1017,7 +1016,7 @@ export default {
 			let that = this;
 			//检查登录
 			if (app.userInfo) {
-				var DingData = {
+				let DingData = {
 					nickName: app.userInfo.nickName,
 					departName: app.userInfo.departName,
 					userid: app.userInfo.userid,
@@ -1029,19 +1028,19 @@ export default {
 				return;
 			}
 			dd.showLoading({
-				content: '登录中...'
+				content: "登录中..."
 			});
 			dd.getAuthCode({
 				success: (res) => {
 					console.log(res.authCode)
 
-					lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({ authCode: res.authCode }), (res) => {
+					lib.func._getData("LoginMobile/Bintang" + lib.func.formatQueryStr({ authCode: res.authCode }), (res) => {
 						let result = res;
 						dd.httpRequest({
 							url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({ userid: res.userid }),
-							method: 'POST',
-							data: '',
-							headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
+							method: "POST",
+							data: "",
+							headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "application/json", },
 							success: function(res) {
 
 								console.log(res);
@@ -1049,12 +1048,12 @@ export default {
 
 								if (!result.userid) {
 									dd.alert({
-										content: res.errmsg + ',请关掉应用重新打开试试~'
+										content: res.errmsg + ",请关掉应用重新打开试试~"
 									});
 									return
 								}
 								app.userInfo = result
-								var DingData = {
+								let DingData = {
 									nickName: name || result.name,
 									departName: result.dept,
 									userid: result.userid,
@@ -1075,12 +1074,12 @@ export default {
 			})
 		},
 
-
+		// 检查登录
 		checkLogin2(callBack) {
 			let that = this;
 			//检查登录
 			if (app.userInfo) {
-				var DingData = {
+				let DingData = {
 					nickName: app.userInfo.nickName,
 					departName: app.userInfo.departName,
 					userid: app.userInfo.userid,
@@ -1092,26 +1091,26 @@ export default {
 				return;
 			}
 			dd.showLoading({
-				content: '登录中...'
+				content: "登录中..."
 			});
 
 			dd.getAuthCode({
 				success: (res) => {
 					console.log(res.authCode);
-					lib.func._getData('LoginMobile/Bintang' + lib.func.formatQueryStr({ authCode: res.authCode }), (res) => {
+					lib.func._getData("LoginMobile/Bintang" + lib.func.formatQueryStr({ authCode: res.authCode }), (res) => {
 						let result = res;
 						dd.httpRequest({
 							url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({ userid: res.userid }),
-							method: 'POST',
-							data: '',
-							headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
+							method: "POST",
+							data: "",
+							headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "application/json", },
 							success: function(res) {
 
 								console.log(res);
 								let name = res.data.name;
 								if (!result.userid) {
 									dd.alert({
-										content: res.errmsg + ',请关掉应用重新打开试试~'
+										content: res.errmsg + ",请关掉应用重新打开试试~"
 									});
 									return;
 								}
@@ -1140,36 +1139,34 @@ export default {
 
 
 
-
+		//选择项目名称之后 修改审批节点和标题
 		bindPickerChange(e) {
+			//for循环是判断是否需要需要审批节点
 			for (let i = 0; i < this.data.nodeList.length; i++) {
-				if (this.data.nodeList[i].NodeName.indexOf('项目负责人') >= 0) {
+				if (this.data.nodeList[i].NodeName.indexOf("项目负责人") >= 0) {
 					this.data.nodeList[i].AddPeople =
 						[{
 							name: this.data.projectList[e.detail.value].ResponsibleMan,
 							userId: this.data.projectList[e.detail.value].ResponsibleManId
 						}]
-					// this.data.nodeList[i].ApplyMan = this.data.projectList[e.detail.value].ResponsibleMan;
-					// this.data.nodeList[i].NodePeople=[ this.data.projectList[e.detail.value].ResponsibleMan];
-					console.log(this.data.nodeList);
-
-
-					let newTitle = this.data.projectList[e.detail.value].ProjectId + "-" + this.data.projectList[e.detail.value].ProjectName;
-					if (newTitle.indexOf("undefined") > -1) {
-						newTitle = undefined;
-					}
-					let a = this.data.projectList[e.detail.value].ContractNo + "-" + this.data.projectList[e.detail.value].ContractName;
 					this.setData({
-						['tableInfo.Title']: newTitle || a,
-						projectIndex: e.detail.value,
 						nodeList: this.data.nodeList
 					});
 				}
 			}
+			//选择完项目名称后修改标题
+			let newTitle = this.data.projectList[e.detail.value].ProjectId + "-" + this.data.projectList[e.detail.value].ProjectName;
+			if (newTitle.indexOf("undefined") > -1) {
+				newTitle = undefined;
+			}
+			let a = this.data.projectList[e.detail.value].ContractNo + "-" + this.data.projectList[e.detail.value].ContractName;
 			this.setData({
-				projectIndex: e.detail.value
+				["tableInfo.Title"]: newTitle || a,
+				projectIndex: e.detail.value,
 			})
 		},
+
+		//选择部门函数
 		bindDeptChange(e) {
 			this.setData({
 				departIndex: e.detail.value,
@@ -1192,9 +1189,9 @@ export default {
 		DateDiff(sDate1, sDate2) { //sDate1和sDate2是2017-9-25格式 
 			let aDate, oDate1, oDate2, iDays;
 			aDate = sDate1.split("-");
-			oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]); //转换为9-25-2017格式 
+			oDate1 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]); //转换为9-25-2017格式 
 			aDate = sDate2.split("-");
-			oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+			oDate2 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]);
 			iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数 
 			return iDays;
 		},
@@ -1210,7 +1207,7 @@ export default {
 				success: function() {
 					app.globalData[`${that.data.flowid}`] = true;
 					dd.alert({
-						content: '临时保存成功，下次打开这个页面时生效。',
+						content: "临时保存成功，下次打开这个页面时生效。",
 						buttonText: "确认"
 					});
 
@@ -1274,7 +1271,7 @@ export default {
 		},
 		//部门选择函数
 		bindObjPickerChange(e) {
-			console.log('picker发送选择改变，携带值为', e.detail.value);
+			console.log("picker发送选择改变，携带值为", e.detail.value);
 			this.setData({
 				departmentIdnex: e.detail.value,
 			});

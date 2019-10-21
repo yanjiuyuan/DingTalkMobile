@@ -48,7 +48,6 @@ Component({
 			if (this.props.value != "") {
 				for (let i = 0, len = this.props.range.length; i < len; i++) {
 					if (this.props.value == this.props.range[i]) {
-						console.log(this.props.value);
 						this.setData({
 							index: i
 						});

@@ -1,3 +1,4 @@
+<!-- 物料编码申请 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
   <!-- 选择部门 -->

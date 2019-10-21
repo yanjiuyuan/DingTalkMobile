@@ -113,8 +113,7 @@ Page({
     //跳转到详细页面
     toDetial(e) {
         let row = e.target.dataset.row;
-        var that = this;
-        console.log(row);
+        let that = this;
         if (this.data.activeItem == 3 && row.IsRead == false) {
             that._getData(
                 "FlowInfoNew/ChangeSendState" +
