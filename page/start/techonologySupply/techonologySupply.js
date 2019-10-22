@@ -1,5 +1,6 @@
 import pub from '/util/public';
 import lib from '/lib.js';
+let app = getApp();
 let good = {}
 
 Page({
@@ -265,19 +266,22 @@ Page({
 	onShow() {
 		// 页面被关闭
 		console.log(this.data.items);
-		this.data.items = [
-			{ name: '工业软件研发部', value: '工业软件研发部' },
-			{ name: '数控一代事业部', value: '数控一代事业部' },
-			{ name: '机器人事业部', value: '机器人事业部' },
-			{ name: '行政部', value: '行政部' },
-			{ name: '财务部', value: '财务部' },
-			{ name: '制造试验部', value: '制造试验部' },
-			{ name: '项目推进部', value: '项目推进部' },
-			{ name: '自动化事业部', value: '自动化事业部' },
-		];
-		this.setData({
-			items: this.data.items
-		})
+		if (app.globalData[`${this.data.flowid}`] == false) {
+			this.data.items = [
+				{ name: '工业软件研发部', value: '工业软件研发部' },
+				{ name: '数控一代事业部', value: '数控一代事业部' },
+				{ name: '机器人事业部', value: '机器人事业部' },
+				{ name: '行政部', value: '行政部' },
+				{ name: '财务部', value: '财务部' },
+				{ name: '制造试验部', value: '制造试验部' },
+				{ name: '项目推进部', value: '项目推进部' },
+				{ name: '自动化事业部', value: '自动化事业部' },
+			];
+			this.setData({
+				items: this.data.items
+			})
+		}
+
 
 	},
 

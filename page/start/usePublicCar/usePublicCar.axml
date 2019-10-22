@@ -21,8 +21,8 @@
 			<view class="form-row">
 				<view class="form-row-label">同行人</view>
 				<view class="form-row-content">
-					<!--<textarea auto-height="true" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/> -->
-					<text name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}">{{table.PeerNumber}}</text>
+					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1"  name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
+
 				</view>
 				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
 			</view>

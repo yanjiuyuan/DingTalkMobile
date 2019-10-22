@@ -9,9 +9,10 @@ Page({
 		show: true,
 	},
 	submit(e) {
-		var that = this
-		var value = e.detail.value
-		var param = {
+		console.log("SSS");
+		let that = this;
+		let value = e.detail.value;
+		let param = {
 			Remark: value.remark
 		}
 		if ((!value.TeamMembers || !value.StartTime || !value.EndTime || !value.TechnicalProposal || !value.ProjectName) && (this.data.nodeid == 1)) {
@@ -38,8 +39,8 @@ Page({
 				dd.alert({ content: '表单未填写完整' })
 				return
 			}
-			this.data.table['ProjectNo'] = value.ProjectNo
-			this.data.table['IsCreateProject'] = true
+			this.data.table['ProjectNo'] = value.ProjectNo;
+			this.data.table['IsCreateProject'] = true;
 			var param2 = {
 				"CreateTime": this._getTime(),
 				"IsEnable": true,
@@ -64,13 +65,16 @@ Page({
 			}
 
 			this._postData("ProjectNew/AddProject", (res) => {
-				that.aggreSubmit(param);
+				this._postData("TechnicalSupport/Modify", (res) => {
+					that.aggreSubmit(param);
+				}, this.data.table)
 			}, [param2])
-			this._postData("TechnicalSupport/Modify", (res) => {
-			}, this.data.table
-			)
 			return;
 		}
+		this._postData("TechnicalSupport/Modify", (res) => {
+			that.aggreSubmit(param);
+		}, this.data.table
+		)
 	},
 	print() {
 		let that = this;

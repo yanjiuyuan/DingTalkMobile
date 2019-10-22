@@ -21,7 +21,6 @@ Component({
 	},
 	//组件初始化
 	didMount() {
-		console.log(this.props.value);
 		this.valueToIndex();
 	},
 

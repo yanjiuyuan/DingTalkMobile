@@ -214,6 +214,20 @@ export default {
 		start: {
 			onLoad(param) {
 				console.log("start page on load~~~~~~~~~~");
+
+
+				let that = this;
+				let title = "";
+				for (let m of this.data.menu) {
+					if (m.flowId == param.flowid) {
+						title = m.title;
+						break;
+					}
+				}
+				this.setData({
+					flowid: param.flowid,
+					"tableInfo.Title": title
+				})
 				//临时保存
 				if (app.globalData[`${param.flowid}`] == true) {
 					this.readData(param.flowid);
@@ -235,23 +249,11 @@ export default {
 					app.globalData.valid = false;
 				}
 
-				let that = this;
-				let title = "";
-				for (let m of this.data.menu) {
-					if (m.flowId == param.flowid) {
-						title = m.title;
-						break;
-					}
-				}
-				this.setData({
-					flowid: param.flowid,
-					"tableInfo.Title": title
-				})
 				let callBack = function() {
 					that.getNodeList();
 					that.getProjectList();
 					that.getNodeInfo();
-					that.loadReApproval();
+					// that.loadReApproval();
 				}
 				this.checkLogin(callBack);
 			},
@@ -487,7 +489,7 @@ export default {
 				}, paramArr)
 			},
 
-			//退回审批
+			//撤回审批
 			returnSubmit(e) {
 				dd.confirm({
 					title: "温馨提示",
@@ -522,7 +524,8 @@ export default {
 							}
 							that._postData("FlowInfoNew/FlowBack", function(res) {
 								dd.alert({
-									content: "退回成功",
+									content: "撤回成功",
+									buttonText: "确认",
 									success: () => {
 										dd.switchTab({
 											url: "/page/approve/approve"

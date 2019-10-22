@@ -170,10 +170,10 @@ Page({
     ]
   },
   submit(e) {
-    var that = this
-    var value = e.detail.value
+    let that = this;
+    let value = e.detail.value;
     console.log(e.detail.value);
-    var param = {
+    let param = {
         Title: value.title,
         Remark: value.remark
     }
@@ -187,8 +187,7 @@ Page({
     let callBack = function (taskId) {
         that.bindAll(taskId)
     }
-    console.log(param)
-    //return
+    console.log(param);
     this.approvalSubmit(param, callBack)
   },
   bindAll(taskId) {
@@ -305,7 +304,7 @@ Page({
     }
 
 
-    if (!value || !value.Name || !value.Standard || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
+    if (!value || !value.Name || !value.Standard || !value.Unit || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
       dd.alert({
         content: `表单填写不完整`,
       });

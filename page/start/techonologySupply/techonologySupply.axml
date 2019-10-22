@@ -35,7 +35,7 @@
 			<view class="form-row">
 				<view class="form-row-label">其他工程师</view>
 				<view class="form-row-content">
-					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" placeholder="" maxlength="-1"/>
+					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="OtherEngineers" class="input" value="{{table.OtherEngineers}}" placeholder=""/>
 				</view>
 				<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
 			</view>

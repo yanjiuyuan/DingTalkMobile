@@ -60,15 +60,14 @@
 			<view class="form-row">
 				<view class="form-row-label">项目名称</view>
 				<view class="form-row-content">
-					<!--<input class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" /> -->
           {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}
 				</view>
 			</view>
-			<!--<view class="form-row"><view class="form-row-label">项目编号</view><view class="form-row-content"><input class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" /></view></view> -->
+
 			<view class="form-row">
-				<view class="form-row-label">项目类别</view>
+				<view class="form-row-label">项目类型</view>
 				<view class="form-row-content">
-					<input class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
+					<input class="input" value="{{table.ProjectType}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row">
@@ -108,9 +107,6 @@
 				</view>
 			</view>
 			<view style="height:50rpx;"></view>
-			<!--<view class="form-row"><view class="form-row-label">项目周期</view><view class="form-row-content"><input class="input" value="{{table.ActualCycleStart + table.ActualCycleEnd}}" disabled="{{true}}" />
-            {{table.ActualCycleStart}}
-            {{table.ActualCycleEnd}}</view></view> -->
 			<view class="form-row">
 				<view class="form-row-label">是否有横向合作单位</view>
 				<view class="form-row-content">
@@ -161,6 +157,7 @@
 							<button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{PPT2 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">评审PPT</view>
 						<view class="form-row-content">
@@ -168,6 +165,7 @@
 							<button type="primary" data-mediaId="{{PPT2.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{DemandBook3 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">需求规格说明书、产品总体设计书</view>
 						<view class="form-row-content">
@@ -175,6 +173,7 @@
 							<button type="primary" data-mediaId="{{DemandBook3.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{Drawing4 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">机械设计图纸</view>
 						<view class="form-row-content">
@@ -182,6 +181,7 @@
 							<button type="primary" data-mediaId="{{Drawing4.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{Electrical5 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">电气图纸</view>
 						<view class="form-row-content">
@@ -189,6 +189,7 @@
 							<button type="primary" data-mediaId="{{Electrical5.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{Bom6}}" style="height:auto;">
 						<view class="form-row-label">BOM表</view>
 						<view class="form-row-content">
@@ -196,6 +197,7 @@
 							<button type="primary" data-mediaId="{{Bom6.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{SourceCode7 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">软件源代码</view>
 						<view class="form-row-content">
@@ -203,6 +205,7 @@
 							<button type="primary" data-mediaId="{{SourceCode7.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+					
 					<view class="form-row" a:if="{{UseBook8 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">使用说明书</view>
 						<view class="form-row-content">
@@ -210,6 +213,7 @@
 							<button type="primary" data-mediaId="{{UseBook8.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{CooperationAgreement9 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">合作协议</view>
 						<view class="form-row-content">
@@ -217,6 +221,7 @@
 							<button type="primary" data-mediaId="{{CooperationAgreement9.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{Product10 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">产品(样机/成品) 图片影像</view>
 						<view class="form-row-content">
@@ -224,6 +229,7 @@
 							<button type="primary" data-mediaId="{{Product10.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{Solution11 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">阶段性成体的问题分析、解决方案及计划表</view>
 						<view class="form-row-content">
@@ -231,6 +237,7 @@
 							<button type="primary" data-mediaId="{{Solution11.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{AcceptanceData14 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">纵向项目申请/中期检查/验收材料</view>
 						<view class="form-row-content">
@@ -238,6 +245,7 @@
 							<button type="primary" data-mediaId="{{AcceptanceData14.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{ProcessDocumentation15 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">其他工程文档、设计报告、评审报告、项目计划、设计更改报告</view>
 						<view class="form-row-content">
@@ -245,13 +253,15 @@
 							<button type="primary" data-mediaId="{{ProcessDocumentation15.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{TerminationReport16 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">项目终止情况报告</view>
 						<view class="form-row-content">
               {{TerminationReport16.FileName}}
-							<button type="primary" data-mediaId="{{PPT2.TerminationReport16}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+							<button type="primary" data-mediaId="{{TerminationReport16.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+
 					<view class="form-row" a:if="{{PackingList17 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">装箱单</view>
 						<view class="form-row-content">
@@ -259,6 +269,7 @@
 							<button type="primary" data-mediaId="{{PackingList17.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
 						</view>
 					</view>
+					
 					<view class="form-row" a:if="{{AcceptanceSlip18 && nodeid !== 1 && nodeid !== 2 && nodeid !== 3}}" style="height:auto;">
 						<view class="form-row-label">客户验收单</view>
 						<view class="form-row-content">

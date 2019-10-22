@@ -45,7 +45,7 @@
 				<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
 			</view>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
-				<button type="primary" onTap="reApproval" disabled="{{disablePage}}">重新发起</button>
+				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
 			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
