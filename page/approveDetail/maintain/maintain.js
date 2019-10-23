@@ -5,7 +5,7 @@ Page({
   data: {
     ...pub.data,
     hidden: true,
-    tableItems: [
+    tableItems2: [
       {
         prop: 'CodeNo',
         label: '物料编码',

@@ -331,7 +331,7 @@
 					<button a:if="{{nodeid >= 2}}" size="default" onTap="PrintThree" type="primary">打印项目经费使用情况表</button>
 				</view>
 			</view>
-			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>

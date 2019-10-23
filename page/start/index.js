@@ -9,8 +9,8 @@ Page({
 		let that = this;
 		this.checkLogin2(function() {
 			that.getMenu();
+			// that.getProjectList();
 		});
-
 		this.getUserInfo();
 	},
 	data: {
@@ -186,10 +186,10 @@ Page({
 					}
 				}
 			}
-			console.log(sorts);
-			console.log(temp);
-			console.log(sortItem);
-			console.log(that.data.menu);
+			// console.log(sorts);
+			// console.log(temp);
+			// console.log(sortItem);
+			// console.log(that.data.menu);
 
 			app.globalData.sort = sorts;
 			app.globalData.menu = temp;

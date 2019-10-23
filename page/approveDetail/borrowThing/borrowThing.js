@@ -5,7 +5,7 @@ Page({
   data: {
     ...pub.data,
     hidden: true,
-    tableItems: [
+    tableItems2: [
       {
         prop: 'Supplier',
         label: '供应商',

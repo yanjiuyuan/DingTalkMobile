@@ -120,12 +120,13 @@ export default {
 
 		//翻頁相關事件
 		getData() {
-			var start = this.data.tableParam.size * (this.data.tableParam.now - 1)
-			var arr = this.data.data.slice(start, start + this.data.tableParam.size)
+			let start = this.data.tableParam.size * (this.data.tableParam.now - 1);
+			let arr = this.data.data.slice(start, start + this.data.tableParam.size);
+			console.log("sssssssssssssss");
+			console.log(arr);
 			this.setData({
-				tableData: arr
+				tableData: arr,
 			})
-			console.log(this.data.tableData)
 		},
 		handleCurrentChange: function(event) {
 			var page = event.target.dataset.page

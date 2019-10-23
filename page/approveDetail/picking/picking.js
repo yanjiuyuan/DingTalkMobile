@@ -7,7 +7,7 @@ Page({
     hidden: true,
     totalPrice: '0',
     imgUrlList:[],
-    tableItems: [
+    tableItems2: [
       {
         prop: 'fNumber',
         label: '物料编码',
@@ -28,28 +28,17 @@ Page({
         label: '单位',
         width: 100
       },
-      // {
-      //   prop: 'fPrice',
-      //   label: '单价',
-      //   width: 200
-      // },
       {
         prop: 'fQty',
         label: '实收数量',
         width: 200
       },
-      //  {
-      //   prop: 'fAmount',
-      //   label: '金额',
-      //   width: 200
-      // },
       {
         prop: 'fFullName',
         label: '供应商',
         width: 300
       }
     ],
-    //data:[]
   },
   submit(e) {
     var that = this

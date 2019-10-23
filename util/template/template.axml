@@ -49,7 +49,7 @@
 			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
 				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view>
 			</view>
-			<view a:if="{{nodedata.IsNeedChose && nodedata.ChoseNodeId && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeople" class="tag tag-info">+ 选人
+			<view a:if="{{pageNumber == 0 && nodedata.IsNeedChose && nodedata.ChoseNodeId && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeople" class="tag tag-info">+ 选人
 			</view>
 			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
 		</view>

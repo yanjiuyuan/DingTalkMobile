@@ -96,7 +96,7 @@
 				</view>
 				<!--<view class="form-row"><view class="form-row-label">相关文件</view><view class="form-row-content"><input name="Duration" class="input" value="{{tableInfo.OldFileUrl}}" disabled="{{true}}" /><button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button></view></view> -->
 				<!-- 选人组件 -->
-				<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+				<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 				<view a:if="{{index==0}}">
 					<template is="suggest"/>
 					<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>

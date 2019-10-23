@@ -37,7 +37,7 @@
 				<view class="form-row-content">
 					<!--<input auto-height="true" name="Project" class="input" value="{{table.Project}}" disabled="{{true}}" /> -->
 					<!-- {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}  -->
-					<textarea maxlength="-1" name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+					<textarea maxlength="-1" name="Title" class="input" value="{{table.Project}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row">
@@ -106,7 +106,7 @@
 				</view>
 			</view>
 			<!-- 选人组件 -->
-			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData}}"/>
+			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>

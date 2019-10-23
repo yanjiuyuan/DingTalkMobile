@@ -6,7 +6,7 @@ Page({
     ...pub.data,
     hidden: true,
     totalPrice: '0',
-    tableItems: [
+    tableItems2: [
       {
         prop: 'CodeNo',
         label: '物料编码',

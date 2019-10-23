@@ -31,11 +31,6 @@ Page({
         label: '物料名称',
         width: 300
       },
-      // {
-      //   prop: 'fQty',
-      //   label: '入库数量',
-      //   width: 200
-      // },
       {
         prop: 'left',
         label: '库存数量',
@@ -51,16 +46,6 @@ Page({
         label: '单位',
         width: 100
       },
-      // {
-      //   prop: 'fPrice',
-      //   label: '单价',
-      //   width: 200
-      // },
-      // {
-      //   prop: 'fAmount',
-      //   label: '金额',
-      //   width: 200
-      // },
       {
         prop: 'fFullName',
         label: '供应商',

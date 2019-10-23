@@ -203,7 +203,7 @@ export default {
 		hidden: true,
 		hiddenCrmk: true,
 		remark: "",
-		ReApprovalTempData: {},//重新发起的临时变量
+
 		disablePage: false,
 	},
 
@@ -228,32 +228,37 @@ export default {
 					flowid: param.flowid,
 					"tableInfo.Title": title
 				})
-				//临时保存
-				if (app.globalData[`${param.flowid}`] == true) {
-					this.readData(param.flowid);
-				}
-
-				//重新发起
-				if (app.globalData.valid == true) {
-					console.log(param);
-					let data = JSON.parse(param.data);
-					console.log(data);
-					for (let d in data) {
-						this.setData({
-							[`${d}`]: data[d]
-						})
-					}
-					this.setData({
-						taskid: 0
-					})
-					app.globalData.valid = false;
-				}
 
 				let callBack = function() {
-					that.getNodeList();
-					that.getProjectList();
-					that.getNodeInfo();
-					// that.loadReApproval();
+					//临时保存后无需再向服务器请求数据
+					if (app.globalData[`${param.flowid}`] == undefined || app.globalData[`${param.flowid}`] == false) {
+						that.getNodeList();//获取审批列表
+						that.getProjectList();//获取项目列表
+						that.getNodeInfo();//获取审批列表当前节点的信息					
+					}
+
+
+					//临时保存
+					if (app.globalData[`${param.flowid}`] == true) {
+						that.readData(param.flowid);
+					}
+					//重新发起
+					if (app.globalData.valid == true) {
+
+						let data = JSON.parse(param.data);
+						for (let d in data) {
+							that.setData({
+								[`${d}`]: data[d]
+							})
+						}
+						that.setData({
+							taskid: 0,
+							purchaseList:that.data.tableData,// 发起的物料表单
+							tableData:[]
+						})
+						app.globalData.valid = false;
+					}
+
 				}
 				this.checkLogin(callBack);
 			},
@@ -316,27 +321,6 @@ export default {
 					let taskid = res;
 					callBack(taskid);
 				}, paramArr)
-			},
-			//加载重新发起数据
-			loadReApproval() {
-				let localStorage = this.data.localStorage
-				if (!localStorage || !localStorage.valid) return
-				localStorage.valid = false
-				if (localStorage.flowid == 8) {
-					this.setData({
-						purchaseList: localStorage.data
-					})
-				} else {
-					this.setData({
-						data: localStorage.data
-					})
-				}
-				this.setData({
-					"tableInfo.Title": localStorage.title,
-					flowid: localStorage.flowid,
-					tableItems: localStorage.tableItems,
-					localStorage: localStorage
-				})
 			},
 			//搜索物料编码
 			searchCode(e) {
@@ -539,27 +523,6 @@ export default {
 
 			},
 
-			//重新发起
-			reApproval() {
-				this.data.localStorage = JSON.stringify({
-					valid: true,
-					flowid: this.data.flowid,
-					//data: this.data.data,
-					data: this.data.tableData,
-					title: this.data.tableInfo.Title,
-					tableItems: this.data.tableItems
-				})
-				this.setData({
-					disablePage: true
-				})
-				for (let m of this.data.menu) {
-					if (m.flowId == this.data.flowid) {
-						dd.redirectTo({
-							url: "/page/start/" + m.url + "?flowid=" + m.flowId
-						})
-					}
-				}
-			},
 			//判断是否可以撤回参数
 			isWithdraw() {
 				console.log(this.data.nodeList);
@@ -584,8 +547,8 @@ export default {
 			},
 			//获取审批表单Bom表数据
 			getBomInfo(flowid) {
-				let that = this
-				let url = ""
+				let that = this;
+				let url = "";
 				switch (flowid) {
 					case "1": url = "OfficeSupplies/ReadTable"; break;
 					case "6": url = "DrawingUploadNew/GetPurchase"; break;
@@ -619,12 +582,11 @@ export default {
 				this._getData(url + this.formatQueryStr({ TaskId: this.data.taskid }),
 					function(res) {
 						if (flowid == "33") {
-							res = res.DrawingChangeList
+							res = res.DrawingChangeList;
 							for (let r of res) {
-								r.ChangeType == 1 ? r.ChangeType = "添加" : r.ChangeType = "删除"
+								r.ChangeType == 1 ? r.ChangeType = "添加" : r.ChangeType = "删除";
 							}
 						}
-
 						that.setData({
 							data: res,
 							"tableParam.total": res.length
@@ -746,7 +708,6 @@ export default {
 		//获取节点列表
 		getNodeList() {
 			let that = this;
-			console.log(this.data.nodeList);
 			let param = {
 				FlowId: this.data.flowid,
 				TaskId: this.data.taskid
@@ -1163,10 +1124,12 @@ export default {
 				newTitle = undefined;
 			}
 			let a = this.data.projectList[e.detail.value].ContractNo + "-" + this.data.projectList[e.detail.value].ContractName;
+			console.log("picker发送选择改变，携带值为" + e.detail.value);
 			this.setData({
 				["tableInfo.Title"]: newTitle || a,
 				projectIndex: e.detail.value,
 			})
+
 		},
 
 		//选择部门函数
@@ -1224,8 +1187,6 @@ export default {
 			dd.getStorage({
 				key: `${flowid}`,
 				success: function(res) {
-					console.log(res.data.data);
-					console.log(res.data.data.items);
 					that.data = res.data.data;
 					for (let d in that.data) {
 						that.setData({

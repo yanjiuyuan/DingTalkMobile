@@ -156,7 +156,8 @@ Page({
 	},
 	bindAll(taskId) {
 		let that = this
-		let paramArr = []
+		let paramArr = [];
+		
 		for (let p of that.data.purchaseList) {
 			p.TaskId = taskId
 			paramArr.push(p)
