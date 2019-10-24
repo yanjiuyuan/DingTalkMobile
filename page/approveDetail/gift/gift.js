@@ -3,7 +3,7 @@ Page({
   ...pub.func,
   ...pub.func.dowith,
  data:{
-   tableItems:[
+   tableItems2:[
       {
         prop: 'GiftName',
         label: '礼品名称',

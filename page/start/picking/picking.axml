@@ -81,7 +81,7 @@
 			</view>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
-			<template is="suggest"/>
+			<template is="suggest" data="{{table}}"/>
 		</view>
 		<!-- 提交按钮 -->
 		<template is ="submitButton"/>

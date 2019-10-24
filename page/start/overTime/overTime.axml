@@ -1,74 +1,80 @@
 <!-- 基地加班 -->
 <import src="/util/template/template.axml"/>
 <view>
-  <form onSubmit="submit">
-    <view class="page-section">
-      <!-- 标题 -->
-      <template is ="title" data="{{tableInfo}}"/>
-      <!-- 申请人 -->
-      <template is ="applyman" data="{{DingData}}"/>
-      <!-- 选择部门 -->
-      <template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>加班人员</view>
-        <view class="form-row-content">
-          <input name="name" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>加班事由</view>
-        <view class="form-row-content">
-          <textarea auto-height="true" name="OverTimeContent" class="input" value="{{table.PlantTravelWay}}"/>
-        </view>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>加班日期</view>
-        <view class="form-row-content">
-          <input name="DateTime" class="input" placeholder="加班日期" onFocus="selectStartDateTime" value="{{table.StartTime}}"/>
-        </view>
-      </view>
-      <!--<view class="form-row"><view class="form-row-label"><template is="required"></template>起始时间</view><view class="form-row-content"><input name="TimeRequired" class="input" placeholder="起始时间" onFocus="datePickerHMOne" value="{{table.StartTime}}"/></view></view><view class="form-row"><view class="form-row-label"><template is="required"></template>结束时间</view><view class="form-row-content"><input name="TimeRequired" class="input" placeholder="结束时间" onFocus="datePickerHMTwo" value="{{table.StartTime}}"/></view></view> -->
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>起始时间</view>
-        <picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{arrayOfTime}}">
-          <view class="row">
-            <view class="row-title"></view>
-            <view class="row-extra">{{arrayOfTime[index1]}}</view>
-            <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </picker>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>结束时间</view>
-        <picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{arrayOfTime}}">
-          <view class="row">
-            <view class="row-title"></view>
-            <view class="row-extra">{{arrayOfTime[index2]}}</view>
-            <image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-          </view>
-        </picker>
-      </view>
-      <view class="form-row">
-        <view class="form-row-label">
-          <template is="required"></template>加班时长(小时)</view>
-        <view class="form-row-content">
-          <input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" />
-        </view>
-      </view>
-      <!-- 选人组件 -->
-      <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
-      <!-- 建议输入框 -->
-      <template is="suggest"/>
-      <!--<view class="page-section-suggest"><view class="page-section-title">建议</view><view class="page-section-demo"><textarea name="remark" placeholder="输入 建议" /></view></view> -->
-    </view>
+	<form onSubmit="submit">
+		<view class="page-section">
+			<!-- 标题 -->
+			<template is ="title" data="{{tableInfo}}"/>
+			<!-- 申请人 -->
+			<template is ="applyman" data="{{DingData}}"/>
+			<!-- 选择部门 -->
+			<!--<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>申请部门</view>
+				<view class="form-row-content">
+					<my-picker index="{{departmentIdnex}}" range ="{{DingData.departmentList}}" onChange="bindObjPickerChange" value="{{tableInfo.Dept}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>加班人员</view>
+				<view class="form-row-content">
+					<input name="name" class="input" disabled="{{true}}" value="{{DingData.nickName}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>加班事由</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="OverTimeContent" class="input"  data-name="OverTimeContent" onInput="inputToTable"  value="{{table.OverTimeContent}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>加班日期</view>
+				<view class="form-row-content">
+					<input name="DateTime" class="input" placeholder="加班日期" onFocus="selectStartDateTime" value="{{table.StartTime}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>起始时间</view>
+				<picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{arrayOfTime}}">
+					<view class="row">
+						<view class="row-title"></view>
+						<view class="row-extra">{{arrayOfTime[index1]}}</view>
+						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</picker>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>结束时间</view>
+				<picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{arrayOfTime}}">
+					<view class="row">
+						<view class="row-title"></view>
+						<view class="row-extra">{{arrayOfTime[index2]}}</view>
+						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</picker>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>加班时长(小时)</view>
+				<view class="form-row-content">
+					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" />
+				</view>
+			</view>
+			<!-- 选人组件 -->
+			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+			<!-- 建议输入框 -->
+			<template is="suggest" data="{{table}}"/>
+		</view>
 		<!-- 提交按钮 -->
 		<template is ="submitButton"/>
-
-    </view>
-  </form>
+		<!-- 临时保存 -->
+		<template is="temporaryPreservation"/>
+		</view>
+	</form>
 </view>

@@ -8,7 +8,7 @@ let xTap = -90;
 let yTap = -90;
 let States = ["在研", "已完成", "终止"]
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
-let DeptNames = ["智慧工厂事业部", "数控一代事业部", "机器人事业部", "行政部", "财务部", "制造试验部", "项目推进部", "自动化事业部"]
+let DeptNames = ["工业软件研发部", "数控一代事业部", "机器人事业部", "行政部", "财务部", "制造试验部", "项目推进部", "自动化事业部"]
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"]
 let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]
 let localStorage = ""
@@ -141,7 +141,7 @@ export default {
 				{
 					flowId: 35,
 					sortId: 7,
-					title: "跨部门协助",
+					title: "物资放行条申请",
 					url: "letGoodsGo/letGoodsGo",
 					position: (x + 8 * xTap - 4) + "px " + (y + 0 * yTap) + "px"
 				},
@@ -232,6 +232,10 @@ export default {
 				let callBack = function() {
 					//临时保存后无需再向服务器请求数据
 					if (app.globalData[`${param.flowid}`] == undefined || app.globalData[`${param.flowid}`] == false) {
+						that.setData({
+							table: {},//清除表单数据
+							imageList: []//清除图片数据
+						})
 						that.getNodeList();//获取审批列表
 						that.getProjectList();//获取项目列表
 						that.getNodeInfo();//获取审批列表当前节点的信息					
@@ -251,11 +255,17 @@ export default {
 								[`${d}`]: data[d]
 							})
 						}
-						that.setData({
-							taskid: 0,
-							purchaseList:that.data.tableData,// 发起的物料表单
-							tableData:[]
-						})
+						if (that.data.flowid == 12) {
+							
+						}
+						else {
+							that.setData({
+								taskid: 0,
+								purchaseList: that.data.tableData,// 发起的物料表单
+								tableData: []
+							})
+						}
+
 						app.globalData.valid = false;
 					}
 

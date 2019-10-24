@@ -279,21 +279,5 @@ Page({
       });
     }, 210);
   },
-  //显示临时保存数据
-  saveTempData() {
-      localStorage.setItem('purchase', JSON.stringify(this.data.purchaseList))
-      dd.alert({content:'保存成功'})
-  },
-  loadTempData() {
-      var data = JSON.parse(localStorage.getItem('purchase'))
-      if (data && data.length && data.length > 0) {
-        this.setData({purchaseList: data})
-        localStorage.removeItem('purchase')
-      }
-  },
-  onShow() {
-    //this.loadTempData()
-  },
 
-  
 });

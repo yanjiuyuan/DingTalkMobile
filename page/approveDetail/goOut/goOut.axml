@@ -8,7 +8,8 @@
 		<view class="page-section">
 			<view class="form-row">
 				<view class="form-row-label">
-					<template is="required"></template>标题</view>
+					标题
+				</view>
 				<view class="form-row-content">
 					<input name="Title" class="input" value="{{tableInfo.Title}}" placeholder="输入 标题" disabled="{{true}}" />
 				</view>
@@ -23,14 +24,14 @@
 			<view class="form-row">
 				<view class="form-row-label">同行人</view>
 				<view class="form-row-content">
-					<!--<textarea auto-height="true" name="EvectionMan" class="input" value="{{table.EvectionMan}}" disabled="{{true}}" /><textarea auto-height="true" name="EvectionManId" class="input" value="{{table.EvectionManId}}" style="display:none;" /> -->
-					<text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text>
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="EvectionMan" class="input" value="{{table.EvectionMan}}" disabled="{{true}}" />
+
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">外出地点</view>
 				<view class="form-row-content">
-					<textarea maxlength="-1" auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}" />
+					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="Place" class="input" value="{{table.Place}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view a:if="{{nodeid >= 2}}">
@@ -94,7 +95,6 @@
 						</view>
 					</view>
 				</view>
-				<!--<view class="form-row"><view class="form-row-label">相关文件</view><view class="form-row-content"><input name="Duration" class="input" value="{{tableInfo.OldFileUrl}}" disabled="{{true}}" /><button type="primary" data-mediaId="{{SuggestBook1.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button></view></view> -->
 				<!-- 选人组件 -->
 				<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 				<view a:if="{{index==0}}">

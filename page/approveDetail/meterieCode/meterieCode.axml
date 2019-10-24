@@ -70,6 +70,9 @@
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
 				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
 			</view>
+			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
+				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
+			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
 			</view>

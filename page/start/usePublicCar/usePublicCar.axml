@@ -1,7 +1,6 @@
 <!-- 公车申请 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
-
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
@@ -10,7 +9,14 @@
 			<!-- 申请人 -->
 			<template is ="applyman" data="{{DingData}}"/>
 			<!-- 选择部门 -->
-			<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/>
+			<!--<template is="chooseDepartment" data="{{departmentList:DingData.departmentList,index:departmentIdnex}}"/> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>申请部门</view>
+				<view class="form-row-content">
+					<my-picker index="{{departmentIdnex}}" range ="{{DingData.departmentList}}" onChange="bindObjPickerChange" value="{{tableInfo.Dept}}"/>
+				</view>
+			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>驾驶员</view>
@@ -21,8 +27,7 @@
 			<view class="form-row">
 				<view class="form-row-label">同行人</view>
 				<view class="form-row-content">
-					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1"  name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
-
+					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="PeerNumber" class="input" disabled="{{true}}" value="{{table.PeerNumber}}"/>
 				</view>
 				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
 			</view>
@@ -30,14 +35,14 @@
 				<view class="form-row-label">
 					<template is="required"></template>计划行车路线</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="PlantTravelWay" class="input" value="{{table.PlantTravelWay}}"/>
+					<textarea auto-height="true" name="PlantTravelWay" class="input" data-name="PlantTravelWay" onInput="inputToTable"  value="{{table.PlantTravelWay}}"/>
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>用车事由</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="MainContent" class="input" value="{{table.MainContent}}"/>
+					<textarea auto-height="true" name="MainContent" data-name="MainContent" onInput="inputToTable" class="input" value="{{table.MainContent}}"/>
 				</view>
 			</view>
 			<view class="form-row">
@@ -70,11 +75,12 @@
 			</checkbox-group>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+			<template is="suggest" data="{{table}}"/>
 		</view>
+		<button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
 		<!-- 提交按钮 -->
 		<template is ="submitButton"/>
-		<button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
+		<!-- 临时保存 -->
+		<template is="temporaryPreservation"/>
 	</form>
-	<!--<modal onModalClick="onModalClick" onModalClose="onModalClose" show="{{modalOpened}}"><view slot="header">车辆安全使用协议</view><view>甲方: 泉州华中科技大学智能制造研究院（泉州华数机器人有限公司）</view>
-    说明当前状态、提示用户解决方案，最好不要超过两行。<view slot="footer">确定</view></modal> -->
 </view>

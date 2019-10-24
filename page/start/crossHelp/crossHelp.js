@@ -11,8 +11,8 @@ Page({
 		let that = this;
 		let value = e.detail.value;
 		value['CooperateDept'] = this.data.DeptNames[this.data.departIndex];
-		value['CooperateManId'] = this.data.tableInfo.CooperateManId;
-		value['CooperateMan'] = this.data.tableInfo.CooperateMan;
+		value['CooperateManId'] = this.data.table.CooperateManId;
+		value['CooperateMan'] = this.data.table.CooperateMan;
 
 		console.log(value);
 
@@ -32,7 +32,7 @@ Page({
 		this.data.nodeList[4].AddPeople = this.data.nodeList[2].AddPeople
 		this.data.nodeList[6].AddPeople = [...this.data.nodeList[1].AddPeople, ...this.data.nodeList[2].AddPeople]
 		this.approvalSubmit({
-			Title: value.Title,
+			Title: value.title,
 			Remark: value.remark
 		}, callBack)
 	},
@@ -52,14 +52,10 @@ Page({
 				}
 				console.log(names);
 				console.log(ids);
-				// for(let i = 0; i<names.length;i++){
-				//   that.data.nodeList[6].AddPeople.push({name:names[i],userId:ids[i]});
-				// }
-				// console.log(that.data.nodeList);
 				that.setData({
-					'tableInfo.CooperateMan': names.join(','),
-					'tableInfo.CooperateManId': ids.join(','),
-					// nodeList:that.data.nodeList
+					"table.CooperateMan":names.join(','),
+					"table.CooperateManId":names.join(','),
+
 				})
 			},
 			fail: function(err) {
@@ -75,8 +71,8 @@ Page({
 			startDate: this.data.DateStr,
 			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
 			success: (res) => {
-				if (that.data.endDateStr) {
-					let iDay = that.DateDiff(res.date, that.data.endDateStr);//計算天數
+				if (that.data.table.PlanEndTime) {
+					let iDay = that.DateDiff(res.date, that.data.table.PlanEndTime);//計算天數
 					if (iDay > 0) {
 						dd.alert({
 							content: "结束时间要大于开始时间。"
@@ -87,7 +83,7 @@ Page({
 
 				this.setData({
 					startDateStr: res.date,
-					'table.StartTime': res.date
+					'table.PlanBeginTime': res.date
 				})
 			},
 		});
@@ -103,8 +99,8 @@ Page({
 			startDate: this.data.DateStr,
 			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
 			success: (res) => {
-				if (that.data.startDateStr) {
-					iDay = that.DateDiff(res.date, that.data.startDateStr);//計算天數
+				if (that.data.table.PlanBeginTime) {
+					iDay = that.DateDiff(res.date, that.data.table.PlanBeginTime);//計算天數
 					if (iDay < 0) {
 						dd.alert({
 							content: "结束时间要大于开始时间。"
@@ -112,13 +108,10 @@ Page({
 						return;
 					}
 				}
-
-
-
 				this.setData({
 					'table.PlanDays': iDay,
 					endDateStr: res.date,
-					'table.EndTime': res.date
+					'table.PlanEndTime': res.date
 				})
 			},
 		});
