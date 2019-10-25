@@ -256,7 +256,7 @@ export default {
 							})
 						}
 						if (that.data.flowid == 12) {
-							
+
 						}
 						else {
 							that.setData({
@@ -336,10 +336,23 @@ export default {
 			searchCode(e) {
 				let value = e.detail.value
 				console.log(value);
-				if (!value || !value.keyWord) return
+				if (!value || !value.keyWord) {
+					dd.alert({
+						content: "请输入关键字",
+						buttonText: "确认"
+					})
+					return;
+				}
 				let that = this
 				that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function(res) {
 					console.log(JSON.parse(res.data))
+					if (JSON.parse(res.data).length == 0) {
+						dd.alert({
+							content: "未搜索到相关结果",
+							buttonText: "确认"
+						})
+						return;
+					}
 					that.setData({
 						"tableParam.total": JSON.parse(res.data).length
 					})

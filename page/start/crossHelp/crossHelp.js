@@ -16,7 +16,12 @@ Page({
 
 		console.log(value);
 
-
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
+		}
 		if (value.CooperateDept == "" || value.CooperateMan == undefined || value.PlanBeginTime == "" || value.PlanEndTime == "" || value.CooperateContent == "" || value.PlanDays == "") {
 			dd.alert({ content: '表单未填写完整' })
 			return
@@ -53,8 +58,8 @@ Page({
 				console.log(names);
 				console.log(ids);
 				that.setData({
-					"table.CooperateMan":names.join(','),
-					"table.CooperateManId":names.join(','),
+					"table.CooperateMan": names.join(','),
+					"table.CooperateManId": names.join(','),
 
 				})
 			},

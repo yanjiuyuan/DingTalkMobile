@@ -102,7 +102,6 @@
 
 .modal-close {
   position: absolute;
-  /* top: 34rpx; */
   right: 60rpx;
   color: #888;
   font-size: 80rpx;

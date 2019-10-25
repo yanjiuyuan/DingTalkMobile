@@ -52,9 +52,11 @@
 				<text>礼品列表</text>
 				<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
-			<!-- 已选表单 -->
-			<text>已选礼品</text>
-			<template is="datatable" data="{{items:tableItems2,data:purchaseList,param:tableParam2}}"/>
+			<view onTap="deleteItem">
+				<!-- 已选表单 -->
+				<text>已选礼品</text>
+				<template is="datatable" data="{{items:tableItems2,data:purchaseList,param:tableParam2,tableOperate:tableOperate2}}"/>
+			</view>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
 			<template is="suggest" data="{{table}}"/>

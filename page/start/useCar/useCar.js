@@ -42,6 +42,12 @@ Page({
 			dd.alert({ content: '用车无需季老师审批,如是部长级请选本人' })
 			return
 		}
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
+		}
 		value['CarId'] = ''
 		value['IsChooseOccupyCar'] = true
 		value['IsPublicCar'] = false
@@ -68,7 +74,7 @@ Page({
 			)
 		}
 
-		this.approvalSubmit({ Title: value.title,remark:value.remark }, callBack)
+		this.approvalSubmit({ Title: value.title, remark: value.remark }, callBack)
 	},
 	//选人控件方法
 	choosePeoples(e) {

@@ -9,7 +9,7 @@
 			<view class="form-row">
 				<view class="form-row-label">标题</view>
 				<view class="form-row-content">
-					<textarea maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row">
@@ -42,8 +42,8 @@
 			</view>
 			<view a:if="{{ index!= 0 && state == '已完成' }}">
 				<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
-				<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
 			</view>
+			<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
 				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
 			</view>

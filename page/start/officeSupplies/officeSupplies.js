@@ -145,7 +145,13 @@ Page({
 		}
 		if (!that.data.purchaseList.length) {
 			dd.alert({ content: `请选择办公用品` })
-			return
+			return;
+		}
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
 		}
 		let callBack = function(taskId) {
 			that.bindAll(taskId)
@@ -154,10 +160,11 @@ Page({
 		//return
 		this.approvalSubmit(param, callBack)
 	},
+
 	bindAll(taskId) {
 		let that = this
 		let paramArr = [];
-		
+
 		for (let p of that.data.purchaseList) {
 			p.TaskId = taskId
 			paramArr.push(p)
@@ -189,9 +196,12 @@ Page({
 		let row = e.target.targetDataset.row;
 		if ((!index) && index != 0) return
 		console.log(this.data.purchaseList)
-		this.data.purchaseList.splice(index, 1)
+		let length = this.data.purchaseList.length;
+		this.data.purchaseList.splice(index, 1);
+
 		let totalPrice = this.data.totalPrice - (row.Count - 0.0) * (row.ExpectPrice - 0.0);
 		this.setData({
+			"tableParam2.total": length - 1,
 			purchaseList: this.data.purchaseList,
 			totalPrice: totalPrice
 		})

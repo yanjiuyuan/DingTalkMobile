@@ -44,6 +44,12 @@ Page({
 		}
 		let that = this;
 		let value = e.detail.value;
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
+		}
 		value['CarId'] = '';
 		value['IsChooseOccupyCar'] = true;
 		value['IsPublicCar'] = true;

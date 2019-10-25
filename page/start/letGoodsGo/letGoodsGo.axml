@@ -62,7 +62,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>放行理由</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="Cause" class="input" value="{{table.Cause}}" data-name="Cause" onInput="inputToTable"/>
+					<textarea auto-height="true" maxlength="100" name="Cause" class="input" value="{{table.Cause}}" data-name="Cause" onInput="inputToTable"/>
 				</view>
 			</view>
 			<view class="form-row">
@@ -73,13 +73,24 @@
 				</view>
 				<view onTap="selectDate" class="tag tag-info">+ 选择</view>
 			</view>
-			<view class="form-row" style="height:auto;">
+			<!-- <view class="form-row" style="height:auto;">
 				<view class="form-row-label">
 					<template is="required"></template>上传图片</view>
 				<view class="form-row-content">
 					<view>
 						<image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view>
 					<view onTap="uploadImg" class="tag tag-info">+ 选择图片</view>
+				</view>
+			</view> -->
+			<view class="form-row" style="height:auto;">
+				<view class="form-row-label">
+					<template is="required"></template>上传照片</view>
+				<view class="form-row-content">
+					<view a:for="{{imageList}}" a:for-index="idx">
+						<image onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
+						<button size="mini" type="primary" data-url="{{item}}" data-index="{{idx}}" onTap="deletePhoto">删除</button>
+					</view>
+					<view onTap="uploadImg" class="tag tag-info">+ 选择照片</view>
 				</view>
 			</view>
 			<!-- 选人组件 -->

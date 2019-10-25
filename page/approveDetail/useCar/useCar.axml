@@ -77,7 +77,6 @@
 							<input name="EndKilometres" class="input" value="{{table.EndKilometres}}" disabled="{{nodeid >= 5}}" />
 						</view>
 					</view>
-					<!--<view class="form-line" />  -->
 					<view class="form-row" style="height:auto;">
 						<view class="form-row-label">
 							<template is="required"></template>上传照片</view>
@@ -88,10 +87,7 @@
 							</view>
 							<view a:if="{{nodeid == 3 || nodeid == 4}}" onTap="uploadImg" class="tag tag-info">+ 选择照片</view>
 						</view>
-						<!--<view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view><view a:if="{{nodeid == 3 || nodeid == 4}}" onTap="uploadImg" class="tag tag-info">+ 选择照片</view><view a:if="{{nodeid == 3 || nodeid == 4}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view>
-             -->
 					</view>
-					<!--<view class="form-row" style=""><view class="form-row-label"><template is="required"></template> 拍照上传</view><view class="form-row-content"><view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" /></view><view a:if="{{(nodeid == 3 || nodeid == 4) && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view><view a:if="{{(nodeid == 3 || nodeid == 4) && index == 0}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view></view></view>  -->
 				</view>
 				<view class="page-section">
 					<view class="form-row">

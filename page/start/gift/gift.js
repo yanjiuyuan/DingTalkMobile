@@ -6,6 +6,12 @@ Page({
 		...pub.data,
 		hidden: true,
 		tableOperate: "添加",
+		tableOperate2: "删除",
+		tableParam2: {
+			size: 100,
+			now: 1,
+			total: 0
+		},
 		purchaseList: [],//已选列表
 		tableItems: [
 			{
@@ -58,7 +64,8 @@ Page({
 		console.log(value);
 		if (value.keyWord == "") {
 			dd.alert({
-				content: "请输入关键字"
+				content: "请输入关键字",
+				buttonText:"确认"
 			})
 			return;
 		}
@@ -69,7 +76,8 @@ Page({
 			console.log(res);
 			if (res.length == 0) {
 				dd.alert({
-					content: "暂无数据"
+					content: "未搜索到相关结果",
+					buttonText:"确认"
 				})
 			}
 			else if (res.length > 0) {
@@ -94,6 +102,21 @@ Page({
 		this.createContentShowAnim();
 
 	},
+	//删除
+	deleteItem(e) {
+		if (!e) return
+		let index = e.target.targetDataset.index;
+		let row = e.target.targetDataset.row;
+		if ((!index) && index != 0) return
+		let length = this.data.purchaseList.length;
+		this.data.purchaseList.splice(index, 1)
+
+
+		this.setData({
+			"tableParam2.total": length - 1,
+			purchaseList: this.data.purchaseList,
+		})
+	},
 
 	//提交弹窗表单
 	addGood(e) {
@@ -110,10 +133,12 @@ Page({
 			GiftNo: this.data.good.Id,
 			GiftCount: value.GiftCount,
 		}
-	
 
-		let length = this.data.purchaseList.length
+
+		let length = this.data.purchaseList.length;
+
 		this.setData({
+			"tableParam2.total": length + 1,
 			[`purchaseList[${length}]`]: param,
 		})
 		this.onModalCloseTap();
@@ -126,6 +151,12 @@ Page({
 		let param = {
 			Title: value.title,
 			Remark: value.remark
+		}
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
 		}
 		if (!that.data.purchaseList.length) {
 			dd.alert({ content: `请选择礼品` })

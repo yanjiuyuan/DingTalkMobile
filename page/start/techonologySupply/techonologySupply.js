@@ -147,6 +147,12 @@ Page({
 		let value = e.detail.value;
 		console.log(value);
 		let that = this;
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
+		}
 		let OtherEngineers = "";
 		let OtherEngineersId = "";
 		for (let i = 0, len = that.data.OtherEngineers.length; i < len; i++) {

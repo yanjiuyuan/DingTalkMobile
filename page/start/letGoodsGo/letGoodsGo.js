@@ -13,11 +13,18 @@ Page({
 		let that = this;
 		let value = e.detail.value;
 		value['Company'] = this.data.CompanyNames[this.data.companyIndex];
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
+		}
 		console.log(value);
 		if (this.data.imgUrlList.length < 1) {
 			dd.alert({ content: '需要上传图片' })
 			return
 		}
+
 		if (value.Company == "" || value.Tel == "" || value.Name == "" || value.Count == "" || value.Unit == "" || value.Cause == "" || value.Date == "") {
 			dd.alert({ content: '表单未填写完整' })
 			return
@@ -52,4 +59,22 @@ Page({
 			},
 		});
 	},
+	deletePhoto(e) {
+		my.confirm({
+			title: '温馨提示',
+			content: '是否需要删除？',
+			confirmButtonText: 'YES',
+			cancelButtonText: 'NO',
+			success: (result) => {
+				if (result.confirm == true) {
+
+					let index = e.currentTarget.dataset.index;
+					this.data.imageList.splice(index, 1);	
+					this.setData({
+						imageList: this.data.imageList
+					})
+				}
+			},
+		});
+	}
 });

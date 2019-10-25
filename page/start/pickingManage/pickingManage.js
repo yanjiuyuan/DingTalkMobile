@@ -1,4 +1,4 @@
-import pub from '/util/public'; 
+import pub from '/util/public';
 let good = {};
 Page({
 	...pub.func,
@@ -113,7 +113,6 @@ Page({
 		}
 		else if (e.buttonTarget.dataset.isSend == undefined) {
 			this._getData("Pick/Query" + that.formatQueryStr({ applyManId: this.data.DingData.userid, startTime: value.StartTime, endTime: value.EndTime, Key: value.keyWord }), (res) => {
-				console.log("sssssss");
 				console.log(res);
 				if (res == undefined) {
 					dd.alert({
@@ -123,7 +122,10 @@ Page({
 					return;
 				}
 				if (res.length == 0) {
-					dd.alert({ content: '暂无数据', buttonText: "确认" });
+					dd.alert({
+						content: '未搜索到相关结果',
+						buttonText: "确认"
+					});
 					return;
 				}
 				that.setData({

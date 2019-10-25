@@ -26,7 +26,7 @@ Page({
 		}],
 	},
 	submit(e) {
-		var value = e.detail.value
+		let value = e.detail.value
 		value['Type'] = this.data.IntellectualPropertyTypes[this.data.stateIndex]
 		value['Project'] = this.data.projectList[this.data.projectIndex].ProjectName
 		value['ProjectNo'] = this.data.projectList[this.data.projectIndex].ProjectId,
@@ -41,6 +41,12 @@ Page({
 			console.log(value)
 			dd.alert({ content: '表单未填写完整' })
 			return
+		}
+		if (value.title.trim() == "") {
+			dd.alert({
+				content: `标题不能为空，请输入!`,
+				buttonText: "确认"
+			})
 		}
 		value['Type'] == '软件著作权' ? this.data.nodeList[5].AddPeople = [this.data.managers[1]] : this.data.nodeList[5].AddPeople = [this.data.managers[0]]
 		console.log(value);
@@ -58,7 +64,7 @@ Page({
 	},
 	//选人控件方法
 	chooseMans(e) {
-		var that = this
+		let that = this
 		dd.complexChoose({
 			...that.chooseParam,
 			multiple: true,
@@ -105,7 +111,7 @@ Page({
 			typeIndex: e.detail.value,
 		})
 	},
-	onReady(){
+	onReady() {
 		console.log(this.data.projectList);
 	}
 });

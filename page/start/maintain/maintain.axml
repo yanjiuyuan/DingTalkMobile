@@ -97,7 +97,7 @@
 					</view>
 				</view>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
-			</form>时
+			</form>
 			<!-- 物料表单 -->
 			<view onTap="chooseItem">
 				<text>物料表单</text>

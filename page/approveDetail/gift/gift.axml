@@ -1,7 +1,6 @@
 <import src="/util/template/template.axml"/>
 <view class="page">
 	<!-- 基本表单 -->
-	
 	<form onSubmit="submit">
 		<view class="page-section">
 			<view class="form-row">
@@ -30,7 +29,9 @@
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
 				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
 			</view>
-			<!--<view a:if="{{ index!= 0 && state == '已完成' }}"><button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button></view> -->
+			<view a:if="{{ index!= 0 && state == '已完成' }}">
+				<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+			</view>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
 				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
 			</view>

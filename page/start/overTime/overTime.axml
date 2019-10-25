@@ -63,7 +63,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>加班时长(小时)</view>
 				<view class="form-row-content">
-					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" />
+					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长"  disabled="{{true}}"/>
 				</view>
 			</view>
 			<!-- 选人组件 -->
