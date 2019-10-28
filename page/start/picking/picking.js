@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -107,13 +108,13 @@ Page({
 		let that = this
 		if (!e.detail.value.keyWord) {
 			dd.alert({
-				content: '请输入关键字',
-				buttonText: "确认"
+				content: promptConf.promptConf.SearchNoInput,
+				buttonText: promptConf.promptConf.Confirm,
 			});
 		}
 		else {
 			dd.showLoading({
-				content: '获取中...'
+				content: promptConf.promptConf.Obtaining
 			});
 
 		}
@@ -134,8 +135,8 @@ Page({
 				}
 				if (data.length == 0) {
 					dd.alert({
-						content: '未搜索到相关结果',
-						buttonText: "确认"
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText: promptConf.promptConf.Confirm,
 					});
 					return;
 				}
@@ -153,13 +154,13 @@ Page({
 
 		if (!e.detail.value.keyWord) {
 			dd.alert({
-				content: '请输入流水号',
-				buttonText: "确认"
+				content: promptConf.promptConf.SearchNoSerialNumber,
+				buttonText: promptConf.promptConf.Confirm,
 			});
 		}
 		else {
 			dd.showLoading({
-				content: '获取中...'
+				content:promptConf.promptConf.Obtaining
 			});
 
 		}
@@ -177,8 +178,8 @@ Page({
 				let length = that.data.purchaseList.length
 				if (res.length == 0) {
 					dd.alert({
-						content: "未搜索到相关结果",
-						buttonText: "确认"
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText: promptConf.promptConf.Confirm,
 					})
 
 				}
@@ -201,11 +202,13 @@ Page({
 	},
 	searchAndAdd(e) {
 		if (!e.detail.value.keyWord) {
-			dd.showToast({ content: '请输入流水号' });
+			dd.showToast({ 
+				content: promptConf.promptConf.SearchNoSerialNumber
+				});
 		}
 		else {
 			dd.showLoading({
-				content: '获取中...'
+				content:promptConf.promptConf.Obtaining
 			});
 
 		}
@@ -222,9 +225,9 @@ Page({
 				console.log(url)
 				console.log(res.data.data)
 				if (res.data.data.length == 0) {
-					dd.alert({ 
-						content: '未搜索到相关结果',
-						buttonText:"确认"
+					dd.alert({
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText: promptConf.promptConf.Confirm,
 					});
 				}
 				let addArr = []
@@ -254,7 +257,7 @@ Page({
 		if (that.data.projectList[that.data.projectIndex] == undefined) {
 			dd.alert({
 				content: "项目名称不能为空，请输入！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -263,13 +266,14 @@ Page({
 			console.log(value)
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
-				content:`标题不能为空，请输入!`,
-				buttonText:"确认"
+				content: `标题不能为空，请输入!`,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		let param = {
@@ -352,21 +356,21 @@ Page({
 		if (!reg.test(value.fQty)) {
 			dd.alert({
 				content: `数量必须为整数，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (value.fQty == 0) {
 			dd.alert({
 				content: `数量不允许为0，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (!value || !value.fQty) {
 			dd.alert({
 				content: `数量不允许为空，请输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
@@ -374,6 +378,7 @@ Page({
 		if (!value || !value.fQty) {
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
@@ -382,7 +387,10 @@ Page({
 				//数量判断
 				for (let g of this.data.goods) {
 					if (this.data.purchaseList[i].fNumber == g.fNumber && parseInt(value.fQty) > parseInt(g.left)) {
-						dd.alert({ content: '大于可用数量' })
+						dd.alert({
+							content: promptConf.promptConf.GreaterThanAvailable,
+							buttonText: promptConf.promptConf.Confirm,
+						})
 						return
 					}
 				}
@@ -398,14 +406,20 @@ Page({
 		} else {
 			for (let p of this.data.purchaseList) {
 				if (p.fNumber == good.fNumber) {
-					dd.alert({ content: '重复提交' })
+					dd.alert({
+						content: promptConf.promptConf.Repeat,
+						buttonText: promptConf.promptConf.Confirm,
+					})
 					return
 				}
 			}
 
 			//数量判断
 			if (value.fQty > good.left) {
-				dd.alert({ content: '大于可用数量' })
+				dd.alert({
+					content: promptConf.promptConf.GreaterThanAvailable,
+					buttonText: promptConf.promptConf.Confirm,
+				})
 				return
 			}
 			let param = {
@@ -438,21 +452,4 @@ Page({
 			});
 		}, 210);
 	},
-	//显示临时保存数据
-	saveTempData() {
-		localStorage.setItem('purchase', JSON.stringify(this.data.purchaseList))
-		dd.alert({ content: '保存成功' })
-	},
-	loadTempData() {
-		let data = JSON.parse(localStorage.getItem('purchase'))
-		if (data && data.length && data.length > 0) {
-			this.setData({ purchaseList: data })
-			localStorage.removeItem('purchase')
-		}
-	},
-	onShow() {
-		//this.loadTempData()
-	},
-
-
 });

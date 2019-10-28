@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
   ...pub.func,
   ...pub.func.dowith,
@@ -9,14 +10,17 @@ Page({
     table:{},
   },
   submit(e) {
-    var that = this
-    var value = e.detail.value
-    var param = {
+    let that = this
+    let value = e.detail.value
+    let param = {
         Remark: value.remark
     }
     if((!value.ActualInventor || !value.ActualName) && (this.data.nodeid ==5)){
       console.log(value)
-      dd.alert({content:'表单未填写完整'})
+      dd.alert({
+		  content:'表单未填写完整',
+		  buttonText:promptConf.promptConf.Confirm,
+	  })
       return
     }
     if(this.data.nodeid == 5){
@@ -32,10 +36,13 @@ Page({
     )
   },
   print(){
-    var that = this
+    let that = this
     this._postData('IntellectualProperty/Print',
       function(res){
-        dd.alert({content:'获取成功，请在钉钉工作通知中查收'})
+        dd.alert({
+			content:promptConf.promptConf.PrintFrom,
+			buttonText: promptConf.promptConf.Confirm,
+			})
       },
       {
         UserId: that.data.DingData.userid,
@@ -57,7 +64,7 @@ Page({
   //选人控件方法
   choosePeoples(e){
     this.data.addPeopleNodes = [5]
-    var that = this
+    let that = this
     dd.complexChoose({
       ...that.chooseParam,
       multiple: true,
@@ -79,15 +86,13 @@ Page({
     })
   },
   onReady(){
-    var that = this
+    let that = this
 
      this._getData("IntellectualProperty/Read" + this.formatQueryStr({TaskId:this.data.taskid}),
       (res) => {
         for(let r in res){
             if(res[r] === null) res[r] = ''
           }
-          console.log("asdasda");
-          console.log(res);
           let index =0;
           for(let i = 0, len = this.data.IntellectualPropertyTypes.length; i < len;i++){
             if(res.Type == this.data.IntellectualPropertyTypes[i]){

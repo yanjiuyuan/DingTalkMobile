@@ -112,8 +112,8 @@ Page({
 		console.log(value.keyWord);
 		if (!value || !value.keyWord) {
 			dd.alert({
-				content: "请输入关键字",
-				buttonText: "确认"
+				content: promptConf.promptConf.SearchNoInput,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -130,7 +130,7 @@ Page({
 				if (res.data.data.length == 0) {
 					dd.alert({
 						content: '未搜索到相关结果',
-						buttonText: "确认"
+						buttonText: promptConf.promptConf.Confirm,
 					});
 					return;
 				}
@@ -151,7 +151,7 @@ Page({
 		if (!value || !value.no) {
 			dd.alert({
 				content: "请输入采购单编号",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -170,7 +170,7 @@ Page({
 				if (res.data.data.length == 0) {
 					dd.alert({
 						content: '未搜索到相关结果',
-						buttonText: "确认"
+						buttonText: promptConf.promptConf.Confirm,
 					});
 				}
 				that.setData({
@@ -230,25 +230,25 @@ Page({
 		console.log(this.data.purchaseList);
 		let that = this;
 		let value = e.detail.value;
-		
+
 		if (that.data.projectList[that.data.projectIndex] == undefined) {
 			dd.alert({
 				content: "项目名称不能为空，请输入！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 
 		if (this.data.purchaseList.length == 0) {
 			dd.alert({
 				content: "请选择物料",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -258,7 +258,7 @@ Page({
 		}
 		let set = new Set(arr);
 
-		
+
 		let param = {
 			Title: value.title,
 			Remark: value.remark,
@@ -346,21 +346,21 @@ Page({
 		if (!reg.test(value.fQty)) {
 			dd.alert({
 				content: `数量必须为整数，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (value.fQty == 0) {
 			dd.alert({
 				content: `数量不允许为0，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (!value || !value.fQty) {
 			dd.alert({
 				content: `数量不允许为空，请输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
@@ -370,7 +370,10 @@ Page({
 				//数量判断
 				for (let g of this.data.goods) {
 					if (this.data.purchaseList[i].fNumber == g.fNumber && value.fQty > g.fQty) {
-						dd.alert({ content: '大于可用数量' })
+						dd.alert({
+							content: '大于可用数量',
+							buttonText: promptConf.promptConf.Confirm,
+						})
 						return
 					}
 				}
@@ -386,13 +389,19 @@ Page({
 		} else {
 			for (let p of this.data.purchaseList) {
 				if (p.fNumber == good.fNumber) {
-					dd.alert({ content: '重复提交' })
+					dd.alert({
+						content: '重复提交',
+						buttonText: promptConf.promptConf.Confirm,
+					})
 					return
 				}
 			}
 			//数量判断
 			if (value.fQty > good.fQty) {
-				dd.alert({ content: '大于可用数量' })
+				dd.alert({
+					content: '大于可用数量',
+					buttonText: promptConf.promptConf.Confirm, 
+				})
 				return
 			}
 
@@ -426,23 +435,7 @@ Page({
 			this.setData({
 				hidden: true,
 			});
+			
 		}, 210);
 	},
-	//显示临时保存数据
-	saveTempData() {
-		localStorage.setItem('purchase', JSON.stringify(this.data.purchaseList))
-		dd.alert({ content: '保存成功' })
-	},
-	loadTempData() {
-		let data = JSON.parse(localStorage.getItem('purchase'))
-		if (data && data.length && data.length > 0) {
-			this.setData({ purchaseList: data })
-			localStorage.removeItem('purchase')
-		}
-	},
-	onShow() {
-		//this.loadTempData()
-	},
-
-
 });

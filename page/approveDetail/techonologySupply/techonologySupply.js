@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -16,7 +17,10 @@ Page({
 			Remark: value.remark
 		}
 		if ((!value.TeamMembers || !value.StartTime || !value.EndTime || !value.TechnicalProposal || !value.ProjectName) && (this.data.nodeid == 1)) {
-			dd.alert({ content: '表单未填写完整' })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText: promptConf.promptConf.Confirm,
+			})
 			return;
 		}
 		if (this.data.nodeid == 1) {
@@ -30,13 +34,16 @@ Page({
 			let reg = /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/;
 			if (!reg.test(value.ProjectNo)) {
 				dd.alert({
-					content: "请规范填写测试项目编号。",
-					buttonText: "确认"
+					content: promptConf.promptConf.ItemNumberStandard,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				return;
 			}
 			if (!value.ProjectNo) {
-				dd.alert({ content: '表单未填写完整' })
+				dd.alert({
+					content: '表单未填写完整',
+					buttonText: promptConf.promptConf.Confirm,
+				})
 				return
 			}
 			this.data.table['ProjectNo'] = value.ProjectNo;
@@ -81,8 +88,8 @@ Page({
 		this._postData('TechnicalSupport/PrintAndSend',
 			function(res) {
 				dd.alert({
-					content: '获取成功，请在钉钉工作通知中查收。',
-					buttonText: '确认'
+					content: promptConf.promptConf.PrintFrom,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 			},
 			{
@@ -201,7 +208,8 @@ Page({
 					let iDay = that.DateDiff(res.date, that.data.endDateStr);//計算天數
 					if (iDay > 0) {
 						dd.alert({
-							content: "结束时间要大于开始时间。"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm,
 						})
 						return;
 					}
@@ -229,7 +237,8 @@ Page({
 					iDay = that.DateDiff(res.date, that.data.startDateStr);//計算天數
 					if (iDay < 0) {
 						dd.alert({
-							content: "结束时间要大于开始时间。"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}

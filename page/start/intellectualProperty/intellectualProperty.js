@@ -1,4 +1,5 @@
 import pub from '/util/public';
+ import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -39,13 +40,17 @@ Page({
 
 		if (value.Type == "" || value.ProjectNo == "" || value.InventorId == "" || value.Name == "") {
 			console.log(value)
-			dd.alert({ content: '表单未填写完整' })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText:promptConf.promptConf.Confirm
+			})
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText:promptConf.promptConf.Confirm,
+				
 			})
 		}
 		value['Type'] == '软件著作权' ? this.data.nodeList[5].AddPeople = [this.data.managers[1]] : this.data.nodeList[5].AddPeople = [this.data.managers[0]]
@@ -111,7 +116,4 @@ Page({
 			typeIndex: e.detail.value,
 		})
 	},
-	onReady() {
-		console.log(this.data.projectList);
-	}
 });

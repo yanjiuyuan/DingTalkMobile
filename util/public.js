@@ -1,5 +1,7 @@
 import lib from "/lib.js";
 import template from "/util/template/template.js";
+import promptConf from "/util/promptConf.js";
+
 let app = getApp();
 let logs = [];
 let x = -54;
@@ -50,7 +52,6 @@ export default {
 
 		changeRemarkId: 0,
 		changeRemarkNodeid: 0,
-		hehe: "",
 		menu:
 			[
 				{
@@ -276,7 +277,8 @@ export default {
 			approvalSubmit(param = {}, callBack, param2 = {}) {
 				if (!this.data.DingData.userid) {
 					dd.alert({
-						content: "尚未登录"
+						content: promptConf.promptConf.LoginPrompt,
+						buttonText:promptConf.promptConf.Confirm
 					});
 					return;
 				}
@@ -302,7 +304,10 @@ export default {
 				for (let node of that.data.nodeList) {
 					if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)) {
 						if (node.AddPeople.length == 0) {
-							dd.alert({ content: "您尚未选择审批人" })
+							dd.alert({ 
+								content: promptConf.promptConf.Approver,
+								buttonText:promptConf.promptConf.Confirm
+							 })
 							that.setData({
 								disablePage: false
 							})
@@ -338,8 +343,8 @@ export default {
 				console.log(value);
 				if (!value || !value.keyWord) {
 					dd.alert({
-						content: "请输入关键字",
-						buttonText: "确认"
+						content: promptConf.promptConf.SearchNoInput,
+						buttonText: promptConf.promptConf.Confirm
 					})
 					return;
 				}
@@ -348,8 +353,8 @@ export default {
 					console.log(JSON.parse(res.data))
 					if (JSON.parse(res.data).length == 0) {
 						dd.alert({
-							content: "未搜索到相关结果",
-							buttonText: "确认"
+							content: promptConf.promptConf.SearchNoReturn,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}
@@ -415,7 +420,8 @@ export default {
 			aggreSubmit(param, param2 = {}) {
 				if (!this.data.DingData.userid) {
 					dd.alert({
-						content: "尚未登录"
+						content: promptConf.promptConf.LoginPrompt,
+						buttonText: promptConf.promptConf.Confirm
 					});
 					return
 				}
@@ -444,10 +450,10 @@ export default {
 				}
 				for (let node of this.data.nodeList) {
 					if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)) {
-						//if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)))) {
 						if (node.AddPeople.length == 0) {
 							dd.alert({
-								content: "您尚未选择审批人"
+								content: promptConf.promptConf.Approver,
+								buttonText: promptConf.promptConf.Confirm
 							});
 							this.setData({
 								disablePage: false
@@ -480,16 +486,13 @@ export default {
 						}
 					}
 				}
-				// console.log(paramArr)
-				// that.setData({"disablePage":false})
-				// return
 				that._postData("FlowInfoNew/SubmitTaskInfo", function(res) {
 					dd.alert({
-						content: "审批成功",
+						content: promptConf.promptConf.SuccessfulSubmission,
+						buttonText:promptConf.promptConf.Confirm,
 						success: () => {
 							dd.switchTab({
 								url: "/page/approve/approve"
-								//url: "/page/start/index"
 							})
 						}
 					});
@@ -500,9 +503,9 @@ export default {
 			returnSubmit(e) {
 				dd.confirm({
 					title: "温馨提示",
-					content: "是否确认撤回申请？",
-					confirmButtonText: "确认",
-					cancelButtonText: "取消",
+					content: promptConf.promptConf.Withdraw,
+					confirmButtonText: promptConf.promptConf.Confirm,
+					cancelButtonText: promptConf.promptConf.Cancel,
 					success: (result) => {
 
 						if (result.confirm == true) {
@@ -531,8 +534,8 @@ export default {
 							}
 							that._postData("FlowInfoNew/FlowBack", function(res) {
 								dd.alert({
-									content: "撤回成功",
-									buttonText: "确认",
+									content: promptConf.promptConf.ApplicationWithdrawn,
+									buttonText: promptConf.promptConf.Confirm,
 									success: () => {
 										dd.switchTab({
 											url: "/page/approve/approve"
@@ -640,11 +643,11 @@ export default {
 					taskId: this.data.taskid,
 					flowName: this.data.flowname,
 					linkUrl: "eapp://page/approve/approve?index=0"
-					// linkUrl: "eapp://" + this.route + this._formatQueryStr(obj)
 				}
 				this._postData("DingTalkServers/sendOaMessage" + this.formatQueryStr(param), (res) => {
 					dd.alert({
-						content: "已为你催办~"
+						content: promptConf.promptConf.Ding,
+						buttonText:promptConf.promptConf.Confirm,
 					})
 				})
 			},
@@ -652,7 +655,10 @@ export default {
 			print() {
 				this._postData("PurchaseNew/PrintAndSend",
 					function(res) {
-						dd.alert({ content: "获取成功" })
+						dd.alert({
+							content: promptConf.promptConf.PrintFrom,
+							buttonText: promptConf.promptConf.Confirm,
+						})
 					},
 					{
 						UserId: this.data.DingData.userid,
@@ -660,10 +666,14 @@ export default {
 					}
 				)
 			},
+			//导出bom表
 			output() {
 				this._getData("api/PurchaseManage" + this.formatQueryStr({ UserId: this.data.DingData.userid, TaskId: this.data.taskid }),
 					function(res) {
-						dd.alert({ content: "获取成功" })
+						dd.alert({
+							content: promptConf.promptConf.OutPutBom,
+							buttonText: promptConf.promptConf.Confirm,
+						})
 					}
 				)
 			},
@@ -718,9 +728,10 @@ export default {
 		},
 		//审批所有流程通过，后续处理
 		doneSubmit(text) {
-			if (!text) text = "提交审批成功"
+			if (!text) text = promptConf.promptConf.Submission
 			dd.alert({
 				content: text,
+				buttonText:promptConf.promptConf.Confirm,
 				success() {
 					dd.switchTab({
 						url: "/page/start/index"
@@ -884,7 +895,6 @@ export default {
 				count: 2,
 				success: (res) => {
 					that.setData({ imageList: that.data.imageList })
-					//dd.alert({content:"ues " + JSON.stringify(res)})
 					for (let p of res.apFilePaths) {
 						that.data.imageList.push(p)
 						that.setData({ disablePage: true })
@@ -894,13 +904,14 @@ export default {
 							fileName: p.substring(7),
 							filePath: p,
 							success: (res) => {
-								//dd.alert({content:"你返回的 " + JSON.stringify(res)})
 								console.log(JSON.parse(res.data).Content)
 								that.data.imgUrlList.push(JSON.parse(res.data).Content)
 								that.setData({ disablePage: false })
 							},
 							fail: (err) => {
-								dd.alert({ content: "sorry" + JSON.stringify(err) })
+								dd.alert({
+									content: "sorry" + JSON.stringify(err)
+								})
 							}
 						});
 					}
@@ -924,7 +935,6 @@ export default {
 			if (!e) return
 			this.setData({
 				hiddenCrmk: !this.data.hiddenCrmk,
-				//hehe: e.target.dataset.remark
 			})
 			this.createMaskShowAnim();
 			this.createContentShowAnim();
@@ -936,34 +946,23 @@ export default {
 			let param = {
 				Id: this.data.changeRemarkId,
 				Remark: e.detail.value.remark
-				//nodeId: this.data.changeRemarkNodeid
 			}
 			let id = this.data.changeRemarkNodeid
 			this.setData({
 				[`nodeList[${id}].Remark`]: param.Remark
 			})
-			//console.log(param)
-			// if(e && e.detail && e.detail.value){
-			//   param["Remark"] = e.detail.value.remark
-			// }else{
-			//   param["NodeId"] = 0
-			// }//returnSubmit
 			console.log("DingTalkServers/ChangeRemark   !!!!!!!")
-			console.log(param)
 			this._postData("DingTalkServers/ChangeRemark", (res) => {
 				this.setData({
 					disablePage: false
 				})
-				dd.alert({ content: "修改成功" })
+				dd.alert({
+					content: promptConf.promptConf.ModifiyComment,
+					buttonText: promptConf.promptConf.Confirm,
+				})
 				this.onModalCloseTap2()
 			}, param)
-			return
-			this._getData("FlowInfoNew/ChangeRemark?Id=" + param.Id + "&Remark=" + param.Remark, (res) => {
-				this.setData({
-					disablePage: false
-				})
-				dd.alert({ content: "修改成功" })
-			})
+			return;
 		},
 		//隐藏弹窗表单
 		onModalCloseTap() {
@@ -1015,7 +1014,8 @@ export default {
 				return;
 			}
 			dd.showLoading({
-				content: "登录中..."
+				content: promptConf.promptConf.Logining,
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			dd.getAuthCode({
 				success: (res) => {
@@ -1035,7 +1035,8 @@ export default {
 
 								if (!result.userid) {
 									dd.alert({
-										content: res.errmsg + ",请关掉应用重新打开试试~"
+										content: res.errmsg + "," + promptConf.promptConf.CloseApplication,
+										buttonText: promptConf.promptConf.Confirm,
 									});
 									return
 								}
@@ -1097,7 +1098,8 @@ export default {
 								let name = res.data.name;
 								if (!result.userid) {
 									dd.alert({
-										content: res.errmsg + ",请关掉应用重新打开试试~"
+										content: res.errmsg + "," + promptConf.promptConf.CloseApplication,
+										buttonText: promptConf.promptConf.Confirm,
 									});
 									return;
 								}
@@ -1196,8 +1198,8 @@ export default {
 				success: function() {
 					app.globalData[`${that.data.flowid}`] = true;
 					dd.alert({
-						content: "临时保存成功，下次打开这个页面时生效。",
-						buttonText: "确认"
+						content: promptConf.promptConf.TemporaryPreservation,
+						buttonText: promptConf.promptConf.Confirm,
 					});
 
 				}

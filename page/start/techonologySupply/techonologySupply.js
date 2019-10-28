@@ -1,5 +1,6 @@
 import pub from '/util/public';
 import lib from '/lib.js';
+import promptConf from "/util/promptConf.js";
 let app = getApp();
 let good = {}
 
@@ -149,8 +150,8 @@ Page({
 		let that = this;
 		if (value.title.trim() == "") {
 			dd.alert({
-				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				content: `标题不能为空，请输入！`,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		let OtherEngineers = "";
@@ -192,7 +193,6 @@ Page({
 			}
 		]
 
-		console.log(CreateTaskInfo);
 
 		let body = {
 
@@ -213,10 +213,10 @@ Page({
 
 		}
 
-		console.log(body);
 		if (!body.ResponsibleMan || !body.Customer || !body.Title || !body.ProjectType || !body.TimeRequired || !body.MainPoints || !body.ProjectOverview) {
 			dd.alert({
-				content: "请完整填写表单"
+				content: "请完整填写表单",
+				buttonText:promptConf.promptConf.Confirm,
 			})
 		}
 		else {
@@ -227,7 +227,8 @@ Page({
 						names: []
 					})
 					dd.alert({
-						content: "提交审批成功",
+						content: promptConf.promptConf.Submission,
+						buttonText:promptConf.promptConf.Confirm,
 						success: () => {
 							dd.navigateBack({
 								delta: 2

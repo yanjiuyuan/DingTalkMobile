@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -94,8 +95,8 @@ Page({
 		console.log(value)
 		if (!value || !value.keyWord.trim()) {
 			dd.alert({
-				content: "请输入关键字",
-				buttonText: "确认"
+				content: promptConf.promptConf.SearchNoInput,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -104,8 +105,8 @@ Page({
 			console.log(JSON.parse(res.data))
 			if (JSON.parse(res.data).length == 0) {
 				dd.alert({
-					content: "未搜索到相关结果",
-					buttonText: "确认"
+					content: promptConf.promptConf.SearchNoReturn,
+					buttonText:promptConf.promptConf.Confirm,
 				})
 				return;
 			}
@@ -121,7 +122,7 @@ Page({
 		if (that.data.projectList[that.data.projectIndex] == undefined) {
 			dd.alert({
 				content: "项目名称不能为空，请输入！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -134,14 +135,14 @@ Page({
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
-				content:`标题不能为空，请输入!`,
-				buttonText:"确认"
+				content: `标题不能为空，请输入!`,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		if (!param.ProjectId || !this.data.purchaseList.length) {
 			dd.alert({
 				content: `请选择零部件！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 
 			});
 			return
@@ -213,8 +214,8 @@ Page({
 
 			if (p.CodeNo == good.FNumber) {
 				dd.alert({
-					content: "禁止选择相同的物料编码！",
-					buttonText: "确认"
+					content: promptConf.promptConf.NOSameMaterialCoding,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				this.onModalCloseTap();
 				return;
@@ -226,14 +227,14 @@ Page({
 		if (!value || !value.Unit.trim() || !value.Count.trim() || !value.UrgentDate.trim() || !value.Purpose.trim()) {
 			dd.alert({
 				content: `请填写已选零部件信息！`,
-				buttonText: '确认'
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (value.Count == 0) {
 			dd.alert({
 				content: "数量必须大于0！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -241,7 +242,7 @@ Page({
 		if (!reg.test(value.Count)) {
 			dd.alert({
 				content: "数量必须为整数！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -249,7 +250,7 @@ Page({
 		if (!reg2.test(value.Price) == false && value.Price) {
 			dd.alert({
 				content: "单价必须为纯数字！",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}

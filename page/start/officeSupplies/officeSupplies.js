@@ -95,8 +95,8 @@ Page({
 		console.log(value);
 		if (!value || !value.keyWord.trim()) {
 			dd.alert({
-				content: "请输入关键字",
-				buttonText: "确认"
+				content:promptConf.promptConf.SearchNoInput,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -111,8 +111,8 @@ Page({
 				console.log(data)
 				if (data.length == 0) {
 					dd.alert({
-						content: "未搜索到相关结果",
-						buttonText: "确认"
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText: promptConf.promptConf.Confirm,
 					})
 				}
 				that.setData({
@@ -144,13 +144,16 @@ Page({
 			Remark: value.remark
 		}
 		if (!that.data.purchaseList.length) {
-			dd.alert({ content: `请选择办公用品` })
+			dd.alert({ 
+				content: `请选择办公用品`,
+				buttonText: promptConf.promptConf.Confirm,
+				 })
 			return;
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		let callBack = function(taskId) {
@@ -231,21 +234,21 @@ Page({
 		if (!reg.test(value.Count)) {
 			dd.alert({
 				content: `数量必须为整数，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (value.Count == 0) {
 			dd.alert({
 				content: `数量不允许为0，请重新输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
 		if (!value || !value.Count) {
 			dd.alert({
 				content: `数量不允许为空，请输入！`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}

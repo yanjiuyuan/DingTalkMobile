@@ -179,14 +179,14 @@ Page({
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
-				content:`标题不能为空，请输入!`,
-				buttonText:"确认"
+				content: `标题不能为空，请输入!`,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		if (this.data.tableData.length == 0) {
 			dd.alert({
 				content: "表单数据不全或有误，请重新输入！",
-				buttonText: "确认",
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -197,8 +197,8 @@ Page({
 		this.approvalSubmit(param, callBack)
 	},
 	bindAll(taskId) {
-		var that = this
-		var paramArr = []
+		let that = this
+		let paramArr = []
 		for (let p of that.data.tableData) {
 			p.TaskId = taskId
 			paramArr.push(p)
@@ -302,7 +302,7 @@ Page({
 				if (value.Name == this.data.tableData[i].Name && value.Standard == this.data.tableData[i].Standard) {
 					dd.alert({
 						content: "物料名称、规格型号不可重复",
-						buttonText: "确认"
+						buttonText: promptConf.promptConf.Confirm,
 					})
 					return;
 				}
@@ -313,6 +313,7 @@ Page({
 		if (!value || !value.Name || !value.Standard || !value.Unit || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
 			dd.alert({
 				content: `表单填写不完整`,
+				button: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
