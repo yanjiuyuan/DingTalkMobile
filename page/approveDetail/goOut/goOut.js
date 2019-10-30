@@ -49,7 +49,7 @@ Page({
 	},
 	//添加定位
 	addPlace() {
-		let that = this
+		let that = this;
 		//上传图片
 		dd.chooseImage({
 			count: 1,
@@ -58,7 +58,7 @@ Page({
 				for (let p of res.apFilePaths) {
 					that.setData({ disablePage: true })
 					dd.showLoading({
-						content:promptConf.promptConf.PictureProcessing
+						content: promptConf.promptConf.PictureProcessing
 					});
 					dd.uploadFile({
 						url: that.data.dormainName + 'drawingupload/Upload?IsWaterMark=true',
@@ -71,10 +71,10 @@ Page({
 							if (that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
 							else that.data.tableInfo['ImageUrl'] = ''
 							if (JSON.parse(res.data).Content == 'null' || !JSON.parse(res.data).Content) {
-								dd.alert({ 
+								dd.alert({
 									content: promptConf.promptConf.PictureProcessingError,
-									buttonText:promptConf.promptConf.Confirm,
-									 });
+									buttonText: promptConf.promptConf.Confirm,
+								});
 								return
 							}
 							that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
@@ -108,35 +108,83 @@ Page({
 			},
 		})
 	},
-	//删除上一个定位
-	removePlace() {
-		if (this.data.placeArr.length == this.data.locationLength) return
-		this.data.placeArr.pop()
-		this.setData({
-			'table.LocationPlace': this.data.placeArr.join('-')
+	addPlace2() {
+		let that = this;
+		//上传图片
+		dd.chooseImage({
+			count: 1,
+			sourceType: ['album'],
+			success: (res) => {
+				for (let p of res.apFilePaths) {
+					that.setData({ disablePage: true })
+					dd.showLoading({
+						content: promptConf.promptConf.PictureProcessing
+					});
+					dd.uploadFile({
+						url: that.data.dormainName + 'drawingupload/Upload?IsWaterMark=true',
+						fileType: 'image',
+						fileName: p.substring(7),
+						IsWaterMark: true,
+						filePath: p,
+						success: (res) => {
+
+							if (that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
+							else that.data.tableInfo['ImageUrl'] = ''
+							if (JSON.parse(res.data).Content == 'null' || !JSON.parse(res.data).Content) {
+								dd.alert({
+									content: promptConf.promptConf.PictureProcessingError,
+									buttonText: promptConf.promptConf.Confirm,
+								});
+								return
+							}
+							that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
+							that._postData("FlowInfoNew/TaskModify",
+								(res) => {
+									that.getFormData()
+									that.setData({ disablePage: false })
+									dd.hideLoading()
+								}, that.data.tableInfo
+							)
+						},
+						fail: (err) => {
+							dd.alert({ content: 'sorry' + JSON.stringify(err) })
+						}
+					});
+				}
+			},
+		});
+		return
+		dd.getLocation({
+			success(res) {
+				console.log(res)
+				res = { address: '研究院' }
+				that.data.placeArr.push(res.address)
+				that.setData({
+					'table.LocationPlace': that.data.placeArr.join('-')
+				})
+			},
+			fail() {
+				dd.alert({ title: '定位失败' });
+			},
 		})
-	},
-	//保存定位
-	savePlace() {
-		this._postData("Evection/Modify",
-			(res) => {
-				dd.alert({ title: '保存成功' })
-			}, this.data.table
-		)
 	},
 
 	onReady() {
 		let that = this;
-		console.log(this.data.tableInfo);
 		this._getData("Evection/Read" + this.formatQueryStr({ TaskId: this.data.taskid }),
 			(res) => {
-				// this.data.placeArr = res.LocationPlace.split('-')
-				// if(this.data.placeArr[0] == '') this.data.placeArr = []
-
-				// //计划出行长度，提交表单判断用
-				// this.data.planLength = res.Place.split('-').length
-				// //初始定位长度，不能删除初始值
-				// this.data.locationLength = this.data.placeArr.length
+				let ApplyTime = this.data.nodeList[1].ApplyTime || null;
+				if (ApplyTime) {
+					let dateTmp = res.EndTime.replace(/-/g, '/');
+					let timestamp = Date.parse(dateTmp);
+					let dateTmp2 = ApplyTime.replace(/-/g, '/');
+					let timestamp2 = Date.parse(dateTmp2);
+					if (timestamp2 > timestamp) {
+						this.setData({
+							timeUp: true
+						})
+					}
+				}
 				this.setData({
 					table: res
 				})
@@ -245,5 +293,7 @@ Page({
 
 			}
 		})
-	}
+	},
+
+
 });

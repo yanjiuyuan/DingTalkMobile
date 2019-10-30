@@ -63,7 +63,6 @@
 						< 4}}" />
 						</view>
 						</view>
-						<!--<view class="form-line" />  -->
 						<view class="form-row">
 							<view class="form-row-label">返回时间</view>
 							<view class="form-row-content">
@@ -71,7 +70,6 @@
 									< 4}}" />
 									</view>
 									</view>
-									<!--<view class="form-line" /> -->
 									<view class="form-row" a:if="{{nodeid == 2 || nodeid == 4}}">
 										<view class="form-row-label">车辆选择</view>
 										<picker onChange="selectCar" value="{{carIndex}}" range="{{carList}}" range-key="{{'text'}}">
@@ -90,7 +88,6 @@
 												<text style="font-size:24rpx;color:red;">占用时间:{{item.time}}</text></view>
 										</view>
 									</view>
-									<!--<view class="form-line" />  -->
 									<view class="form-row" a:if="{{nodeid > 2}}">
 										<view class="form-row-label">使用车辆</view>
 										<view class="form-row-content">

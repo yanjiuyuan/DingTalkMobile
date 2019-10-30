@@ -22,7 +22,7 @@
 				</view>
 			</view>
 			<view a:if="{{nodeid >= 2}}">
-				<view class="form-row" style="">
+				<view class="form-row">
 					<view class="form-row-label">
 						<template is="required"></template> 拍照上传</view>
 					<view class="form-row-content">
@@ -30,14 +30,11 @@
 							<image onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
 							<button a:if="{{nodeid == 2 && index == 0}}" size="mini" type="primary" data-url="{{item}}" data-index="{{idx}}" onTap="deletePhoto">删除</button>
 						</view>
-						<view a:if="{{nodeid == 2 && index == 0}}" onTap="addPlace" class="tag tag-info">+ 选择照片</view>
-						<!--<view a:if="{{nodeid == 2 && index == 0}}" onTap="deleteImg" class="tag tag-danger">- 删除一张</view> -->
+						<view a:if="{{nodeid == 2 && index == 0 && !timeUp}}" onTap="addPlace" class="tag tag-info">+ 拍照上传</view>
+						<view a:if="{{nodeid == 2 && index == 0 && timeUp}}" onTap="addPlace2" class="tag tag-info">+ 选择照片</view>
 					</view>
 				</view>
-				<!--<view class="form-row"><view class="form-row-label">定位地点</view><view class="form-row-content"><textarea auto-height="true" name="LocationPlace" class="input" value="{{table.LocationPlace}}" disabled="{{false}}" /></view></view> -->
-				<!--<view a:if="{{nodeid == '2'}}"><button type="primary" onTap="addPlace" class="button-inline" style='margin-left:10rpx;'>添加定位</button><button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除定位</button><button type="primary" onTap="savePlace" class="button-inline" style='margin-left:10rpx;'>保存定位</button></view> -->
 			</view>
-			<!--<view class="form-line" />  -->
 			<view class="form-row">
 				<view class="form-row-label">外出事由</view>
 				<view class="form-row-content">
