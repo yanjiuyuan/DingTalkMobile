@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 const app = getApp();
 Page({
 	...pub.data,
@@ -24,8 +25,8 @@ Page({
 				that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId, (result) => {
 					if (JSON.stringify(result) == "{}") {
 						dd.alert({
-							content: "该用户无配置节点信息。",
-							buttonText: "确认"
+							content: promptConf.promptConf.NoNodeInformation,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						that.setData({
 							severanceOfficer: res.users[0].name,

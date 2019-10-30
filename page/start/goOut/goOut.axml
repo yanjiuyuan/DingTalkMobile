@@ -41,8 +41,8 @@
 			<view class="form-row">
 				<view class="form-row-label">同行人</view>
 				<view class="form-row-content">
-					<!--<textarea auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/><textarea auto-height="true" name="EvectionManId" class="input" style="display:none;" value="{{table.EvectionManId}}"/> -->
-					<text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text>
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1"  name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/>
+					<!--<text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text> -->
 				</view>
 				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
 			</view>

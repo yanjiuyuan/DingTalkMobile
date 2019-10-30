@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -12,9 +13,9 @@ Page({
 	},
 	submit(e) {
 
-		var that = this
-		var value = e.detail.value
-		var param = {
+		let that = this
+		let value = e.detail.value
+		let param = {
 			Remark: value.remark
 		}
 		this.data.table['CarNumber'] = this.data.table.CarId
@@ -23,14 +24,18 @@ Page({
 		this.data.table['UseKilometres'] = ((value.EndKilometres - 0) - (value.StartKilometres - 0)).toFixed(1);
 
 		if ((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid == 3 || this.data.nodeid == 4)) {
-			dd.alert({ content: '表单未填写完整', buttonText: "确认" })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText: promptConf.promptConf.Confirm
+			})
 			return;
 		}
 		if (this.data.nodeid == 2) {
 			if (!this.data.table['CarId']) return;
 			if (!this.data.carList[this.data.carIndex]) {
 				dd.alert({
-					content: "表单填写未完整", buttonText: "确认"
+					content: "表单填写未完整",
+					buttonText: promptConf.promptConf.Confirm
 				})
 				return;
 			}
@@ -48,10 +53,14 @@ Page({
 		)
 	},
 	print() {
-		var that = this
+		let that = this
 		this._postData('CarTableNew/GetPrintPDF',
 			(res) => {
-				dd.alert({ content: "获取成功，请在钉钉PC端查收" })
+				dd.alert({
+					content: promptConf.promptConf.PrintFrom,
+					buttonText: promptConf.promptConf.Confirm
+
+				})
 			},
 			{
 				UserId: that.data.DingData.userid,
@@ -79,7 +88,7 @@ Page({
 		let useTimeList = []
 		let nameList = car.UseMan.split(',')
 		let timeList = car.UseTimes.split(',')
-		for (var i = 0; i < nameList.length; i++) {
+		for (let i = 0; i < nameList.length; i++) {
 			if (car.IsOccupyCar) {
 				useTimeList.push({
 					name: nameList[i],
@@ -107,7 +116,7 @@ Page({
 		}
 	},
 	onReady() {
-		var that = this
+		let that = this
 		this._getData("CarTableNew/TableQuary" + this.formatQueryStr({ TaskId: this.data.taskid }),
 			(res) => {
 				let data = res[0]

@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.start,
@@ -93,13 +94,14 @@ Page({
 		if (!this.data.projectIndex || this.data.purchaseList.length == 0 || value.title == "") {
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText:promptConf.promptConf.Confirm
 			});
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText:promptConf.promptConf.Confirm
 			})
 		}
 		let param = {
@@ -136,6 +138,7 @@ Page({
 		if (!value || !value.Unit || !value.Count || !value.NeedTime || !value.MaintainContent) {
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText:promptConf.promptConf.Confirm
 			});
 			return
 		}

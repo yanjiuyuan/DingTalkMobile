@@ -15,13 +15,13 @@ function doWithErrcode(result) {
 	}
 	return 0
 }
-var d = new Date()
-var year = d.getFullYear()
-var month = d.getMonth() + 1
-var day = d.getDate()
-var hour = d.getHours()
+let d = new Date()
+let year = d.getFullYear()
+let month = d.getMonth() + 1
+let day = d.getDate()
+let hour = d.getHours()
 
-var minutes = d.getMinutes()
+let minutes = d.getMinutes()
 export default {
 	data: {
 		// jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
@@ -41,7 +41,7 @@ export default {
 
 		},
 		goHome() {
-			console.log('welCome ~')
+
 		},
 		goError() {
 
@@ -53,7 +53,7 @@ export default {
 				method: 'GET',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
 				success: function(res) {
-					var app = getApp()
+					let app = getApp()
 					//检查登录
 					if (app.userInfo) {
 						userInfo = app.userInfo
@@ -79,7 +79,7 @@ export default {
 				method: 'GET',
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
 				success: function(res) {
-					var app = getApp()
+					let app = getApp()
 					//检查登录
 					if (app.userInfo) {
 						userInfo = app.userInfo
@@ -98,6 +98,34 @@ export default {
 				}
 			});
 		},
+
+		postDataReturnData(url, succe, param, userInfo = {}) {
+			dd.httpRequest({
+				url: dormainName + url,
+				method: 'POST',
+				data: JSON.stringify(param),
+				headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
+				success: function(res) {
+					let app = getApp()
+					//检查登录
+					if (app.userInfo) {
+						userInfo = app.userInfo
+					}
+
+					if (doWithErrcode(res.data)) {
+						postErrorMsg('POST', url, res.data.error, userInfo)
+						return
+					}
+					succe(res)
+				},
+				fail: function(res) {
+					console.log('在错误里面~~~~~~~~~~~')
+					if (JSON.stringify(res) == '{}') return
+					postErrorMsg('GET', url, res, userInfo)
+					dd.alert({ content: '获取数据失败-' + url + '报错:' + JSON.stringify(res) });
+				}
+			});
+		},
 		_postData(url, succe, param, userInfo = {}) {
 			dd.httpRequest({
 				url: dormainName + url,
@@ -105,7 +133,7 @@ export default {
 				data: JSON.stringify(param),
 				headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
 				success: function(res) {
-					var app = getApp()
+					let app = getApp()
 					//检查登录
 					if (app.userInfo) {
 						userInfo = app.userInfo
@@ -115,7 +143,7 @@ export default {
 					console.log(res)
 
 					if (doWithErrcode(res.data)) {
-						postErrorMsg('GET', url, res.data.error, userInfo)
+						postErrorMsg('POST', url, res.data.error, userInfo)
 						return
 					}
 					succe(res.data.data)
@@ -146,12 +174,10 @@ export default {
 					dd.alert({ content: '获取数据失败-' + url + '报错:' + JSON.stringify(res) });
 				},
 				complete: function(res) {
-					//dd.hideLoading();
 				}
 			});
 		},
 		requestJsonData(type, url, succe, param = {}, userInfo) {
-			//dd.showLoading()
 			dd.httpRequest({
 				url: dormainName + url,
 				method: type,
@@ -172,7 +198,6 @@ export default {
 			});
 		},
 		requestNofailData(type, url, succe, param = {}, userInfo) {
-			//dd.showLoading()
 			dd.httpRequest({
 				url: dormainName + url,
 				method: type,
@@ -194,16 +219,16 @@ export default {
 						postErrorMsg(type, url, param, { Message: res.data.Message, error: res.error }, userInfo)
 					}
 					return
-					var message = res.data.Message
+					let message = res.data.Message
 				}
 			});
 		},
 		//通过prop合并两个数组
 		mergeObjectArr(arr1, arr2, prop) {
-			for (var a = 0; a < arr1.length; a++) {
-				for (var b = 0; b < arr2.length; b++) {
+			for (let a = 0; a < arr1.length; a++) {
+				for (let b = 0; b < arr2.length; b++) {
 					if (arr1[a][prop] == arr2[b][prop]) {
-						for (var p in arr2[b]) {
+						for (let p in arr2[b]) {
 							arr1[a][p] = arr2[b][p]
 						}
 					}
@@ -213,15 +238,15 @@ export default {
 		},
 
 		formatQueryStr(obj) {
-			var queryStr = '?'
-			for (var o in obj) {
+			let queryStr = '?'
+			for (let o in obj) {
 				queryStr = queryStr + o + '=' + encodeURI(obj[o]) + '&'
 			}
 			return queryStr.substring(0, queryStr.length - 1)
 		},
 		_formatQueryStr(obj) {
-			var queryStr = '?'
-			for (var o in obj) {
+			let queryStr = '?'
+			for (let o in obj) {
 				queryStr = queryStr + o + '=' + obj[o] + '&'
 			}
 			return queryStr.substring(0, queryStr.length - 1)
@@ -275,14 +300,14 @@ function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
 }
 
 function _getTime() {
-	var split = "-"
-	var d = new Date()
-	var year = d.getFullYear()
-	var month = d.getMonth() + 1
-	var day = d.getDate()
-	var hour = d.getHours()
-	var minute = d.getMinutes()
-	var second = d.getSeconds()
+	let split = "-"
+	let d = new Date()
+	let year = d.getFullYear()
+	let month = d.getMonth() + 1
+	let day = d.getDate()
+	let hour = d.getHours()
+	let minute = d.getMinutes()
+	let second = d.getSeconds()
 	if (month < 10) month = '0' + month
 	if (day < 10) day = '0' + day
 	if (hour < 10) hour = '0' + hour
@@ -293,10 +318,10 @@ function _getTime() {
 
 function _dateToString(date, split) {
 	if (!split) split = "-"
-	var d = new Date(date)
-	var year = d.getFullYear()
-	var month = d.getMonth() + 1
-	var day = d.getDate()
+	let d = new Date(date)
+	let year = d.getFullYear()
+	let month = d.getMonth() + 1
+	let day = d.getDate()
 	if (month < 10) month = '0' + month
 	if (day < 10) day = '0' + day
 	return year + split + month + split + day

@@ -93,11 +93,11 @@ Page({
 	},
 
 	deletePhoto(e) {
-		my.confirm({
+		dd.confirm({
 			title: '温馨提示',
-			content: '是否需要删除？',
-			confirmButtonText: 'YES',
-			cancelButtonText: 'NO',
+			content: promptConf.promptConf.DeletePicture,
+			confirmButtonText: promptConf.promptConf.Confirm,
+			cancelButtonText: promptConf.promptConf.Cancel,
 			success: (result) => {
 				if (result.confirm == true) {
 

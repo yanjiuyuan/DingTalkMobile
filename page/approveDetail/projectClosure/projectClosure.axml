@@ -43,18 +43,8 @@
 	</view>
 	<form onSubmit="submit">
 		<view class="page-section">
-			<view class="form-row">
-				<view class="form-row-label">标题</view>
-				<view class="form-row-content">
-					<input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-				</view>
-			</view>
-			<view class="form-row">
-				<view class="form-row-label">申请人</view>
-				<view class="form-row-content">
-					<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
-				</view>
-			</view>
+			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
+			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view style="height:50rpx;"></view>
 			<view class="form-row">

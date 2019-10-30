@@ -34,8 +34,8 @@ Page({
 	//选人控件方法
 	choosePeoples(e) {
 		console.log('start choose people');
-		var nodeId = e.target.targetDataset.NodeId;
-		var that = this;
+		let nodeId = e.target.targetDataset.NodeId;
+		let that = this;
 		dd.complexChoose({
 			...that.data.chooseParam,
 			multiple: false,
@@ -92,7 +92,8 @@ Page({
 					for (let i of res.departments) {
 						deptId.push(i.id);
 					}
-					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptIdList=" + deptId.join(","), (result) => {
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
 						console.log(result.data);
 						that.data.pickedUsers = [];
 						that.data.pickedDepartments = [];
@@ -111,10 +112,10 @@ Page({
 						names = [...new Set(names)];//数组去重
 						that.setData({
 							'table.OtherEngineers': names.join(','),
-							OtherEngineers: userlist,
+							OtherEngineers: [...new Set(userlist)],//去重
 
 						})
-					})
+					},deptId)
 
 				}
 

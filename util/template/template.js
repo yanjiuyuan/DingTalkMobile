@@ -93,14 +93,6 @@ export default {
 			})
 		},
 
-
-
-
-
-
-
-
-
 		NodePeople(e) {
 			console.log(e.currentTarget.dataset.NodePeople);
 			let that = this;
@@ -182,7 +174,5 @@ export default {
 				departmentIdnex: e.detail.value,
 			});
 		},
-
-
 	},
 };

@@ -1,8 +1,10 @@
+import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	data: {},
 	onLoad() { },
 });
-import pub from '/util/public';
+
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -20,10 +22,10 @@ Page({
 		let param = {
 			Remark: value.remark
 		}
-		if(value.Suggestion.trim() == ""){
+		if (value.Suggestion.trim() == "") {
 			dd.alert({
-				content:"拟办意见不能为空，请输入！",
-				buttonText:"确认"
+				content: "拟办意见不能为空，请输入！",
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
 		}
@@ -49,12 +51,13 @@ Page({
 		)
 	},
 	print() {
-		this._getData('Receiving/GetReport' + this.formatQueryStr({UserId: this.data.DingData.userid,TaskId: this.data.taskid
+		this._getData('Receiving/GetReport' + this.formatQueryStr({
+			UserId: this.data.DingData.userid, TaskId: this.data.taskid
 		}),
 			function(res) {
 				dd.alert({
-					content: "获取成功",
-					buttonText: "确认"
+					content: promptConf.promptConf.PrintFrom,
+					buttonText: promptConf.promptConf.Confirm
 				})
 			},
 			{

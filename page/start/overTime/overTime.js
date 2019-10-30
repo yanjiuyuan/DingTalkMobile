@@ -1,4 +1,6 @@
-import pub from '/util/public'; let good = {}
+import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
+let good = {}
 Page({
 	...pub.func,
 	...pub.func.start,
@@ -60,8 +62,8 @@ Page({
 		if (this.data.index2) {
 			if (e.detail.value > this.data.index2) {
 				dd.alert({
-					content: "结束时间必须大于开始时间，请重选。",
-					buttonText: "确认"
+					content: promptConf.promptConf.TimeComparison,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				return;
 			}
@@ -83,8 +85,8 @@ Page({
 		if (this.data.index1) {
 			if (e.detail.value < this.data.index1) {
 				dd.alert({
-					content: "结束时间必须大于开始时间，请重选。",
-					buttonText: "确认"
+					content: promptConf.promptConf.TimeComparison,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				return;
 			}
@@ -110,7 +112,7 @@ Page({
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		let body = {
@@ -127,7 +129,8 @@ Page({
 
 		if (!body.DateTime || !body.EndTimeTime || !body.StartTime || !body.OverTimeContent || !body.UseTime) {
 			dd.alert({
-				content: "请完整填写表单"
+				content: "请完整填写表单",
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		else {

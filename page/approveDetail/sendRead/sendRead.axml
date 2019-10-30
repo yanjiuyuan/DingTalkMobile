@@ -6,18 +6,8 @@
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
-			<view class="form-row">
-				<view class="form-row-label">标题</view>
-				<view class="form-row-content">
-					<input name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-				</view>
-			</view>
-			<view class="form-row">
-				<view class="form-row-label">申请人</view>
-				<view class="form-row-content">
-					<input name="applyman" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
-				</view>
-			</view>
+			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
+			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">来文单位</view>

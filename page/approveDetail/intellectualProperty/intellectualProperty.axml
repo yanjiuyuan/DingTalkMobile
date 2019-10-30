@@ -6,18 +6,8 @@
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
-			<view class="form-row">
-				<view class="form-row-label">标题</view>
-				<view class="form-row-content">
-					<textarea maxlength="-1" name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-				</view>
-			</view>
-			<view class="form-row">
-				<view class="form-row-label">申请人</view>
-				<view class="form-row-content">
-					<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
-				</view>
-			</view>
+			<template is = "titleOfObjectApproval" data="{{tableInfo:tableInfo}}"></template>
+			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">申请名称</view>
@@ -37,13 +27,13 @@
 				<view class="form-row-content">
 					<!--<input auto-height="true" name="Project" class="input" value="{{table.Project}}" disabled="{{true}}" /> -->
 					<!-- {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}  -->
-					<textarea maxlength="-1" name="Title" class="input" value="{{table.Project}}" disabled="{{true}}" />
+					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" name="Title" class="input" value="{{table.Project}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">申请发明人</view>
 				<view class="form-row-content">
-					<textarea maxlength="-1" auto-height="true" name="Inventor" maxlength="0" class="input" value="{{table.Inventor
+					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="Inventor" maxlength="0" class="input" value="{{table.Inventor
 }}" disabled="{{true}}" />
 				</view>
 			</view>
@@ -53,7 +43,7 @@
 					<view class="form-row-label">
 						<template is="required"></template>发明人或设计人</view>
 					<view class="form-row-content">
-						<textarea maxlength="-1" auto-height="true" name="ActualInventor" class="input" disabled="{{true}}" value="{{table.ActualInventor}}"/>
+						<textarea maxlength="-1" style="min-height:90rpx;padding:0;" auto-height="true" name="ActualInventor" class="input" disabled="{{true}}" value="{{table.ActualInventor}}"/>
 					</view>
 					<view onTap="choosePeoples" class="tag tag-info" a:if="{{nodeid == 5 && index == 0}}">+ 选人</view>
 				</view>

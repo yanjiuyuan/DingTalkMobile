@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {};
 Page({
 	...pub.func,
@@ -108,7 +109,10 @@ Page({
 		let that = this;
 		let value = e.detail.value;
 		if (value.keyWord == "" || value.StartTime == "" || value.EndTime == "") {
-			dd.alert({ content: '表单填写不完整' });
+			dd.alert({ 
+				content: '表单填写不完整',
+				buttonText:promptConf.promptConf.Confirm,
+				});
 
 		}
 		else if (e.buttonTarget.dataset.isSend == undefined) {
@@ -116,15 +120,15 @@ Page({
 				console.log(res);
 				if (res == undefined) {
 					dd.alert({
-						content: "您无权访问该系统，请联系管理员！",
-						buttonText: "确认"
+						content:promptConf.promptConf.NoAuthority,
+						buttonText: promptConf.promptConf.Confirm,
 					})
 					return;
 				}
 				if (res.length == 0) {
 					dd.alert({
-						content: '未搜索到相关结果',
-						buttonText: "确认"
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText: promptConf.promptConf.Confirm,
 					});
 					return;
 				}
@@ -137,7 +141,7 @@ Page({
 		else if (this.data.purchaseList.length == 0) {
 			dd.alert({
 				content: "请选择物料",
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -145,7 +149,10 @@ Page({
 			this._getData("Pick/Query" + that.formatQueryStr({
 				applyManId: this.data.DingData.userid, startTime: value.StartTime, endTime: value.EndTime, Key: value.keyWord, isSend: true
 			}), (res) => {
-				dd.alert({ content: '已推送至钉钉' });
+				dd.alert({ 
+					content: promptConf.promptConf.PrintFrom,
+					buttonText:promptConf.promptConf.Confirm,
+					});
 			});
 		}
 

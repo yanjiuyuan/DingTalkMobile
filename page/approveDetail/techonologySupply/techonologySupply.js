@@ -140,7 +140,7 @@ Page({
 					for (let i of res.departments) {
 						deptId.push(i.id);
 					}
-					that.getDataReturnData("DingTalkServers/GetDeptUserListByDeptId?deptIdList=" + deptId.join(","), (res) => {
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (res) => {
 						console.log(res.data);
 						that.data.pickedUsers = [];
 						that.data.pickedDepartments = [];
@@ -162,14 +162,14 @@ Page({
 						}
 						names = [...new Set(names)];//数组去重
 						ids = [...new Set(ids)];//数组去重
-
+						addPeoples = [...new Set(addPeoples)];
 						that.setData({
 							'nodeList[5].AddPeople': addPeoples,
 							'table.TeamMembers': names.join(','),
 							'table.TeamMembersId': ids.join(','),
 
 						})
-					})
+					},deptId)
 
 				}
 

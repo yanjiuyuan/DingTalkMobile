@@ -54,8 +54,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>申请发明人</view>
 				<view class="form-row-content">
-					<!--<textarea auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{tableInfo.Inventor}}"/> -->
-					<input auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.Inventor}}"/>
+					<textarea  auto-height="true" maxlength="-1" style="min-height:90rpx;padding:0;" name="Inventor" class="input" disabled="{{true}}" value="{{table.Inventor}}"/>
 				</view>
 				<view onTap="chooseMans" class="tag tag-info">+ 选人</view>
 			</view>

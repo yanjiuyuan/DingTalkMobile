@@ -1,5 +1,6 @@
 import pub from '/util/public';
-var app = getApp();
+import promptConf from "/util/promptConf.js";
+let app = getApp();
 let good = {}
 Page({
 	...pub.func,
@@ -19,33 +20,36 @@ Page({
 		console.log(value);
 		if (this.data.nodeList[1].AddPeople[0] == undefined) {
 			dd.alert({
-				content: "请选择审批人",
-				buttonText: "确认"
+				content: promptConf.promptConf.Approver,
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
 		}
 		if (this.data.checked == false) {
 			dd.alert({
-				content: "请先同意《私车公用协议书》。",
-				buttonText: "确认"
+				content: promptConf.promptConf.AgreementOfPrivateCar,
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
 		}
 		if (this.data.checked2 == false) {
 			dd.alert({
-				content: "请确认是否已提交外出申请。",
-				buttonText: "确认"
+				content: promptConf.promptConf.GoOut,
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
 		}
 		if (this.data.nodeList[1].AddPeople[0].userId == "0907095238746571") {
-			dd.alert({ content: '用车无需季老师审批,如是部长级请选本人' })
+			dd.alert({
+				content: '用车无需季老师审批,如是部长级请选本人',
+				buttonText: promptConf.promptConf.Confirm
+			})
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm
 			})
 		}
 		value['CarId'] = ''
@@ -55,7 +59,10 @@ Page({
 		value["PeerNumber"] = this.data.table.PeerNumber;
 		console.log(value);
 		if (!value.DrivingMan || !value.MainContent || !value.PlantTravelWay || !value.StartTime || !value.EndTime || !value.CarNumber) {
-			dd.alert({ content: '表单未填写完整' })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText: promptConf.promptConf.Confirm
+			})
 			return
 		}
 		if (!this.data.checked || !this.data.checked2) {
@@ -76,23 +83,57 @@ Page({
 
 		this.approvalSubmit({ Title: value.title, remark: value.remark }, callBack)
 	},
-	//选人控件方法
+
 	choosePeoples(e) {
-		console.log('start choose people')
-		var nodeId = e.target.targetDataset.NodeId
-		var that = this;
-		console.log(that.chooseParam);
+		console.log('start choose people');
+		let nodeId = e.target.targetDataset.NodeId;
+		let that = this;
 		dd.complexChoose({
 			...that.data.chooseParam,
+			pickedUsers: that.data.pickedUsers || [],            //已选用户
 			multiple: true,
 			title: "同行人",
 			success: function(res) {
-				console.log(res)
-				let names = []
-				for (let d of res.users) names.push(d.name)
-				that.setData({
-					'table.PeerNumber': names.join(',')
-				})
+				console.log(res);
+				let names = [];//userId
+				if (res.departments.length == 0) {
+					that.data.pickedUsers = [];
+					for (let d of res.users) {
+						that.data.pickedUsers.push(d.userId);
+						names.push(d.name);
+					}
+					that.setData({
+						'table.PeerNumber': names.join(',')
+					})
+				}
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								d.userId = d.userid;
+							}
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						that.setData({
+							'table.PeerNumber': names.join(',')
+						})
+					}, deptId)
+				}
 			},
 			fail: function(err) {
 
@@ -112,26 +153,20 @@ Page({
 			disablePage: this.data.checked2
 		})
 	},
-	//加载重新发起数据
-	loadReApproval() {
-		let localStorage = this.data.localStorage
-		if (!localStorage || !localStorage.valid) return
-		localStorage.valid = false
-		this.setData({
-			table: localStorage.table,
-			'tableInfo.Title': localStorage.title,
-			flowid: localStorage.flowid,
-			localStorage: localStorage
-		})
-	},
 	downLoad() {
-		var param = {
+		let param = {
 			UserId: this.data.DingData.userid,
 			// 阿法迪 Media_Id: '@lArPDeC2tzsRLpzOWVoCUs4-J34O'
 			Media_Id: '@lArPDeC2t0PoLXvOAzqTa84ublTK'
 		}
 		this._postData("DingTalkServers/sendFileMessageNew",
-			(res) => { dd.alert({ content: '获取成功，请在PC端查收' }) }, param
+			(res) => {
+				dd.alert({
+					content: promptConf.promptConf.Download,
+					buttonText: promptConf.promptConf.Confirm
+
+				})
+			}, param
 		)
 	},
 	//选择时间
@@ -148,8 +183,8 @@ Page({
 					let end = new Date(this.data.endDateStr.replace(/-/g, '/')).getTime();
 					if (end < start) {
 						dd.alert({
-							content: "结束时间必须大于开始时间，请重选。",
-							buttonText: "确认"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}
@@ -175,8 +210,8 @@ Page({
 					let end = new Date(res.date.replace(/-/g, '/')).getTime();
 					if (end < start) {
 						dd.alert({
-							content: "结束时间必须大于开始时间，请重选。",
-							buttonText: "确认"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}

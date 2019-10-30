@@ -1,4 +1,6 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
+
 let good = {}
 Page({
 	...pub.func,
@@ -19,11 +21,14 @@ Page({
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		if (value.CooperateDept == "" || value.CooperateMan == undefined || value.PlanBeginTime == "" || value.PlanEndTime == "" || value.CooperateContent == "" || value.PlanDays == "") {
-			dd.alert({ content: '表单未填写完整' })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText: promptConf.promptConf.Confirm
+			})
 			return
 		}
 		let callBack = function(taskId) {
@@ -43,25 +48,66 @@ Page({
 	},
 	//选人控件方法
 	choosePeopleOne(e) {
-		var that = this
+		console.log('start choose people');
+		let nodeId = e.target.targetDataset.NodeId;
+		let that = this;
 		dd.complexChoose({
 			...that.data.chooseParam,
+			pickedUsers: that.data.pickedUsers || [],            //已选用户
 			multiple: true,
 			title: "协作人",
 			success: function(res) {
-				let names = []//userId
-				let ids = []
-				for (let d of res.users) {
-					names.push(d.name)
-					ids.push(d.userId)
-				}
-				console.log(names);
-				console.log(ids);
-				that.setData({
-					"table.CooperateMan": names.join(','),
-					"table.CooperateManId": names.join(','),
+				console.log(res);
+				let names = [];//userId
+				let ids = [];
+				if (res.departments.length == 0) {
+					that.data.pickedUsers = [];
+					for (let d of res.users) {
+						that.data.pickedUsers.push(d.userId);
+						names.push(d.name);
+						ids.push(d.userId);
 
-				})
+					}
+					that.setData({
+						"table.CooperateMan": names.join(','),
+						"table.CooperateManId": ids.join(','),
+
+					})
+				}
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];//数组去重
+
+						that.setData({
+							"table.CooperateMan": names.join(','),
+							"table.CooperateManId": ids.join(','),
+						})
+					}, deptId)
+
+				}
+
 			},
 			fail: function(err) {
 
@@ -80,7 +126,8 @@ Page({
 					let iDay = that.DateDiff(res.date, that.data.table.PlanEndTime);//計算天數
 					if (iDay > 0) {
 						dd.alert({
-							content: "结束时间要大于开始时间。"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}
@@ -108,7 +155,8 @@ Page({
 					iDay = that.DateDiff(res.date, that.data.table.PlanBeginTime);//計算天數
 					if (iDay < 0) {
 						dd.alert({
-							content: "结束时间要大于开始时间。"
+							content: promptConf.promptConf.TimeComparison,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}

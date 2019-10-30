@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -7,7 +8,7 @@ Page({
 		hidden: true,
 		good: {},
 		result: {},
-		
+
 		uploadFileConfig: [
 			{
 				label: '立项书或建议书',
@@ -341,9 +342,9 @@ Page({
 
 	},
 	submit(e) {
-		var that = this;
-		var value = e.detail.value;
-		var param = {
+		let that = this;
+		let value = e.detail.value;
+		let param = {
 			Title: value.title,
 			Remark: value.remark
 		}
@@ -356,7 +357,8 @@ Page({
 			for (let i of this.data.result.projectFundingList) {
 				if (i.Money == null || i.NameAndMoney == null) {
 					dd.alert({
-						content: "请完整填写项目经费表"
+						content: "请完整填写项目经费表",
+						buttonText: promptConf.promptConf.Confirm
 					});
 					flag = false;
 					break;
@@ -468,6 +470,8 @@ Page({
 		if (!value || !value.NameAndMoney || !value.Money) {
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText: promptConf.promptConf.Confirm
+
 			});
 			return;
 		}
@@ -522,7 +526,9 @@ Page({
 		};
 		this._postData("ProjectClosure/PrintExcel", (res) => {
 			dd.alert({
-				content: "打印完成，请在钉钉内查收"
+				content: promptConf.promptConf.PrintFrom,
+				buttonText: promptConf.promptConf.Confirm
+
 			})
 		}, param);
 
@@ -535,7 +541,9 @@ Page({
 		};
 		this._postData("ProjectClosure/PrintExcel", (res) => {
 			dd.alert({
-				content: "打印完成，请在钉钉内查收"
+				content: promptConf.promptConf.PrintFrom,
+				buttonText: promptConf.promptConf.Confirm
+
 			})
 		}, param);
 	},
@@ -547,7 +555,9 @@ Page({
 		};
 		this._postData("ProjectClosure/PrintExcel", (res) => {
 			dd.alert({
-				content: "打印完成，请在钉钉内查收"
+				content: promptConf.promptConf.PrintFrom,
+				buttonText: promptConf.promptConf.Confirm
+
 			})
 		}, param);
 	},
@@ -561,7 +571,8 @@ Page({
 
 		this._postData("ProjectClosure/PrintAndSend", (res) => {
 			dd.alert({
-				content: "打印完成，请在钉钉内查收"
+				content: promptConf.promptConf.PrintFrom,
+				buttonText: promptConf.promptConf.Confirm
 			})
 		}, param);
 	},

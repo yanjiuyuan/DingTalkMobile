@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
   ...pub.func,
   ...pub.func.dowith,
@@ -64,9 +65,9 @@ Page({
     ],
   },
   submit(e) {
-    var that = this
-    var value = e.detail.value
-    var param = {
+    let that = this
+    let value = e.detail.value
+    let param = {
         Title: value.title,
         Remark: value.remark
     }
@@ -75,7 +76,10 @@ Page({
   print(){
     this._postData('Borrow/PrintPDF',
       function(res){
-        dd.alert({content:'获取成功'})
+        dd.alert({
+			content:promptConf.promptConf.PrintFrom,
+			buttonText:promptConf.promptConf.Confirm
+			})
       },
       {
         UserId: this.data.DingData.userid,
@@ -86,7 +90,10 @@ Page({
   output(){
     this._postData('Borrow/PrintExcel',
       function(res){
-        dd.alert({content:'获取成功'})
+        dd.alert({
+			content:promptConf.promptConf.OutPutBom,
+			buttonText:promptConf.promptConf.Confirm
+			})
       },
       {
         UserId: this.data.DingData.userid,

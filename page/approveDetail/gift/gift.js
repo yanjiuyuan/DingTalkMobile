@@ -1,4 +1,6 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
+
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -43,7 +45,10 @@ Page({
 			TaskId: that.data.taskid
 		}),
 			function(res) {
-				dd.alert({ content: '获取成功，请在钉钉工作通知中查收' })
+				dd.alert({
+					content:promptConf.promptConf.PrintFrom,
+					buttonText:promptConf.promptConf.Confirm
+				})
 			},
 			{
 				UserId: that.data.DingData.userid,

@@ -65,7 +65,10 @@ Page({
   print(){
     this._postData('Maintain/PrintPDF',
       function(res){
-        dd.alert({content:'获取成功'})
+        dd.alert({
+			content:promptConf.promptConf.PrintFrom,
+			buttonText:promptConf.promptConf.Confirm,
+			})
       },
       {
         UserId: this.data.DingData.userid,
@@ -76,7 +79,11 @@ Page({
   output(){
     this._postData('Maintain/PrintExcel',
       function(res){
-        dd.alert({content:'获取成功'})
+        dd.alert({
+			content:promptConf.promptConf.OutPutBom,
+			buttonText:promptConf.promptConf.Confirm,
+
+			})
       },
       {
         UserId: this.data.DingData.userid,

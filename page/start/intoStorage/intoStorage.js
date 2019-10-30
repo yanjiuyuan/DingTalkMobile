@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -119,7 +120,7 @@ Page({
 		}
 		let that = this;
 		dd.showLoading({
-			content: '获取中...'
+			content: promptConf.promptConf.Obtaining
 		});
 		let url = this.data.jinDomarn + 'Godown/ReadGodownInfoSingle' + that.formatQueryStr({ keyWord: value.keyWord })
 		dd.httpRequest({
@@ -129,7 +130,7 @@ Page({
 				dd.hideLoading();
 				if (res.data.data.length == 0) {
 					dd.alert({
-						content: '未搜索到相关结果',
+						content: promptConf.promptConf.SearchNoReturn,
 						buttonText: promptConf.promptConf.Confirm,
 					});
 					return;
@@ -150,14 +151,14 @@ Page({
 		console.log(value.no)
 		if (!value || !value.no) {
 			dd.alert({
-				content: "请输入采购单编号",
+				content: promptConf.promptConf.SearchNoPurchaseNumber,
 				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
 		let that = this;
 		dd.showLoading({
-			content: '获取中...'
+			content: promptConf.promptConf.Obtaining
 		});
 		let url = this.data.jinDomarn + 'Godown/GetGodownInfoByFBillNo' + that.formatQueryStr({ FBillNo: value.no })
 		dd.httpRequest({
@@ -169,7 +170,7 @@ Page({
 				console.log(res.data.data)
 				if (res.data.data.length == 0) {
 					dd.alert({
-						content: '未搜索到相关结果',
+						content: promptConf.promptConf.SearchNoReturn,
 						buttonText: promptConf.promptConf.Confirm,
 					});
 				}
@@ -186,7 +187,7 @@ Page({
 	},
 	searchAndAdd(e) {
 		dd.showLoading({
-			content: '获取中...'
+			content: promptConf.promptConf.Obtaining
 		});
 		let value = e.detail.value
 		console.log(value.keyWord)
@@ -201,7 +202,10 @@ Page({
 				console.log(url)
 				console.log(res.data.data)
 				if (res.data.data.length == 0) {
-					dd.showToast({ content: '暂无数据' });
+					dd.alert({
+						content: promptConf.promptConf.SearchNoReturn,
+						buttonText:promptConf.promptConf.CONFIRE,
+					});
 				}
 				let addArr = []
 				let length = that.data.purchaseList.length
@@ -371,7 +375,7 @@ Page({
 				for (let g of this.data.goods) {
 					if (this.data.purchaseList[i].fNumber == g.fNumber && value.fQty > g.fQty) {
 						dd.alert({
-							content: '大于可用数量',
+							content: promptConf.promptConf.GreaterThanAvailable,
 							buttonText: promptConf.promptConf.Confirm,
 						})
 						return
@@ -390,7 +394,7 @@ Page({
 			for (let p of this.data.purchaseList) {
 				if (p.fNumber == good.fNumber) {
 					dd.alert({
-						content: '重复提交',
+						content: promptConf.promptConf.Repeat,
 						buttonText: promptConf.promptConf.Confirm,
 					})
 					return
@@ -399,8 +403,8 @@ Page({
 			//数量判断
 			if (value.fQty > good.fQty) {
 				dd.alert({
-					content: '大于可用数量',
-					buttonText: promptConf.promptConf.Confirm, 
+					content: promptConf.promptConf.GreaterThanAvailable,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				return
 			}
@@ -435,7 +439,7 @@ Page({
 			this.setData({
 				hidden: true,
 			});
-			
+
 		}, 210);
 	},
 });

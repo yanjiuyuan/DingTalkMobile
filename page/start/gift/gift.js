@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.start,
@@ -64,8 +65,8 @@ Page({
 		console.log(value);
 		if (value.keyWord == "") {
 			dd.alert({
-				content: "请输入关键字",
-				buttonText:"确认"
+				content: promptConf.promptConf.SearchNoInput,
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
 		}
@@ -76,8 +77,8 @@ Page({
 			console.log(res);
 			if (res.length == 0) {
 				dd.alert({
-					content: "未搜索到相关结果",
-					buttonText:"确认"
+					content: promptConf.promptConf.SearchNoReturn,
+					buttonText: promptConf.promptConf.Confirm
 				})
 			}
 			else if (res.length > 0) {
@@ -125,6 +126,7 @@ Page({
 		if (!value || !value.GiftCount) {
 			dd.alert({
 				content: `表单填写不完整`,
+				buttonText: promptConf.promptConf.Confirm
 			});
 			return
 		}
@@ -155,11 +157,14 @@ Page({
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm
 			})
 		}
 		if (!that.data.purchaseList.length) {
-			dd.alert({ content: `请选择礼品` })
+			dd.alert({
+				content: `请选择礼品`,
+				buttonText: promptConf.promptConf.Confirm
+			})
 			return
 		}
 		let callBack = function(taskId) {

@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 	...pub.func,
 	...pub.func.dowith,
@@ -14,8 +15,8 @@ Page({
 		fileLists: [],// 相关文件数组
 	},
 	submit(e) {
-		var value = e.detail.value
-		var param = {
+		let value = e.detail.value
+		let param = {
 			Title: value.title,
 			Remark: value.remark,
 			ImageUrl: this.data.tableInfo['ImageUrl']
@@ -48,7 +49,7 @@ Page({
 	},
 	//添加定位
 	addPlace() {
-		var that = this
+		let that = this
 		//上传图片
 		dd.chooseImage({
 			count: 1,
@@ -57,9 +58,8 @@ Page({
 				for (let p of res.apFilePaths) {
 					that.setData({ disablePage: true })
 					dd.showLoading({
-						content: '图片处理中...'
+						content:promptConf.promptConf.PictureProcessing
 					});
-					//dd.alert({content:'ues ' + JSON.stringify(res)})
 					dd.uploadFile({
 						url: that.data.dormainName + 'drawingupload/Upload?IsWaterMark=true',
 						fileType: 'image',
@@ -67,12 +67,14 @@ Page({
 						IsWaterMark: true,
 						filePath: p,
 						success: (res) => {
-							//dd.alert({content:'你返回的 ' + JSON.stringify(res)})
 
 							if (that.data.tableInfo['ImageUrl']) that.data.tableInfo['ImageUrl'] += ','
 							else that.data.tableInfo['ImageUrl'] = ''
 							if (JSON.parse(res.data).Content == 'null' || !JSON.parse(res.data).Content) {
-								dd.alert({ title: '图片处理发生异常，请联系管理员' });
+								dd.alert({ 
+									content: promptConf.promptConf.PictureProcessingError,
+									buttonText:promptConf.promptConf.Confirm,
+									 });
 								return
 							}
 							that.data.tableInfo['ImageUrl'] += JSON.parse(res.data).Content
@@ -184,9 +186,9 @@ Page({
 	deletePhoto(e) {
 		my.confirm({
 			title: '温馨提示',
-			content: '是否需要删除？',
-			confirmButtonText: 'YES',
-			cancelButtonText: 'NO',
+			content: promptConf.promptConf.DeletePicture,
+			confirmButtonText: promptConf.promptConf.Confirm,
+			cancelButtonText: promptConf.promptConf.Cancel,
 			success: (result) => {
 				if (result.confirm == true) {
 

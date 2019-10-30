@@ -1,5 +1,5 @@
 import pub from '/util/public';
- import promptConf from "/util/promptConf.js";
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -27,30 +27,30 @@ Page({
 		}],
 	},
 	submit(e) {
-		let value = e.detail.value
+		let value = e.detail.value;
 		value['Type'] = this.data.IntellectualPropertyTypes[this.data.stateIndex]
 		value['Project'] = this.data.projectList[this.data.projectIndex].ProjectName
 		value['ProjectNo'] = this.data.projectList[this.data.projectIndex].ProjectId,
-			value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
+		value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
 		value['ProjectName'] = this.data.projectList[this.data.projectIndex].ProjectName
 		value['InventorId'] = this.data.tableInfo.InventorId
 		value['Inventor'] = this.data.tableInfo.Inventor
 		value['ActualInventor'] = this.data.tableInfo.ActualInventor
 		value['ActualInventorId'] = this.data.tableInfo.ActualInventorId
-
+		console.log(value);
 		if (value.Type == "" || value.ProjectNo == "" || value.InventorId == "" || value.Name == "") {
 			console.log(value)
 			dd.alert({
 				content: '表单未填写完整',
-				buttonText:promptConf.promptConf.Confirm
+				buttonText: promptConf.promptConf.Confirm
 			})
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText:promptConf.promptConf.Confirm,
-				
+				buttonText: promptConf.promptConf.Confirm,
+
 			})
 		}
 		value['Type'] == '软件著作权' ? this.data.nodeList[5].AddPeople = [this.data.managers[1]] : this.data.nodeList[5].AddPeople = [this.data.managers[0]]
@@ -67,27 +67,75 @@ Page({
 		}
 		this.approvalSubmit(value, callBack, value['ProjectId']);
 	},
-	//选人控件方法
+	//选人 可以实现 
 	chooseMans(e) {
-		let that = this
+		console.log('start choose people');
+		let nodeId = e.target.targetDataset.NodeId;
+		let that = this;
 		dd.complexChoose({
-			...that.chooseParam,
+			...that.data.chooseParam,
+			pickedUsers: that.data.pickedUsers || [],            //已选用户
 			multiple: true,
+			title: "申请发明人",
 			success: function(res) {
-				console.log(res)
-				let names = []//userId
-				let userids = []
-				for (let d of res.users) {
-					names.push(d.name)
-					userids.push(d.userId)
+				console.log(res);
+				let names = [];
+				let userids = [];
+				if (res.departments.length == 0) {
+					that.data.pickedUsers = [];
+					for (let d of res.users) {
+						that.data.pickedUsers.push(d.userId);
+						names.push(d.name);
+						userids.push(d.userId);
+					}
+					that.setData({
+						'tableInfo.Inventor': names.join(','),
+						'tableInfo.InventorId': userids.join(','),
+						'tableInfo.ActualInventor': names.join(','),
+						'tableInfo.ActualInventorId': userids.join(','),
+						'table.Inventor': names.join(','),
+					})
 				}
-				that.setData({
-					'tableInfo.Inventor': names.join(','),
-					'tableInfo.InventorId': userids.join(','),
-					'tableInfo.ActualInventor': names.join(','),
-					'tableInfo.ActualInventorId': userids.join(','),
-					'table.Inventor': names.join(','),
-				})
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								userids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						userids = [...new Set(userids)];
+						that.setData({
+							'tableInfo.Inventor': names.join(','),
+							'tableInfo.InventorId': userids.join(','),
+							'tableInfo.ActualInventor': names.join(','),
+							'tableInfo.ActualInventorId': userids.join(','),
+							'table.Inventor': names.join(','),
+
+						})
+					}, deptId)
+
+				}
+
+			},
+			fail: function(err) {
+
 			}
 		})
 	},

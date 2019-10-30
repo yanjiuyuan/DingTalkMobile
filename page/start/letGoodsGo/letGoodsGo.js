@@ -1,4 +1,6 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
+
 let good = {}
 Page({
 	...pub.func,
@@ -16,17 +18,23 @@ Page({
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText: "确认"
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		console.log(value);
 		if (this.data.imgUrlList.length < 1) {
-			dd.alert({ content: '需要上传图片' })
+			dd.alert({
+				content: promptConf.promptConf.NoPicture,
+				buttonText: promptConf.promptConf.Confirm,
+			})
 			return
 		}
 
 		if (value.Company == "" || value.Tel == "" || value.Name == "" || value.Count == "" || value.Unit == "" || value.Cause == "" || value.Date == "") {
-			dd.alert({ content: '表单未填写完整' })
+			dd.alert({
+				content: '表单未填写完整',
+				buttonText: promptConf.promptConf.Confirm,
+			})
 			return
 		}
 		let callBack = function(taskId) {
@@ -62,14 +70,14 @@ Page({
 	deletePhoto(e) {
 		my.confirm({
 			title: '温馨提示',
-			content: '是否需要删除？',
-			confirmButtonText: 'YES',
-			cancelButtonText: 'NO',
+			content: promptConf.promptConf.DeletePicture,
+			confirmButtonText: promptConf.promptConf.Confirm,
+			cancelButtonText: promptConf.promptConf.Cancel,
 			success: (result) => {
 				if (result.confirm == true) {
 
 					let index = e.currentTarget.dataset.index;
-					this.data.imageList.splice(index, 1);	
+					this.data.imageList.splice(index, 1);
 					this.setData({
 						imageList: this.data.imageList
 					})
