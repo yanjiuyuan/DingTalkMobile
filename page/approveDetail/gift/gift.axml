@@ -1,3 +1,4 @@
+<!-- 礼品 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
 	<!-- 基本表单 -->

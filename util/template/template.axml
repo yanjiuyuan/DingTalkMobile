@@ -4,21 +4,15 @@
 		<view a:for="{{nodeList}}" a:for-item="node">
 			<view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
 			<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}
-				</view>
+				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}</view>
 				<view a:if="{{node.NodeName != '抄送'}}" style="display:inline-block;">
 					<text style="">{{node.ApplyTime}}</text>
-					<view a:if="{{(node.ApplyManId == '0907095238746571' || node.ApplyManId == 'manager325') && node.ApplyTime && (DingData.userid == '0907095238746571' || DingData.userid == 'manager325')}}" data-Id="{{node.Id}}" data-NodeId="{{node.NodeId}}" data-remark="{{node.Remark}}" onTap="changeSuggest" class="tag tag-info" style='margin-left:10px;'>修改意见
-					</view>
+					<view a:if="{{(node.ApplyManId == '0907095238746571' || node.ApplyManId == 'manager325') && node.ApplyTime && (DingData.userid == '0907095238746571' || DingData.userid == 'manager325')}}" data-Id="{{node.Id}}" data-NodeId="{{node.NodeId}}" data-remark="{{node.Remark}}" onTap="changeSuggest" class="tag tag-info" style='margin-left:10px;'>修改意见</view>
 					<text>\n</text>
-					<text style=""> {{node.Remark}}</text>
-				</view>
-			</view>
+					<text style=""> {{node.Remark}}</text></view></view>
 			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
-				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view>
-			</view>
-			<view a:if="{{nodedata.IsNeedChose && nodedata.ChoseNodeId && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeople" class="tag tag-info">+ 选人
-			</view>
+				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view></view>
+			<view a:if="{{nodedata.IsNeedChose && nodedata.ChoseNodeId && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeople" class="tag tag-info">+ 选人</view>
 			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
 		</view>
 	</view>
@@ -55,13 +49,78 @@
 		</view>
 	</view>
 </template>
-<!--<template name="test"><view class="choosePeople"><view class="choosePeople-title">审批流程</view><view a:for="{{nodeList}}" a:for-item="node" a:if="{{node}}"><view class="choosePeople-view-new" a:if="{{node.NodeName !== '结束'}}"><view class="choosePeople-view-left"><view class="choosePeople-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view><view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom"></view></view></view><view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index"><view a:if="{{index< 2}}"><view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}"><view a:if="{{p.length == 2}}">{{p}}</view><view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view></view></view></view><view a:if="{{node.NodePeople.length<= 0 || node.NodePeople == undefined }}" a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;"><view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}"><view a:if="{{ad.name.length == 2}}">
+<!-- <template name="test">
+	<view class="choosePeople">
+		<view class="choosePeople-title">审批流程</view>
+		<view a:for="{{nodeList}}" a:for-item="node" a:if="{{node}}">
+			<view class="choosePeople-view-new" a:if="{{node.NodeName !== '结束'}}">
+				<view class="choosePeople-view-left">
+					<view class="choosePeople-view-left-icon">
+						<view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view>
+						<view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view>
+						<view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view>
+						<view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom">
+						</view>
+					</view>
+				</view>
+				<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index">
+					<view a:if="{{index< 2}}">
+						<view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">
+							<view a:if="{{p.length == 2}}">{{p}}</view>
+							<view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view>
+						</view>
+					</view>
+				</view>
+				<view a:if="{{node.NodePeople.length<= 0 || node.NodePeople == undefined }}" a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;">
+					<view class="choosePeople-view-right-item  {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">
+						<view a:if="{{ad.name.length == 2}}">
+									{{ad.name}}
+						</view>
+						<view a:if="{{ad.name.length > 2}}">
+									{{ad.name.substring(1,3)}}
+						</view></view></view>
+				<view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeople" class="choosePeople-view-right-plus-new">
+						+
+				</view>
+				<view a:else = "{{node.ApplyMan == null && node.AddPeople.length == 0 }}" class="choosePeople-view-right-plus-new">
+						null
+				</view>
+				<view class="choosePeople-view-text">
+					<view class="choosePeople-view-text-top">
+                {{node.NodeName}}
+					</view>
+					<view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
+                {{node.Remark}}
+					</view>
+				</view>
+				<view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view>
+				<view a:if="{{!node.ApplyTime && node.NodeName !== '抄送'}}" class="choosePeople-view-text-right">未审批</view>
+				<view a:if="{{!node.ApplyTime && node.NodeName == '抄送'}}" class="choosePeople-view-text-right">未查看</view>
+			</view>
+		</view>
+	</view>
+	</view>
+</template> -->
+<!-- 通过选择改变流程配置的人员 -->
+<template name="choosePeopleAndChange">
+	<view style="padding:40rpx 0;clear:left;">
+		<view a:for="{{nodeList}}" a:for-item="node">
+			<view class="tag tag-warning" style="width:160rpx;margin-right:10rpx;"> {{node.NodeName}}</view>
+			<view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index" style="display:inline-block;">
+				<view style="display:inline-block;margin-right:10rpx;" class="tag {{node.ApplyTime?'tag-success':'tag-normal'}} {{node.IsBack?'tag-danger':''}}">{{p}}</view></view>
+			<view a:for="{{node.AddPeople}}" a:for-item="ad" style="display:inline-block;">
+				<view style="display:inline-block;margin-right:10rpx;" class="tag tag-normal">{{ad.name}}</view></view>
+			<view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="tag tag-info">+ 选人</view>
+			<view a:if="{{index< length-1}}" style="font-size:100rpx;line-height:60rpx;color:#409EFF;margin-left:40rpx;padding:10rpx;">﹀</view>
+		</view>
+	</view>
+</template>
+<!--<template name="choosePeopleAndChange"><view class="choosePeople"><view class="choosePeople-title">审批流程</view><view a:for="{{nodeList}}" a:for-item="node"><view class="choosePeople-view" a:if="{{node.NodeName !== '结束'}}"><view class="choosePeople-view-left"><view class="choosePeople-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="choosePeople-view-left-icon-middle-s"></view><view a:if="{{node.NodeId > 0}}" class="choosePeople-view-left-icon-middle"></view><view a:if="{{node.NodeId< nodeList.length-2}}" class="choosePeople-view-left-icon-bottom"></view></view><view class="choosePeople-view-left-text"><view>
+							{{node.NodeName}}</view></view></view><view class="choosePeople-view-right"><view a:for="{{node.NodePeople}}" a:for-item="p" a:for-index="index"><view a:if="{{index< 2}}"><view class="choosePeople-view-right-item"><view a:if="{{p.length == 2}}">{{p}}</view><view a:if="{{p.length > 2}}">{{p.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">
+								{{p}}</view></view></view><view a:for="{{node.AddPeople}}" a:for-item="ad" a:for-index="index" style="display:inline-block;"><view class="choosePeople-view-right-item"><view a:if="{{ad.name.length == 2}}">
 									{{ad.name}}</view><view a:if="{{ad.name.length > 2}}">
-									{{ad.name.substring(1,3)}}</view></view></view><view a:if="{{node.ApplyMan == null && nodedata.ChoseNodeId && nodedata.IsNeedChose && nodedata.ChoseNodeId.indexOf(node.NodeId) >= 0}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleTwo" class="choosePeople-view-right-plus-new">
-						+</view><view a:else = "{{node.ApplyMan == null && node.AddPeople.length == 0 }}" class="choosePeople-view-right-plus-new">
-						null</view><view class="choosePeople-view-text"><view class="choosePeople-view-text-top">
-                {{node.NodeName}}</view><view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
-                {{node.Remark}}</view></view><view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view><view a:if="{{!node.ApplyTime && node.NodeName !== '抄送'}}" class="choosePeople-view-text-right">未审批</view><view a:if="{{!node.ApplyTime && node.NodeName == '抄送'}}" class="choosePeople-view-text-right">未查看</view></view></view></view></view></template> -->
+									{{ad.name.substring(1,3)}}</view></view><view class="choosePeople-view-right-text">{{ad.name}}</view></view><view a:if="{{node.AddPeople != undefined }}" data-index="{{i}}" data-NodeId="{{node.NodeId}}" onTap="choosePeopleAndChange" class="choosePeople-view-right-plus">
+						+</view></view></view></view></view></template> -->
 <!-- 数据表 -->
 <template name="datatable">
 	<view class="table">
@@ -263,7 +322,7 @@ margin-right:0.1rem;">*
 	<view class="form-row">
 		<view class="form-row-label">申请人</view>
 		<view class="form-row-content">
-			<input class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
+			<input class="input" name="applyman" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
 		</view>
 	</view>
 </template>
@@ -285,21 +344,27 @@ margin-right:0.1rem;">*
 </template>
 <!-- 各种按钮 -->
 <template name ="variousButtons">
-	<view a:if="{{index == 0}}">
+	<view a:if="{{index == 0 && agree == true}}">
 		<template is="suggest"/>
-		<button formType="submit" type="primary" disabled="{{disablePage}}">同意</button>
+		<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
 		<button onTap="tapReturn" type="warn" disabled="{{disablePage}}">退回</button>
 	</view>
-	<view a:if="{{ index!= 0 && state == '已完成' }}">
+	<view a:if="{{ index!= 0 && state == '已完成' && print == true}}">
 		<button onTap="print" type="primary" disabled="{{disablePage}}">打印表单</button>
 	</view>
-	<view a:if="{{index == 2 && state == '未完成'}}">
+	<view a:if="{{ index!= 0 && state == '已完成' && printAllPDF == true}}">
+		<button type="primary" onTap="output" disabled="{{disablePage}}">下载所有图纸</button>
+	</view>
+	<view a:if="{{output == true}}">
+		<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
+	</view>
+	<view a:if="{{index == 2 && state == '未完成' && ding == true}}">
 		<button onTap="ding" type="primary" disabled="{{disablePage}}">钉一下</button>
 	</view>
-	<view a:if="{{index == 2 && state == '未完成' && nodeId == 1}}">
+	<view a:if="{{index == 2 && state == '未完成' && nodeid == 1 && returnSubmit == true}}">
 		<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 	</view>
-	<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
+	<view a:if="{{index == 2 && state == '已撤回' && relaunch == true || index == 2 && state == '被退回' && relaunch == true}}">
 		<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
 	</view>
 </template>

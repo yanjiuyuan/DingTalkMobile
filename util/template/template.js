@@ -1,5 +1,5 @@
 
-var globalData = getApp().globalData;
+let globalData = getApp().globalData;
 import pub from '/util/public';
 import lib from '/lib.js';
 export default {
@@ -36,8 +36,8 @@ export default {
 			console.log('start choose people');
 			console.log(this.data.nodeList);
 
-			var nodeId = e.target.targetDataset.NodeId;
-			var that = this;
+			let nodeId = e.target.targetDataset.NodeId;
+			let that = this;
 			let arr = that.data.nodeList;
 			let index = nodeId;
 			let IsMultipleSelection = 0;
@@ -121,7 +121,7 @@ export default {
 			})
 		},
 		handleCurrentChange: function(event) {
-			var page = event.target.dataset.page
+			let page = event.target.dataset.page
 			this.setData({
 				"tableParam.now": page
 			})

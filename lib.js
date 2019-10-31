@@ -10,7 +10,10 @@ function doWithErrcode(result) {
 		return 1
 	}
 	if (result.error && result.error.errorCode != 0) {
-		dd.alert({ content: result.error.errorMessage })
+		dd.alert({ 
+			content: result.error.errorMessage,
+			buttonText:"确认"
+			 })
 		return 1
 	}
 	return 0
@@ -291,7 +294,7 @@ function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
 		data: JSON.stringify(postParam),
 		headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
 		success: function(res) {
-			console.log('提交错误信息~~~~~~~~~~~~~~~~~~~~~~')
+			console.log('提交错误信息~~~~~~~~~~~~~~~~~~~~~~');
 			console.log(postUrl)
 			console.log(postParam)
 			console.log(res)

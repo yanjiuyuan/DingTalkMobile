@@ -1,0 +1,81 @@
+<!-- 基地加班 -->
+<import src="/util/template/template.axml"/>
+<view class="page">
+	<!-- 退回审批表单 -->
+	<template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+	<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
+	<form onSubmit="submit">
+		<view class="page-section">
+			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
+			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
+			<template is="department" data="{{department:tableInfo.Dept}}"/>
+			<!--<view class="form-row"><view class="form-row-label">
+					加班人员</view><view class="form-row-content"><input name="name" class="input" disabled="{{true}}" value="{{DingData.nickName}}" /></view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					加班事由
+				</view>
+				<view class="form-row-content">
+					<textarea auto-height="true" name="OverTimeContent" class="input" disabled="{{true}}" value="{{table.OverTimeContent}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					加班日期
+				</view>
+				<view class="form-row-content">
+					<input name="DateTime" class="input" value="{{table.DateTime}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					起始时间
+				</view>
+				<view class="form-row-content">
+					<input name="StartTime" class="input" disabled="{{true}}" value="{{table.StartTime}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					结束时间
+				</view>
+				<view class="form-row-content">
+					<input name="EndTimeTime" class="input" disabled="{{true}}" value="{{table.EndTimeTime}}" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					加班时长(小时)
+				</view>
+				<view class="form-row-content">
+					<input name="UseTime" class="input" value="{{ table.UseTime}}" disabled="{{true}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label" style ="width:3rem;">
+					<template a:if="{{!table.EffectiveTime}}" is="required"/>有效加班时长(小时)
+				</view>
+				<picker a:if="{{!table.EffectiveTime}}" onChange="bindPickerChange" value="{{indexOfTime}}" range="{{Time}}">
+					<view class="row" style="width:200rpx">
+						<view class="row-title"></view>
+						<view class="row-extra">{{Time[indexOfTime]}}</view>
+						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					</view>
+				</picker>
+				<view a:if="{{table.EffectiveTime}}" class="form-row-content">
+					<input name="EffectiveTime" class="input" value="{{ table.UseTime}}" disabled="{{true}}"/>
+				</view>
+			</view>
+			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
+			<template is="variousButtons" data="{{index:index,nodeid:nodeid,state:state,agree:true,print:false,printAllPDF:false,output:false,ding:true,returnSubmit:true,relaunch:true}}">
+				<!-- agree  意见输入框、同意、退回 -->
+				<!-- print 打印表单 -->
+				<!-- printAllPDF 下载所有图纸 -->
+				<!-- output 导出bom -->
+				<!-- ding 钉一下 -->
+				<!-- returnSubmit 撤回 -->
+				<!-- relaunch 重新发起 -->
+			</template>
+		</view>
+	</form>
+</view>

@@ -92,6 +92,15 @@ Page({
 					});
 				}
 			},
+			fail: (res) => {
+				if (res.error == "3") {
+					dd.alert({
+						content: "请在android的“设置-应用-权限”选项中，允许访问你的相机",
+						buttonText: promptConf.promptConf.Confirm
+					})
+				}
+
+			}
 		});
 		return
 		dd.getLocation({
@@ -152,6 +161,15 @@ Page({
 					});
 				}
 			},
+			fail: (res) => {
+				if (res.error == "3") {
+					dd.alert({
+						content: "请在android的“设置-应用-权限”选项中，允许访问你的照片",
+						buttonText: promptConf.promptConf.Confirm
+					})
+				}
+
+			}
 		});
 		return
 		dd.getLocation({

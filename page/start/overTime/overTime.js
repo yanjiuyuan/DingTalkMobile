@@ -59,7 +59,7 @@ Page({
 
 	bindPickerChangeOne(e) {
 		console.log('picker发送选择改变，携带值为', e.detail.value);
-		if (this.data.index2) {
+		if (this.data.index2 != undefined) {
 			if (e.detail.value > this.data.index2) {
 				dd.alert({
 					content: promptConf.promptConf.TimeComparison,
@@ -82,7 +82,7 @@ Page({
 	bindPickerChangeTwo(e) {
 		console.log('picker发送选择改变，携带值为', e.detail.value);
 		this.data.index2 = e.detail.value;
-		if (this.data.index1) {
+		if (this.data.index1 != undefined) {
 			if (e.detail.value < this.data.index1) {
 				dd.alert({
 					content: promptConf.promptConf.TimeComparison,

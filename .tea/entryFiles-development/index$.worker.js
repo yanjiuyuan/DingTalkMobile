@@ -80,6 +80,7 @@ require('../../page/managementConsole/sortTest/sortTest?hash=32d7d2807ed4e666ef0
 require('../../page/managementConsole/sortTest_1/sortTest_1?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/approveDetail/projectDetail/projectDetail?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/processManagement/processManagement?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/approveDetail/overTime/overTime?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

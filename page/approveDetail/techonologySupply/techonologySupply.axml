@@ -123,23 +123,15 @@
 			</view>
 			<!-- 选人组件 -->
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
-			<view a:if="{{index==0}}">
-				<template is="suggest"/>
-				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-				<button onTap="tapReturn" type="warn" disabled="{{disablePage}}">退回</button>
-			</view>
-			<view a:if="{{ index!= 0 && state == '已完成' }}">
-				<button onTap="print" type="primary" disabled="{{disablePage}}">打印表单</button>
-			</view>
-			<view a:if="{{index == 2 && state == '未完成'}}">
-				<button onTap="ding" type="primary" disabled="{{disablePage}}">钉一下</button>
-			</view>
-			<view a:if="{{index == 2 && state == '未完成' && nodeid == 1}}">
-				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
-			</view>
-			<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
-				<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
-			</view>
+			<template is="variousButtons" data="{{index:index,nodeid:nodeid,state:state,agree:true,print:true,printAllPDF:false,output:false,ding:true,returnSubmit:true,relaunch:true}}">
+				<!-- agree  意见输入框、同意、退回 -->
+				<!-- print 打印表单 -->
+				<!-- printAllPDF 下载所有图纸 -->
+				<!-- output 导出bom -->
+				<!-- ding 钉一下 -->
+				<!-- returnSubmit 撤回 -->
+				<!-- relaunch 重新发起 -->
+			</template>
 		</view>
 	</form>
 </view>

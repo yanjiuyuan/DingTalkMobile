@@ -1,6 +1,6 @@
 const app = getApp();
 import pub from "/util/public";
-
+import promptConf from "/util/promptConf.js";
 Page({
     ...pub.func,
     data: {
@@ -47,8 +47,8 @@ Page({
 
         dd.confirm({
             content: "是否删除" + item.SORT_NAME + "整个分组",
-            confirmButtonText: "YES",
-            cancelButtonText: "NO",
+            confirmButtonText: promptConf.promptConf.Confirm,
+            cancelButtonText: promptConf.promptConf.Cancel,
             success: result => {
                 if (result.confirm == true) {
                     var obj = {
@@ -88,7 +88,8 @@ Page({
         console.log(e);
         let item = e.target.dataset.item;
         dd.alert({
-            content: "是否删除" + item.FlowName
+            content: "是否删除" + item.FlowName,
+			buttonText:promptConf.promptConf.Confirm
         });
     },
 
