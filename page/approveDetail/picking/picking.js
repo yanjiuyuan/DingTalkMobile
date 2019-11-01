@@ -61,36 +61,7 @@ Page({
 		//return
 		this.aggreSubmit(param)
 	},
-	print() {
-		let that = this
-		this._postData('Pick/PrintPDF',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
-	output() {
-		let that = this
-		this._postData('Pick/PrintExcel',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.OutPutBom,
-					buttonText: promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
+
 
 	deletePhoto(e) {
 		dd.confirm({

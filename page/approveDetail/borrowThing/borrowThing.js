@@ -73,32 +73,5 @@ Page({
     }
     this.aggreSubmit(param)
   },
-  print(){
-    this._postData('Borrow/PrintPDF',
-      function(res){
-        dd.alert({
-			content:promptConf.promptConf.PrintFrom,
-			buttonText:promptConf.promptConf.Confirm
-			})
-      },
-      {
-        UserId: this.data.DingData.userid,
-        TaskId: this.data.taskid
-      }
-    )
-  },
-  output(){
-    this._postData('Borrow/PrintExcel',
-      function(res){
-        dd.alert({
-			content:promptConf.promptConf.OutPutBom,
-			buttonText:promptConf.promptConf.Confirm
-			})
-      },
-      {
-        UserId: this.data.DingData.userid,
-        TaskId: this.data.taskid
-      }
-    )
-  },
+
 });

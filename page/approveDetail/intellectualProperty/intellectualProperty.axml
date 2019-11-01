@@ -61,6 +61,7 @@
 						<view class="form-row-content">
 							<picker onChange="changeIptIndex" value="{{stateIndexs}}" range="{{IntellectualPropertyTypes}}">
 								<view class="row">
+									 <view class="row-title"></view>
 									<view class="row-extra">{{IntellectualPropertyTypes[stateIndexs]}}</view>
 									<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
 								</view>

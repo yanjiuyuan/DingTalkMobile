@@ -38,22 +38,5 @@ Page({
 		this.aggreSubmit(param);
 
 	},
-	print() {
-		let that = this
-		this._getData('Gift/GetPrintPDF' + this.formatQueryStr({
-			UserId: that.data.DingData.userid,
-			TaskId: that.data.taskid
-		}),
-			function(res) {
-				dd.alert({
-					content:promptConf.promptConf.PrintFrom,
-					buttonText:promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
+
 })

@@ -58,6 +58,4 @@ Page({
 		this.aggreSubmit(param);
 	},
 
-	onReady(){
-	}
 });

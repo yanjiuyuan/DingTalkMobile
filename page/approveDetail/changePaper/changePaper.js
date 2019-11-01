@@ -83,23 +83,7 @@ Page({
 		}
 		this.aggreSubmit(param)
 	},
-	print() {
-		let that = this
-		this._postData('DrawingChange/PrintAndSend',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid,
-				OldPath: that.data.FilePDFUrl.replace(/\\/g, '\\\\')
-			}
-		)
-	},
-	output() {
+	printAllPDF() {
 		let that = this
 		this._getData('NewsAndCases/GetAllPDF' + that.formatQueryStr({ ApplyManId: that.data.DingData.userid, taskId: that.data.taskid }),
 			function(res) {

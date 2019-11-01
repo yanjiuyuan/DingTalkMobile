@@ -74,22 +74,6 @@ Page({
 		}
 		this.aggreSubmit(param)
 	},
-	print() {
-		let that = this
-		this._postData('DrawingUploadNew/PrintAndSend',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid,
-				OldPath: that.data.FilePDFUrl.replace(/\\/g, '\\\\')
-			}
-		)
-	},
 	downloadAllPdf() {
 		this._getData('NewsAndCases/GetAllPDF' + this.formatQueryStr({ ApplyManId: this.data.DingData.userid, taskId: this.data.taskid }),
 			function(res) {
@@ -130,6 +114,4 @@ Page({
 			}, this.data.DingData)
 	},
 
-	onReady() {
-	}
 });

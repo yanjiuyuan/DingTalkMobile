@@ -1,3 +1,4 @@
+<!-- 物资放行条 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
 	<!-- 退回审批表单 -->

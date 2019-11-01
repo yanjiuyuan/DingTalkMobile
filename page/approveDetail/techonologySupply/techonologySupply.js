@@ -83,21 +83,6 @@ Page({
 		}, this.data.table
 		)
 	},
-	print() {
-		let that = this;
-		this._postData('TechnicalSupport/PrintAndSend',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm,
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
 	//选人控件方法
 
 	choosePeoples(e) {

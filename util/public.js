@@ -278,7 +278,7 @@ export default {
 				if (!this.data.DingData.userid) {
 					dd.alert({
 						content: promptConf.promptConf.LoginPrompt,
-						buttonText:promptConf.promptConf.Confirm
+						buttonText: promptConf.promptConf.Confirm
 					});
 					return;
 				}
@@ -304,10 +304,10 @@ export default {
 				for (let node of that.data.nodeList) {
 					if ((that.data.nodeInfo.IsNeedChose && that.data.nodeInfo.ChoseNodeId && (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 || (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) || (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)) {
 						if (node.AddPeople.length == 0) {
-							dd.alert({ 
+							dd.alert({
 								content: promptConf.promptConf.Approver,
-								buttonText:promptConf.promptConf.Confirm
-							 })
+								buttonText: promptConf.promptConf.Confirm
+							})
 							that.setData({
 								disablePage: false
 							})
@@ -489,7 +489,7 @@ export default {
 				that._postData("FlowInfoNew/SubmitTaskInfo", function(res) {
 					dd.alert({
 						content: promptConf.promptConf.SuccessfulSubmission,
-						buttonText:promptConf.promptConf.Confirm,
+						buttonText: promptConf.promptConf.Confirm,
 						success: () => {
 							dd.switchTab({
 								url: "/page/approve/approve"
@@ -647,36 +647,116 @@ export default {
 				this._postData("DingTalkServers/sendOaMessage" + this.formatQueryStr(param), (res) => {
 					dd.alert({
 						content: promptConf.promptConf.Ding,
-						buttonText:promptConf.promptConf.Confirm,
+						buttonText: promptConf.promptConf.Confirm,
 					})
 				})
 			},
 			//打印流程表单
-			print() {
-				this._postData("PurchaseNew/PrintAndSend",
-					function(res) {
-						dd.alert({
-							content: promptConf.promptConf.PrintFrom,
-							buttonText: promptConf.promptConf.Confirm,
-						})
-					},
-					{
-						UserId: this.data.DingData.userid,
-						TaskId: this.data.taskid
-					}
-				)
+			print(flowid) {
+				let that = this;
+				let url = "";
+				let method = "";
+				console.log(this.data.flowid);
+				switch (this.data.flowid) {
+
+					case "6": url = "DrawingUploadNew/PrintAndSend", method = "post"; break;//图纸审批
+					case "8": url = "PurchaseNew/PrintAndSend", method = "post"; break;//零部件采购
+					case "13": url = "CarTableNew/GetPrintPDF", method = "post"; break;//公车
+					case "14": url = "CarTableNew/GetPrintPDF", method = "post"; break;//私车
+					case "18": url = "OfficeSuppliesPurchase/PrintPDF", method = "post"; break;//办公用品采购
+					case "19": url = "Receiving/GetReport", method = "get"; break;//文件阅办单
+					case "24": url = "Gift/GetPrintPDF", method = "get"; break;//礼品
+					case "26": url = "Pick/PrintPDF", method = "post"; break;//领料申请
+					case "27": url = "Godown/PrintPDF", method = "post"; break;//入库
+					case "31": url = "CreateProject/PrintPDF", method = "post"; break;//立项
+					case "33": url = "DrawingChange/PrintAndSend", method = "post"; break;//图纸变更
+					case "34": url = "TechnicalSupport/PrintAndSend", method = "post"; break;//项目技术支持
+					case "35": url = "MaterialRelease/PrintAndSend", method = "post"; break;//物资放行条
+					case "36": url = "IntellectualProperty/Print", method = "post"; break;//知识产权
+					case "67": url = "Borrow/PrintPDF", method = "post"; break;//借入
+					case "68": url = "Maintain/PrintPDF", method = "post"; break;//维修
+					case "69": url = "ProjectClosure/PrintAndSend", method = "post"; break;//结题
+
+
+				}
+				let obj = {
+					UserId: that.data.DingData.userid,
+					TaskId: that.data.taskid
+				}
+				//图纸变更需要多一个参数
+				if (this.data.flowid == "33" || this.data.flowid == "6") {
+					obj.OldPath = that.data.FilePDFUrl.replace(/\\/g, '\\\\')
+				}
+				if (this.data.flowid == "13") {
+					obj.IsPublic = true;
+				}
+
+				//GET方法
+				if (method == "get") {
+					this._getData(url + this.formatQueryStr(obj
+					),
+						function(res) {
+							dd.alert({
+								content: promptConf.promptConf.PrintFrom,
+								buttonText: promptConf.promptConf.Confirm
+							})
+						},
+					)
+				}
+				//POST方法
+				if (method == "post") {
+					this._postData(url,
+						function(res) {
+							dd.alert({
+								content: promptConf.promptConf.PrintFrom,
+								buttonText: promptConf.promptConf.Confirm,
+							})
+						}, obj
+					)
+				}
+
 			},
 			//导出bom表
 			output() {
-				this._getData("api/PurchaseManage" + this.formatQueryStr({ UserId: this.data.DingData.userid, TaskId: this.data.taskid }),
-					function(res) {
-						dd.alert({
-							content: promptConf.promptConf.OutPutBom,
-							buttonText: promptConf.promptConf.Confirm,
-						})
-					}
-				)
+				let that = this;
+				let url = "";
+				let method = "";
+				console.log(this.data.flowid);
+				switch (this.data.flowid) {
+					case "6": url = "DrawingUploadNew/GetExcelReport", method = "get"; break;//图纸审批-
+					case "8": url = "api/PurchaseManage", method = "get"; break;//零部件采购-
+					case "26": url = "Pick/PrintExcel", method = "post"; break;//领料申请-
+					case "27": url = "Godown/PrintExcel", method = "post"; break;//入库-
+					case "33": url = "DrawingChange/GetExcelReport", method = "get"; break;//图纸变更-
+					case "67": url = "Borrow/PrintExcel", method = "post"; break;//借入-
+					case "68": url = "Maintain/PrintExcel", method = "post"; break;//维修-
+				}
+				let obj = {
+					UserId: this.data.DingData.userid,
+					TaskId: this.data.taskid
+				}
+				if (method == "get") {
+					this._getData(url + this.formatQueryStr(obj),
+						function(res) {
+							dd.alert({
+								content: promptConf.promptConf.OutPutBom,
+								buttonText: promptConf.promptConf.Confirm,
+							})
+						}
+					)
+				}
+				if (method == "post") {
+					this._postData(url,
+						function(res) {
+							dd.alert({
+								content: promptConf.promptConf.OutPutBom,
+								buttonText: promptConf.promptConf.Confirm
+							})
+						},obj
+					)
+				}
 			},
+
 			//处理表单中的图片、PDF等文件显示
 			handleUrlData(data) {
 				let that = this;
@@ -731,7 +811,7 @@ export default {
 			if (!text) text = promptConf.promptConf.Submission
 			dd.alert({
 				content: text,
-				buttonText:promptConf.promptConf.Confirm,
+				buttonText: promptConf.promptConf.Confirm,
 				success() {
 					dd.switchTab({
 						url: "/page/start/index"

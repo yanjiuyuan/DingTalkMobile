@@ -50,20 +50,5 @@ Page({
 			}
 		)
 	},
-	print() {
-		this._getData('Receiving/GetReport' + this.formatQueryStr({
-			UserId: this.data.DingData.userid, TaskId: this.data.taskid
-		}),
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: this.data.DingData.userid,
-				TaskId: this.data.taskid
-			}
-		)
-	}
+
 });

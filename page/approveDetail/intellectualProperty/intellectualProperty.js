@@ -35,21 +35,6 @@ Page({
 			}, this.data.table
 		)
 	},
-	print() {
-		let that = this
-		this._postData('IntellectualProperty/Print',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm,
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
 	//下拉框选择处理
 	changeIptIndex(e) {
 		this.setData({

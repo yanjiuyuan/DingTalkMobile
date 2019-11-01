@@ -562,22 +562,6 @@ Page({
 		}, param);
 	},
 
-	printTable() {
-		console.log("printTable");
-		let param = {
-			UserId: this.data.DingData.userid,
-			TaskId: this.data.taskid,
-		};
-
-		this._postData("ProjectClosure/PrintAndSend", (res) => {
-			dd.alert({
-				content: promptConf.promptConf.PrintFrom,
-				buttonText: promptConf.promptConf.Confirm
-			})
-		}, param);
-	},
-
-
 	// 展示和隐藏
 	showOrClose() {
 		if (this.data.rotate == "RotateToTheRight") {

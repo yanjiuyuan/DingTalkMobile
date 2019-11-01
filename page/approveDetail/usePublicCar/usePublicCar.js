@@ -12,7 +12,7 @@ Page({
 		table: {},
 	},
 	submit(e) {
-
+		console.log("我")
 		let that = this
 		let value = e.detail.value
 		let param = {
@@ -31,7 +31,14 @@ Page({
 			return;
 		}
 		if (this.data.nodeid == 2) {
-			if (!this.data.table['CarId']) return;
+			if (!this.data.table['CarId']) {
+				dd.alert({
+					content: "车辆不允许为空，请选择！",
+					buttonText: promptConf.promptConf.Confirm
+				})
+				return;
+			}
+
 			if (!this.data.carList[this.data.carIndex]) {
 				dd.alert({
 					content: "表单填写未完整",
@@ -50,23 +57,6 @@ Page({
 			(res) => {
 				that.aggreSubmit(param)
 			}, this.data.table
-		)
-	},
-	print() {
-		let that = this
-		this._postData('CarTableNew/GetPrintPDF',
-			(res) => {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm
-
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid,
-				IsPublic: true
-			}
 		)
 	},
 	//选车操作

@@ -65,23 +65,6 @@ Page({
 			}
 		});
 	},
-	print() {
-		let that = this;
-		this._postData(
-			"CreateProject/PrintPDF",
-			res => {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText:promptConf.promptConf.Confirm
-					 });
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid,
-				IsPublic: true
-			}
-		);
-	},
 	radioChange: function(e) {
 		this.data.IsReview = e.detail.value;
 	},

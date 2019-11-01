@@ -131,22 +131,7 @@ Page({
 			}, this.data.table
 		)
 	},
-	print() {
-		this._postData('CarTableNew/GetPrintPDF',
-			(res) => {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText:promptConf.promptConf.Confirm
 
-				})
-			},
-			{
-				UserId: this.data.DingData.userid,
-				TaskId: this.data.taskid,
-				IsPublic: false
-			}, this.data.DingData
-		)
-	},
 	reApproval() {
 		this.data.localStorage = JSON.stringify({
 			valid: true,

@@ -353,7 +353,7 @@ margin-right:0.1rem;">*
 		<button onTap="print" type="primary" disabled="{{disablePage}}">打印表单</button>
 	</view>
 	<view a:if="{{ index!= 0 && state == '已完成' && printAllPDF == true}}">
-		<button type="primary" onTap="output" disabled="{{disablePage}}">下载所有图纸</button>
+		<button type="primary" onTap="prinfAllPDF" disabled="{{disablePage}}">下载所有图纸</button>
 	</view>
 	<view a:if="{{output == true}}">
 		<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>

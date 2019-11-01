@@ -1,7 +1,7 @@
 import pub from '/util/public';
 
 
-var globalData = getApp().globalData;
+let globalData = getApp().globalData;
 let app = getApp();
 Page({
 	...pub.func,
@@ -31,7 +31,7 @@ Page({
 	choosePeople(e) {
 
 		console.log('start choose people');
-		var that = this
+		let that = this
 		dd.complexChoose({
 			...that.chooseParam,
 			multiple: false,
@@ -40,7 +40,7 @@ Page({
 				if (res.users.length > 0) {
 					let name = res.users[0].name
 					let userId = res.users[0].userId
-					var app = getApp()
+					let app = getApp()
 					app.userInfo.name = name
 					app.userInfo.userid = userId
 					app.userInfo.nickName = name
@@ -83,7 +83,7 @@ Page({
 		let userIndex = value.detail.value
 		let name = this.data.userList[userIndex].NodePeople
 		let userId = this.data.userList[userIndex].PeopleId
-		var app = getApp()
+		let app = getApp()
 		app.userInfo.name = name
 		app.userInfo.userid = userId
 		app.userInfo.nickName = name
@@ -97,7 +97,7 @@ Page({
 		})
 	},
 	getUserInfo() {
-		var that = this
+		let that = this
 		this._getData('FlowInfoNew/GetUserInfo', function(data) {
 			that.setData({
 				userList: data

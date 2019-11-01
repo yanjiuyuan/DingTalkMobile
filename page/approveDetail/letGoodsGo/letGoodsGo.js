@@ -14,21 +14,6 @@ Page({
 		}
 		this.aggreSubmit(param)
 	},
-	print() {
-		let that = this
-		this._postData('MaterialRelease/PrintAndSend',
-			function(res) {
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					butttonText:promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
 	onReady() {
 		let that = this
 		this._getData("MaterialRelease/Read" + this.formatQueryStr({ TaskId: this.data.taskid }),

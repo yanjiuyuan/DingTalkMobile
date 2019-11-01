@@ -1,4 +1,6 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
+
 Page({
   ...pub.func,
   ...pub.func.dowith,
@@ -61,34 +63,5 @@ Page({
         Remark: value.remark
     }
     this.aggreSubmit(param)
-  },
-  print(){
-    this._postData('Maintain/PrintPDF',
-      function(res){
-        dd.alert({
-			content:promptConf.promptConf.PrintFrom,
-			buttonText:promptConf.promptConf.Confirm,
-			})
-      },
-      {
-        UserId: this.data.DingData.userid,
-        TaskId: this.data.taskid
-      }
-    )
-  },
-  output(){
-    this._postData('Maintain/PrintExcel',
-      function(res){
-        dd.alert({
-			content:promptConf.promptConf.OutPutBom,
-			buttonText:promptConf.promptConf.Confirm,
-
-			})
-      },
-      {
-        UserId: this.data.DingData.userid,
-        TaskId: this.data.taskid
-      }
-    )
   },
 });

@@ -1,3 +1,4 @@
+<!-- 办公用品采购 -->
 <import src="/util/template/template.axml"/>
 <view class="page">
 	<!-- 退回审批表单 -->
@@ -9,9 +10,7 @@
 			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
-			<!--<view class="form-line" />  -->
 			<!-- 物料表单 -->
-			<!--<text style="font-size:0.6rem;margin:0 2rpx;">总价预计<text style="color:red">{{totalPrice}}</text> 元</text> -->
 			<view class="form-row">
 				<view class="form-row-label">预计总价（元）</view>
 				<view class="form-row-content">

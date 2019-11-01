@@ -84,21 +84,6 @@ Page({
 		}
 		this.aggreSubmit(param)
 	},
-	//打印流程表单
-	print() {
-		this._postData('OfficeSuppliesPurchase/PrintPDF',
-			function(res) {
-				dd.alert({ 
-					content: promptConf.promptConf.PrintFrom,
-					buttonText:promptConf.promptConf.Confirm
-				})
-			},
-			{
-				UserId: this.data.DingData.userid,
-				TaskId: this.data.taskid
-			}
-		)
-	},
 	deleteItem(e) {
 		if (!e) return
 		let row = e.target.targetDataset.row;

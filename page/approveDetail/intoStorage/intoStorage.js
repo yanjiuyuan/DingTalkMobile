@@ -61,38 +61,5 @@ Page({
 		console.log(e)
 		this.aggreSubmit(param)
 	},
-	print() {
-		let that = this;
-		this._postData('Godown/PrintPDF',
-			function(res) {
-				console.log(res)
-				dd.alert({
-					content: promptConf.promptConf.PrintFrom,
-					buttonText: promptConf.promptConf.Confirm,
 
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
-	output() {
-		let that = this
-		this._postData('Godown/PrintExcel',
-			function(res) {
-				console.log(res)
-				dd.alert({
-					content: promptConf.promptConf.OutPutBom,
-					buttonText: promptConf.promptConf.Confirm,
-
-				})
-			},
-			{
-				UserId: that.data.DingData.userid,
-				TaskId: that.data.taskid
-			}
-		)
-	},
 });

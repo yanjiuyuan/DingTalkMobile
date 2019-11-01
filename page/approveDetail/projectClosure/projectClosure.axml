@@ -1,3 +1,4 @@
+<!-- 结题 -->
 <import src="/util/template/template.axml"/>
 <!-- 退回审批表单 -->
 <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
@@ -328,7 +329,7 @@
 				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
 			</view>
 			<view a:if="{{ index!= 0 && state == '已完成' }}">
-				<button type="primary" onTap="printTable" disabled="{{disablePage}}">打印表单</button>
+				<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
 			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
