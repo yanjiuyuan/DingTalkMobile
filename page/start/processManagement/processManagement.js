@@ -24,13 +24,13 @@ Page({
 			success: function(res) {
 				that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId, (result) => {
 					if (JSON.stringify(result) == "{}") {
-						dd.alert({
-							content: promptConf.promptConf.NoNodeInformation,
-							buttonText: promptConf.promptConf.Confirm
-						})
 						that.setData({
 							severanceOfficer: res.users[0].name,
 							severanceOfficerId: res.users[0].userId
+						})
+						dd.alert({
+							content: promptConf.promptConf.NoNodeInformation,
+							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}
@@ -50,8 +50,7 @@ Page({
 							nodeList: that.Arrangement(processData[i], res.users[0].name, res.users[0].userId)
 						}
 					}
-					console.log(sortItems);
-
+					console.log(processData);
 					that.setData({
 						processData: processData,
 						sortItems: sortItems,
@@ -67,19 +66,38 @@ Page({
 	},
 	//整理数组
 	Arrangement(array, name, id) {
-
-		let tempNodeList = [];
+		//单人
 		for (let i = 0, len = array.length; i < len; i++) {
 			if (array[i].PeopleId != null && array[i].PeopleId.indexOf(id) != -1) {
 				array[i].AddPeople = [{ name: name, userId: id }];
+
 			}
 		}
+		//多人
+		// for (let i = 0, len = array.length; i < len; i++) {
+		// 	if (array[i].PeopleId != null) {
+		// 		let NodePeople = array[i].NodePeople.split(',');
+		// 		let PeopleId = array[i].PeopleId.split(',');
+		// 		console.log(NodePeople);
+		// 		console.log(PeopleId);
+		// 		for (let j = 0, len = NodePeople.length; j < len; j++) {
+		// 			if (array[i].NodePeople.indexOf(NodePeople[j]) != -1) {
+		// 				array[i].AddPeople = array[i].AddPeople || [];
+		// 				array[i].AddPeople.push({ name: NodePeople[j], userId: PeopleId[j] });
+		// 			}
+		// 		}
+		// 	}
+		// }
+		console.log(array)
 		return array;
 	},
 	choosePeopleAndChange(e) {
 		let index = e.currentTarget.dataset.index;
 		let NodeId = e.currentTarget.dataset.NodeId;
 		let that = this;
+		console.log(index);
+		console.log(NodeId);
+
 		dd.complexChoose({
 			title: "选择变更人员",            //标题
 			multiple: false,            //是否多选
@@ -91,7 +109,9 @@ Page({
 			responseUserOnly: false,        //返回人，或者返回人和部门
 			startWithDepartmentId: 0,   // 0表示从企业最上层开始},
 			success: function(res) {
-				that.data.processData[index].nodeList[NodeId].AddPeople = [{ name: res.users[0].name, userId: res.users[0].userId }]; that.setData({
+				that.data.processData[index].nodeList[NodeId].AddPeople = [{ name: res.users[0].name, userId: res.users[0].userId }];
+				console.log(that.data.processData);
+				that.setData({
 					processData: that.data.processData
 				})
 			}
@@ -99,7 +119,6 @@ Page({
 	},
 	showOrClose(e) {
 		let index = e.target.dataset.index;
-		console.log(this.data.sortItems[index].rotate);
 		if (this.data.sortItems[index].rotate == "RotateToTheRight") {
 			let item = this.data.sortItems;
 			item[index] = {
@@ -107,7 +126,6 @@ Page({
 				rotate: "Rotate-downward",
 
 			}
-			console.log(item);
 			this.setData({
 				sortItems: item
 			})
@@ -118,7 +136,6 @@ Page({
 				show: "hidden",
 				rotate: "RotateToTheRight",
 			}
-			console.log(item);
 			this.setData({
 				sortItems: item
 			})

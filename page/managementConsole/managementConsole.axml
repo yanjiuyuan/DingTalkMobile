@@ -28,9 +28,9 @@
 		<view class="">
 			<view class="menu">
 				<view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
-					<view class="grid-item-wrapper-new" onTap="deleteItem" data-item="{{item}}">
-						<view class="approval-box-img" style="backgroundPosition:{{item.position}}">
-							<view class="delete-icon">
+					<view class="grid-item-wrapper-new">
+						<view class="approval-box-img" onTap="toChange"  data-item="{{item}}" style="backgroundPosition:{{item.position}}">
+							<view class="delete-icon" catchTap="deleteItem" data-item="{{item}}">
 								<view class="delete-icon-line"></view>
 							</view>
 						</view>

@@ -1,6 +1,6 @@
-var app = getApp();
-var x, y, x1, y1, x2, y2; //父亲使用的
-var a, b, a1, b1, a2, b2; //孩子使用的
+const app = getApp();
+let x, y, x1, y1, x2, y2; //父亲使用的
+let a, b, a1, b1, a2, b2; //孩子使用的
 
 
 Page({
@@ -24,7 +24,7 @@ Page({
     showOrClose:[],
   },
   onLoad: function () {
-    var that = this;
+    let that = this;
     let processedSort = [];//存储父级元素  
     for(let i = 0; i < app.globalData.sort.length; i++){
      this.data.showOrClose.push(
@@ -58,8 +58,8 @@ Page({
     //计算父级节点的位置
     dd.getSystemInfo({
       success: function (res) {
-        var width = that.data.all_width = res.windowWidth, _w = 0, row = 0, column = 0;
-        var arr = [].concat(that.data.all_list);
+        let width = that.data.all_width = res.windowWidth, _w = 0, row = 0, column = 0;
+        let arr = [].concat(that.data.all_list);
 
         //项和下标
         // row是列，colum是列
@@ -153,11 +153,11 @@ Page({
     console.log("move");
 
 
-    var that = this;
+    let that = this;
     x2 = e.changedTouches[0].clientX - x + x1;
     y2 = e.changedTouches[0].clientY - y + y1;
-    var underIndex = this.getCurrnetUnderIndex();
-    var arr = [].concat(this.data.all_list);
+    let underIndex = this.getCurrnetUnderIndex();
+    let arr = [].concat(this.data.all_list);
     if (underIndex != null && underIndex != this.data.current) {
       this.changeArrayData(arr, underIndex, this.data.current);
       this.setData({
@@ -183,8 +183,8 @@ Page({
   //onTouchEnd
   moveEnd: function (e) {
     console.log("moveEnd");
-    var underIndex = this.getCurrnetUnderIndex();
-    var arr = [].concat(this.data.all_list);
+    let underIndex = this.getCurrnetUnderIndex();
+    let arr = [].concat(this.data.all_list);
     if (underIndex != null && underIndex != this.data.current) {
       this.changeArrayData(arr, underIndex, this.data.current);
     }
@@ -200,11 +200,11 @@ Page({
 
   //更换位置：数组，下标一，下标二
   changeArrayData: function (arr, i1, i2) {
-    var temp = arr[i1];
+    let temp = arr[i1];
     arr[i1] = arr[i2];
     arr[i2] = temp;
     //换位置
-    var _left = arr[i1]._left, _top = arr[i1]._top;
+    let _left = arr[i1]._left, _top = arr[i1]._top;
     arr[i1]._left = arr[i2]._left;
     arr[i1]._top = arr[i2]._top;
     arr[i2]._left = _left;

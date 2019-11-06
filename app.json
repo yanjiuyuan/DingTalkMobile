@@ -52,7 +52,9 @@
     "page/managementConsole/sortTest_1/sortTest_1",
     "page/approveDetail/projectDetail/projectDetail",
     "page/start/processManagement/processManagement",
-    "page/approveDetail/overTime/overTime"
+    "page/approveDetail/overTime/overTime",
+    "page/managementConsole/flowDetail/flowDetail",
+    "page/managementConsole/flowDetail/setNodeInfo/setNodeInfo"
   ],
   "window": {
     "enableWK": "YES",

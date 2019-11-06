@@ -1,4 +1,7 @@
 @import '/util/template/template.acss';
+*{
+	font-family: "微软雅黑"
+}
 .DataIsNull {
 	width: 300rpx;
 	height: 400rpx;

@@ -321,3 +321,6 @@
 	padding-top: 1vh;
 	padding-bottom: 1vh;
 }
+.change{
+	font-size:25rpx;
+}

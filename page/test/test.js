@@ -1,4 +1,6 @@
+import draggable from 'vuedraggable';
 Page({
+
 	data: {
 		items: [
 			{ name: '工业软件研发部', value: '工业软件研发部' },
@@ -16,7 +18,6 @@ Page({
 	},
 	onShow() {
 		console.log("onShow");
-
 	},
 	onReady() {
 		console.log("onReady");
