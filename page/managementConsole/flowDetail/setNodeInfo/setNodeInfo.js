@@ -69,12 +69,19 @@ Page({
 				console.log(result);
 				if (result.confirm == true) {
 					for (let i = 0, lengh = that.data.nodeList.length; i < lengh - 1; i++) {
+
+						console.log(NodeId);
+						console.log(that.data.nodeList[i].NodeId);
+
 						if (NodeId == that.data.nodeList[i].NodeId) {
+							console.log("我执行了");
 							that.data.nodeList.splice(i, 1);
-							for (let j = i, lengh = that.data.nodeList.length; j < lengh; j++) {
+							for (let j = i, length = that.data.nodeList.length; j < length; j++) {
 								that.data.nodeList[j].NodeId -= 1;
 								that.data.nodeList[j].PreNodeId -= 1;
+
 							}
+							break;
 						}
 					}
 					console.log(that.data.nodeList);
@@ -90,6 +97,7 @@ Page({
 		let NodeId = e.currentTarget.dataset.NodeId;
 		let length = this.data.nodeList.length;//减去结束节点
 		let arr = [];
+		console.log(NodeId);
 		for (let i = NodeId + 2; i < length; i++) {
 			arr.push({ name: i, value: i });
 		}
@@ -104,12 +112,60 @@ Page({
 	choosePeople(e) {
 		let that = this;
 		console.log('start choose people');
+		console.log(e);
+		let PeopleId = e.currentTarget.dataset.PeopleId;
+		let NodeName = e.currentTarget.dataset.NodeName;
+		let NodeId = e.currentTarget.dataset.NodeId;
 		dd.complexChoose({
 			...that.data.chooseParam,
 			title: "选择审批人",
-			multiple: true,
+			pickedUsers: PeopleId || [],
+			multiple: NodeName.indexOf("抄送") != -1 ? true : false,
 			success: function(res) {
 				console.log(res);
+				let names = [];
+				let ids = [];
+				if (res.departments.length == 0) {
+					for (let d of res.users) {
+						names.push(d.name);
+						ids.push(d.userId);
+					}
+					that.setData({
+						["nodeList[NodeId].NodePeople"]: names,
+						["nodeList[NodeId].PeopleId"]: ids,
+
+					})
+
+				}
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (res) => {
+						console.log(res.data);
+						that.data.pickedUsers = [];
+						let userlist = [];
+						for (let i in res.data) {
+							let data = JSON.parse(res.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];//数组去重
+						that.setData({
+							["nodeList[NodeId].NodePeople"]: names,
+							["nodeList[NodeId].PeopleId"]: ids,
+						})
+					}, deptId)
+
+				}
 			},
 			fail: function(err) {
 
@@ -208,14 +264,12 @@ Page({
 		})
 	},
 	radioChangeThree(e) {
-		console.log(e);
 
 		this.setData({
 			show: e.detail.value
 		})
 	},
 	onChanges(e) {
-		console.log(e);
 
 		let arr = e.detail.value.sort();
 
@@ -233,11 +287,8 @@ Page({
 		for (let i = 0, length = this.data.needChoose.length; i < length; i++) {
 			for (let j of arr) {
 				if (j == this.data.needChoose[i].value) {
-					arr4[i] = 1;
+					arr4[i] = j;
 					break;
-				}
-				else {
-					arr4[i] = 0;
 				}
 			}
 		}
@@ -285,28 +336,42 @@ Page({
 		})
 	},
 	onChangeThird(e) {
-		console.log(e);
 		let arr = e.detail.value.sort();
+		let value = e.detail.value;
 		let arrs = [];
+		let arr2 = [];
 		for (let i of arr) {
 			arrs.push({
 				index: i,
 				roleIndex: -1
 			});
 		}
+		for (let i = 0, length = this.data.needChoose.length; i < length; i++) {
+			for (let j of value) {
+				if (j == this.data.needChoose[i].value) {
+					arr2[i] = 1;
+					break;
+				}
+				else {
+					arr2[i] = 0;
+				}
+			}
+		}
 		this.setData({
-			choosePeopleArray: arrs
+			choosePeopleArray: arrs,
+			ChoseType: arr2,
 		})
 	},
 	change(e) {
-		console.log(e);
 		let item = e.currentTarget.dataset.item;
 		for (let i of this.data.choosePeopleArray) {
 			if (item.index == i.index) {
 				i.roleIndex = e.detail.value;
+				i.RoleNames = this.data.roleList[i.roleIndex];
 			}
 		}
 		console.log(this.data.choosePeopleArray);
+
 		this.setData({
 			choosePeopleArray: this.data.choosePeopleArray
 		})
@@ -315,7 +380,6 @@ Page({
 		let that = this;
 		this._postData("Role/GetRoleInfoList",
 			(res) => {
-				console.log(res);
 				let roleList = [];
 				for (let i in res) {
 					roleList.push(i);
@@ -329,25 +393,90 @@ Page({
 	submit(e) {
 		let that = this;
 		let value = e.detail.value;
+		if (value.NodeName == "") {
+			dd.alert({
+				content: "节点名称不允许为空，请输入！",
+				buttonText: promptConf.promptConf.Confirm
+			})
+			return;
+		}
+		if (value.NodePeople == "") {
+			dd.alert({
+				content: "审批人不允许为空，请输入！",
+				buttonText: promptConf.promptConf.Confirm
+			})
+			return;
+		}
+		// ChoseType
+		let str = "";
+
+		for (let j = 0, len = this.data.needChoose.length; j < len; j++) {
+			for (let i of this.data.choosePeopleArray) {
+				if (i.index == this.data.needChoose[j].value) {
+					str += i.RoleNames;
+					break;
+				}
+			}
+			if (j < len - 1) {
+				str += ",";
+			}
+		}
+
+
+
 		let nodeInfo = {
 			NodeId: that.data.NodeId + 1,
 			FlowId: that.data.FlowId.flowId,
 			NodeName: value.NodeName,
-			NodePeople: value.NodePeople,
-			PeopleId: that.data.PeopleId,
+			NodePeople: value.NodePeople.split(","),
+			PeopleId: that.data.PeopleId.split(","),
 			PreNodeId: that.data.NodeId + 2,
-			IsAllAllow: false,
+			IsAllAllow: true,
 			IsBack: value.IsBack || false,
 			IsNeedChose: value.IsNeedChose || false,
 			IsSend: that.data.IsSend,
 			BackNodeId: value.BackNodeId || "",
-			ChoseNodeId:that.data.ChoseNodeId ? that.data.ChoseNodeId.join(",") : "",
+			ChoseNodeId: that.data.ChoseNodeId ? that.data.ChoseNodeId.join(",") : "",
 			IsSelectMore: that.data.IsSelectMore ? that.data.IsSelectMore.join(",") : "",
 			IsMandatory: that.data.IsMandatory ? that.data.IsMandatory.join(",") : "",
-			ChoseType: 0,
-			RoleNames: [],
+			ChoseType: that.data.ChoseType ? that.data.ChoseType.join(",") : "",
+			RoleNames: str || "",
+			RolesList: {},
+
 		}
-		console.log(nodeInfo);
-		console.log(e);
+		for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
+			if (this.data.NodeId == this.data.nodeList[i].NodeId) {
+				this.data.nodeList.splice(this.data.NodeId + 1, 0, nodeInfo);
+				for (let j = i + 2, length = that.data.nodeList.length; j < length; j++) {
+					that.data.nodeList[j].NodeId += 1;
+					that.data.nodeList[j].PreNodeId = (parseInt(that.data.nodeList[j].PreNodeId) + 1).toString();
+				}
+			}
+		}
+		console.log(this.data.nodeList);
+		this.setData({
+			nodeList: this.data.nodeList,
+			hidden: !this.data.hidden
+
+		})
+		this.createMaskHideAnim();
+		this.createContentHideAnim();
+	},
+	save() {
+		console.log(this.data.nodeList);
+		let nodeArray = this.data.nodeList;
+		for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
+			console.log(i);
+			nodeArray[i].NodePeople = nodeArray[i].NodePeople ? nodeArray[i].NodePeople.join(",") : "";
+			nodeArray[i].PeopleId = nodeArray[i].PeopleId ? nodeArray[i].PeopleId.join(",") : "";
+		}
+
+
+		this._postData("FlowInfoNew/UpdateNodeInfos", (res) => {
+			dd.navigateBack({
+				delta: 1
+			})
+		}, nodeArray)
+
 	}
-});
+}); 

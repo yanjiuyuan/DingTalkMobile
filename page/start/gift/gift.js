@@ -94,8 +94,17 @@ Page({
 	chooseItem(e) {
 		if (!e) return
 		this.data.good = e.target.targetDataset.row
-		if (!this.data.good) return
+		if (!this.data.good) return;
 
+		for (let i of this.data.purchaseList) {
+			if (e.target.targetDataset.row.GiftName == i.GiftName) {
+				dd.alert({
+					content: promptConf.promptConf.DuplicateFormItem,
+					buttonText: promptConf.promptConf.Confirm
+				})
+				return;
+			}
+		}
 		this.setData({
 			hidden: !this.data.hidden
 		})
@@ -129,6 +138,14 @@ Page({
 				buttonText: promptConf.promptConf.Confirm
 			});
 			return
+		}
+		if (this.data.good.Stock < value.GiftCount) {
+			dd.alert({
+				content: promptConf.promptConf.GreaterThanAvailable,
+				buttonText: promptConf.promptConf.Confirm
+			})
+			return
+
 		}
 		let param = {
 			GiftName: this.data.good.GiftName,

@@ -54,7 +54,9 @@
     "page/start/processManagement/processManagement",
     "page/approveDetail/overTime/overTime",
     "page/managementConsole/flowDetail/flowDetail",
-    "page/managementConsole/flowDetail/setNodeInfo/setNodeInfo"
+    "page/managementConsole/flowDetail/setNodeInfo/setNodeInfo",
+    "page/start/role/role",
+    "page/start/drawingOrder/drawingOrder"
   ],
   "window": {
     "enableWK": "YES",

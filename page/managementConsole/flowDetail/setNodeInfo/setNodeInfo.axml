@@ -3,18 +3,23 @@
 <view class="top">
 	<view>节点信息</view>
 </view>
-<view>
+<view style="margin-bottom:140rpx;">
 	<view a:for="{{nodeList}}">
 		<view class="box">
 			<view class="text">{{item.NodeName}}</view>
 			<view class="people" a:if="{{item.NodeName != '结束'}}">
 				<view a:if="{{item.NodePeople}}" class="peoples">
-					<view a:for="{{item.NodePeople}}">
-						<text class="people-item">{{item}}</text>
+					<view a:if="{{item.NodePeople.length > 1}}">
+							<text class="people-item">多人</text>
+					</view>
+					<view  a:if="{{item.NodePeople.length <= 2}}">
+						<view a:for="{{item.NodePeople}}">
+							<text class="people-item">{{item}}</text>
+						</view>
 					</view>
 				</view>
 			</view>
-			<view onTap="choosePeople" a:if="{{item.NodeName != '结束'}}">选人</view>
+			<view onTap="choosePeople" data-NodeName="{{item.NodeName}}" data-NodeId="{{item.NodeId}}" data-PeopleId="{{item.PeopleId}}" a:if="{{item.NodeName != '结束'}}">选人</view>
 			<view class="delete" onTap="delete" data-NodeId="{{item.NodeId}}" a:if="{{item.NodeName != '结束'}}">x</view>
 		</view>
 		<view class="line" a:if="{{item.NodeName != '结束'}}"></view>
@@ -23,6 +28,9 @@
 		</view>
 		<view class="line" a:if="{{item.NodeName != '结束'}}"></view>
 	</view>
+</view>
+<view class="btn-view">
+	<button size="default" class="btn" onTap="save" type="primary">保存当前配置</button>
 </view>
 <view class="modal" a:if="{{!hidden}}" key="modal">
 	<view class="modal-mask" animation="{{animMaskData}}"/>

@@ -97,6 +97,13 @@ export default {
 					position: (x + 3 * xTap) + "px " + (y + 0 * yTap) + "px"
 				},
 				{
+					flowId: 23,
+					sortId: 3,
+					title: "图纸下单",
+					url: "drawingOrder/drawingOrder",
+					position: (x + 1 * xTap) + "px " + (y + 0 * yTap) + "px"
+				},
+				{
 					flowId: 24,
 					sortId: 7,
 					title: "礼品招待领用申请",
@@ -184,11 +191,27 @@ export default {
 				},
 				{
 					flowId: 71,
-					sortId: 11,
-					flowName: "流程管理",
-					title: "流程管理",
+					sortId: 10,
+					flowName: "离职人员管理",
+					title: "离职人员管理",
 					url: "processManagement/processManagement",
 					position: (x + 3 * xTap) + "px " + (y + 1 * yTap) + "px",
+				},
+				{
+					flowId: 72,
+					sortId: 10,
+					flowName: "角色管理",
+					title: "角色管理",
+					url: "role/role",
+					position: (x + 5 * xTap) + "px " + (y + 1 * yTap) + "px",
+				},
+				{
+					flowId: 73,
+					sortId: 10,
+					flowName: "流程管理",
+					title: "流程管理",
+					url: "managementConsole/managementConsole",
+					position: (x + 0 * xTap) + "px " + (y + 3 * yTap) + "px",
 				}
 			],
 
@@ -752,7 +775,7 @@ export default {
 								content: promptConf.promptConf.OutPutBom,
 								buttonText: promptConf.promptConf.Confirm
 							})
-						},obj
+						}, obj
 					)
 				}
 			},
@@ -1128,7 +1151,7 @@ export default {
 									departmentList: res.data.dept,
 
 								}
-								// console.log(DingData);
+								console.log(DingData);
 								dd.hideLoading()
 								that.setData({ DingData: DingData })
 								callBack()
@@ -1187,7 +1210,8 @@ export default {
 								let DingData = {
 									nickName: name || result.name,
 									departName: result.dept,
-									userid: result.userid,
+									// userid: result.userid,
+									userid: "083452125733424957",
 									departmentList: res.data.dept,
 								}
 								app.userInfo = DingData;

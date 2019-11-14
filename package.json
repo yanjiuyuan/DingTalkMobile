@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mini-ddui": "0.0.7",
-    "vuedraggable": "^2.23.2"
+    "mini-ddui": "0.0.7"
   }
 }

@@ -158,6 +158,7 @@ Page({
 		let that = this;
 		this._getData('FlowInfoNew/LoadFlowSort?userId=' + app.userInfo.userid, function(data) {
 			let sorts = data;
+			app.globalData.ALLsort = JSON.parse(JSON.stringify(data));;
 			that.setData({ sort: data });
 			let sortItem = [];//用于存放sort打开展开收起的数据
 			let tempdata = [];//用于存放流程数据
@@ -166,10 +167,8 @@ Page({
 					f.flowId = f.FlowId;
 					f.sortName = s.SORT_NAME;
 					f.flowName = f.FlowName;
-
 					tempdata.push(f);
 				}
-
 			}
 			let temp = that.mergeObjectArr(tempdata, that.data.menu, 'flowId');
 			for (let s of sorts) {
@@ -177,8 +176,8 @@ Page({
 					text: "收起",
 					class: "dropdown-content-show"
 				}
-				sortItem.push(item);
 				s['show'] = false;
+				sortItem.push(item);
 				for (let t of temp) {
 					if (t.url && t.sortId == s.Sort_ID) {
 						s['show'] = true;
@@ -187,7 +186,7 @@ Page({
 				}
 			}
 			// console.log(sorts);
-			// console.log(temp);
+			console.log(temp);
 			// console.log(sortItem);
 			// console.log(that.data.menu);
 

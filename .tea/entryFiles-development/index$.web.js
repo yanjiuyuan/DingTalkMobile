@@ -62,3 +62,5 @@ require('../../page/start/processManagement/processManagement?hash=32d7d2807ed4e
 require('../../page/approveDetail/overTime/overTime?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/managementConsole/flowDetail/flowDetail?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/managementConsole/flowDetail/setNodeInfo/setNodeInfo?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/start/role/role?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/start/drawingOrder/drawingOrder?hash=1843e4342add8461cd5ea49fda83621d6d6284a9');

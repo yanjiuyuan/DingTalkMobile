@@ -273,8 +273,7 @@ Page({
 	},
 	onShow() {
 		// 页面被关闭
-		console.log(this.data.items);
-		if (app.globalData[`${this.data.flowid}`] == false) {
+		if (app.globalData[`${this.data.flowid}`] == false || app.globalData[`${this.data.flowid}`] == undefined ) {
 			this.data.items = [
 				{ name: '工业软件研发部', value: '工业软件研发部' },
 				{ name: '数控一代事业部', value: '数控一代事业部' },

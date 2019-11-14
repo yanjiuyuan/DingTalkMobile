@@ -22,6 +22,42 @@
 					<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
 				</view>
 			</view>
+			<view class="form-row">
+				<view class="form-row-label">PC页面路径</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">是否启用</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">权限成员</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">移动端通知路径</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">移动端页面路径</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">图标选择</view>
+				<view class="form-row-content">
+					<input name="Title" class="input" value="{{tableInfo.PcUrl}}" placeholder="" />
+				</view>
+			</view>
 		</view>
 	</form>
 </view>

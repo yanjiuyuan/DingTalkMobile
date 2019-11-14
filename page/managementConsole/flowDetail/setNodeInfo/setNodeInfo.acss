@@ -192,3 +192,10 @@
 	align-items: center;
 	padding: 0 0.3rem;
 }
+.btn-view{
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	position: fixed;
+	bottom: 0;
+}
