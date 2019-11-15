@@ -27,14 +27,14 @@
 		</view>
 		<view class="">
 			<view class="menu">
-				<view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
+				<view a:for="{{menu}}" a:if="{{ item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
 					<view class="grid-item-wrapper-new">
-						<view class="approval-box-img" onTap="toChange"  data-item="{{item}}" style="backgroundPosition:{{item.position}}">
+						<view class="approval-box-img" onTap="toChange" data-sort="{{m}}" data-item="{{item}}" style="backgroundPosition:{{item.Position}}">
 							<view class="delete-icon" catchTap="deleteItem" data-item="{{item}}">
 								<view class="delete-icon-line"></view>
 							</view>
 						</view>
-						<text class="grid-text-new">{{item.flowName.indexOf('申请')>0?item.flowName.substring(0,item.flowName.indexOf('申请')):item.flowName}}</text>
+						<text class="grid-text-new">{{item.FlowNameMobile.indexOf('申请')>0?item.FlowNameMobile.substring(0,item.FlowNameMobile.indexOf('申请')):item.FlowNameMobile}}</text>
 					</view>
 				</view>
 			</view>

@@ -25,7 +25,9 @@ Page({
 		console.log(e);
 		let item = JSON.stringify(e.target.dataset.item);
 		dd.navigateTo({
-			url: "/page/managementConsole/addShortcut/addShortcut?item=" + item
+			// url: "/page/managementConsole/addShortcut/addShortcut?item=" + item
+			url: "/page/managementConsole/addFlow/addFlow?item=" + item
+
 		});
 	},
 
@@ -156,8 +158,10 @@ Page({
 	toChange(e) {
 		console.log(e);
 		let item = e.target.dataset.item;
+		let sort = e.target.dataset.sort;
+		delete sort.flows;
 		dd.navigateTo({
-			url: "flowDetail/flowDetail?item=" + JSON.stringify(item)
+			url: "flowDetail/flowDetail?item=" + JSON.stringify(item) + "&sort=" + JSON.stringify(sort)
 		})
 	}
 });

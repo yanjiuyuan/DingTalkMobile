@@ -42,11 +42,11 @@
 	</view>
 	<view class="{{sortItems[index].class}}">
 		<view class="menu">
-			<view a:for="{{menu}}" a:if="{{item.url && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
-				<navigator url="/page/start/{{item.url}}?flowid={{item.flowId}}">
+			<view a:for="{{menu}}" a:if="{{item.PhoneUrl && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
+				<navigator url="/page/start/{{item.PhoneUrl}}?flowid={{item.flowId}}&title={{item.flowName}}">
 					<view class="grid-item-wrapper-new">
-						<view class="approval-box-img" style="backgroundPosition:{{item.position}}"></view>
-						<text class="grid-text-new">{{item.flowName.indexOf('申请')>0?item.flowName.substring(0,item.flowName.indexOf('申请')):item.flowName}}</text>
+						<view class="approval-box-img" style="backgroundPosition:{{item.Position}}"></view>
+						<text class="grid-text-new">{{item.FlowNameMobile.indexOf('申请')>0?item.FlowNameMobile.substring(0,item.FlowNameMobile.indexOf('申请')):item.FlowNameMobile}}</text>
 					</view>
 				</navigator>
 			</view>

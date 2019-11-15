@@ -43,6 +43,7 @@ const promptConf = {
     NoAuthority: "您无权访问该系统，请联系管理员！", //涉及访问权限接口时无权限返回提示
     NoChooseYourself: "主管审核无法选择自己，请重选", //发起审批时主管选择自己时提示
     NoNodeInformation: "该用户无配置节点信息", //流程管理配置查询无结果时提示
+	UpdateSuccess:"修改成功",
     Confirm: "确认",
     Cancel: "取消"
 };

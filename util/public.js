@@ -18,7 +18,7 @@ export default {
 	data: {
 		...lib.data,
 		...template.data,
-		version: 2.691,
+		version: 2.70,
 		DingData: {
 			nickName: "",
 			departName: "",
@@ -52,168 +52,6 @@ export default {
 
 		changeRemarkId: 0,
 		changeRemarkNodeid: 0,
-		menu:
-			[
-				{
-					flowId: 1,
-					sortId: 4,
-					title: "办公用品申请",
-					url: "officeSupplies/officeSupplies",
-					position: (x + 4 * xTap) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 8,
-					sortId: 4,
-					title: "零部件采购申请",
-					url: "purchase/purchase",
-					position: "-414px -137px"
-				},
-				{
-					flowId: 12,
-					sortId: 4,
-					title: "物料编码申请",
-					url: "meterieCode/meterieCode",
-					position: "-54px -227px"
-				},
-				{
-					flowId: 13,
-					sortId: 6,
-					title: "公车申请",
-					url: "usePublicCar/usePublicCar",
-					position: "-775px -317px"
-				},
-				{
-					flowId: 14,
-					sortId: 6,
-					title: "私车申请",
-					url: "useCar/useCar",
-					position: "-504px -405px"
-				},
-				{
-					flowId: 17,
-					sortId: 7,
-					title: "基地加班申请",
-					url: "overTime/overTime",
-					position: (x + 3 * xTap) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 23,
-					sortId: 3,
-					title: "图纸下单",
-					url: "drawingOrder/drawingOrder",
-					position: (x + 1 * xTap) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 24,
-					sortId: 7,
-					title: "礼品招待领用申请",
-					url: "gift/gift",
-					position: (x + 0 * xTap) + "px " + (y + 4 * yTap) + "px"
-				},
-				{
-					flowId: 26,
-					sortId: 4,
-					title: "领料申请",
-					url: "picking/picking",
-					position: (x + 1 * xTap) + "px " + (y + 4 * yTap) + "px"
-				},
-				{
-					flowId: 27,
-					sortId: 4,
-					title: "入库申请",
-					url: "intoStorage/intoStorage",
-					position: (x + 3 * xTap) + "px " + (y + 4 * yTap) + "px"
-				},
-				{
-					flowId: 30,
-					sortId: 7,
-					title: "外出申请",
-					url: "goOut/goOut",
-					position: (x + 1 * xTap) + "px " + (y + 3 * yTap) + "px"
-				},
-				{
-					flowId: 32,
-					sortId: 7,
-					title: "跨部门协作申请",
-					url: "crossHelp/crossHelp",
-					position: (x + 6 * xTap) + "px " + (y + 3 * yTap) + "px"
-				},
-				{
-					flowId: 34,
-					sortId: 5,
-					title: "项目技术支持",
-					flowName: "项目技术支持",
-					url: "techonologySupply/techonologySupply",
-					position: (x + 2 * xTap) + "px " + (y + 1 * yTap) + "px"
-				},
-				{
-					flowId: 35,
-					sortId: 7,
-					title: "物资放行条申请",
-					url: "letGoodsGo/letGoodsGo",
-					position: (x + 8 * xTap - 4) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 36,
-					sortId: 5,
-					title: "知识产权申请",
-					url: "intellectualProperty/intellectualProperty",
-					position: (x + 2 * xTap) + "px " + (y + 2 * yTap) + "px"
-				},
-				{
-					flowId: 67,
-					sortId: 4,
-					title: "借入申请",
-					url: "borrowThing/borrowThing",
-					position: (x + 6 * xTap) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 68,
-					sortId: 4,
-					title: "维修申请",
-					url: "maintain/maintain",
-					position: (x + 4 * xTap) + "px " + (y + 4 * yTap) + "px"
-				},
-				{
-					flowId: 66,
-					sortId: 4,
-					title: "领料管理",
-					url: "pickingManage/pickingManage",
-					position: (x + 5 * xTap) + "px " + (y + 0 * yTap) + "px"
-				},
-				{
-					flowId: 70,
-					sortId: 9,
-					title: "生产加工进度监控",
-					flowName: "生产进度监控",
-					url: "productionMonitoring/productionMonitoring",
-					position: (x + 5 * xTap) + "px " + (y + 2 * yTap) + "px"
-				},
-				{
-					flowId: 71,
-					sortId: 10,
-					flowName: "离职人员管理",
-					title: "离职人员管理",
-					url: "processManagement/processManagement",
-					position: (x + 3 * xTap) + "px " + (y + 1 * yTap) + "px",
-				},
-				{
-					flowId: 72,
-					sortId: 10,
-					flowName: "角色管理",
-					title: "角色管理",
-					url: "role/role",
-					position: (x + 5 * xTap) + "px " + (y + 1 * yTap) + "px",
-				},
-				{
-					flowId: 73,
-					sortId: 10,
-					flowName: "流程管理",
-					title: "流程管理",
-					url: "managementConsole/managementConsole",
-					position: (x + 0 * xTap) + "px " + (y + 3 * yTap) + "px",
-				}
-			],
 
 		//审批页面变量
 		imgUrlList: [],
@@ -239,18 +77,17 @@ export default {
 			onLoad(param) {
 				console.log("start page on load~~~~~~~~~~");
 
-
 				let that = this;
 				let title = "";
-				for (let m of this.data.menu) {
-					if (m.flowId == param.flowid) {
-						title = m.title;
-						break;
-					}
-				}
+				// for (let m of this.data.menu) {
+				// 	if (m.flowId == param.flowid) {
+				// 		title = m.title;
+				// 		break;
+				// 	}
+				// }
 				this.setData({
 					flowid: param.flowid,
-					"tableInfo.Title": title
+					"tableInfo.Title": param.title
 				})
 
 				let callBack = function() {

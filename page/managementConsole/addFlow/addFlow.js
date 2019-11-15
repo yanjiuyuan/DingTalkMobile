@@ -10,54 +10,12 @@ Page({
 		IsFlowArray: [{ name: '是', label: true }, { name: '否', label: false }],
 	},
 	onLoad(option) {
-		let that = this;
-		let item = JSON.parse(option.item);
-		let sort = JSON.parse(option.sort);
-
-		// console.log(item);
-		// console.log(sort);
-
-		for (let i of this.data.IsEnableArray) {
-			if (item.IsEnable == i.label) {
-				i.checked = true;
-				break;
-			}
-			else {
-				i.checked = false;
-			}
-		}
-		for (let i of this.data.IsSupportMobileArray) {
-			if (item.IsSupportMobile == i.label) {
-				i.checked = true;
-
-			}
-			else {
-				i.checked = false;
-			}
-		}
-
-		for (let i of this.data.IsFlowArray) {
-			if (item.IsFlow == i.label) {
-				i.checked = true;
-
-			}
-			else {
-				i.checked = false;
-			}
-		}
-		this.setData({
-			tableInfo: item,
-			sort: sort,
-			IsEnableArray: this.data.IsEnableArray,
-			IsSupportMobileArray: this.data.IsSupportMobileArray,
-			IsFlowArray: this.data.IsFlowArray
-		})
-
+		
 	},
 	//配置节点信息
 	setNodeInfo() {
 		dd.navigateTo({
-			url: "setNodeInfo/setNodeInfo?flowId=" + this.data.tableInfo.flowId
+			url: "../setNodeInfo/setNodeInfo"
 		})
 	},
 	choosePeople(e) {

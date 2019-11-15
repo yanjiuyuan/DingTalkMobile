@@ -36,7 +36,7 @@ Page({
 			let father = app.globalData.sort[i];
 			let son = [];
 			for (let flow of app.globalData.sort[i].flows) {
-				if (flow.url) {
+				if (flow.PhoneUrl) {
 					son.push(flow);
 				}
 			}

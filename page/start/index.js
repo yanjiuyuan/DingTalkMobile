@@ -170,7 +170,7 @@ Page({
 					tempdata.push(f);
 				}
 			}
-			let temp = that.mergeObjectArr(tempdata, that.data.menu, 'flowId');
+			// let temp = that.mergeObjectArr(tempdata, that.data.menu, 'flowId');
 			for (let s of sorts) {
 				let item = {
 					text: "收起",
@@ -178,24 +178,24 @@ Page({
 				}
 				s['show'] = false;
 				sortItem.push(item);
-				for (let t of temp) {
-					if (t.url && t.sortId == s.Sort_ID) {
+				for (let t of tempdata) {
+					if (t.PhoneUrl && t.SORT_ID == s.Sort_ID) {
 						s['show'] = true;
 						break;
 					}
 				}
 			}
 			// console.log(sorts);
-			console.log(temp);
+			// console.log(tempdata);
 			// console.log(sortItem);
 			// console.log(that.data.menu);
 
 			app.globalData.sort = sorts;
-			app.globalData.menu = temp;
+			app.globalData.menu = tempdata;
 			app.globalData.sortItems = sortItem;
 			that.setData({
 				sort: sorts,
-				menu: temp,
+				menu: tempdata,
 				sortItems: sortItem
 			})
 		})

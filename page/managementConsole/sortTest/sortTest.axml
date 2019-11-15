@@ -23,7 +23,7 @@
 				<view class="middle-item">
 					<view class="middle-item-icon">
 					</view>
-					<view>{{item.FlowName}}</view>
+					<view>{{item.FlowNameMobile}}</view>
 				</view>
 				<view class="item-right" data-Id="{{m.Id}}" data-fatherIndex="{{a}}" data-index="{{index}}" catchTouchMove="sonMove" catchTouchStart="sonStart" catchTouchEnd="sonMoveEnd">
 					<view class="one-line"></view>
