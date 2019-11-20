@@ -114,8 +114,6 @@ export default {
 		getData() {
 			let start = this.data.tableParam.size * (this.data.tableParam.now - 1);
 			let arr = this.data.data.slice(start, start + this.data.tableParam.size);
-			console.log("sssssssssssssss");
-			console.log(arr);
 			this.setData({
 				tableData: arr,
 			})

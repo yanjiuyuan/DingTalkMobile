@@ -82,7 +82,7 @@
 			</view>
 		</view>
 		<view class="btn-view">
-			<button size="default" class="btn" form-type="submit" type="primary">修改</button>
+			<button size="default" class="btn" form-type="submit" type="primary">添加</button>
 		</view>
 	</form>
 </view>

@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import lib from "/lib.js";
 
 
 let globalData = getApp().globalData;
@@ -11,6 +12,7 @@ Page({
 			that.getMenu();
 			// that.getProjectList();
 		});
+		this.getDepartmentList();
 		this.getUserInfo();
 	},
 	data: {
@@ -38,18 +40,42 @@ Page({
 			success: function(res) {
 				console.log(res)
 				if (res.users.length > 0) {
-					let name = res.users[0].name
-					let userId = res.users[0].userId
-					let app = getApp()
-					app.userInfo.name = name
-					app.userInfo.userid = userId
-					app.userInfo.nickName = name
+					let name = res.users[0].name;
+					let userId = res.users[0].userId;
+					let app = getApp();
+					app.userInfo.name = name;
+					app.userInfo.userid = userId;
+					app.userInfo.nickName = name;
 					that.setData({
 						DingData: {
 							nickName: name,
 							userid: userId
 						}
 					})
+					dd.httpRequest({
+						url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({ userid: res.users[0].userId }),
+						method: "POST",
+						data: "",
+						headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "application/json", },
+						success: function(res) {
+
+							console.log(res);
+							let name = res.data.name;
+							let DingData = {
+								nickName: name,
+								departName: null,
+								userid: app.userInfo.userid,
+								departmentList: res.data.dept,
+							}
+							app.userInfo = DingData;
+							console.log(DingData);
+							dd.hideLoading();
+							that.setData({ DingData: DingData });
+						}
+
+
+					})
+
 				}
 			},
 			fail: function(err) {
@@ -99,6 +125,11 @@ Page({
 	getUserInfo() {
 		let that = this
 		this._getData('FlowInfoNew/GetUserInfo', function(data) {
+			data.push({
+				PeopleId: "056652031835326264",
+				NodePeople: "许瑜瑜"
+
+			})
 			that.setData({
 				userList: data
 			})
@@ -164,9 +195,6 @@ Page({
 			let tempdata = [];//用于存放流程数据
 			for (let s of sorts) {
 				for (let f of s.flows) {
-					f.flowId = f.FlowId;
-					f.sortName = s.SORT_NAME;
-					f.flowName = f.FlowName;
 					tempdata.push(f);
 				}
 			}

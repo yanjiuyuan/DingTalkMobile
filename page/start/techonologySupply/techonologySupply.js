@@ -15,16 +15,16 @@ Page({
 		index1: -1,
 		array2: ['高', '中', '低'],
 		index2: 0,
-		items: [
-			{ name: '工业软件研发部', value: '工业软件研发部' },
-			{ name: '数控一代事业部', value: '数控一代事业部' },
-			{ name: '机器人事业部', value: '机器人事业部' },
-			{ name: '行政部', value: '行政部' },
-			{ name: '财务部', value: '财务部' },
-			{ name: '制造试验部', value: '制造试验部' },
-			{ name: '项目推进部', value: '项目推进部' },
-			{ name: '自动化事业部', value: '自动化事业部' },
-		],
+		// items: [
+		// 	{ name: '工业软件研发部', value: '工业软件研发部' },
+		// 	{ name: '数控一代事业部', value: '数控一代事业部' },
+		// 	{ name: '机器人事业部', value: '机器人事业部' },
+		// 	{ name: '行政部', value: '行政部' },
+		// 	{ name: '财务部', value: '财务部' },
+		// 	{ name: '制造试验部', value: '制造试验部' },
+		// 	{ name: '项目推进部', value: '项目推进部' },
+		// 	{ name: '自动化事业部', value: '自动化事业部' },
+		// ],
 		OtherEngineers: "",
 		ResponsibleMan: "",
 		rotate: "RotateToTheRight",
@@ -115,7 +115,7 @@ Page({
 							OtherEngineers: [...new Set(userlist)],//去重
 
 						})
-					},deptId)
+					}, deptId)
 
 				}
 
@@ -217,7 +217,7 @@ Page({
 		if (!body.ResponsibleMan || !body.Customer || !body.Title || !body.ProjectType || !body.TimeRequired || !body.MainPoints || !body.ProjectOverview) {
 			dd.alert({
 				content: "请完整填写表单",
-				buttonText:promptConf.promptConf.Confirm,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		else {
@@ -229,7 +229,7 @@ Page({
 					})
 					dd.alert({
 						content: promptConf.promptConf.Submission,
-						buttonText:promptConf.promptConf.Confirm,
+						buttonText: promptConf.promptConf.Confirm,
 						success: () => {
 							dd.navigateBack({
 								delta: 2
@@ -272,18 +272,16 @@ Page({
 		});
 	},
 	onShow() {
-		// 页面被关闭
-		if (app.globalData[`${this.data.flowid}`] == false || app.globalData[`${this.data.flowid}`] == undefined ) {
-			this.data.items = [
-				{ name: '工业软件研发部', value: '工业软件研发部' },
-				{ name: '数控一代事业部', value: '数控一代事业部' },
-				{ name: '机器人事业部', value: '机器人事业部' },
-				{ name: '行政部', value: '行政部' },
-				{ name: '财务部', value: '财务部' },
-				{ name: '制造试验部', value: '制造试验部' },
-				{ name: '项目推进部', value: '项目推进部' },
-				{ name: '自动化事业部', value: '自动化事业部' },
-			];
+		if (app.globalData[`${this.data.flowid}`] == false || app.globalData[`${this.data.flowid}`] == undefined) {
+			this.data.items= [];
+			for (let i of this.data.DeptNames) {
+				this.data.items.push(
+					{
+						name: i,
+						value: i
+					}
+				)
+			}
 			this.setData({
 				items: this.data.items
 			})

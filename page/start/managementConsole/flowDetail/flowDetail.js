@@ -14,8 +14,8 @@ Page({
 		let item = JSON.parse(option.item);
 		let sort = JSON.parse(option.sort);
 
-		// console.log(item);
-		// console.log(sort);
+		console.log(item);
+		console.log(sort);
 
 		for (let i of this.data.IsEnableArray) {
 			if (item.IsEnable == i.label) {

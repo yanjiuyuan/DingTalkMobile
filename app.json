@@ -45,17 +45,20 @@
     "page/start/gift/gift",
     "page/processOn/processOn",
     "page/start/productionMonitoring/productionMonitoring",
-    "page/managementConsole/managementConsole",
-    "page/managementConsole/addShortcut/addShortcut",
-    "page/managementConsole/sortTest/sortTest",
     "page/approveDetail/projectDetail/projectDetail",
     "page/start/processManagement/processManagement",
     "page/approveDetail/overTime/overTime",
-    "page/managementConsole/flowDetail/flowDetail",
-    "page/managementConsole/flowDetail/setNodeInfo/setNodeInfo",
     "page/start/role/role",
     "page/start/drawingOrder/drawingOrder",
-    "page/managementConsole/addFlow/addFlow"
+
+    "page/start/managementConsole/managementConsole",
+	"page/start/managementConsole/flowDetail/flowDetail",
+    "page/start/managementConsole/flowDetail/setNodeInfo/setNodeInfo",
+    "page/start/managementConsole/addFlow/setNodeInfo/setNodeInfo",
+	"page/start/managementConsole/addShortcut/addShortcut",
+    "page/start/managementConsole/sortTest/sortTest",
+    "page/start/managementConsole/addFlow/addFlow"
+
   ],
   "window": {
     "enableWK": "YES",

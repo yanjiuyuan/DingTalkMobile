@@ -10,7 +10,6 @@ let xTap = -90;
 let yTap = -90;
 let States = ["在研", "已完成", "终止"]
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
-let DeptNames = ["工业软件研发部", "数控一代事业部", "机器人事业部", "行政部", "财务部", "制造试验部", "项目推进部", "自动化事业部"]
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"]
 let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]
 let localStorage = ""
@@ -38,18 +37,21 @@ export default {
 		nodeInfo: {},
 		FileUrl: "",
 		FilePDFUrl: "",
-		States: States, stateIndex: -1,
+		States: States,
+		stateIndex: -1,
 		localStorage: localStorage,
-		ProjectTypes: ProjectTypes, projectIndex: -1,
+		ProjectTypes: ProjectTypes,
+		projectIndex: -1,
 		departIndex: -1,
-		DeptNames: DeptNames, deptIndex: -1,
-		CompanyNames: CompanyNames, companyIndex: 0,
-		IntellectualPropertyTypes: IntellectualPropertyTypes, iptIndex: -1,
-
+		DeptNames: [],
+		deptIndex: -1,
+		CompanyNames: CompanyNames,
+		companyIndex: 0,
+		IntellectualPropertyTypes: IntellectualPropertyTypes,
+		iptIndex: -1,
 		dateStr: "",
 		startDateStr: "",
 		endDateStr: "",
-
 		changeRemarkId: 0,
 		changeRemarkNodeid: 0,
 
@@ -65,7 +67,6 @@ export default {
 		hidden: true,
 		hiddenCrmk: true,
 		remark: "",
-
 		disablePage: false,
 	},
 
@@ -408,7 +409,55 @@ export default {
 				});
 
 			},
+			//退回审批
+			returnsSubmit(e) {
+				dd.confirm({
+					title: "温馨提示",
+					content: promptConf.promptConf.ApplicationReturned,
+					confirmButtonText: promptConf.promptConf.Confirm,
+					cancelButtonText: promptConf.promptConf.Cancel,
+					success: (result) => {
 
+						if (result.confirm == true) {
+							this.setData({
+								disablePage: true
+							})
+							let that = this
+							let param = {
+								"TaskId": that.data.taskid,
+								"ApplyMan": that.data.DingData.nickName,
+								"ApplyManId": that.data.DingData.userid,
+								"Dept": that.data.DingData.departName,
+								"NodeId": that.data.nodeid,
+								"ApplyTime": that._getTime(),
+								"IsEnable": "1",
+								"FlowId": that.data.flowid,
+								"IsSend": "false",
+								"State": "1",
+								"BackNodeId": that.data.nodeInfo.BackNodeId,
+								"Id": that.data.tableInfo.Id
+							}
+							if (e && e.detail && e.detail.value) {
+								param["Remark"] = e.detail.value.remark
+							} else {
+								param["NodeId"] = 0
+							}
+							that._postData("FlowInfoNew/FlowBack", function(res) {
+								dd.alert({
+									content: promptConf.promptConf.ApplicationWithdrawn,
+									buttonText: promptConf.promptConf.Confirm,
+									success: () => {
+										dd.switchTab({
+											url: "/page/approve/approve"
+										})
+									}
+								});
+							}, param)
+						}
+					},
+				});
+
+			},
 			//判断是否可以撤回参数
 			isWithdraw() {
 				console.log(this.data.nodeList);
@@ -934,7 +983,14 @@ export default {
 			}
 			console.log(e)
 			this.requestData("POST", url, function(res) {
-				dd.alert({ content: "提示信息:" + JSON.parse(res.data).errmsg })
+				if (JSON.parse(res.data).errmsg == "ok") {
+					dd.alert({
+						content: promptConf.promptConf.Download,
+						buttonText: promptConf.promptConf.Confirm
+					})
+				}
+
+				// dd.alert({ content: "提示信息:" + JSON.parse(res.data).errmsg })
 			}, param)
 		},
 		//检查是否登录
@@ -949,7 +1005,10 @@ export default {
 					departmentList: app.userInfo.departmentList
 				}
 
-				that.setData({ DingData: DingData });
+				that.setData({
+					DingData: DingData,
+					DeptNames: app.globalData.DeptNames
+				});
 				callBack();
 				return;
 			}
@@ -980,7 +1039,7 @@ export default {
 									});
 									return
 								}
-								app.userInfo = result
+								app.userInfo = result;
 								let DingData = {
 									nickName: name || result.name,
 									departName: result.dept,
@@ -1046,9 +1105,10 @@ export default {
 
 								let DingData = {
 									nickName: name || result.name,
+									// nickName: "蔡兴桐",
 									departName: result.dept,
-									// userid: result.userid,
-									userid: "083452125733424957",
+									userid: result.userid,
+									// userid: "083452125733424957",
 									departmentList: res.data.dept,
 								}
 								app.userInfo = DingData;
@@ -1066,8 +1126,19 @@ export default {
 				},
 			})
 		},
+		//获取全部部门信息
+		getDepartmentList() {
+			this.postDataReturnData('DingTalkServers/departmentList', (res) => {
+				let departmentList = JSON.parse(res.data).department;
+				let department = [];
+				for (let i of departmentList) {
+					department.push(i.name);
+				}
 
+				app.globalData.DeptNames = department;
 
+			})
+		},
 
 		//选择项目名称之后 修改审批节点和标题
 		bindPickerChange(e) {
@@ -1117,15 +1188,26 @@ export default {
 				url: url + "?" + "flowid=" + this.data.tableInfo.FlowId + "&" + "data=" + str,
 			})
 		},
-		//計算相差天數
-		DateDiff(sDate1, sDate2) { //sDate1和sDate2是2017-9-25格式 
-			let aDate, oDate1, oDate2, iDays;
+		//計算相差天數,会去除星期六日
+		DateDiff(sDate1, sDate2) { //sDate1和sDate2是2017-9-25格式 ,sData1会比较大
+			let aDate, oDate1, oDate2;
+
 			aDate = sDate1.split("-");
 			oDate1 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]); //转换为9-25-2017格式 
 			aDate = sDate2.split("-");
 			oDate2 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]);
-			iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数 
-			return iDays;
+
+			let first = oDate2.getTime();
+			let last = oDate1.getTime();
+			let count = 0;
+			for (let i = first; i <= last; i += 24 * 3600 * 1000) {
+				let d = new Date(i);
+				if (d.getDay() >= 1 && d.getDay() <= 5) {
+					count++;
+				}
+			}
+			return count;
+
 		},
 
 		//临时保存

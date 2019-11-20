@@ -19,13 +19,12 @@
 		</view>
 	</view>
 </view>
-<view class="sort">
+<!-- <view class="sort">
 	<text class="sort-name">管理控制台
 		<text class="small-font">(仅管理员可见)</text></text>
 	<text class="sort-open blue">管理</text>
 	<view class="menu">
 		<view class="grid-item-new" data-index="{{index}}">
-			<!--<navigator url="../../page/approveDetail/projectDetail/projectDetail?projectId=2020QZH100"> -->
 			<navigator url="../../page/managementConsole/managementConsole">
 				<view class="grid-item-wrapper-new">
 					<image mode="scaleToFill" class="approval-box-image" src="/image/manage.png"/>
@@ -34,7 +33,7 @@
 			</navigator>
 		</view>
 	</view>
-</view>
+</view> -->
 <view a:for="{{sort}}" a:for-item="m" a:if="{{m.show}} " class="sort">
 	<view onTap="showOrClose" data-index="{{index}}">
 		<text class="sort-name" a:if="{{m.show}}"> {{m.SORT_NAME}}</text>
@@ -42,11 +41,11 @@
 	</view>
 	<view class="{{sortItems[index].class}}">
 		<view class="menu">
-			<view a:for="{{menu}}" a:if="{{item.PhoneUrl && item.sortName == m.SORT_NAME}}" class="grid-item-new" data-index="{{index}}">
-				<navigator url="/page/start/{{item.PhoneUrl}}?flowid={{item.flowId}}&title={{item.flowName}}">
+			<view a:for="{{menu}}" a:if="{{item.PhoneUrl && item.SORT_ID == m.Sort_ID}}" class="grid-item-new" data-index="{{index}}">
+				<navigator url="/page/start/{{item.PhoneUrl}}?flowid={{item.FlowId}}&title={{item.FlowName}}">
 					<view class="grid-item-wrapper-new">
 						<view class="approval-box-img" style="backgroundPosition:{{item.Position}}"></view>
-						<text class="grid-text-new">{{item.FlowNameMobile.indexOf('申请')>0?item.FlowNameMobile.substring(0,item.FlowNameMobile.indexOf('申请')):item.FlowNameMobile}}</text>
+						<text class="grid-text-new">{{item.FlowName.indexOf('申请')>0?item.FlowName.substring(0,item.FlowName.indexOf('申请')):item.FlowName}}</text>
 					</view>
 				</navigator>
 			</view>

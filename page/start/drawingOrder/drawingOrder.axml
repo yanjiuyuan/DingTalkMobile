@@ -4,7 +4,7 @@
 	<form onSubmit="submit">
 		<view class="page-section">
 			<!-- 标题 -->
-			<template is ="title" data="{{tableInfo}}"/>
+			<template is ="titleOfObject" data="{{tableInfo}}"/>
 			<!-- 申请人 -->
 			<template is ="applyman" data="{{DingData}}"/>
 			<view class="form-row">
@@ -29,6 +29,10 @@
 				<text>物料表单</text>
 				<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
+			<view a:if ="{{tableData2.length > 0}}">
+				<text>零件列表</text>
+				<template is="datatable" data="{{items:tableItems2,data:tableData2,param:tableParam2}}"/>
+			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>项目名称</view>
@@ -38,21 +42,25 @@
 				<view class="form-row-label">
 					<template is="required"></template>套数</view>
 				<view class="form-row-content">
-					<input placeholder="套数" />
+					<input placeholder="套数" maxlength="2" />
 				</view>
 			</view>
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>PDF图纸</view>
+			<view class="form-row" style="height:100%;">
+				<view class="form-row-label">PDF图纸</view>
 				<view class="form-row-content">
-					<input placeholder="套数" />
+					<view a:for="{{filePDFList}}">
+						<text>{{item.name}}</text>
+						<button type="primary" data-mediaId="{{item.mediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+					</view>
 				</view>
 			</view>
-			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>相关文件</view>
+			<view class="form-row" style="height:100%;">
+				<view class="form-row-label">相关文件</view>
 				<view class="form-row-content">
-					<input placeholder="套数" />
+					<view a:for="{{fileList}}">
+						<text>{{item.name}}</text>
+						<button type="primary" data-mediaId="{{item.mediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
+					</view>
 				</view>
 			</view>
 			<!-- 选人组件 -->

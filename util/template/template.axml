@@ -164,7 +164,7 @@ margin-right:0.1rem;">*
 		<view class="modal-container" animation="{{animContentData}}">
 			<view class="modal-close" onTap="onModalCloseTap">×</view>
 			<view class="modal-content">
-				<form onSubmit="returnSubmit">
+				<form onSubmit="returnsSubmit">
 					<view class="page-section">
 						<view class="page-section-title">退回建议</view>
 						<view class="page-section-demo">
@@ -348,6 +348,6 @@ margin-right:0.1rem;">*
 		<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 	</view>
 	<view a:if="{{index == 2 && state == '已撤回' && relaunch == true || index == 2 && state == '被退回' && relaunch == true}}">
-		<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
+		<button onTap="relaunch" type="primary" disabled="{{disablePage}}">重新发起</button>
 	</view>
 </template>

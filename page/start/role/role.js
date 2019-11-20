@@ -7,7 +7,12 @@ Page({
 	data: {
 		...pub.data,
 		tableOperate: '编辑',
-		IsEnableArray: [{ name: '是', label: true }, { name: '否', label: false }],
+		tableParam: {
+			size: 5,
+			now: 1,
+			total: 0
+		},
+		IsEnableArray: [{ name: '是', label: true }, { name: '否', label: false, checked: true }],
 		SecondArray: [{ name: '是', label: true }, { name: '否', label: false }],
 		tableItems: [
 			{
@@ -34,8 +39,11 @@ Page({
 				tableData: res,
 				"tableParam.total": res.length
 			})
+			that.data.data = res;
+			that.getData()
 		})
 	},
+	//修改选人
 	choosePeoples(e) {
 		let that = this;
 		console.log('start choose people');
@@ -71,7 +79,6 @@ Page({
 						deptId.push(i.id);
 					}
 					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (res) => {
-						console.log(res.data);
 						that.data.pickedUsers = [];
 						that.data.pickedDepartments = [];
 						let userlist = [];
@@ -107,8 +114,80 @@ Page({
 			}
 		})
 	},
+	//添加选人
+	choosePeople(e) {
+		let that = this;
+		console.log('start choose people');
+		dd.complexChoose({
+			...that.data.chooseParam,
+			title: "权限成员",
+			multiple: true,
+			success: function(res) {
+				console.log(res);
+				let names = [];
+				let ids = [];
+				let twoNeedArray = [];
+				if (res.departments.length == 0) {
+					for (let d of res.users) {
+						names.push(d.name);
+						ids.push(d.userId);
+						twoNeedArray.push({
+							name: d.name,
+							value: d.name,
+							id: d.userId
+						})
+					}
+					that.setData({
+						addPermissionMember: names.join(','),
+						PeopleId: ids.join(","),
+						twoNeedArray: twoNeedArray
+					})
+
+				}
+				else {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (res) => {
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in res.data) {
+							let data = JSON.parse(res.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								twoNeedArray.push({
+									name: d.name,
+									value: d.name,
+									id: d.userid
+								})
+								d.userId = d.userid;
+							}
+						}
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];//数组去重
+						that.setData({
+							addPermissionMember: names.join(','),
+							PeopleId: ids.join(","),
+							twoNeedArray: twoNeedArray
+						})
+					}, deptId)
+
+				}
+			},
+			fail: function(err) {
+
+			}
+		})
+	},
 	chooseItem(e) {
 		// console.log(e);
+		if (!e.target.targetDataset.row) return;
 		console.log(e.target.targetDataset.row);
 		let that = this;
 		let index = e.target.targetDataset.index;
@@ -157,7 +236,7 @@ Page({
 		for (let i of this.data.thirdNeedArray) {
 
 			for (let j of value) {
-				if (i.name == j) {
+				if (i.id == j.id) {
 					i.checked = true;
 					break;
 				}
@@ -170,35 +249,110 @@ Page({
 
 			}
 		}
-		console.log(this.data.thirdNeedArray);
+	},
+	onChanges(e) {
+		let value = e.detail.value;
+		for (let i of this.data.twoNeedArray) {
 
+			for (let j of value) {
+				if (i.id == j.id) {
+					i.checked = true;
+					break;
+				}
+				else {
+					i.checked = false;
+				}
+			}
+			if (value.length == 0) {
+				i.checked = false;
+
+			}
+
+		}
+		console.log(this.data.twoNeedArray);
 	},
 	confirm(e) {
-		console.log(e);
 		let value = e.detail.value;
-		console.log(value);
 		console.log(this.data.row);
 		this.data.row.IsEnable = value.IsEnable;
 		this.data.row.RoleName = value.RoleName;
-		for (let i of this.data.row.roles) {
-			for (let j of value.roles) {
-				if (i.UserId == j) {
-					i.IsEnable = true;
-				}
-				else {
-					i.IsEnable = false;
-				}
+		this.data.row.Remark = value.Remark;
 
+		//给存在的权限成员IsEnable是否启用赋值
+		let rolesList = [];
+		for (let i of this.data.thirdNeedArray) {
+			let obj = {
+				CreateMan: app.userInfo.nickName,
+				CreateManId: app.userInfo.userid,
+				RoleId: this.data.row.Id,
+				UserName: i.name,
+				UserId: i.id,
+				IsEnable: i.checked,
 			}
-			if (value.roles.length == 0) {
-				i.IsEnable = false;
-
-			}
+			rolesList.push(obj);
 		}
-		console.log(this.data.row);
+		this.data.row.roles = rolesList;
 		let obj = {
 			applyManId: app.userInfo.userid,
-			roles: this.data.row
+			roles: [this.data.row]
 		}
+		this._postData('Role/ModifyRole', (res) => {
+			dd.alert({
+				content: promptConf.promptConf.UpdateSuccess,
+				buttonText: promptConf.promptConf.confirm
+			})
+			this.setData({
+				hidden: !this.data.hidden
+			})
+		}, obj)
+
+	},
+	submit(e) {
+		let value = e.detail.value;
+		console.log(value);
+		if (value.RoleName == "") {
+			dd.alert({
+				content: "角色名称不允许为空，请输入！",
+				buttonText: promptConf.promptConf.confirm
+			})
+			return;
+		}
+		if (value.people == "") {
+			dd.alert({
+				content: "权限成员不允许为空，请输入！",
+				buttonText: promptConf.promptConf.confirm
+			})
+			return;
+		}
+		let row = {
+			CreateMan: app.userInfo.nickName,
+			CreateManId: app.userInfo.userid,
+			CreateTime: this.data.DateStr + " " + this.data.TimeStr,
+			IsEnable: value.IsEnable,
+			RoleName: value.RoleName,
+			Remark:value.Remark
+		};
+
+		let rolesList = [];
+		for (let i of this.data.twoNeedArray) {
+			let obj = {
+				CreateMan: app.userInfo.nickName,
+				CreateManId: app.userInfo.userid,
+				CreateTime: this.data.DateStr + " " + this.data.TimeStr,
+				UserName: i.name,
+				UserId: i.id,
+				IsEnable: i.checked,
+			}
+			rolesList.push(obj);
+		}
+		row.roles = rolesList;
+
+		console.log(row);
+		this._postData('Role/AddRole', (res) => {
+			dd.alert({
+				content: promptConf.promptConf.AddSuccess,
+				buttonText: promptConf.promptConf.Confirm
+			})
+		}, [row])
 	}
 })

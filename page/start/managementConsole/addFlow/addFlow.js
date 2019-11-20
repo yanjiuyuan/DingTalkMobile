@@ -15,7 +15,7 @@ Page({
 	//配置节点信息
 	setNodeInfo() {
 		dd.navigateTo({
-			url: "../setNodeInfo/setNodeInfo"
+			url: "../addFlow/setNodeInfo/setNodeInfo"
 		})
 	},
 	choosePeople(e) {

@@ -1,6 +1,6 @@
 import pub from '/util/public';
 import promptConf from "/util/promptConf.js";
-
+const app = getApp();
 let good = {}
 Page({
 	...pub.func,
@@ -123,19 +123,22 @@ Page({
 			endDate: this.data.Year + 1 + '-' + this.data.Month + '-' + this.data.Day,
 			success: (res) => {
 				if (that.data.table.PlanEndTime) {
-					let iDay = that.DateDiff(res.date, that.data.table.PlanEndTime);//計算天數
-					if (iDay > 0) {
+					let iDay = that.DateDiff(that.data.table.PlanEndTime, res.date);//計算天數
+					if (iDay < 0) {
 						dd.alert({
 							content: promptConf.promptConf.TimeComparison,
 							buttonText: promptConf.promptConf.Confirm
 						})
 						return;
 					}
+					that.setData({
+						'table.PlanDays': iDay,
+					})
 				}
 
 				this.setData({
 					startDateStr: res.date,
-					'table.PlanBeginTime': res.date
+					'table.PlanBeginTime': res.date,
 				})
 			},
 		});

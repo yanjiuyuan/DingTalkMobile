@@ -26,7 +26,7 @@ Page({
 		let item = JSON.stringify(e.target.dataset.item);
 		dd.navigateTo({
 			// url: "/page/managementConsole/addShortcut/addShortcut?item=" + item
-			url: "/page/managementConsole/addFlow/addFlow?item=" + item
+			url: "/page/start/managementConsole/addFlow/addFlow?item=" + item
 
 		});
 	},
@@ -105,7 +105,7 @@ Page({
 	sort() {
 		dd.navigateTo({
 			// url: "/page/managementConsole/sort/sort"
-			url: "/page/managementConsole/sortTest/sortTest"
+			url: "/page/start/managementConsole/sortTest/sortTest"
 			// url: "/page/managementConsole/sortTest_1/sortTest_1"
 		});
 	},

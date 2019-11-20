@@ -2,46 +2,51 @@
 <view class="page">
 	<form onSubmit="submit">
 		<view class="form-row">
-			<view class="form-row-label">角色名称</view>
+			<view class="form-row-label">
+				<template is="required"></template>角色名称</view>
 			<view class="form-row-content">
 				<input name="RoleName" class="input" value="{{RoleName}}" maxlength="14" placeholder="角色名称"/>
 			</view>
 		</view>
 		<view class="form-row">
 			<view class="form-row-label">
-				权限成员
-			</view>
+				<template is="required"></template>权限成员</view>
 			<view class="form-row-content">
-				<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="RoleName" class="input" value="{{RoleName}}"/>
+				<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="people" class="input" value="{{addPermissionMember}}"/>
 			</view>
 			<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
 		</view>
 		<view class="form-row">
 			<view class="form-row-label">是否启用</view>
 			<radio-group class="radio-group" style="margin-left:2rem" name="IsEnable" onChange="radioChangeOne">
-				<label class="radio radio-margin" a:for="{{IsEnableArray}}">
+				<label class="radio radio-margin" style="font-size:34rpx" a:for="{{IsEnableArray}}">
 					<radio value="{{item.label}}" checked="{{item.checked}}" />{{item.name}}
 				</label>
 			</radio-group>
 		</view>
 		<view class="form-row">
 			<view class="form-row-label">启用成员</view>
-			<checkbox-group onChange="onChanges" class="size" name="ChoseNodeId">
-				<label class="checkbox checkbox-margin" a:for="{{needChoose}}">
-					<checkbox value="{{item.name}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+			<checkbox-group onChange="onChanges" name="roles">
+				<label class="checkbox" style="font-size:34rpx" a:for="{{twoNeedArray}}">
+					<checkbox value="{{item}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
 					<text class="checkbox-text">{{item.value}}</text>
 				</label>
 			</checkbox-group>
 		</view>
+		<view class="form-row">
+			<view class="form-row-label">描述信息</view>
+			<view class="form-row-content">
+				<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="20" name="Remark" class="input"/>
+			</view>
+		</view>
 		<button size="default" type="primary" form-type="submit">添加</button>
 		</view>
 	</form>
-	<view onTap="chooseItem">
+	<view onTap="chooseItem" style="font-size:25rpx">
 		<text>角色列表</text>
 		<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
 	</view>
 </view>
-
 <view class="modal" a:if="{{!hidden}}" key="modal">
 	<view class="modal-mask" animation="{{animMaskData}}"/>
 	<view class="modal-container-s" animation="{{animContentData}}">
@@ -61,7 +66,7 @@
 							<view class="form-row-label-s">
 								<template is="required"></template>权限成员</view>
 							<view class="form-row-content">
-								<textarea auto-height="true" style="min-height:70rpx;padding:0" maxlength="-1" style="resize: none;" name="NodePeople" class="input" disabled="{{true}}" value="{{permissionMember}}"></textarea>
+								<textarea auto-height="true" style="min-height:70rpx;padding:0;font-size:25rpx" maxlength="-1" style="resize: none;" class="input" disabled="{{true}}" value="{{permissionMember}}"></textarea>
 							</view>
 							<view onTap="choosePeoples" class="ViewButton">选人</view>
 						</view>
@@ -77,10 +82,16 @@
 							<view class="form-row-label-s">启用成员</view>
 							<checkbox-group onChange="onChangeThird" class="size" name="roles">
 								<label class="checkbox checkbox-margin" a:for="{{thirdNeedArray}}">
-									<checkbox value="{{item.id}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
+									<checkbox value="{{item}}" checked="{{item.checked}}" disabled="{{item.disabled}}" />
 									<text class="checkbox-text">{{item.value}}</text>
 								</label>
 							</checkbox-group>
+						</view>
+						<view class="form-row-s">
+							<view class="form-row-label-s">描述信息</view>
+							<view class="form-row-content">
+								<textarea style="min-height:90rpx;padding:0; font-size:25rpx;" auto-height="true" maxlength="20" name="Remark" class="input" value="{{tableInfo.Remark || '空'}}" />
+							</view>
 						</view>
 						</view>
 					</scroll-view>
