@@ -64,3 +64,4 @@ require('../../page/start/managementConsole/addFlow/setNodeInfo/setNodeInfo?hash
 require('../../page/start/managementConsole/addShortcut/addShortcut?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/managementConsole/sortTest/sortTest?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/managementConsole/addFlow/addFlow?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/approveDetail/drawingOrder/drawingOrder?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');

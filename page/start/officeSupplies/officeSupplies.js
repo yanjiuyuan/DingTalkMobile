@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -15,7 +16,7 @@ Page({
 		},
 		tableOperate2: '删除',
 		good: {},
-		totalPrice: 0,
+		totalPrice: 0.00,
 		tableItems: [
 			{
 				prop: 'fNumber',
@@ -202,7 +203,7 @@ Page({
 		let length = this.data.purchaseList.length;
 		this.data.purchaseList.splice(index, 1);
 
-		let totalPrice = this.data.totalPrice - (row.Count - 0.0) * (row.ExpectPrice - 0.0);
+		let totalPrice = (parseFloat(this.data.totalPrice) - parseFloat(row.ExpectPrice) * parseFloat(row.Count)).toFixed(2);
 		this.setData({
 			"tableParam2.total": length - 1,
 			purchaseList: this.data.purchaseList,
@@ -266,7 +267,7 @@ Page({
 		}
 		let length = this.data.purchaseList.length;
 		let setStr = 'purchaseList[' + length + ']';
-		let totalPrice = this.data.totalPrice + (good.fNote - 0.0) * (param.Count - 0.0);
+		let totalPrice = (parseFloat(this.data.totalPrice) + parseFloat(param.ExpectPrice) * parseFloat(param.Count)).toFixed(2);
 		console.log(totalPrice);
 		this.setData({
 			'tableParam2.total': length + 1,

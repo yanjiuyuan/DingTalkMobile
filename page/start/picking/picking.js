@@ -9,11 +9,6 @@ Page({
 		hidden: true,
 		tableOperate: '选择',
 		purchaseList: [],
-		tableParam2: {
-			size: 100,
-			now: 1,
-			total: 0
-		},
 		tableOperate2: '删除',
 		tableOperate3: '编辑',
 		ifedit: false,
@@ -158,18 +153,17 @@ Page({
 				buttonText: promptConf.promptConf.Confirm,
 			});
 		}
-		else {
-			dd.showLoading({
-				content:promptConf.promptConf.Obtaining
-			});
-
-		}
-		let value = e.detail.value
+		// else {
+		// 	dd.showLoading({
+		// 		content:promptConf.promptConf.Obtaining
+		// 	});
+		// }
+		let value = e.detail.value;
 
 
 		console.log(value.keyWord)
-		if (!value || !value.keyWord) return
-		let that = this
+		if (!value || !value.keyWord) return;
+		let that = this;
 
 		this._getData('Pick/ReadDefault' + this.formatQueryStr({ ApplyManId: that.data.DingData.userid, TaskId: value.keyWord }),
 			function(res) {
@@ -195,9 +189,13 @@ Page({
 				}
 				for (let i = 0; i < addArr.length; i++) {
 					that.setData({
-						[`purchaseList[${length + i}]`]: addArr[i]
+						[`purchaseList[${length + i}]`]: addArr[i],
+						
 					})
 				}
+				that.setData({
+					'tableParam2.total':res.length
+				})
 			})
 	},
 	searchAndAdd(e) {
@@ -349,11 +347,12 @@ Page({
 	},
 	//提交弹窗表单
 	addGood(e) {
-		let value = e.detail.value
-		console.log(value)
+		let value = e.detail.value;
 
-		let reg = /^-?\d+$/;
-		if (!reg.test(value.fQty)) {
+
+		let reg3 = /^[\.\d]*$/;//纯数字包括小数
+
+		if (!reg3.test(value.fQty)) {
 			dd.alert({
 				content: `数量必须为整数，请重新输入！`,
 				buttonText: promptConf.promptConf.Confirm,

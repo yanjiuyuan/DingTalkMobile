@@ -18,6 +18,12 @@
 					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
 				</view>
 			</view>
+			<view class="form-row" >
+				<view class="form-row-label">预计总价</view>
+				<view class="form-row-content">
+					<input class="input" value="{{totalPrice}}" disabled="{{true}}" />
+				</view>
+			</view>
 			<!--<view class="form-line" />  -->
 			<!-- 物料表单 -->
 			<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam}}"/>
@@ -38,7 +44,7 @@
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
 			</view>
-			<view a:if="{{index==2 && state=='未完成' && nodeid == 1}}">
+			<view a:if="{{index==2 && state=='未完成' && rebackAble == true}}">
 				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 			</view>
 		</view>

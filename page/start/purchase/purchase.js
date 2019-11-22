@@ -17,7 +17,7 @@ Page({
 		},
 		tableOperate2: '删除',
 		good: {},
-		totalPrice: 0,
+		totalPrice: 0.00,
 		tableItems: [
 			{
 				prop: 'FNumber',
@@ -91,7 +91,7 @@ Page({
 	},
 	//表单操作相关
 	search(e) {
-		var value = e.detail.value
+		let value = e.detail.value;
 		console.log(value)
 		if (!value || !value.keyWord.trim()) {
 			dd.alert({
@@ -100,13 +100,13 @@ Page({
 			})
 			return;
 		}
-		var that = this
+		let that = this;
 		that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function(res) {
 			console.log(JSON.parse(res.data))
 			if (JSON.parse(res.data).length == 0) {
 				dd.alert({
 					content: promptConf.promptConf.SearchNoReturn,
-					buttonText:promptConf.promptConf.Confirm,
+					buttonText: promptConf.promptConf.Confirm,
 				})
 				return;
 			}
@@ -118,7 +118,7 @@ Page({
 		})
 	},
 	submit(e) {
-		var that = this
+		let that = this;
 		if (that.data.projectList[that.data.projectIndex] == undefined) {
 			dd.alert({
 				content: "项目名称不能为空，请输入！",
@@ -126,8 +126,8 @@ Page({
 			})
 			return;
 		}
-		var value = e.detail.value
-		var param = {
+		let value = e.detail.value
+		let param = {
 			Title: value.title,
 			Remark: value.remark,
 			ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
@@ -154,8 +154,8 @@ Page({
 		this.approvalSubmit(param, callBack)
 	},
 	bindAll(taskId) {
-		var that = this
-		var paramArr = []
+		let that = this
+		let paramArr = []
 		for (let p of that.data.purchaseList) {
 			p.TaskId = taskId
 			paramArr.push(p)
@@ -183,14 +183,18 @@ Page({
 	deleteItem(e) {
 		if (!e) return;
 		console.log(e)
-		let index = e.target.targetDataset.index
+		let index = e.target.targetDataset.index;
+		let row = e.target.targetDataset.row;
+
 		if ((!index) && index != 0) return;
 		let length = this.data.purchaseList.length;
 		this.data.purchaseList.splice(index, 1);
 
 		this.setData({
 			'tableParam2.total': length - 1,
-			purchaseList: this.data.purchaseList
+			purchaseList: this.data.purchaseList,
+			totalPrice: (parseFloat(this.data.totalPrice) - parseFloat(row.Price) * parseFloat(row.Count)).toFixed(2)
+
 		})
 
 	},
@@ -208,8 +212,11 @@ Page({
 	},
 	//提交弹窗表单
 	addGood(e) {
-		var value = e.detail.value
+		let value = e.detail.value
 		console.log(value);
+		this.setData({
+			dateStr: "",
+		})
 		for (let p of this.data.purchaseList) {
 
 			if (p.CodeNo == good.FNumber) {
@@ -224,6 +231,9 @@ Page({
 		let reg = /^-?\d+$/; //只能是整数数字
 
 		let reg2 = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /; //正浮点数
+
+		let reg3 = /^[\.\d]*$/;//纯数字包括小数
+
 		if (!value || !value.Unit.trim() || !value.Count.trim() || !value.UrgentDate.trim() || !value.Purpose.trim()) {
 			dd.alert({
 				content: `请填写已选零部件信息！`,
@@ -246,8 +256,18 @@ Page({
 			})
 			return;
 		}
-		console.log(reg2.test(value.Price));
-		if (!reg2.test(value.Price) == false && value.Price) {
+
+		if (value.Price == 0) {
+			dd.alert({
+				content: "单价必须大于0！",
+				buttonText: promptConf.promptConf.Confirm,
+			})
+			return;
+		}
+
+
+
+		if (!reg3.test(value.Price)) {
 			dd.alert({
 				content: "单价必须为纯数字！",
 				buttonText: promptConf.promptConf.Confirm,
@@ -268,13 +288,12 @@ Page({
 		let length = this.data.purchaseList.length
 		let setStr = 'purchaseList[' + length + ']'
 		this.setData({
-			dateStr: "",
+
 			'tableParam2.total': length + 1,
 			[`purchaseList[${length}]`]: param,
-			totalPrice: (this.data.totalPrice - 0 + param.Price * param.Count) + ''
+			totalPrice: (parseFloat(this.data.totalPrice) + parseFloat(param.Price) * parseFloat(param.Count)).toFixed(2)
 		})
-		console.log(param.Purpose)
-		this.onModalCloseTap()
+		this.onModalCloseTap();
 	},
 	//隐藏弹窗表单
 	onModalCloseTap() {

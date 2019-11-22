@@ -112,11 +112,11 @@ Page({
 		let OldFileUrl = row.OldFileUrl.split(",");
 		let MediaId = row.MediaId.split(",");
 
-		let filePDFList = [];
+		let pdfList = [];
 		let fileList = [];
 		//pdf
 		for (let i = 0, len = OldFilePDFUrl.length; i < len; i++) {
-			filePDFList.push({
+			pdfList.push({
 				name: OldFilePDFUrl[i],
 				mediaId: MediaIdPDF[i],
 			})
@@ -130,15 +130,59 @@ Page({
 		}
 
 		this.setData({
-			fileList:fileList,
-			filePDFList:filePDFList,
+			fileList: fileList,
+			pdfList: pdfList,
 			'tableInfo.ProjectName': row.ProjectName,
-			tableData2: row.PurchaseList
+			tableData2: row.PurchaseList,
+			tableData3: row
 		})
 
 	},
-	submit(e){
+	submit(e) {
+		let that = this;
 		let value = e.detail.value;
-		console.log(value);
+		let tableData = this.data.tableData2;
+		if (value.counts == "0") {
+			dd.alert({
+				content: "套数不能为0，请输入！",
+				buttonText: promptConf.promptConf.Confirm
+			})
+			return;
+		}
+		if (value.counts == "") {
+			dd.alert({
+				content: "套数不能为空，请输入！",
+				buttonText: promptConf.promptConf.Confirm
+			})
+			return;
+		}
+		let callBack = function(taskId) {
+			for (let i of tableData) {
+				i.TaskId = taskId;
+			}
+			that._postData("PurchaseOrder/Save",
+				(res) => {
+					that.doneSubmit()
+				}, tableData
+			)
+
+		}
+		let obj = {
+			Title: value.title,
+			counts: value.counts,
+			FilePDFUrl: that.data.tableData3.FilePDFUrl,
+			FileUrl: that.data.tableData3.FileUrl,
+			ImageUrl: that.data.tableData3.ImageUrl,
+			MediaId: that.data.tableData3.MediaId,
+			MediaIdPDF: that.data.tableData3.MediaIdPDF,
+			OldFilePDFUrl: that.data.tableData3.OldFilePDFUrl,
+			OldFileUrl: that.data.tableData3.OldFileUrl,
+			OldImageUrl: that.data.tableData3.OldImageUrl,
+			ProjectId: that.data.tableData3.ProjectId,
+			ProjectName: that.data.tableData3.ProjectName,
+		}
+		this.approvalSubmit(obj,
+			callBack)
 	}
+
 })

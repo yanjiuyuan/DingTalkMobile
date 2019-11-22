@@ -64,4 +64,7 @@ Page({
 		}
 		this.aggreSubmit(param)
 	},
+	onReady(){
+		console.log(this.data.tableData);
+	}
 });

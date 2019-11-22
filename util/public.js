@@ -23,6 +23,11 @@ export default {
 			departName: "",
 			userid: ""
 		},
+
+		reg: /^-?\d+$/, //只能是整数数字
+		reg2: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /, //正浮点数
+		reg3: /^[\.\d]*$/,//纯数字包括小数
+
 		departmentIdnex: 0,//选择部门时用到的下标
 		hideMask: false,
 		param: {},
@@ -35,6 +40,7 @@ export default {
 		nodeList: [],
 		projectList: [],
 		nodeInfo: {},
+		rebackAble: true,
 		FileUrl: "",
 		FilePDFUrl: "",
 		States: States,
@@ -413,7 +419,7 @@ export default {
 			returnsSubmit(e) {
 				dd.confirm({
 					title: "温馨提示",
-					content: promptConf.promptConf.ApplicationReturned,
+					content: promptConf.promptConf.Return,
 					confirmButtonText: promptConf.promptConf.Confirm,
 					cancelButtonText: promptConf.promptConf.Cancel,
 					success: (result) => {
@@ -444,7 +450,7 @@ export default {
 							}
 							that._postData("FlowInfoNew/FlowBack", function(res) {
 								dd.alert({
-									content: promptConf.promptConf.ApplicationWithdrawn,
+									content: promptConf.promptConf.ApplicationReturned,
 									buttonText: promptConf.promptConf.Confirm,
 									success: () => {
 										dd.switchTab({
@@ -489,6 +495,7 @@ export default {
 					case "6": url = "DrawingUploadNew/GetPurchase"; break;
 					case "8": url = "PurchaseNew/ReadPurchaseTable"; break;
 					case "12": url = "ItemCodeAdd/GetTable"; break;
+					case "23": url = "PurchaseOrder/QuaryByTaskId"; break;
 					case "26": url = "Pick/Read"; break;
 					case "27": url = "Godown/Read"; break;
 					case "33": url = "DrawingChange/Read"; break;
@@ -521,6 +528,29 @@ export default {
 							for (let r of res) {
 								r.ChangeType == 1 ? r.ChangeType = "添加" : r.ChangeType = "删除";
 							}
+						}
+
+						if (flowid == "1") {
+							let totalPrice = 0.00;
+							for (let i of res) {
+								totalPrice = (parseFloat(totalPrice) + parseFloat(i.ExpectPrice) * parseFloat(i.Count)).toFixed(2);
+							}
+
+							that.setData({
+								totalPrice: totalPrice == 'NaN' ? 0 : totalPrice
+							})
+
+						}
+						if (flowid == "8") {
+							let totalPrice = 0.00;
+							for (let i of res) {
+								totalPrice = (parseFloat(totalPrice) + parseFloat(i.Price) * parseFloat(i.Count)).toFixed(2);
+							}
+
+							that.setData({
+								totalPrice: totalPrice == 'NaN' ? 0 : totalPrice
+							})
+
 						}
 						that.setData({
 							data: res,
@@ -754,6 +784,14 @@ export default {
 					if (node.ApplyMan && node.ApplyMan.length > 0) {
 						node.NodePeople = node.ApplyMan.split(",");
 					}
+					if (this.data.rebackAble && node.IsSend == false && node.ApplyTime && node.ApplyManId && node.ApplyManId != that.data.DingData.userid) {
+						this.setData({
+							rebackAble: false
+						})
+						this.data.rebackAble = false;
+
+					}
+
 
 					//申请人设置当前人信息
 					if (node.NodeName.indexOf("申请人") >= 0 && !node.ApplyMan) {
@@ -1134,7 +1172,7 @@ export default {
 				for (let i of departmentList) {
 					department.push(i.name);
 				}
-
+				console.log(department);
 				app.globalData.DeptNames = department;
 
 			})

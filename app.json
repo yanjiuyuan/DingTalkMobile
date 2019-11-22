@@ -50,15 +50,14 @@
     "page/approveDetail/overTime/overTime",
     "page/start/role/role",
     "page/start/drawingOrder/drawingOrder",
-
     "page/start/managementConsole/managementConsole",
-	"page/start/managementConsole/flowDetail/flowDetail",
+    "page/start/managementConsole/flowDetail/flowDetail",
     "page/start/managementConsole/flowDetail/setNodeInfo/setNodeInfo",
     "page/start/managementConsole/addFlow/setNodeInfo/setNodeInfo",
-	"page/start/managementConsole/addShortcut/addShortcut",
+    "page/start/managementConsole/addShortcut/addShortcut",
     "page/start/managementConsole/sortTest/sortTest",
-    "page/start/managementConsole/addFlow/addFlow"
-
+    "page/start/managementConsole/addFlow/addFlow",
+    "page/approveDetail/drawingOrder/drawingOrder"
   ],
   "window": {
     "enableWK": "YES",

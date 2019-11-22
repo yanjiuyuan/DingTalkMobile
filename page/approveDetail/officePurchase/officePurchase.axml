@@ -19,7 +19,7 @@
 			</view>
 			<view a:for="{{dataList}}" onTap="deleteItem">
 				<text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计
-					<text style="color:red">{{totalPrice}}</text> 元</text>
+					<text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
 				<template is="datatable" data="{{items:tableItems,data:item.value,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
 			<!--<view class="form-line" />  -->
@@ -39,7 +39,7 @@
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
 			</view>
-			<view a:if="{{index==2 && state=='未完成' && nodeid == 1}}">
+			<view a:if="{{index==2 && state=='未完成' && rebackAble == true}}">
 				<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 			</view>
 		</view>

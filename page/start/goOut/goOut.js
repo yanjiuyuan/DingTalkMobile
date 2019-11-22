@@ -158,7 +158,7 @@ Page({
 				console.log(res);
 				let names = [];//userId
 				let userids = [];
-				if (res.departments.length == 0) {
+				if (res.departments.length == 0 && res.users.length > 0) {
 					that.data.pickedUsers = [];
 					for (let d of res.users) {
 						that.data.pickedUsers.push(d.userId);
@@ -170,7 +170,7 @@ Page({
 						'table.EvectionManId': userids.join(',')
 					})
 				}
-				else {
+				else if (res.departments.length > 0 && res.users.length == 0) {
 					let deptId = [];
 					for (let i of res.departments) {
 						deptId.push(i.id);
@@ -202,6 +202,43 @@ Page({
 						})
 					}, deptId)
 
+				}
+				else if (res.departments.length > 0 && res.users.length > 0) {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								userids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						for (let i of res.users) {
+							that.data.pickedUsers.push(i.userId);
+							names.push(i.name);
+							userids.push(i.userId);
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						userids = [...new Set(userids)];//数组去重
+
+						that.setData({
+							'table.EvectionMan': names.join(','),
+							'table.EvectionManId': userids.join(',')
+						})
+					}, deptId)
 				}
 
 			},

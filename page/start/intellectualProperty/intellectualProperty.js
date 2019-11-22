@@ -31,7 +31,7 @@ Page({
 		value['Type'] = this.data.IntellectualPropertyTypes[this.data.stateIndex]
 		value['Project'] = this.data.projectList[this.data.projectIndex].ProjectName
 		value['ProjectNo'] = this.data.projectList[this.data.projectIndex].ProjectId,
-		value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
+			value['ProjectId'] = this.data.projectList[this.data.projectIndex].ProjectId
 		value['ProjectName'] = this.data.projectList[this.data.projectIndex].ProjectName
 		value['InventorId'] = this.data.tableInfo.InventorId
 		value['Inventor'] = this.data.tableInfo.Inventor
@@ -81,7 +81,7 @@ Page({
 				console.log(res);
 				let names = [];
 				let userids = [];
-				if (res.departments.length == 0) {
+				if (res.departments.length == 0 && res.users.length > 0) {
 					that.data.pickedUsers = [];
 					for (let d of res.users) {
 						that.data.pickedUsers.push(d.userId);
@@ -96,7 +96,7 @@ Page({
 						'table.Inventor': names.join(','),
 					})
 				}
-				else {
+				else if (res.departments.length > 0 && res.users.length == 0) {
 					let deptId = [];
 					for (let i of res.departments) {
 						deptId.push(i.id);
@@ -131,6 +131,48 @@ Page({
 						})
 					}, deptId)
 
+				}
+				else if (res.departments.length > 0 && res.users.length > 0) {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								userids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+
+						//组织外的人
+						for (let i of res.users) {
+							that.data.pickedUsers.push(i.userId);
+							names.push(i.name);
+							userids.push(i.userId);
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						userids = [...new Set(userids)];
+						that.setData({
+							'tableInfo.Inventor': names.join(','),
+							'tableInfo.InventorId': userids.join(','),
+							'tableInfo.ActualInventor': names.join(','),
+							'tableInfo.ActualInventorId': userids.join(','),
+							'table.Inventor': names.join(','),
+
+						})
+					}, deptId)
 				}
 
 			},

@@ -2,7 +2,7 @@
 let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
 
 // let dormainName = 'http://1858o1s713.51mypc.cn:48971/' //测试人员测试新
-// let dormainName ="http://192.168.1.75:8888/"//swagger
+// let dormainName ="http://192.168.1.65:8888/"//swagger
 // let dormainName = 'http://caixingtong.qicp.vip:48392/'; //测试人员测试
 // let dormainName = 'http://caixingtong.qicp.vip:28032/'; //测试人员测试()
 

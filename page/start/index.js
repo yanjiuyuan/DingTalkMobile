@@ -129,7 +129,16 @@ Page({
 				PeopleId: "056652031835326264",
 				NodePeople: "许瑜瑜"
 
-			})
+			}, {
+				PeopleId: "100367431324638845",
+				NodePeople: "张顺林"
+
+			},{
+				PeopleId: '30426359483381436',
+				NodePeople: "cs"
+				
+			}
+			)
 			that.setData({
 				userList: data
 			})

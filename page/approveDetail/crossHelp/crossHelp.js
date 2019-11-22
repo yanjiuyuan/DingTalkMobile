@@ -32,7 +32,7 @@ Page({
 			this.data.table["FactBeginTime"] = value.FactBeginTime;
 			this.data.table["FactEndTime"] = value.FactEndTime;
 			this.data.table["FactDays"] = value.FactDays;
-			this.data.table["FactCooperateContent"] =value.FactCooperateContent;
+			this.data.table["FactCooperateContent"] = value.FactCooperateContent;
 			this.data.addPeopleNodes = [6];
 			//this.data.table['FactCooperateMan'] = value.FactCooperateMan
 		}
@@ -60,7 +60,7 @@ Page({
 				console.log(res);
 				let names = [];//userId
 				let ids = [];
-				if (res.departments.length == 0) {
+				if (res.departments.length == 0 && res.users.length > 0) {
 					that.data.pickedUsers = [];
 					for (let d of res.users) {
 						that.data.pickedUsers.push(d.userId);
@@ -78,7 +78,7 @@ Page({
 						nodeList: that.data.nodeList
 					});
 				}
-				else {
+				else if (res.departments.length > 0 && res.users.length == 0) {
 					let deptId = [];
 					for (let i of res.departments) {
 						deptId.push(i.id);
@@ -118,10 +118,55 @@ Page({
 					}, deptId)
 
 				}
+				else if (res.departments.length > 0 && res.users.length > 0) {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						for (let i of res.users) {
+							that.data.pickedUsers.push(i.userId);
+							names.push(i.name);
+							ids.push(i.userId);
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];
+						let a = [];
+						for (let i = 0; i < names.length; i++) {
+							a.push({ name: names[i], userId: ids[i] });
+						}
+						that.data.nodeList[6].AddPeople = a;
+						that.setData({
+							"table.FactCooperateMan": names.join(","),
+							"table.FactCooperateManId": ids.join(","),
+							nodeList: that.data.nodeList
+
+						})
+					}, deptId)
+				}
 
 			},
 			fail: function(err) {
-
+				// if (this.rebackAble && node.IsSend == false && node.ApplyTime && node.ApplyManId && node.ApplyManId != DingData.userid) {
+				// 	this.rebackAble = false
+				// }
 			}
 		})
 	},

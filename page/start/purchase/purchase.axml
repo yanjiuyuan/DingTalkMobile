@@ -21,7 +21,7 @@
 						<view class="form-row">
 							<view class="form-row-label">单价</view>
 							<view class="form-row-content">
-								<input name="Price" class="input" placeholder="单价" maxlength="5"/>
+								<input name="Price" class="input" placeholder="单价" maxlength="5" type="search"/>
 							</view>
 						</view>
 					</view>

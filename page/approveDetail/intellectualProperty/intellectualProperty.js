@@ -86,7 +86,7 @@ Page({
 				console.log(res);
 				let names = [];
 				let ids = [];
-				if (res.departments.length == 0) {
+				if (res.departments.length == 0 && res.users.length > 0) {
 					that.data.pickedUsers = [];
 					for (let d of res.users) {
 						that.data.pickedUsers.push(d.userId);
@@ -99,7 +99,7 @@ Page({
 
 					})
 				}
-				else {
+				else if (res.departments.length > 0 && res.users.length == 0) {
 					let deptId = [];
 					for (let i of res.departments) {
 						deptId.push(i.id);
@@ -132,6 +132,45 @@ Page({
 						})
 					}, deptId)
 
+				}
+				else if (res.departments.length > 0 && res.users.length > 0) {
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						//组织外的人
+						for (let i of res.users) {
+							that.data.pickedUsers.push(i.userId);
+							names.push(i.name);
+							ids.push(i.userId);
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];//数组去重
+
+						that.setData({
+							'table.ActualInventor': names.join(','),
+							'table.ActualInventorId': ids.join(',')
+
+						})
+					}, deptId)
 				}
 
 			},

@@ -60,7 +60,9 @@ Page({
 				console.log(res);
 				let names = [];//userId
 				let ids = [];
-				if (res.departments.length == 0) {
+
+				// 单选组织外的人
+				if (res.departments.length == 0 && res.users.length > 0) {
 					that.data.pickedUsers = [];
 					for (let d of res.users) {
 						that.data.pickedUsers.push(d.userId);
@@ -74,12 +76,12 @@ Page({
 
 					})
 				}
-				else {
+				//单选组织
+				else if (res.departments.length > 0 && res.users.length == 0) {
 					let deptId = [];
 					for (let i of res.departments) {
 						deptId.push(i.id);
 					}
-
 					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
 						console.log(result.data);
 						that.data.pickedUsers = [];
@@ -96,6 +98,7 @@ Page({
 								d.userId = d.userid;
 							}
 						}
+
 						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
 						names = [...new Set(names)];//数组去重
 						ids = [...new Set(ids)];//数组去重
@@ -107,7 +110,46 @@ Page({
 					}, deptId)
 
 				}
+				//既选组织外的人又选组织
+				else if (res.departments.length > 0 && res.users.length > 0) {
+					console.log("我会执行");
+					let deptId = [];
+					for (let i of res.departments) {
+						deptId.push(i.id);
+					}
+					that.postDataReturnData("DingTalkServers/GetDeptAndChildUserListByDeptId", (result) => {
+						console.log(result.data);
+						that.data.pickedUsers = [];
+						that.data.pickedDepartments = [];
+						let userlist = [];
+						//组织里的人
+						for (let i in result.data) {
+							let data = JSON.parse(result.data[i]);
+							that.data.pickedDepartments.push(i);
+							userlist.push(...data.userlist);
+							for (let d of data.userlist) {
+								that.data.pickedUsers.push(d.userid);
+								names.push(d.name);
+								ids.push(d.userid);
+								d.userId = d.userid;
+							}
+						}
+						//组织外的人
+						for (let i of res.users) {
+							that.data.pickedUsers.push(i.userId);
+							names.push(i.name);
+							ids.push(i.userId);
+						}
+						that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+						names = [...new Set(names)];//数组去重
+						ids = [...new Set(ids)];//数组去重
 
+						that.setData({
+							"table.CooperateMan": names.join(','),
+							"table.CooperateManId": ids.join(','),
+						})
+					}, deptId)
+				}
 			},
 			fail: function(err) {
 

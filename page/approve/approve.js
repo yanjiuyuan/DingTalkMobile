@@ -169,6 +169,9 @@ Page({
 				case 19:
 					url = "/page/approveDetail/sendRead/sendRead";
 					break;
+				case 23:
+					url = "/page/approveDetail/drawingOrder/drawingOrder";
+					break;
 				case 24:
 					url = "/page/approveDetail/gift/gift";
 					break;
