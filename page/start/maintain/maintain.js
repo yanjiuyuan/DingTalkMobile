@@ -94,14 +94,14 @@ Page({
 		if (!this.data.projectIndex || this.data.purchaseList.length == 0 || value.title == "") {
 			dd.alert({
 				content: `表单填写不完整`,
-				buttonText:promptConf.promptConf.Confirm
+				buttonText: promptConf.promptConf.Confirm
 			});
 			return
 		}
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText:promptConf.promptConf.Confirm
+				buttonText: promptConf.promptConf.Confirm
 			})
 		}
 		let param = {
@@ -110,7 +110,7 @@ Page({
 			ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
 			ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			that.bindAll(taskId)
 		}
 		console.log(param)
@@ -129,6 +129,9 @@ Page({
 
 	//提交弹窗表单
 	addGood(e) {
+		this.setData({
+			startDateStr: "",
+		})
 		let value = e.detail.value
 		console.log(value)
 		console.log(this.data.good)
@@ -138,7 +141,7 @@ Page({
 		if (!value || !value.Unit || !value.Count || !value.NeedTime || !value.MaintainContent) {
 			dd.alert({
 				content: `表单填写不完整`,
-				buttonText:promptConf.promptConf.Confirm
+				buttonText: promptConf.promptConf.Confirm
 			});
 			return
 		}
@@ -156,8 +159,8 @@ Page({
 		let length = this.data.purchaseList.length
 		let setStr = 'purchaseList[' + length + ']'
 		this.setData({
-			startDateStr:"",
-			[`purchaseList[${length}]`]: param
+			[`purchaseList[${length}]`]: param,
+			'tableParam2.total': length + 1,
 		})
 		this.onModalCloseTap()
 	},

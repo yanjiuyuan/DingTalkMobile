@@ -10,8 +10,8 @@ Page({
 		tableOperate: '选择',
 		purchaseList: [],
 		tableParam2: {
-			size: 100,
-			now: 1,
+			// size: 100,
+			// now: 0,
 			total: 0
 		},
 		tableOperate2: '删除',
@@ -126,7 +126,7 @@ Page({
 		dd.httpRequest({
 			url: url,
 			method: 'GET',
-			success: function(res) {
+			success: function (res) {
 				dd.hideLoading();
 				if (res.data.data.length == 0) {
 					dd.alert({
@@ -141,14 +141,13 @@ Page({
 				that.data.data = res.data.data
 				that.getData()
 			},
-			fail: function(res) {
+			fail: function (res) {
 				dd.alert({ content: JSON.stringify(res) })
 			}
 		});
 	},
 	searchByNo(e) {
-		let value = e.detail.value
-		console.log(value.no)
+		let value = e.detail.value;
 		if (!value || !value.no) {
 			dd.alert({
 				content: promptConf.promptConf.SearchNoPurchaseNumber,
@@ -164,23 +163,29 @@ Page({
 		dd.httpRequest({
 			url: url,
 			method: 'GET',
-			success: function(res) {
+			success: function (res) {
+				console.log(res.data.data);
 				dd.hideLoading()
-				console.log(url)
-				console.log(res.data.data)
 				if (res.data.data.length == 0) {
 					dd.alert({
 						content: promptConf.promptConf.SearchNoReturn,
 						buttonText: promptConf.promptConf.Confirm,
 					});
 				}
+
+				let goods = [];
+				goods.push(...res.data.data);
+				let purchaseList = []; 
+				purchaseList.push(...res.data.data);
 				that.setData({
-					'tableParam.total': res.data.data.length
+					'tableParam2.total': that.data.tableParam2.total + res.data.data.length,
+					goods: goods,
+					purchaseList: purchaseList
 				})
-				that.data.data = res.data.data
-				that.getData()
+				// that.data.data2 = res.data.data;
+				// that.getData('purchaseList','data2','tableParam2');
 			},
-			fail: function(res) {
+			fail: function (res) {
 				dd.alert({ content: JSON.stringify(res) })
 			}
 		});
@@ -197,25 +202,26 @@ Page({
 		dd.httpRequest({
 			url: url,
 			method: 'GET',
-			success: function(res) {
+			success: function (res) {
 				dd.hideLoading()
 				console.log(url)
 				console.log(res.data.data)
 				if (res.data.data.length == 0) {
 					dd.alert({
 						content: promptConf.promptConf.SearchNoReturn,
-						buttonText:promptConf.promptConf.CONFIRE,
+						buttonText: promptConf.promptConf.CONFIRE,
 					});
 				}
 				let addArr = []
 				let length = that.data.purchaseList.length
 				for (let d of res.data.data) {
-					let ifBreak = false
+					let ifBreak = false;
 					for (let p of that.data.purchaseList) {
-						if (d.fNumber == p.fNumber) ifBreak = true
+						if (d.fNumber == p.fNumber) ifBreak = true;
 					}
-					if (ifBreak) break
-					that.data.goods.push(d)
+					if (ifBreak) break;
+					console.log("我会执行");
+					that.data.goods.push(d);
 					addArr.push(d)
 				}
 				for (let i = 0; i < addArr.length; i++) {
@@ -224,7 +230,7 @@ Page({
 					})
 				}
 			},
-			fail: function(res) {
+			fail: function (res) {
 				dd.alert({ content: JSON.stringify(res) })
 			}
 		});
@@ -269,12 +275,12 @@ Page({
 			ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
 			ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			console.log("提交审批ok!")
 			that.bindAll(taskId)
 		}
 		console.log(param)
-		this.approvalSubmit(param, callBack)
+		this.approvalSubmit(param, callBack);
 	},
 	bindAll(taskId) {
 		let that = this
@@ -283,21 +289,10 @@ Page({
 			p.TaskId = taskId
 			paramArr.push(p)
 		}
-		that._postData("Godown/Save", function(res) {
+		that._postData("Godown/Save", function (res) {
 			that.doneSubmit()
 		}, paramArr)
 	},
-	// bindPickerChange(e){
-	//   this.data.nodeList[2].AddPeople = 
-	//       [{
-	//           name: this.data.projectList[e.detail.value].ResponsibleMan,
-	//           userId: this.data.projectList[e.detail.value].ResponsibleManId
-	//       }]
-	//   this.setData({
-	//       projectIndex: e.detail.value,
-	//       nodeList: this.data.nodeList
-	//   })
-	// },
 	//弹窗表单相关
 	//显示弹窗表单
 	chooseItem(e) {
@@ -321,10 +316,11 @@ Page({
 		//默认方法，删除选项
 		if (!e.target.targetDataset.opt2) {
 			let length = this.data.purchaseList.length;
-			this.data.purchaseList.splice(index, 1)
+			this.data.purchaseList.splice(index, 1);
 			this.setData({
 				[`tableParam2.total`]: length - 1,
-				purchaseList: this.data.purchaseList
+				purchaseList: this.data.purchaseList,
+				goods: this.data.purchaseList
 			})
 			console.log(this.data.purchaseList)
 		}
@@ -345,7 +341,7 @@ Page({
 	addGood(e) {
 		let value = e.detail.value;
 
-
+		console.log(good);
 		let reg = /^-?\d+$/;
 		if (!reg.test(value.fQty)) {
 			dd.alert({
@@ -368,7 +364,7 @@ Page({
 			});
 			return;
 		}
-
+		//
 		if (this.data.ifedit) {
 			for (let i = 0; i < this.data.purchaseList.length; i++) {
 				//数量判断
@@ -378,8 +374,9 @@ Page({
 							content: promptConf.promptConf.GreaterThanAvailable,
 							buttonText: promptConf.promptConf.Confirm,
 						})
-						return
+						return;
 					}
+
 				}
 
 				if (this.data.purchaseList[i].fNumber == good.fNumber) {
@@ -387,17 +384,19 @@ Page({
 					this.setData({
 						[`purchaseList[${i}]`]: good
 					})
+					break;
 				}
 
 			}
-		} else {
+		}
+		else {
 			for (let p of this.data.purchaseList) {
 				if (p.fNumber == good.fNumber) {
 					dd.alert({
 						content: promptConf.promptConf.Repeat,
 						buttonText: promptConf.promptConf.Confirm,
 					})
-					return
+					return;
 				}
 			}
 			//数量判断
@@ -406,7 +405,7 @@ Page({
 					content: promptConf.promptConf.GreaterThanAvailable,
 					buttonText: promptConf.promptConf.Confirm,
 				})
-				return
+				return;
 			}
 
 			let param = {
@@ -417,7 +416,7 @@ Page({
 				fQty: value.fQty ? value.fQty + '' : '1',
 				fPrice: good.fPrice ? good.fPrice + '' : '0',
 				fAmount: good.fAmount ? good.fAmount + '' : '0',
-				fFullName: good.fFullName
+				fFullName: good.fFullName,
 			}
 			let length = this.data.purchaseList.length
 			let setStr = 'purchaseList[' + length + ']'
@@ -427,9 +426,9 @@ Page({
 			})
 			//数量判断
 			param.fQty = good.fQty
-			this.data.goods.push(param)
+			this.data.goods.push(param);
 		}
-		this.onModalCloseTap()
+		this.onModalCloseTap();
 	},
 	//隐藏弹窗表单
 	onModalCloseTap() {

@@ -1,6 +1,9 @@
 {
 	"usingComponents": {
     "my-picker": "/components/my-picker/my-picker",
-	"my-checkbox-group":"/components/my-checkbox-group/my-checkbox-group"
+		"my-checkbox-group":"/components/my-checkbox-group/my-checkbox-group",
+		"my-uploadfiles":"/components/my-uploadFiles/my-uploadFiles",
+		"my-picture":"/components/my-picture/my-picture"
+
   }
 }

@@ -10,8 +10,6 @@ Page({
 		tableOperate: '选择',
 		purchaseList: [],
 		tableParam2: {
-			size: 100,
-			now: 1,
 			total: 0
 		},
 		tableOperate2: '删除',
@@ -96,7 +94,7 @@ Page({
 		console.log(value);
 		if (!value || !value.keyWord.trim()) {
 			dd.alert({
-				content:promptConf.promptConf.SearchNoInput,
+				content: promptConf.promptConf.SearchNoInput,
 				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
@@ -145,10 +143,10 @@ Page({
 			Remark: value.remark
 		}
 		if (!that.data.purchaseList.length) {
-			dd.alert({ 
+			dd.alert({
 				content: `请选择办公用品`,
 				buttonText: promptConf.promptConf.Confirm,
-				 })
+			})
 			return;
 		}
 		if (value.title.trim() == "") {
@@ -239,13 +237,14 @@ Page({
 			});
 			return;
 		}
-		if (value.Count == 0) {
+		if (value.Count <= 0) {
 			dd.alert({
-				content: `数量不允许为0，请重新输入！`,
+				content: `数量必须大于0，请重新输入！`,
 				buttonText: promptConf.promptConf.Confirm,
 			});
 			return;
 		}
+
 		if (!value || !value.Count) {
 			dd.alert({
 				content: `数量不允许为空，请输入！`,

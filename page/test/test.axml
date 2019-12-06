@@ -1,0 +1,9 @@
+<import src="/util/template/template.axml"/>
+<template is="uploadFiles" data="{{fileList:fileList}}" />
+<my-picture></my-picture>
+<my-uploadfiles spaceId="1699083579"></my-uploadfiles>
+
+<view>
+	<button size="default" type="primary" onTap="test">附件</button>
+	<button size="default" type="primary" onTap="test2">选取钉盘文件</button>
+</view> 

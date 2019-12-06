@@ -21,7 +21,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>流程id</view>
 				<view class="form-row-content">
-					<input name="flowId" class="input" value="{{tableInfo.FlowId}}" placeholder="输入 标题" />
+					<input name="flowId" class="input" value="{{tableInfo.FlowId}}" placeholder="输入流程id" />
 				</view>
 			</view>
 			<view a:if="{{tableInfo.IsFlow}}" class="form-row" onTap="setNodeInfo">

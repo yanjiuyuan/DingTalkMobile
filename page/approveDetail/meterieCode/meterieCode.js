@@ -89,10 +89,10 @@ Page({
 			Remark: value.remark
 		}
 		if (this.data.nodeid == 2) {
-			for (let t of this.data.tableData) {
+			for (let t of this.data.purchaseList) {
 				if (!t.CodeNumber) {
 					dd.alert({
-						content: '您还有物料编码未填',
+						content: '您还有物料编码未填写！',
 						button: promptConf.promptConf.Confirm,
 					})
 					return
@@ -133,13 +133,19 @@ Page({
 
 		this.data.tableData[this.data.index].CodeNumber = value.CodeNumber;
 		this.data.tableData[this.data.index].FNote = value.FNote;
+		console.log(this.data.index * (this.data.tableParam.now - 1) + this.data.index);
+		let index = this.data.index * (this.data.tableParam.now - 1) + this.data.index;
+		this.data.purchaseList[index].CodeNumber = value.CodeNumber;
+		this.data.purchaseList[index].FNote = value.FNote;
+
 
 		this.setData({
-			tableData: this.data.tableData
+			tableData: this.data.tableData,
+			purchaseList: this.data.purchaseList
 		})
 		this.onModalCloseTap2()
 	},
-	radioChange: function(e) {
+	radioChange: function (e) {
 		this.data.codeType = e.detail.codeType
 	},
 	onModalCloseTap2() {
@@ -147,7 +153,7 @@ Page({
 		this.createContentHideAnim();
 		setTimeout(() => {
 			this.setData({
-				hidden2: true,
+				hidden2: true, 
 			});
 		}, 210);
 	},

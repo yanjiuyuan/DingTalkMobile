@@ -13,16 +13,15 @@
 			<view class="form-row">
 				<view class="form-row-label">项目名称</view>
 				<view class="form-row-content">
-					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<!--<view class="form-row" style="height:auto;" a:if="{{nodeid >= 3}}"><view class="form-row-label"><template is="required"></template>上传照片</view><view class="form-row-content"><view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view><view a:if="{{nodeid == 3}}" onTap="uploadImg" class="tag tag-info">+ 选择照片</view></view></view> -->
-			<view class="form-row" style="height:auto;" a:if="{{nodeid >= 3}}">
+			<view class="form-row" style="height:auto;" a:if="{{(nodeid == 3 && index == 0) || nodeid > 3}}">
 				<view class="form-row-label">
 					<template is="required"></template>上传照片</view>
 				<view class="form-row-content">
 					<view a:for="{{imageList}}" a:for-index="idx">
-						<image onTap="previewImg" style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
+						<image onTap="previewImg"  style="width: 180rpx; height:180rpx;margin-right:2rpx;" data-url="{{item}}" src="{{item}}" />
 						<button a:if="{{nodeid == 3}}" size="mini" type="primary" data-url="{{item}}" data-index="{{idx}}" onTap="deletePhoto">删除</button>
 					</view>
 					<view a:if="{{nodeid == 3 }}" onTap="uploadImg" class="tag tag-info">+ 选择照片</view>

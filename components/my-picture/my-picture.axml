@@ -1,0 +1,10 @@
+<!-- 上传图片 -->
+<view class="image-files">
+  <view class="image-files-title">
+			上传图片
+  </view>
+  <view class="adds">
+    <view class="image-cross"></view>
+    
+  </view>		
+</view>

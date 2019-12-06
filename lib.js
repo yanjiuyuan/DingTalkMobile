@@ -1,35 +1,36 @@
 // let dormainName = 'http://47.96.172.122:8093/'  //线上研究院
 let dormainName = 'http://17e245o364.imwork.net:49415/' //线下测试
 
-// let dormainName = 'http://1858o1s713.51mypc.cn:48971/' //测试人员测试新
-// let dormainName ="http://192.168.1.65:8888/"//swagger
+
+// let dormainName = 'http://1858o1s713.51mypc.cn:48971/' //测试人员测试新/
+// let dormainName ="http://192.168.1.65:8888/"//swagger 
 // let dormainName = 'http://caixingtong.qicp.vip:48392/'; //测试人员测试
-// let dormainName = 'http://caixingtong.qicp.vip:28032/'; //测试人员测试()
+// let dormainName = 'http://caixingtong.qicp.vip:28032/'; //测试人员测试() 
+   
 
-
-function doWithErrcode(result) {
-	if (!result) {
-		return 1
-	}
-	if (result.error && result.error.errorCode != 0) {
+function doWithErrcode(result) {  
+	if (!result) {    
+		return 1    
+	} 
+	if (result.error && result.error.errorCode != 0) { 
 		dd.alert({ 
-			content: result.error.errorMessage,
+			content: result.error.errorMessage, 
 			buttonText:"确认"
 			 })
 		return 1
 	}
-	return 0
-}
+	return; 
+} 
 let d = new Date()
 let year = d.getFullYear()
 let month = d.getMonth() + 1
 let day = d.getDate()
 let hour = d.getHours()
-
-let minutes = d.getMinutes()
+ 
+let minutes = d.getMinutes() 
 export default {
 	data: {
-		// jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
+		// jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/', 
 		jinDomarn: 'http://wuliao5222.55555.io:35705/api/',
 		dormainName: dormainName,
 		currentPage: 1,

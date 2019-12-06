@@ -27,6 +27,7 @@ export default {
 			now: 1,
 			total: 0
 		},
+
 	},
 	func: {
 
@@ -60,13 +61,13 @@ export default {
 			dd.complexChoose({
 				...that.data.chooseParam,
 				multiple: IsMultipleSelection == 0 || IsMultipleSelection == undefined ? false : true,
-				success: function(res) {
+				success: function (res) {
 					let result = res;
 					dd.httpRequest({
 						url: that.data.dormainName + "DingTalkServers/getUserDetail" + lib.func.formatQueryStr({ userid: res.users[0].userId }),
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json; charset=utf-8', 'Accept': 'application/json', },
-						success: function(res) {
+						success: function (res) {
 
 							let name = res.data.name;
 
@@ -87,7 +88,7 @@ export default {
 					})
 
 				},
-				fail: function(err) {
+				fail: function (err) {
 
 				}
 			})
@@ -98,9 +99,9 @@ export default {
 			let that = this;
 			dd.complexChoose({
 				title: "已选人数",            //标题
-				success: function(res) {
+				success: function (res) {
 				},
-				fail: function(err) {
+				fail: function (err) {
 					console.log("fail!!");
 				}
 			})
@@ -111,15 +112,26 @@ export default {
 
 
 		//翻頁相關事件
-		getData() {
+		getData(table) {
 			let start = this.data.tableParam.size * (this.data.tableParam.now - 1);
 			let arr = this.data.data.slice(start, start + this.data.tableParam.size);
-			this.setData({
-				tableData: arr,
-			})
+			if (table) {
+				this.setData({
+					[table]: arr
+				})
+			}
+			else {
+				this.setData({
+					tableData: arr,
+				})
+			}
+
 		},
-		handleCurrentChange: function(event) {
-			let page = event.target.dataset.page
+		handleCurrentChange: function (event) {
+
+			console.log(event.target.dataset.page);
+
+			let page = event.target.dataset.page;
 			this.setData({
 				"tableParam.now": page
 			})
@@ -173,4 +185,5 @@ export default {
 			});
 		},
 	},
+
 };

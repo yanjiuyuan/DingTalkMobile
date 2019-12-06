@@ -1,4 +1,5 @@
 import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 let good = {}
 Page({
 	...pub.func,
@@ -9,8 +10,6 @@ Page({
 		tableOperate: '删除',
 		tableData: [],
 		tableParam: {
-			size: 100,
-			now: 1,
 			total: 0
 		},
 		good: {},
@@ -182,6 +181,7 @@ Page({
 				content: `标题不能为空，请输入!`,
 				buttonText: promptConf.promptConf.Confirm,
 			})
+			return;
 		}
 		if (this.data.tableData.length == 0) {
 			dd.alert({
@@ -190,7 +190,7 @@ Page({
 			})
 			return;
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			that.bindAll(taskId)
 		}
 		console.log(param);
@@ -203,11 +203,11 @@ Page({
 			p.TaskId = taskId
 			paramArr.push(p)
 		}
-		that.requestJsonData('POST', "ItemCodeAdd/TableSave", function(res) {
+		that.requestJsonData('POST', "ItemCodeAdd/TableSave", function (res) {
 			that.doneSubmit()
 		}, JSON.stringify(paramArr))
 	},
-	radioChange: function(e) {
+	radioChange: function (e) {
 
 		console.log("radioChange");
 		let that = this;
@@ -235,12 +235,14 @@ Page({
 
 	//获取编码
 	getMaterielCode() {
-		console.log("getMaterielCode");
 		let url = '';
 		if (this.data.codeType == '2') {
 			this.setData({
 				bigCodes: this.data.bigCodes2,
-				smallMaterialCodes: this.data.bigCodes2[0].smallMaterialCodes
+				smallMaterialCodes: this.data.bigCodes2[0].smallMaterialCodes,
+				bigIndex: 0,
+				smallIndex: 0,
+
 			});
 		}
 		else if (this.data.codeType == '1') {
@@ -249,7 +251,9 @@ Page({
 				console.log(res);
 				this.setData({
 					bigCodes: res,
-					smallMaterialCodes: res[0].smallMaterialCodes
+					smallMaterialCodes: res[0].smallMaterialCodes,
+					bigIndex: 0,
+					smallIndex: 0,
 				});
 			})
 		}
@@ -291,11 +295,12 @@ Page({
 			['tableParam.total']: length - 1,
 			tableData: this.data.tableData
 		})
-		console.log(this.data.tableData)
+		console.log(this.data.tableData);
 	},
 	//提交弹窗表单
 	addGood(e) {
 		let value = e.detail.value;
+		console.log(value);
 		//判断是否重复
 		if (this.data.tableData.length > 0) {
 			for (let i = 0, len = this.data.tableData.length; i < len; i++) {
@@ -310,9 +315,30 @@ Page({
 		}
 
 
-		if (!value || !value.Name || !value.Standard || !value.Unit || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
+		if (!value || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
 			dd.alert({
 				content: `表单填写不完整`,
+				button: promptConf.promptConf.Confirm,
+			});
+			return;
+		}
+		if (value.Name.trim() == "") {
+			dd.alert({
+				content: `物料名称不允许为空，请输入！`,
+				button: promptConf.promptConf.Confirm,
+			});
+			return;
+		}
+		if (value.Standard.trim() == "") {
+			dd.alert({
+				content: `规格型号不允许为空，请输入！`,
+				button: promptConf.promptConf.Confirm,
+			});
+			return;
+		}
+		if (value.Unit.trim() == "") {
+			dd.alert({
+				content: `单位不允许为空，请输入！`,
 				button: promptConf.promptConf.Confirm,
 			});
 			return;
@@ -333,7 +359,6 @@ Page({
 		console.log(this.data.smallMaterialCodes);
 
 		this.getMaterielCode();
-		//this.loadTempData()
 	},
 
 

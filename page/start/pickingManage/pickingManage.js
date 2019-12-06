@@ -1,9 +1,8 @@
 import pub from '/util/public';
 import promptConf from "/util/promptConf.js";
-let good = {};
+const app = getApp();
 Page({
 	...pub.func,
-	...pub.func.start,
 	data: {
 		...pub.data,
 
@@ -67,9 +66,9 @@ Page({
 			}
 		],
 
-		purchaseList: [],
-		tableParams: {
-			size: 100,
+		tableData: [],
+		tableParam: {
+			size: 5,
 			now: 1,
 			total: 0
 		},
@@ -108,24 +107,38 @@ Page({
 	search(e) {
 		let that = this;
 		let value = e.detail.value;
-		if (value.keyWord == "" || value.StartTime == "" || value.EndTime == "") {
-			dd.alert({ 
-				content: '表单填写不完整',
-				buttonText:promptConf.promptConf.Confirm,
-				});
-
+		if (value.StartTime == "") {
+			dd.alert({
+				content: '开始时间不允许为空，请输入！',
+				buttonText: promptConf.promptConf.Confirm,
+			});
+			return;
+		}
+		if (value.EndTime == "") {
+			dd.alert({
+				content: '开始时间不允许为空，请输入！',
+				buttonText: promptConf.promptConf.Confirm,
+			});
+			return;
 		}
 		else if (e.buttonTarget.dataset.isSend == undefined) {
-			this._getData("Pick/Query" + that.formatQueryStr({ applyManId: this.data.DingData.userid, startTime: value.StartTime, endTime: value.EndTime, Key: value.keyWord }), (res) => {
-				console.log(res);
+			this._getData("Pick/Query" + that.formatQueryStr({ applyManId: app.userInfo.userid, startTime: value.StartTime, endTime: value.EndTime, key: value.keyWord, isSend: false }), (res) => {
 				if (res == undefined) {
 					dd.alert({
-						content:promptConf.promptConf.NoAuthority,
+						content: promptConf.promptConf.NoAuthority,
 						buttonText: promptConf.promptConf.Confirm,
 					})
 					return;
 				}
 				if (res.length == 0) {
+					that.setData({
+						tableData: res,
+						tableParam: {
+							size: 5,
+							now: 1,
+							total: 0
+						},
+					})
 					dd.alert({
 						content: promptConf.promptConf.SearchNoReturn,
 						buttonText: promptConf.promptConf.Confirm,
@@ -133,26 +146,28 @@ Page({
 					return;
 				}
 				that.setData({
-					[`tableParams.total`]: res.length,
-					purchaseList: res
+					[`tableParam.total`]: res.length,
 				})
-			});
+
+				that.data.data = res;
+				that.getData();
+			}); 
 		}
-		else if (this.data.purchaseList.length == 0) {
+		else if (this.data.tableData.length == 0) {
 			dd.alert({
 				content: "请选择物料",
 				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
-		else if (e.buttonTarget.dataset.isSend == true && this.data.purchaseList.length != 0) {
+		else if (e.buttonTarget.dataset.isSend == true && this.data.tableData.length != 0) {
 			this._getData("Pick/Query" + that.formatQueryStr({
-				applyManId: this.data.DingData.userid, startTime: value.StartTime, endTime: value.EndTime, Key: value.keyWord, isSend: true
+				applyManId: app.userInfo.userid, startTime: value.StartTime, endTime: value.EndTime, Key: value.keyWord, isSend: true
 			}), (res) => {
-				dd.alert({ 
+				dd.alert({
 					content: promptConf.promptConf.PrintFrom,
-					buttonText:promptConf.promptConf.Confirm,
-					});
+					buttonText: promptConf.promptConf.Confirm,
+				});
 			});
 		}
 

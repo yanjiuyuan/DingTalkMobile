@@ -3,7 +3,7 @@
     "page/start/index",
     "page/approve/approve",
     "page/start/purchase/purchase",
-    "page/approveDetail/purchase/purchase",
+    "page/approveDetail/purchase/purchase", 
     "page/approveDetail/usePublicCar/usePublicCar",
     "page/start/usePublicCar/usePublicCar",
     "page/approveDetail/paper/paper",
@@ -57,7 +57,8 @@
     "page/start/managementConsole/addShortcut/addShortcut",
     "page/start/managementConsole/sortTest/sortTest",
     "page/start/managementConsole/addFlow/addFlow",
-    "page/approveDetail/drawingOrder/drawingOrder"
+    "page/approveDetail/drawingOrder/drawingOrder",
+    "page/start/officePurchase/officePurchase"
   ],
   "window": {
     "enableWK": "YES",

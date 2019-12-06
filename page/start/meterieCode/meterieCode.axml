@@ -29,7 +29,7 @@
 					</radio-group>
 					<view style="color:red">切换清空数据！</view>
 				</view>
-				<view class="form-row">
+				<view class="form-row"> 
 					<view class="form-row-label">
 						<template is="required"></template>物料大类</view>
 					<picker name="BigCode" onChange="changeBigCode" value="{{bigIndex}}" range="{{bigCodes}}" range-key="materialName">
@@ -139,6 +139,6 @@
 		<!-- 提交按钮 -->
 		<template is ="submitButton"/>
 		<!-- 临时保存 -->
-		<template is="temporaryPreservation"/>0.cdx
+		<template is="temporaryPreservation"/>
 	</form>
 </view>

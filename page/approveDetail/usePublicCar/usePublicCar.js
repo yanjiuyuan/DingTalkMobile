@@ -12,16 +12,16 @@ Page({
 		table: {},
 	},
 	submit(e) {
-		console.log("我")
-		let that = this
-		let value = e.detail.value
-		let param = {
-			Remark: value.remark
+		let that = this;
+		let value = e.detail.value;
+		let param = { 
+			Remark: value.remark, 
 		}
-		this.data.table['CarNumber'] = this.data.table.CarId
-		this.data.table['StartKilometres'] = value.StartKilometres
-		this.data.table['EndKilometres'] = value.EndKilometres
-		this.data.table['UseKilometres'] = ((value.EndKilometres - 0) - (value.StartKilometres - 0)).toFixed(1);
+		this.data.table['CarNumber'] = this.data.table.CarId;
+		this.data.table['StartKilometres'] = value.StartKilometres; 
+		this.data.table['EndKilometres'] = value.EndKilometres;
+		this.data.table['UseKilometres'] = ((value.EndKilometres - 0) - (value.StartKilometres - 0)).toFixed(2);
+		this.data.table["FactTravelWay"] = value.FactTravelWay;
 
 		if ((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid == 3 || this.data.nodeid == 4)) {
 			dd.alert({
@@ -29,7 +29,7 @@ Page({
 				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
-		}
+		} 
 		if (this.data.nodeid == 2) {
 			if (!this.data.table['CarId']) {
 				dd.alert({
@@ -41,21 +41,24 @@ Page({
 
 			if (!this.data.carList[this.data.carIndex]) {
 				dd.alert({
-					content: "表单填写未完整",
+					content: "车辆不允许为空，请选择！",
 					buttonText: promptConf.promptConf.Confirm
 				})
 				return;
 			}
+			if (this.data.carList[this.data.carIndex].IsOccupyCar == true) {
+				dd.alert({
+					content: "车辆已被占用，请重新选择！",
+					buttonText: promptConf.promptConf.Confirm
+				})
+				return; 
+			}
 			param['Title'] = this.data.tableInfo.Title + '-' + this.data.carList[this.data.carIndex].Name
 		}
-		this.setData({ disablePage: true })
-		this.requestData('POST', "CarTableNew/TableModify", (res) => {
-			that.aggreSubmit(param)
-		}, this.data.table)
-		return
+		this.setData({ disablePage: true }) 
 		this._postData("CarTableNew/TableModify",
 			(res) => {
-				that.aggreSubmit(param)
+				that.aggreSubmit(param) 
 			}, this.data.table
 		)
 	},
@@ -135,9 +138,9 @@ Page({
 							that.data.table['OccupyCarId'] = car.OccupyCarId;
 							that.data.table['IsOccupyCar'] = car.IsOccupyCar;
 						}
-						that.setData({
+						that.setData({ 
 							carList: res
-						})
+						}) 
 					}
 				)
 

@@ -1,16 +1,16 @@
 import pub from "/util/public";
 Page({
-	...pub.func,
+	...pub.func, 
 	data: {
-		...pub.data,
+		...pub.data, 
 		activeItem: 0,
 		pageIndex: 1,
 		pageCount: 0,
 		clientHeight: 400,
-		size: 5,
-		items: [
+		size: 5, 
+		items: [ 
 			{
-				index: 0,
+				index: 0,  
 				name: "待我审批",
 				image: "../../image/1.png"
 			},

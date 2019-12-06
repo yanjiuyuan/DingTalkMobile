@@ -11,8 +11,6 @@ Page({
 		tableOperate: '选择',
 		purchaseList: [],
 		tableParam2: {
-			size: 100,
-			now: 1,
 			total: 0
 		},
 		tableOperate2: '删除',
@@ -111,7 +109,7 @@ Page({
 			return;
 		}
 		let that = this;
-		that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function(res) {
+		that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function (res) {
 			console.log(JSON.parse(res.data))
 			if (JSON.parse(res.data).length == 0) {
 				dd.alert({
@@ -131,7 +129,7 @@ Page({
 		if (that.data.projectList[that.data.projectIndex] == undefined) {
 			dd.alert({
 				content: "项目名称不能为空，请输入！",
-				buttonText:  promptConf.promptConf.Confirm,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
 		}
@@ -139,7 +137,7 @@ Page({
 		if (value.title.trim() == "") {
 			dd.alert({
 				content: `标题不能为空，请输入!`,
-				buttonText:  promptConf.promptConf.Confirm,
+				buttonText: promptConf.promptConf.Confirm,
 			})
 		}
 		let param = {
@@ -148,7 +146,7 @@ Page({
 			ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
 			ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			that.bindAll(taskId)
 		}
 		console.log(param)
@@ -193,7 +191,11 @@ Page({
 
 	//提交弹窗表单
 	addGood(e) {
-		let value = e.detail.value
+		this.setData({
+			startDateStr: "",
+			endDateStr: "",
+		})
+		let value = e.detail.value;
 		console.log(value)
 		for (let p of this.data.purchaseList) {
 			if (p.CodeNo == good.FNumber) return
@@ -221,9 +223,8 @@ Page({
 		let length = this.data.purchaseList.length
 		let setStr = 'purchaseList[' + length + ']'
 		this.setData({
-			startDateStr: "",
-			endDateStr: "",
-			[`purchaseList[${length}]`]: param
+			[`purchaseList[${length}]`]: param,
+			'tableParam2.total': length + 1,
 		})
 		this.onModalCloseTap()
 	},

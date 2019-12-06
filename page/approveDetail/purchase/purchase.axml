@@ -15,7 +15,7 @@
 				<view class="form-row-label">项目名称</view>
 				<view class="form-row-content">
 					<!--<input name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" /> -->
-					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="title" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row" >

@@ -45,7 +45,7 @@
 					<input class="input" name="PlanDays" value="{{table.PlanDays}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<view a:if="{{nodeid >= 4}}">
+			<view a:if="{{(nodeid == 4 && index == 0) || nodeid > 4}}">
 				<view class="form-row">
 					<view class="form-row-label">
 						<template is="required"></template>实际开始时间</view>

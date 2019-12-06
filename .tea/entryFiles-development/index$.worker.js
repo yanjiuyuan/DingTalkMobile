@@ -19,6 +19,13 @@ self.$global = AFAppX.$global;
 self.requirePlugin = AFAppX.requirePlugin;
         
 
+if(AFAppX.registerApp) {
+  AFAppX.registerApp({
+    appJSON: appXAppJson,
+  });
+}
+
+
 
 function success() {
 require('../../app');
@@ -86,6 +93,7 @@ require('../../page/start/managementConsole/addShortcut/addShortcut?hash=32d7d28
 require('../../page/start/managementConsole/sortTest/sortTest?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/managementConsole/addFlow/addFlow?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/approveDetail/drawingOrder/drawingOrder?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/start/officePurchase/officePurchase?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

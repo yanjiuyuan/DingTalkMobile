@@ -44,7 +44,7 @@ Page({
 	submit(e) {
 		let that = this
 		let value = e.detail.value
-		let param = {
+		let param = { 
 			Title: value.title,
 			Remark: value.remark
 		}
@@ -53,7 +53,7 @@ Page({
 		}
 		else if (this.data.nodeid == 3 && this.data.imgUrlList.length == 0) {
 			dd.alert({
-				content: promptConf.promptConf.NoPicture,
+				content: promptConf.promptConf.NoPicture, 
 				buttonText: promptConf.promptConf.Confirm,
 			})
 			return;
@@ -73,9 +73,12 @@ Page({
 				if (result.confirm == true) {
 
 					let index = e.currentTarget.dataset.index;
-					this.data.imageList.splice(index, 1);
+					this.data.imageList.splice(index, 1); 
+					this.data.imgUrlList.splice(index, 1);
+
 					this.setData({
-						imageList: this.data.imageList
+						imageList: this.data.imageList,
+						imgUrlList:this.data.imgUrlList
 					})
 				}
 			},

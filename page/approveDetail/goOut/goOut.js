@@ -187,14 +187,15 @@ Page({
 		})
 	},
 
-	onReady() {
+	onReady() { 
 		let that = this;
 		this._getData("Evection/Read" + this.formatQueryStr({ TaskId: this.data.taskid }),
 			(res) => {
-				let ApplyTime = this.data.nodeList[1].ApplyTime || null;
+				console.log(that.data.nodeList[1]);
+				let ApplyTime = that.data.nodeList[1].ApplyTime || null;
 				if (ApplyTime) {
-					let dateTmp = res.EndTime.replace(/-/g, '/');
-					let timestamp = Date.parse(dateTmp);
+					let dateTmp = res.EndTime.replace(/-/g, '/'); 
+					let timestamp = Date.parse(dateTmp); 
 					let dateTmp2 = ApplyTime.replace(/-/g, '/');
 					let timestamp2 = Date.parse(dateTmp2);
 					if (timestamp2 > timestamp) {
@@ -214,12 +215,13 @@ Page({
 			TaskId: this.data.taskid
 		}
 		this._getData("FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
-			function(res) {
+			function (res) {
+				let fileLists = [];
 				if (typeof res.MediaId === 'string') {
 					let MediaId = res.MediaId.split(",");
 					let OldFileUrl = res.OldFileUrl.split(",");
 					for (let i = 0, len = OldFileUrl.length; i < len; i++) {
-						that.data.fileLists.push({
+						fileLists.push({
 							OldFileUrl: OldFileUrl[i],
 							MediaId: MediaId[i],
 						})
@@ -227,7 +229,7 @@ Page({
 				}
 
 				that.setData({
-					fileLists: that.data.fileLists,
+					fileLists: fileLists,
 					tableInfo: res
 				})
 				that.handleUrlData(res)
@@ -303,10 +305,10 @@ Page({
 			type: 1, // 附件类型 1：image  2：link
 			alertType: 2, // 钉发送方式 0:电话, 1:短信, 2:应用内
 			text: '请帮我审批一下，审批编号为:' + this.data.taskid,  // 正文
-			success: function(res) {
+			success: function (res) {
 				console.log(res);
 			},
-			fail: function(err) {
+			fail: function (err) {
 				console.log(err);
 
 			}

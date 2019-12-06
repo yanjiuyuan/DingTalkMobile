@@ -1,6 +1,7 @@
 import pub from '/util/public';
 import promptConf from "/util/promptConf.js";
 let good = {}
+const app = getApp();
 Page({
 	...pub.func,
 	...pub.func.start,
@@ -26,6 +27,7 @@ Page({
 				content: `标题不能为空，请输入!`,
 				buttonText: promptConf.promptConf.Confirm
 			})
+			return;
 		}
 		value['LocationPlace'] = ''
 		value['Place'] = this.data.table.Place;
@@ -50,7 +52,7 @@ Page({
 			return;
 		}
 
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			console.log("提交审批ok!")
 			value.TaskId = taskId
 			that._postData("Evection/Save",
@@ -61,8 +63,8 @@ Page({
 		}
 		this.approvalSubmit(value,
 			callBack, {
-			Title: value.Title
-		})
+				Title: value.Title
+			})
 	},
 
 	//显示外出地点输入框
@@ -154,7 +156,7 @@ Page({
 			pickedUsers: that.data.pickedUsers || [],            //已选用户
 			multiple: true,
 			title: "同行人",
-			success: function(res) {
+			success: function (res) {
 				console.log(res);
 				let names = [];//userId
 				let userids = [];
@@ -242,7 +244,7 @@ Page({
 				}
 
 			},
-			fail: function(err) {
+			fail: function (err) {
 
 			}
 		})
@@ -311,7 +313,5 @@ Page({
 	},
 
 	onReady() {
-
-		this.data.placeArr = [];
 	}
 });

@@ -96,7 +96,7 @@ Page({
 			if (d.name == row.Dept) {
 				console.log(this.data.totalPrice);
 				this.data.totalPrice = (parseFloat(this.data.totalPrice) - parseFloat(row.Price) * parseFloat(row.Count)).toFixed(2);
-				
+
 				console.log(this.data.totalPrice);
 				d.tmpTotalPrice = this.data.totalPrice;
 				this.data.deletedList.push(d.value.splice(index, 1)[0]);
@@ -105,7 +105,7 @@ Page({
 		this.setData({
 			dataList: this.data.dataList,
 			totalPrice: this.data.totalPrice,
-			'tableParam.total':this.data.dataList[0].value.length
+			'tableParam.total': this.data.dataList[0].value.length
 		})
 
 	},
@@ -126,11 +126,13 @@ Page({
 				this.data.dataList.push({
 					name: d,
 					value: [],
-					tmpTotalPrice: 0
+					tmpTotalPrice: 0,
+					tableParam: {
+						total: 0
+					},
 				})
 			}
-			console.log(res);
-			console.log(this.data.dataList);
+
 
 			for (let d of res) {
 				for (let l of this.data.dataList) {
@@ -138,8 +140,9 @@ Page({
 						this.data.totalPrice = (parseFloat(this.data.totalPrice) + parseFloat(d.Price) * parseFloat(d.Count)).toFixed(2);
 						d['totalPrice'] = (parseFloat(d.Price) * parseFloat(d.Count)).toFixed(2);
 						l.value.push(d);
+						l.tableParam.total++;
 						l.tmpTotalPrice += parseFloat(d['totalPrice']);
-						
+
 						break;
 					}
 				}
@@ -147,7 +150,7 @@ Page({
 			this.setData({
 				dataList: this.data.dataList,
 				totalPrice: this.data.totalPrice,
-				'tableParam.total':this.data.dataList[0].value.length
+				'tableParam.total': this.data.dataList[0].value.length
 			})
 		})
 	},

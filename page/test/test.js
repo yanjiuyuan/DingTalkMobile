@@ -1,31 +1,44 @@
-import draggable from 'vuedraggable';
+
+import pub from '/util/public';
+import promptConf from "/util/promptConf.js";
 Page({
 
+	...pub.func,
 	data: {
-		items: [
-			{ name: '工业软件研发部', value: '工业软件研发部' },
-			{ name: '数控一代事业部', value: '数控一代事业部' },
-			{ name: '机器人事业部', value: '机器人事业部' },
-			{ name: '行政部', value: '行政部' },
-			{ name: '财务部', value: '财务部' },
-			{ name: '制造试验部', value: '制造试验部' },
-			{ name: '项目推进部', value: '项目推进部' },
-			{ name: '自动化事业部', value: '自动化事业部' },
-		],
+		...pub.data,
 	},
-	onLoad() {
-		console.log("onLoad");
+	test2() {
+		dd.chooseDingTalkDir({
+			success: (res) => {
+				console.log(res);
+				dd.alert({
+					content: JSON.stringify(res)
+				})
+			},
+			fail: (err) => {
+				dd.alert({
+					content: JSON.stringify(err)
+				})
+			}
+		})
 	},
-	onShow() {
-		console.log("onShow");
-	},
-	onReady() {
-		console.log("onReady");
-	},
-	submit(e) {
-		console.log(e)
-	},
-	test(e) {
-		console.log(e.detail.value);
+	test() {
+		dd.uploadAttachmentToDingTalk({
+			image: { multiple: true, compress: false, max: 9, spaceId: "1699083579" },
+			space: { spaceId: "1699083579", isCopy: 1, max: 9 },
+			file: { spaceId: "1699083579", max: 1 },
+			types: ["photo", "camera", "file", "space"],
+			success: (res) => {
+				console.log(res);
+				dd.alert({
+					content: JSON.stringify(res)
+				})
+			},
+			fail: (err) => {
+				dd.alert({
+					content: JSON.stringify(err)
+				})
+			}
+		})
 	}
 });

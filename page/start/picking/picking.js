@@ -120,7 +120,7 @@ Page({
 		dd.httpRequest({
 			url: url,
 			method: 'GET',
-			success: function(res) {
+			success: function (res) {
 				dd.hideLoading()
 				console.log(url)
 				console.log(res.data.data)
@@ -166,7 +166,7 @@ Page({
 		let that = this;
 
 		this._getData('Pick/ReadDefault' + this.formatQueryStr({ ApplyManId: that.data.DingData.userid, TaskId: value.keyWord }),
-			function(res) {
+			function (res) {
 				dd.hideLoading()
 				let addArr = []
 				let length = that.data.purchaseList.length
@@ -190,23 +190,23 @@ Page({
 				for (let i = 0; i < addArr.length; i++) {
 					that.setData({
 						[`purchaseList[${length + i}]`]: addArr[i],
-						
+
 					})
 				}
 				that.setData({
-					'tableParam2.total':res.length
+					'tableParam2.total': res.length
 				})
 			})
 	},
 	searchAndAdd(e) {
 		if (!e.detail.value.keyWord) {
-			dd.showToast({ 
+			dd.showToast({
 				content: promptConf.promptConf.SearchNoSerialNumber
-				});
+			});
 		}
 		else {
 			dd.showLoading({
-				content:promptConf.promptConf.Obtaining
+				content: promptConf.promptConf.Obtaining
 			});
 
 		}
@@ -218,7 +218,7 @@ Page({
 		dd.httpRequest({
 			url: url,
 			method: 'GET',
-			success: function(res) {
+			success: function (res) {
 				dd.hideLoading()
 				console.log(url)
 				console.log(res.data.data)
@@ -245,7 +245,7 @@ Page({
 					})
 				}
 			},
-			fail: function(res) {
+			fail: function (res) {
 				dd.alert({ content: JSON.stringify(res) })
 			}
 		});
@@ -280,14 +280,14 @@ Page({
 			ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
 			ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			that.bindAll(taskId)
 		}
 		console.log(param)
 		this.approvalSubmit(param,
 			callBack, {
-			ProjectId: param.ProjectId
-		})
+				ProjectId: param.ProjectId
+			})
 	},
 	bindAll(taskId) {
 		let that = this
@@ -296,7 +296,7 @@ Page({
 			p.TaskId = taskId
 			paramArr.push(p)
 		}
-		that._postData("Pick/Save", function(res) {
+		that._postData("Pick/Save", function (res) {
 			that.doneSubmit()
 		}, paramArr)
 	},
@@ -318,23 +318,23 @@ Page({
 		this.createContentShowAnim();
 	},
 	deleteItem(e) {
-		if (!e) return
+		if (!e) return;
 		console.log(e)
-		let index = e.target.targetDataset.index
-		if ((!index) && index != 0) return
+		let index = e.target.targetDataset.index;
+		if ((!index) && index != 0) return;
 		//默认方法，删除选项
 		if (!e.target.targetDataset.opt2) {
 			let length = this.data.purchaseList.length;
-			this.data.purchaseList.splice(index, 1)
+			this.data.purchaseList.splice(index, 1);
 			this.setData({
 				[`tableParam2.total`]: length - 1,
 				purchaseList: this.data.purchaseList
 			})
-			console.log(this.data.purchaseList)
+			console.log(this.data.purchaseList);
 		}
 		//第二方法，编辑选项
 		else {
-			good = e.target.targetDataset.row
+			good = e.target.targetDataset.row;
 			if (!good) return
 			this.setData({
 				hidden: !this.data.hidden,
@@ -433,12 +433,14 @@ Page({
 				fFullName: good.fFullName
 			}
 			let length = this.data.purchaseList.length;
-			let setStr = 'purchaseList[' + length + ']'
+			let setStr = 'purchaseList[' + length + ']';
 			this.setData({
 				[`tableParam2.total`]: length + 1,
 				[`purchaseList[${length}]`]: param
 			})
 		}
+		// this.data.data = this.data.purchaseList;
+		// this.getData('purchaseList');
 		this.onModalCloseTap()
 	},
 	//隐藏弹窗表单

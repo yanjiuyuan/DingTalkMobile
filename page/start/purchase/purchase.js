@@ -11,11 +11,11 @@ Page({
 		purchaseList: [],
 		addPeopleNodes: [1],
 		tableParam2: {
-			size: 100,
-			now: 1,
 			total: 0
 		},
 		tableOperate2: '删除',
+		tableOperate3: '编辑',
+
 		good: {},
 		totalPrice: 0.00,
 		tableItems: [
@@ -101,8 +101,7 @@ Page({
 			return;
 		}
 		let that = this;
-		that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function(res) {
-			console.log(JSON.parse(res.data))
+		that.requestData('GET', 'Purchase/GetICItem' + that.formatQueryStr({ Key: value.keyWord }), function (res) {
 			if (JSON.parse(res.data).length == 0) {
 				dd.alert({
 					content: promptConf.promptConf.SearchNoReturn,
@@ -138,6 +137,7 @@ Page({
 				content: `标题不能为空，请输入!`,
 				buttonText: promptConf.promptConf.Confirm,
 			})
+			return;
 		}
 		if (!param.ProjectId || !this.data.purchaseList.length) {
 			dd.alert({
@@ -147,7 +147,7 @@ Page({
 			});
 			return
 		}
-		let callBack = function(taskId) {
+		let callBack = function (taskId) {
 			that.bindAll(taskId)
 		}
 		console.log(param)
@@ -160,7 +160,7 @@ Page({
 			p.TaskId = taskId
 			paramArr.push(p)
 		}
-		that.requestJsonData('POST', "Purchase/SavePurchaseTable", function(res) {
+		that.requestJsonData('POST', "Purchase/SavePurchaseTable", function (res) {
 			that.doneSubmit()
 		}, JSON.stringify(paramArr))
 	},
@@ -171,31 +171,51 @@ Page({
 	chooseItem(e) {
 		if (!e) return
 		console.log(e)
-		good = e.target.targetDataset.row
+		good = e.target.targetDataset.row;
 		if (!good) return
 
 		this.setData({
-			hidden: !this.data.hidden
+			hidden: !this.data.hidden,
+			ifedit: false
 		})
 		this.createMaskShowAnim();
 		this.createContentShowAnim();
 	},
 	deleteItem(e) {
 		if (!e) return;
-		console.log(e)
+		console.log(e);
 		let index = e.target.targetDataset.index;
 		let row = e.target.targetDataset.row;
 
 		if ((!index) && index != 0) return;
-		let length = this.data.purchaseList.length;
-		this.data.purchaseList.splice(index, 1);
 
-		this.setData({
-			'tableParam2.total': length - 1,
-			purchaseList: this.data.purchaseList,
-			totalPrice: (parseFloat(this.data.totalPrice) - parseFloat(row.Price) * parseFloat(row.Count)).toFixed(2)
+		//默认方法，删除选项
+		if (!e.target.targetDataset.opt2) {
+			console.log("删除");
+			let length = this.data.purchaseList.length;
+			this.data.purchaseList.splice(index, 1);
 
-		})
+			this.setData({
+				'tableParam2.total': length - 1,
+				purchaseList: this.data.purchaseList,
+				totalPrice: (parseFloat(this.data.totalPrice) - parseFloat(row.Price) * parseFloat(row.Count)).toFixed(2)
+
+			})
+		}
+		//
+		else {
+			console.log("编辑");
+			console.log(e.target.targetDataset.row);
+			good = e.target.targetDataset.row;
+			if (!good) return
+			this.setData({
+				hidden: !this.data.hidden,
+				ifedit: true
+			})
+			this.createMaskShowAnim();
+			this.createContentShowAnim();
+		}
+
 
 	},
 	selectDate() {
@@ -212,7 +232,7 @@ Page({
 	},
 	//提交弹窗表单
 	addGood(e) {
-		let value = e.detail.value
+		let value = e.detail.value;
 		console.log(value);
 		this.setData({
 			dateStr: "",
@@ -274,25 +294,74 @@ Page({
 			})
 			return;
 		}
-		let param = {
-			CodeNo: good.FNumber,
-			Name: good.FName,
-			Standard: good.FModel,
-			Unit: value.Unit.trim(),
-			Price: value.Price ? value.Price + '' : '0',
-			Count: value.Count.trim(),
-			Purpose: value.Purpose.trim(),
-			UrgentDate: value.UrgentDate,
-			Mark: value.Mark.trim()
-		}
-		let length = this.data.purchaseList.length
-		let setStr = 'purchaseList[' + length + ']'
-		this.setData({
 
-			'tableParam2.total': length + 1,
-			[`purchaseList[${length}]`]: param,
-			totalPrice: (parseFloat(this.data.totalPrice) + parseFloat(param.Price) * parseFloat(param.Count)).toFixed(2)
-		})
+
+
+
+		if (this.data.ifedit) {
+
+			let param = {
+				CodeNo: good.CodeNo,
+				Name: good.Name,
+				Standard: good.Standard,
+				Unit: value.Unit.trim(),
+				Price: value.Price ? value.Price + '' : '0',
+				Count: value.Count.trim(),
+				Purpose: value.Purpose.trim(),
+				UrgentDate: value.UrgentDate,
+				Mark: value.Mark.trim()
+			}
+			console.log("编辑");
+			console.log(param);
+
+			for (let i of this.data.purchaseList) {
+				if (param.CodeNo == i.CodeNo) {
+					
+					let totalPrice = (parseFloat(this.data.totalPrice) - parseFloat(i.Price) * parseFloat(i.Count) + parseFloat(param.Price) * parseFloat(param.Count)).toFixed(2);
+					i.Count = param.Count;
+					i.Mark = param.Mark;
+					i.Price = param.Price;
+					i.Purpose = param.Purpose;
+					i.Unit = param.Unit;
+					i.UrgentDate = param.UrgentDate;
+
+					this.setData({
+						totalPrice: totalPrice
+					})
+				}
+			}
+			console.log(this.data.purchaseList);
+			this.setData({
+				purchaseList: this.data.purchaseList,
+
+			})
+
+
+
+		}
+		else {
+			let param = {
+				CodeNo: good.FNumber,
+				Name: good.FName,
+				Standard: good.FModel,
+				Unit: value.Unit.trim(),
+				Price: value.Price ? value.Price + '' : '0',
+				Count: value.Count.trim(),
+				Purpose: value.Purpose.trim(),
+				UrgentDate: value.UrgentDate,
+				Mark: value.Mark.trim()
+			}
+			console.log("添加");
+			console.log(param);
+
+			let length = this.data.purchaseList.length;
+			let setStr = 'purchaseList[' + length + ']'
+			this.setData({
+				'tableParam2.total': length + 1,
+				[`purchaseList[${length}]`]: param,
+				totalPrice: (parseFloat(this.data.totalPrice) + parseFloat(param.Price) * parseFloat(param.Count)).toFixed(2)
+			})
+		}
 		this.onModalCloseTap();
 	},
 	//隐藏弹窗表单

@@ -57,7 +57,7 @@ Page({
 	//配置节点信息
 	setNodeInfo() {
 		dd.navigateTo({
-			url: "setNodeInfo/setNodeInfo?flowId=" + this.data.tableInfo.flowId
+			url: "setNodeInfo/setNodeInfo?flowId=" + this.data.tableInfo.FlowId
 		})
 	},
 	choosePeople(e) {

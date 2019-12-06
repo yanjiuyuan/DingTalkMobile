@@ -4,10 +4,11 @@ import promptConf from "/util/promptConf.js";
 
 let app = getApp();
 let logs = [];
-let x = -54;
-let y = -46;
+let x = -55;
+let y = -47;
 let xTap = -90;
 let yTap = -90;
+
 let States = ["在研", "已完成", "终止"]
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"]
@@ -61,6 +62,8 @@ export default {
 		changeRemarkId: 0,
 		changeRemarkNodeid: 0,
 
+		// 发起页上传文件列表
+
 		//审批页面变量
 		imgUrlList: [],
 		imageList: [],
@@ -97,7 +100,7 @@ export default {
 					"tableInfo.Title": param.title
 				})
 
-				let callBack = function() {
+				let callBack = function () {
 					//临时保存后无需再向服务器请求数据
 					if (app.globalData[`${param.flowid}`] == undefined || app.globalData[`${param.flowid}`] == false) {
 						that.setData({
@@ -124,12 +127,30 @@ export default {
 							})
 						}
 						if (that.data.flowid == 12) {
-
+							that.setData({
+								tableData: []
+							})
+						}
+						else if (that.data.flowid == 30) {
+							let placeArr = data.table.Place.split(',');
+							that.setData({
+								placeArr: placeArr
+							})
 						}
 						else {
+							console.log('ssss');
+
 							that.setData({
+								tableParam2: {
+									total: data.tableParam.total
+								},
+								tableParam: {
+									size: 5,
+									now: 1,
+									total: 0
+								},
 								taskid: 0,
-								purchaseList: that.data.tableData,// 发起的物料表单
+								purchaseList: that.data.data,// 发起的物料表单
 								tableData: []
 							})
 						}
@@ -199,7 +220,7 @@ export default {
 						}
 					}
 				}
-				that._postData("FlowInfoNew/CreateTaskInfo", function(res) {
+				that._postData("FlowInfoNew/CreateTaskInfo", function (res) {
 					let taskid = res;
 					callBack(taskid);
 				}, paramArr)
@@ -216,7 +237,7 @@ export default {
 					return;
 				}
 				let that = this
-				that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function(res) {
+				that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function (res) {
 					console.log(JSON.parse(res.data))
 					if (JSON.parse(res.data).length == 0) {
 						dd.alert({
@@ -261,7 +282,8 @@ export default {
 		dowith: {
 			onLoad(param) {
 				console.log("dowith page on load~~~~~~~~~~")
-				console.log(param)
+				console.log(param);
+				this.data.imgUrlList = [];
 				let that = this
 				this.setData({
 					flowid: param.flowid,
@@ -272,7 +294,7 @@ export default {
 					flowname: param.flowname
 				})
 
-				let callBack = function() {
+				let callBack = function () {
 					that.getFormData();
 					that.getBomInfo(param.flowid)
 					that.getNodeList();
@@ -353,7 +375,7 @@ export default {
 						}
 					}
 				}
-				that._postData("FlowInfoNew/SubmitTaskInfo", function(res) {
+				that._postData("FlowInfoNew/SubmitTaskInfo", function (res) {
 					dd.alert({
 						content: promptConf.promptConf.SuccessfulSubmission,
 						buttonText: promptConf.promptConf.Confirm,
@@ -399,7 +421,7 @@ export default {
 							} else {
 								param["NodeId"] = 0
 							}
-							that._postData("FlowInfoNew/FlowBack", function(res) {
+							that._postData("FlowInfoNew/FlowBack", function (res) {
 								dd.alert({
 									content: promptConf.promptConf.ApplicationWithdrawn,
 									buttonText: promptConf.promptConf.Confirm,
@@ -448,7 +470,7 @@ export default {
 							} else {
 								param["NodeId"] = 0
 							}
-							that._postData("FlowInfoNew/FlowBack", function(res) {
+							that._postData("FlowInfoNew/FlowBack", function (res) {
 								dd.alert({
 									content: promptConf.promptConf.ApplicationReturned,
 									buttonText: promptConf.promptConf.Confirm,
@@ -479,7 +501,7 @@ export default {
 					TaskId: this.data.taskid
 				}
 				this._getData("FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
-					function(res) {
+					function (res) {
 						that.setData({
 							tableInfo: res
 						})
@@ -510,7 +532,10 @@ export default {
 							res = JSON.parse(res.data)
 						}
 						if (flowid == "12") {
-							res = res.data
+							res = res.data;
+							this.setData({
+								purchaseList: res
+							})
 						}
 
 						this.setData({
@@ -522,7 +547,7 @@ export default {
 					return
 				}
 				this._getData(url + this.formatQueryStr({ TaskId: this.data.taskid }),
-					function(res) {
+					function (res) {
 						if (flowid == "33") {
 							res = res.DrawingChangeList;
 							for (let r of res) {
@@ -562,7 +587,7 @@ export default {
 			//根据taskId获取下一个需要审批的人，即要钉的人
 			getDingList(taskId) {
 				let that = this
-				this._getData("DingTalkServers/Ding?taskId=" + taskId, function(data) {
+				this._getData("DingTalkServers/Ding?taskId=" + taskId, function (data) {
 					if (data == null) {
 						return;
 					}
@@ -607,6 +632,7 @@ export default {
 					case "24": url = "Gift/GetPrintPDF", method = "get"; break;//礼品
 					case "26": url = "Pick/PrintPDF", method = "post"; break;//领料申请
 					case "27": url = "Godown/PrintPDF", method = "post"; break;//入库
+					case "30": url = "Evection/GetPrintPDF", method = "post"; break;//外出
 					case "31": url = "CreateProject/PrintPDF", method = "post"; break;//立项
 					case "33": url = "DrawingChange/PrintAndSend", method = "post"; break;//图纸变更
 					case "34": url = "TechnicalSupport/PrintAndSend", method = "post"; break;//项目技术支持
@@ -634,7 +660,7 @@ export default {
 				if (method == "get") {
 					this._getData(url + this.formatQueryStr(obj
 					),
-						function(res) {
+						function (res) {
 							dd.alert({
 								content: promptConf.promptConf.PrintFrom,
 								buttonText: promptConf.promptConf.Confirm
@@ -645,7 +671,7 @@ export default {
 				//POST方法
 				if (method == "post") {
 					this._postData(url,
-						function(res) {
+						function (res) {
 							dd.alert({
 								content: promptConf.promptConf.PrintFrom,
 								buttonText: promptConf.promptConf.Confirm,
@@ -676,7 +702,7 @@ export default {
 				}
 				if (method == "get") {
 					this._getData(url + this.formatQueryStr(obj),
-						function(res) {
+						function (res) {
 							dd.alert({
 								content: promptConf.promptConf.OutPutBom,
 								buttonText: promptConf.promptConf.Confirm,
@@ -686,7 +712,7 @@ export default {
 				}
 				if (method == "post") {
 					this._postData(url,
-						function(res) {
+						function (res) {
 							dd.alert({
 								content: promptConf.promptConf.OutPutBom,
 								buttonText: promptConf.promptConf.Confirm
@@ -698,10 +724,20 @@ export default {
 
 			//处理表单中的图片、PDF等文件显示
 			handleUrlData(data) {
+
 				let that = this;
 				let imageList = [];
 				let fileList = [];
 				let pdfList = [];
+				if (data.ImageUrl == null) {
+					that.setData({ imageList: imageList });
+				}
+				if (data.FilePDFUrl == null) {
+					that.setData({ pdfList: pdfList })
+				}
+				if (data.FileUrl == null) {
+					that.setData({ fileList: fileList })
+				}
 				if (data.ImageUrl && data.ImageUrl.length > 5) {
 					let tempList = data.ImageUrl.split(",")
 					for (let img of tempList) {
@@ -817,7 +853,7 @@ export default {
 		//获取项目列表
 		getProjectList() {
 			let that = this
-			this._getData("ProjectNew/GetAllProJect", function(res) {
+			this._getData("ProjectNew/GetAllProJect", function (res) {
 				that.setData({
 					projectList: res
 				})
@@ -827,7 +863,7 @@ export default {
 		getNodeInfo() {
 			let that = this
 			this._getData("FlowInfoNew/getnodeinfo" + this.formatQueryStr({ FlowId: this.data.flowid, nodeId: this.data.nodeid }),
-				function(res) {
+				function (res) {
 					that.setData({
 						nodeInfo: res[0],
 						IsNeedChose: res[0].IsNeedChose
@@ -932,7 +968,7 @@ export default {
 							filePath: p,
 							success: (res) => {
 								console.log(JSON.parse(res.data).Content)
-								that.data.imgUrlList.push(JSON.parse(res.data).Content)
+								that.data.imgUrlList.push(JSON.parse(res.data).Content);
 								that.setData({ disablePage: false })
 							},
 							fail: (err) => {
@@ -1020,7 +1056,7 @@ export default {
 				Media_Id: e.target.dataset.mediaId
 			}
 			console.log(e)
-			this.requestData("POST", url, function(res) {
+			this.requestData("POST", url, function (res) {
 				if (JSON.parse(res.data).errmsg == "ok") {
 					dd.alert({
 						content: promptConf.promptConf.Download,
@@ -1065,7 +1101,7 @@ export default {
 							method: "POST",
 							data: "",
 							headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "application/json", },
-							success: function(res) {
+							success: function (res) {
 
 								console.log(res);
 								let name = res.data.name;
@@ -1129,7 +1165,7 @@ export default {
 							method: "POST",
 							data: "",
 							headers: { "Content-Type": "application/json; charset=utf-8", "Accept": "application/json", },
-							success: function(res) {
+							success: function (res) {
 
 								console.log(res);
 								let name = res.data.name;
@@ -1228,13 +1264,19 @@ export default {
 		},
 		//計算相差天數,会去除星期六日
 		DateDiff(sDate1, sDate2) { //sDate1和sDate2是2017-9-25格式 ,sData1会比较大
-			let aDate, oDate1, oDate2;
+			let aDate, oDate1, oDate2, iDays;
 
 			aDate = sDate1.split("-");
 			oDate1 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]); //转换为9-25-2017格式 
 			aDate = sDate2.split("-");
 			oDate2 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]);
 
+
+			iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24);
+
+			if (iDays < 0) {
+				return iDays;
+			}
 			let first = oDate2.getTime();
 			let last = oDate1.getTime();
 			let count = 0;
@@ -1256,7 +1298,7 @@ export default {
 				data: {
 					data: that.data,
 				},
-				success: function() {
+				success: function () {
 					app.globalData[`${that.data.flowid}`] = true;
 					dd.alert({
 						content: promptConf.promptConf.TemporaryPreservation,
@@ -1272,7 +1314,7 @@ export default {
 			let that = this;
 			dd.getStorage({
 				key: `${flowid}`,
-				success: function(res) {
+				success: function (res) {
 					that.data = res.data.data;
 					for (let d in that.data) {
 						that.setData({
@@ -1281,12 +1323,12 @@ export default {
 					}
 					dd.removeStorage({
 						key: `${flowid}`,
-						success: function() {
+						success: function () {
 							app.globalData[`${flowid}`] = false;
 						}
 					});
 				},
-				fail: function(res) {
+				fail: function (res) {
 				}
 			});
 		},
@@ -1326,6 +1368,29 @@ export default {
 				departmentIdnex: e.detail.value,
 			});
 		},
+		//选择附件
+		uploadFiles() {
+			let that = this;
+			dd.uploadAttachmentToDingTalk({
+				image: { multiple: true, compress: false, max: 9, spaceId: "1699083579" },
+				space: { spaceId: "1699083579", isCopy: 1, max: 9 },
+				file: { spaceId: "1699083579", max: 1 },
+				types: ["photo", "camera", "file", "space"],
+				success: (res) => {
+					console.log(res);
+					that.data.fileList.push(res.data);
+					that.setData({
+						fileList:that.data.fileList
+					})
+
+				},
+				fail: (err) => {
+					dd.alert({
+						content: JSON.stringify(err)
+					})
+				}
+			})
+		}
 
 	},
 };

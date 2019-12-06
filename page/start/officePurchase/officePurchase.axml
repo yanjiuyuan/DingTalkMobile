@@ -1,0 +1,84 @@
+<!-- 办公用品采购 -->
+<import src="/util/template/template.axml"/>
+<view class="page">
+	<!-- 待编辑物料表单 -->
+	<view class="modal" a:if="{{!hidden}}" key="modal">
+		<view class="modal-mask" animation="{{animMaskData}}"/>
+		<view class="modal-container" animation="{{animContentData}}">
+			<view class="modal-close" onTap="onModalCloseTap">×</view>
+			<view class="modal-content">
+				<form onSubmit="addGood">
+					<view class="page-section">
+						<view class="form-row">
+							<view class="form-row-label">
+								<template is="required"></template>数量</view>
+							<view class="form-row-content">
+								<input name="fQty" class="input" placeholder="数量" />
+							</view>
+						</view>
+						<view class="form-row">
+							<view class="form-row-label">
+								用途</view>
+							<view class="form-row-content">
+								<input name="Purpose" class="input" placeholder="用途" />
+							</view>
+						</view>
+					</view>
+					<button type="primary" style="margin-bottom:0;" formType="submit">编辑</button>
+				</form>
+			</view>
+		</view>
+	</view>
+	<form onSubmit="submit">
+		<view class="page-section">
+			<!-- 标题 -->
+			<template is ="title" data="{{tableInfo}}"/>
+			<!-- 申请人 -->
+			<template is ="applyman" data="{{DingData}}"/>
+			<!-- 选择部门 -->
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>申请部门</view>
+				<view class="form-row-content">
+					<my-picker index="{{departmentIdnex}}" range ="{{DingData.departmentList}}" onChange="bindObjPickerChange" value="{{tableInfo.Dept}}"/>
+				</view>
+			</view>
+			<view class="form-row">
+				<view class="form-row-label">预计总价（元）</view>
+				<view class="form-row-content">
+					<input name="totalPrice" class="input" disabled="{{true}}" value="{{totalPrice}}"/>
+				</view>
+			</view>
+			<form onSubmit="search">
+				<view class="form-row">
+					<view class="form-row-label">
+						<template is="required"></template>开始时间</view>
+					<view class="form-row-content">
+						<input name="startTime" class="input" placeholder="开始时间" onFocus="selectStartDate" value="{{table.PlanBeginTime}}" disabled="{{true}}"/>
+					</view>
+					<view onTap="selectStartDate" class="tag tag-info">+ 选择</view>
+				</view>
+				<view class="form-row">
+					<view class="form-row-label">
+						<template is="required"></template>结束时间</view>
+					<view class="form-row-content">
+						<input name="endTime" class="input" placeholder="结束时间" onFocus="selectEndDate" value="{{ table.PlanEndTime}}" disabled="{{true}}"/>
+					</view>
+					<view onTap="selectEndDate" class="tag tag-info">+ 选择</view>
+				</view>
+				<button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
+			</form>
+			<view a:for="{{dataList}}" onTap="deleteItem">
+				<text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计
+					<text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
+				<template is="datatable" data="{{items:tableItems,data:item.value,param:item.tableParam,tableOperate:tableOperate,tableOperate2:tableOperate2}}"/>
+			</view>
+			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
+			<template is="suggest" data="{{table}}"/>
+			<!-- 提交按钮 -->
+			<template is ="submitButton"/>
+			<!-- 临时保存 -->
+			<template is="temporaryPreservation"/>
+		</view>
+	</form>
+</view>
