@@ -11,7 +11,7 @@ let yTap = -90;
 
 let States = ["在研", "已完成", "终止"]
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
-let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"]
+let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"] 
 let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]
 let localStorage = ""
 export default {
@@ -119,7 +119,6 @@ export default {
 					}
 					//重新发起
 					if (app.globalData.valid == true) {
-
 						let data = JSON.parse(param.data);
 						for (let d in data) {
 							that.setData({
@@ -128,7 +127,11 @@ export default {
 						}
 						if (that.data.flowid == 12) {
 							that.setData({
-								tableData: []
+								tableData: [],
+								tableOperate: '删除',
+								tableParam: {
+									total: data.tableParam.total
+								}
 							})
 						}
 						else if (that.data.flowid == 30) {
@@ -686,6 +689,7 @@ export default {
 				let that = this;
 				let url = "";
 				let method = "";
+				let obj = {};
 				console.log(this.data.flowid);
 				switch (this.data.flowid) {
 					case "6": url = "DrawingUploadNew/GetExcelReport", method = "get"; break;//图纸审批-
@@ -696,11 +700,18 @@ export default {
 					case "67": url = "Borrow/PrintExcel", method = "post"; break;//借入-
 					case "68": url = "Maintain/PrintExcel", method = "post"; break;//维修-
 				}
-				let obj = {
-					UserId: this.data.DingData.userid,
-					TaskId: this.data.taskid
-				}
+
 				if (method == "get") {
+					obj = {
+						applyManId: this.data.DingData.userid,
+						taskId: this.data.taskid
+					}
+					if (this.data.flowid == "8") {
+						obj = {
+							UserId: this.data.DingData.userid,
+							taskId: this.data.taskid
+						}
+					}
 					this._getData(url + this.formatQueryStr(obj),
 						function (res) {
 							dd.alert({
@@ -711,6 +722,10 @@ export default {
 					)
 				}
 				if (method == "post") {
+					obj = {
+						UserId: this.data.DingData.userid,
+						TaskId: this.data.taskid
+					}
 					this._postData(url,
 						function (res) {
 							dd.alert({
@@ -1049,28 +1064,25 @@ export default {
 		},
 		//下载文件
 		downloadFile(e) {
-			console.log("下载文件~~~~~~~~~~")
+			console.log("下载文件~~~~~~~~~~");
 			let url = "DingTalkServers/sendFileMessage"
-			let param = {
+			let param = { 
 				UserId: this.data.DingData.userid,
 				Media_Id: e.target.dataset.mediaId
-			}
-			console.log(e)
-			this.requestData("POST", url, function (res) {
-				if (JSON.parse(res.data).errmsg == "ok") {
-					dd.alert({
+			} 
+			this.requestData("POST", url, function (res) { 
+				if (JSON.parse(res.data).errmsg == "ok") { 
+					dd.alert({ 
 						content: promptConf.promptConf.Download,
 						buttonText: promptConf.promptConf.Confirm
 					})
 				}
-
-				// dd.alert({ content: "提示信息:" + JSON.parse(res.data).errmsg })
 			}, param)
 		},
 		//检查是否登录
 		checkLogin(callBack) {
 			let that = this;
-			//检查登录
+			//检查登录 
 			if (app.userInfo) {
 				let DingData = {
 					nickName: app.userInfo.nickName,
@@ -1380,7 +1392,7 @@ export default {
 					console.log(res);
 					that.data.fileList.push(res.data);
 					that.setData({
-						fileList:that.data.fileList
+						fileList: that.data.fileList
 					})
 
 				},

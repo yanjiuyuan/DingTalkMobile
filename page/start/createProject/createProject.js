@@ -1,10 +1,10 @@
 import pub from '/util/public';
 let good = {}
 Page({
-  ...pub.func,
+  ...pub.func, 
   ...pub.func.start,
   data: {
-    ...pub.data,
+    ...pub.data,  
     stateIndex:0,
     companyIndex:0,
     deptIndex:0,
@@ -13,9 +13,9 @@ Page({
 
   },
   submit(e) {
-    var that = this
-    var value = e.detail.value
-    value['CreateTime'] = ''
+    let that = this;
+    let value = e.detail.value;
+    value['CreateTime'] = '';
     value['CompanyName'] = '泉州华中科技大学智能制造研究院'
     value['ApplyManId'] = this.data.DingData.userid
     value['ResponsibleManId'] = this.data.tableInfo.ResponsibleManId
@@ -38,14 +38,14 @@ Page({
   },
   //选人控件方法
   chooseMan(e){
-    var that = this
+     that = this
     dd.complexChoose({
       ...that.chooseParam,
       multiple: false,
       success: function(res) {
         console.log(res)
-        let names = []//userId
-        let userids = []
+        let names = [];//userId
+        let userids = [];
         for (let d of res.users){
           names.push(d.name)
           userids.push(d.userId)
@@ -58,7 +58,7 @@ Page({
     })
   },
   chooseMans(e){
-    var that = this
+    let that = this
     dd.complexChoose({
       ...that.chooseParam,
       multiple: true,

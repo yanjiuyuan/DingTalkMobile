@@ -15,7 +15,7 @@
 				{{(item.fileSize/1000).toFixed(2) +"kb"}}
 			</view>
 		</view>
-		<view class="preview" onTap="preview" data-item="{{item}}">
+		<view class="preview" onTap="preview" data-item="{{item}}"> 
 			预览
 		</view>
 		<view class="closes" onTap="delete" data-fileId="{{item.fileId}}">

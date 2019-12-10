@@ -1,5 +1,6 @@
 import pub from '/util/public';
 import promptConf from "/util/promptConf.js";
+const app = getApp();
 let good = {}
 Page({
 	...pub.func,
@@ -8,7 +9,7 @@ Page({
 		...pub.data,
 		hidden: true,
 		tableOperate: '删除',
-		tableData: [],
+		purchaseList: [],
 		tableParam: {
 			total: 0
 		},
@@ -183,7 +184,7 @@ Page({
 			})
 			return;
 		}
-		if (this.data.tableData.length == 0) {
+		if (this.data.purchaseList.length == 0) {
 			dd.alert({
 				content: "表单数据不全或有误，请重新输入！",
 				buttonText: promptConf.promptConf.Confirm,
@@ -199,7 +200,7 @@ Page({
 	bindAll(taskId) {
 		let that = this
 		let paramArr = []
-		for (let p of that.data.tableData) {
+		for (let p of that.data.purchaseList) {
 			p.TaskId = taskId
 			paramArr.push(p)
 		}
@@ -218,7 +219,7 @@ Page({
 			}],
 			smallMaterialCodes: [],
 			table: {},
-			tableData: []
+			purchaseList: []
 		})
 		that.data.codeType = e.detail.value;
 		that.getMaterielCode();
@@ -289,22 +290,22 @@ Page({
 		if (!e) return;
 		let index = e.target.targetDataset.index;
 		if ((!index) && index != 0) return;
-		let length = this.data.tableData.length;
-		this.data.tableData.splice(index, 1);
+		let length = this.data.purchaseList.length;
+		this.data.purchaseList.splice(index, 1);
 		this.setData({
 			['tableParam.total']: length - 1,
-			tableData: this.data.tableData
+			purchaseList: this.data.purchaseList
 		})
-		console.log(this.data.tableData);
+		console.log(this.data.purchaseList);
 	},
 	//提交弹窗表单
 	addGood(e) {
 		let value = e.detail.value;
 		console.log(value);
 		//判断是否重复
-		if (this.data.tableData.length > 0) {
-			for (let i = 0, len = this.data.tableData.length; i < len; i++) {
-				if (value.Name == this.data.tableData[i].Name && value.Standard == this.data.tableData[i].Standard) {
+		if (this.data.purchaseList.length > 0) {
+			for (let i = 0, len = this.data.purchaseList.length; i < len; i++) {
+				if (value.Name == this.data.purchaseList[i].Name && value.Standard == this.data.purchaseList[i].Standard) {
 					dd.alert({
 						content: "物料名称、规格型号不可重复",
 						buttonText: promptConf.promptConf.Confirm,
@@ -347,19 +348,22 @@ Page({
 		value['BigCode'] = this.data.bigCodes[this.data.bigIndex].materialCodeNumber;
 		value['SmallCodeName'] = this.data.smallMaterialCodes[this.data.smallIndex].materialName;
 		value['SmallCode'] = this.data.smallMaterialCodes[this.data.smallIndex].materialCodeNumber;
-		let length = this.data.tableData.length;
+		let length = this.data.purchaseList.length;
 		this.setData({
 			table: value,
 			['tableParam.total']: length + 1,
-			[`tableData[${length}]`]: value
+			[`purchaseList[${length}]`]: value
 		})
 	},
 	onShow() {
 		console.log(this.data.bigCodes);
-		console.log(this.data.smallMaterialCodes);
+		console.log(this.data.smallMaterialCodes); 
 
 		this.getMaterielCode();
 	},
 
+	onReady() {
+		
+	}
 
 });

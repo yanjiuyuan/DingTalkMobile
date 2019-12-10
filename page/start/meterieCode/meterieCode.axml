@@ -130,7 +130,7 @@
 			<!-- 物料表单 -->
 			<view onTap="deleteItem">
 				<text>已添加物料编码列表</text>
-				<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
+				<template is="datatable" data="{{items:tableItems,data:purchaseList,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>

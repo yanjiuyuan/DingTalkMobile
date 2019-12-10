@@ -1,6 +1,6 @@
 <!-- 图纸审批 -->
 <import src="/util/template/template.axml"/>
-<view class="page">
+<view class="page"> 
 	<!-- 退回审批表单 -->
 	<template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
 	<template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
@@ -9,13 +9,13 @@
 		<view class="page-section">
 			<template is = "titleOfObjectApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
-			<template is="department" data="{{department:tableInfo.Dept}}"/>
+			<template is="department" data="{{department:tableInfo.Dept}}"/> 
 			<view class="form-row">
 				<view class="form-row-label">项目名称</view>
 				<view class="form-row-content">
 					<textarea maxlength="-1" name="projectName" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
 				</view>
-			</view>
+			</view> 
 			<view class="form-row">
 				<view class="form-row-label">图纸用途</view>
 				<view class="form-row-content">
@@ -74,7 +74,7 @@
 			</view>
 			<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
-				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
+				<!-- <button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button> -->
 			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>

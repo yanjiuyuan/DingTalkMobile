@@ -1,5 +1,6 @@
 import pub from '/util/public';
 import promptConf from "/util/promptConf.js";
+const app = getApp();
 let good = {}
 Page({
 	...pub.func,
@@ -12,6 +13,9 @@ Page({
 		tableOperate2: '删除',
 		tableOperate3: '编辑',
 		ifedit: false,
+		tableParam2:{
+			total:0
+		},
 		good: {},
 		goods: [],
 		totalPrice: 0,
@@ -28,7 +32,7 @@ Page({
 				width: 300
 			},
 			{
-				prop: 'left',
+				prop: 'fAmount',
 				label: '库存数量',
 				width: 200
 			},
@@ -60,7 +64,7 @@ Page({
 				width: 200
 			},
 			{
-				prop: 'left',
+				prop: 'fAmount',
 				label: '库存数量',
 				width: 200
 			},
@@ -79,16 +83,6 @@ Page({
 				label: '单位',
 				width: 100
 			},
-			// {
-			//   prop: 'fPrice',
-			//   label: '单价',
-			//   width: 200
-			// },
-			// {
-			//   prop: 'fAmount',
-			//   label: '金额',
-			//   width: 200
-			// },
 			{
 				prop: 'fFullName',
 				label: '供应商',
@@ -125,9 +119,6 @@ Page({
 				console.log(url)
 				console.log(res.data.data)
 				let data = res.data.data
-				for (let d of data) {
-					d['left'] = parseInt(d.fQty)
-				}
 				if (data.length == 0) {
 					dd.alert({
 						content: promptConf.promptConf.SearchNoReturn,
@@ -183,7 +174,6 @@ Page({
 						if (d.fNumber == p.fNumber) ifBreak = true
 					}
 					if (ifBreak) break
-					d['left'] = d.fQty
 					that.data.goods.push(d)
 					addArr.push(d)
 				}
@@ -286,8 +276,8 @@ Page({
 		console.log(param)
 		this.approvalSubmit(param,
 			callBack, {
-				ProjectId: param.ProjectId
-			})
+			ProjectId: param.ProjectId
+		})
 	},
 	bindAll(taskId) {
 		let that = this
@@ -385,7 +375,7 @@ Page({
 			for (let i = 0; i < this.data.purchaseList.length; i++) {
 				//数量判断
 				for (let g of this.data.goods) {
-					if (this.data.purchaseList[i].fNumber == g.fNumber && parseInt(value.fQty) > parseInt(g.left)) {
+					if (this.data.purchaseList[i].fNumber == g.fNumber && parseInt(value.fQty) > parseInt(g.fAmount)) {
 						dd.alert({
 							content: promptConf.promptConf.GreaterThanAvailable,
 							buttonText: promptConf.promptConf.Confirm,
@@ -414,7 +404,7 @@ Page({
 			}
 
 			//数量判断
-			if (value.fQty > good.left) {
+			if (value.fQty > good.fAmount) {
 				dd.alert({
 					content: promptConf.promptConf.GreaterThanAvailable,
 					buttonText: promptConf.promptConf.Confirm,
@@ -426,7 +416,6 @@ Page({
 				fName: good.fName,
 				fModel: good.fModel,
 				unitName: good.unitName,
-				left: good.left,
 				fQty: value.fQty ? value.fQty + '' : '1',
 				fPrice: good.fPrice ? good.fPrice + '' : '0',
 				fAmount: good.fAmount ? good.fAmount + '' : '0',
@@ -453,4 +442,53 @@ Page({
 			});
 		}, 210);
 	},
-});
+
+
+	onReady() {
+		app.globalData.valid = true;
+		if (app.globalData.valid == true) {
+			console.log(this.data.purchaseList);
+			this.setData({
+				goods: this.data.purchaseList,
+				tableItems2: [
+					{
+						prop: 'fNumber',
+						label: '物料编码',
+						width: 200
+					},
+					{
+						prop: 'fQty',
+						label: '实收数量',
+						width: 200
+					},
+					{
+						prop: 'fAmount',
+						label: '库存数量',
+						width: 200
+					},
+					{
+						prop: 'fName',
+						label: '物料名称',
+						width: 300
+					},
+					{
+						prop: 'fModel',
+						label: '规格型号',
+						width: 300
+					},
+					{
+						prop: 'unitName',
+						label: '单位',
+						width: 100
+					},
+					{
+						prop: 'fFullName',
+						label: '供应商',
+						width: 300
+					}
+				],
+			})
+			app.globalData.valid = false;
+		}
+	}
+}); 

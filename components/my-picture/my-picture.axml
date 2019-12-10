@@ -4,7 +4,7 @@
 			上传图片
   </view>
   <view class="adds">
-    <view class="image-cross"></view>
-    
+
+    <view class="image-cross" onTap="uploadPictures"></view>
   </view>		
-</view>
+</view> 
