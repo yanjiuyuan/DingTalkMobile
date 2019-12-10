@@ -4,7 +4,7 @@ const app = getApp();
 let good = {}
 Page({
 	...pub.func,
-	...pub.func.start,
+	...pub.func.start, 
 	data: {
 		...pub.data,
 		addPeopleNodes: [4, 6], //额外添加审批人节点数组

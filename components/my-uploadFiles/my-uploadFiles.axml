@@ -1,11 +1,11 @@
 <!-- 上传文件 -->
 <view class="files">
 	<view class="files-title">
-			上传附件
+			{{title}}
 	</view>
 	<view class="margin-left" a:for="{{fileList}}">
 		<view class="cube">
-		</view> 
+		</view>
 		<view class="cube-right">
 			<view class="cube-name">
 				<text a:if="{{item.fileName.length<= 13}}">{{item.fileName}}</text>

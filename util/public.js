@@ -1,30 +1,30 @@
-import lib from "/lib.js";
+import lib from "/lib.js"; 
 import template from "/util/template/template.js";
 import promptConf from "/util/promptConf.js";
-
+  
 let app = getApp();
-let logs = [];
+let logs = []; 
 let x = -55;
 let y = -47;
 let xTap = -90;
-let yTap = -90;
+let yTap = -90;   
 
-let States = ["在研", "已完成", "终止"]
-let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"]
-let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"] 
-let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]
-let localStorage = ""
+let States = ["在研", "已完成", "终止"];
+let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"];
+let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"];
+let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"];
+let localStorage = ""; 
 export default {
-	data: {
+	data: { 
 		...lib.data,
 		...template.data,
 		version: 2.70,
 		DingData: {
 			nickName: "",
 			departName: "",
-			userid: ""
+			userid: "",
 		},
-
+  
 		reg: /^-?\d+$/, //只能是整数数字
 		reg2: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /, //正浮点数
 		reg3: /^[\.\d]*$/,//纯数字包括小数
