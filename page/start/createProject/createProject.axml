@@ -109,8 +109,7 @@
         </view>
         <view onTap="upLoadFile" class="tag tag-info">+ 添加</view>
       </view>
-      <my-uploadfiles spaceId="1699083579" title="立项文件"></my-uploadfiles>
-      <!-- 选人组件 -->
+      <my-uploadfiles spaceId="670048396" title="立项文件" onGetArray="getArray" />
       <template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
       <template is="suggest" data="{{table}}"/>
     </view>

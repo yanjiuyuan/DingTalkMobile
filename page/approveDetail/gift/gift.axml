@@ -13,7 +13,7 @@
 					<input name="applyman" class="input" value="{{tableInfo.Remark}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam}}"/>
+			<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam2}}"/>
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>

@@ -21,7 +21,7 @@
 					<input name="BeginTime" class="input" value="{{tableInfo.counts}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<template  is="datatable" data="{{items:tableItems,data:tableData,param:tableParam}}"/>
+			<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam}}"/>
 			<view class="form-row" style="height:100%;">
 				<view class="form-row-label">相关图片</view>
 				<view class="form-row-content">
@@ -57,6 +57,12 @@
 			</view>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
 				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
+			</view>
+			<view a:if="{{ index!= 0 && state == '已完成' }}">
+				<button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+			</view>
+			<view>
+				<button type="primary" onTap="output" disabled="{{disablePage}}">导出Bom表</button>
 			</view>
 			<view a:if="{{index==2 && state=='未完成'}}">
 				<button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>

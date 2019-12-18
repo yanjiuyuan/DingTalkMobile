@@ -8,9 +8,12 @@ Page({
         hidden: true,
         tableOperate: "添加",
         tableOperate2: "删除",
-        tableParam2: {
-            size: 100,
+        tableParam: {
+            size: 5,
             now: 1,
+            total: 0
+        },
+        tableParam2: {
             total: 0
         },
         purchaseList: [], //已选列表
@@ -82,8 +85,11 @@ Page({
                 });
             } else if (res.length > 0) {
                 this.setData({
-                    tableData: res
+                    tableData: res,
+                    "tableParam.total": res.length
                 });
+                this.data.data = res;
+                this.getData();
             }
         });
     },

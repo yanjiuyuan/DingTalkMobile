@@ -1,16 +1,14 @@
 require('@alipay/appx-compiler/lib/sjsEnvInit');
 require('./config$');
 
-require('../../components/my-picker/my-picker?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-checkbox-group/my-checkbox-group?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-close/my-close?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-uploadFiles/my-uploadFiles?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
-require('../../components/my-picture/my-picture?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
 require('../../util/table/table?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../util/table/column/column?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../node_modules/mini-ddui/es/list/index?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../node_modules/mini-ddui/es/list/list-item/index?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../page/test/test?hash=83d63c4284360f0044e5e5b547d75a72cfa67a52');
+require('../../components/my-picker/my-picker?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-checkbox-group/my-checkbox-group?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-close/my-close?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-uploadFiles/my-uploadFiles?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
 require('../../page/start/index?hash=0586a24eef8e7e701db2de7bdb9c468150d04c51');
 require('../../page/approve/approve?hash=253a9edbf9b44d07ab67b2e03c6673c5f9d58b63');
 require('../../page/start/purchase/purchase?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
@@ -27,7 +25,7 @@ require('../../util/errorPage/errorPage?hash=0586a24eef8e7e701db2de7bdb9c468150d
 require('../../page/approveDetail/picking/picking?hash=0586a24eef8e7e701db2de7bdb9c468150d04c51');
 require('../../page/start/goOut/goOut?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
 require('../../page/approveDetail/goOut/goOut?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
-require('../../page/start/createProject/createProject?hash=0586a24eef8e7e701db2de7bdb9c468150d04c51');
+require('../../page/start/createProject/createProject?hash=54731a45c39dc50866f1d3121b4269aa4fa64f21');
 require('../../page/approveDetail/createProject/createProject?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/officeSupplies/officeSupplies?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
 require('../../page/approveDetail/officeSupplies/officeSupplies?hash=0586a24eef8e7e701db2de7bdb9c468150d04c51');
@@ -70,3 +68,4 @@ require('../../page/start/managementConsole/sortTest/sortTest?hash=32d7d2807ed4e
 require('../../page/start/managementConsole/addFlow/addFlow?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/approveDetail/drawingOrder/drawingOrder?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/officePurchase/officePurchase?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
+require('../../page/start/carManager/carManager?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');

@@ -20,15 +20,16 @@
 				<view class="form-row-label">
 					<template is="required"></template>加班事由</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="OverTimeContent" class="input"  data-name="OverTimeContent" onInput="inputToTable"  value="{{table.OverTimeContent}}"/>
+					<textarea auto-height="true" name="OverTimeContent" class="input" data-name="OverTimeContent" onInput="inputToTable" value="{{table.OverTimeContent}}"/>
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>加班日期</view>
 				<view class="form-row-content">
-					<input name="DateTime" class="input" placeholder="加班日期" onFocus="selectStartDateTime" value="{{table.StartTime}}"/>
+					<input name="DateTime" class="input" placeholder="加班日期" disabled="{{true}}" value="{{table.StartTime}}"/>
 				</view>
+				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
@@ -53,10 +54,10 @@
 				</picker>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
-					<template is="required"></template>加班时长(小时)</view>
+				<view class="form-row-label" style="width:3rem">
+					<template is="required"></template>加班时长（小时）</view>
 				<view class="form-row-content">
-					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长"  disabled="{{true}}"/>
+					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" disabled="{{true}}"/>
 				</view>
 			</view>
 			<!-- 选人组件 -->

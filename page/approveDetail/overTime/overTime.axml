@@ -24,7 +24,7 @@
 					加班日期
 				</view>
 				<view class="form-row-content">
-					<input name="DateTime" class="input" value="{{table.DateTime}}"/>
+					<input name="DateTime" class="input" value="{{table.DateTime}}" disabled="{{true}}"/>
 				</view>
 			</view>
 			<view class="form-row">
@@ -44,38 +44,37 @@
 				</view>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
-					加班时长(小时)
+				<view class="form-row-label" style="width:3rem">
+					加班时长（小时）
 				</view>
 				<view class="form-row-content">
 					<input name="UseTime" class="input" value="{{ table.UseTime}}" disabled="{{true}}"/>
 				</view>
 			</view>
-			<view class="form-row">
-				<view class="form-row-label" style ="width:3rem;">
-					<template a:if="{{!table.EffectiveTime}}" is="required"/>有效加班时长(小时)
+			<view class="form-row" a:if="{{(nodeid == 1 && index == 0) || nodeid > 1}}">
+				<view class="form-row-label" style ="width:4rem;">
+					<template a:if="{{!table.EffectiveTime}}" is="required"/>有效加班时长（小时）
 				</view>
 				<picker a:if="{{!table.EffectiveTime}}" onChange="bindPickerChange" value="{{indexOfTime}}" range="{{Time}}">
-					<view class="row" style="width:200rpx">
+					<view class="row" style="width:260rpx">
 						<view class="row-title"></view>
 						<view class="row-extra">{{Time[indexOfTime]}}</view>
 						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
 					</view>
 				</picker>
 				<view a:if="{{table.EffectiveTime}}" class="form-row-content">
-					<input name="EffectiveTime" class="input" value="{{ table.UseTime}}" disabled="{{true}}"/>
+					<input name="EffectiveTime" class="input" value="{{table.EffectiveTime}}" disabled="{{true}}"/>
 				</view>
 			</view>
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
-			<template is="variousButtons" data="{{index:index,nodeid:nodeid,state:state,agree:true,print:false,printAllPDF:false,output:false,ding:true,returnSubmit:true,relaunch:true}}">
-				<!-- agree  意见输入框、同意、退回 -->
-				<!-- print 打印表单 -->
-				<!-- printAllPDF 下载所有图纸 -->
-				<!-- output 导出bom -->
-				<!-- ding 钉一下 -->
-				<!-- returnSubmit 撤回 -->
-				<!-- relaunch 重新发起 -->
-			</template>
+			<template is="variousButtons" data="{{nodeInfo:nodeInfo,index:index,nodeid:nodeid,state:state,agree:true,print:false,printAllPDF:false,output:false,ding:true,returnSubmit:true,relaunch:true,rebackAble:rebackAble}}"/>
+			<!-- agree  意见输入框、同意、退回 -->
+			<!-- print 打印表单 -->
+			<!-- printAllPDF 下载所有图纸 -->
+			<!-- output 导出bom -->
+			<!-- ding 钉一下 -->
+			<!-- returnSubmit 撤回 -->
+			<!-- relaunch 重新发起 -->
 		</view>
 	</form>
 </view>

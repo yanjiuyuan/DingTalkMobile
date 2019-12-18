@@ -16,12 +16,12 @@
 					<input name="ProjectName" class="input" value="{{table.ProjectName}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<view class="form-row" a:if="{{nodeid >= 3}}">
+			<view class="form-row" a:if="{{nodeid > 3 || (index == 0 && nodeid == 3)}}">
 				<view class="form-row-label">
 					<template is="required"></template>项目编号</view>
 				<view class="form-row-content">
-					<input a:if="{{nodeid == 3}}" name="ProjectId" class="input" />
-					<input a:if="{{nodeid != 3}}" name="ProjectId" class="input" value="{{table.ProjectId}}" disabled="{{true}}" />
+					<input name="ProjectId" class="input" placeholder="1234**567,*为字母（2-3个）
+" value="{{table.ProjectId}}" disabled="{{nodeid != 3}}" />
 				</view>
 			</view>
 			<view class="form-row">

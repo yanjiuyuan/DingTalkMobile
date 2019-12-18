@@ -246,7 +246,6 @@ Page({
     },
 
     changeState(e) {
-        var a = 1;
         this.setData({
             stateIndex: e.detail.value
         });
@@ -266,9 +265,11 @@ Page({
             typeIndex: e.detail.value
         });
     },
+    getArray(e) {
+        console.log(e.detail.value);
+    },
     upLoadFile(e) {
         console.log(e);
-
         // dd.chooseImage({
         //   sourceType: ['camera','album'],
         //   count: 1,

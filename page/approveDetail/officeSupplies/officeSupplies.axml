@@ -17,7 +17,9 @@
 				</view>
 			</view>
 			<!-- 物料表单 -->
-			<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam}}"/>
+			<view onTap="update">
+				<template is="datatable" data="{{items:tableItems2,data:tableData,param:tableParam,tableOperate:tableOperate,tableOperate2:tableOperate2}}"/>
+			</view>
 			<!-- 选人组件 -->
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 			<view a:if="{{index==0}}">
