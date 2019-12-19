@@ -27,7 +27,7 @@
 			<view class="form-row">
 				<view class="form-row-label">车牌号</view>
 				<view class="form-row-content">
-					<input name="CarNo" class="input" placeholder="清输入车牌号" data-name="CarNo" onInput="inputToTable" value="{{table.CarNo}}"/>
+					<input name="CarNo" class="input" placeholder="请输入车牌号" data-name="CarNo" onInput="inputToTable" value="{{table.CarNo}}"/>
 				</view>
 			</view>
 			<view class="form-row">
@@ -73,15 +73,7 @@
 				</view>
 				<view onTap="selectDate" class="tag tag-info">+ 选择</view>
 			</view>
-			<!-- <view class="form-row" style="height:auto;">
-				<view class="form-row-label">
-					<template is="required"></template>上传图片</view>
-				<view class="form-row-content">
-					<view>
-						<image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view>
-					<view onTap="uploadImg" class="tag tag-info">+ 选择图片</view>
-				</view>
-			</view> -->
+			<!--<view class="form-row" style="height:auto;"><view class="form-row-label"><template is="required"></template>上传图片</view><view class="form-row-content"><view><image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view><view onTap="uploadImg" class="tag tag-info">+ 选择图片</view></view></view> -->
 			<view class="form-row" style="height:auto;">
 				<view class="form-row-label">
 					<template is="required"></template>上传照片</view>

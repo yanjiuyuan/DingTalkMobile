@@ -50,7 +50,7 @@
 			<view class="form-row">
 				<view class="form-row-label">放行理由</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="Cause" maxlength="140" class="input" value="{{table.Cause}}" disabled="{{true}}" />
+					<textarea auto-height="true" name="Cause" maxlength="100" class="input" value="{{table.Cause}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row">
@@ -63,7 +63,8 @@
 				<view class="form-row-label">相关图片</view>
 				<view class="form-row-content">
 					<view>
-						<image a:for="{{imageList}}" onTap="previewImg" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" /></view>
+						<image a:for="{{imageList}}" onTap="previewImg" mode="aspectFit" style="width: 180rpx; height:180rpx;" data-url="{{item}}" src="{{item}}" />
+					</view>
 				</view>
 			</view>
 			<!--<view class="form-line" />  -->

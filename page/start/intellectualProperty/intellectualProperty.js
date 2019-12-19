@@ -7,6 +7,7 @@ Page({
     data: {
         ...pub.data,
         disablePage: false,
+        chosePeople: [],
         addPeopleNodes: [2, 5], //额外添加审批人节点数组
         //研究院id
         managers: [
@@ -75,6 +76,7 @@ Page({
             pickedUsers: that.data.pickedUsers || [], //已选用户
             multiple: true,
             title: "申请发明人",
+            disabledDepartments: [],
             success: function(res) {
                 console.log(res);
                 let names = [];
@@ -85,6 +87,9 @@ Page({
                         that.data.pickedUsers.push(d.userId);
                         names.push(d.name);
                         userids.push(d.userId);
+                        if (that.data.chosePeople.indexOf(d.name) == -1) {
+                            that.data.chosePeople.push(d.name);
+                        }
                     }
                     that.setData({
                         "table.Inventor": names.join(","),

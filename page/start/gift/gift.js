@@ -99,9 +99,11 @@ Page({
         if (!e) return;
         this.data.good = e.target.targetDataset.row;
         if (!this.data.good) return;
+        console.log(e.target.targetDataset.row);
+        console.log(this.data.purchaseList);
 
         for (let i of this.data.purchaseList) {
-            if (e.target.targetDataset.row.GiftName == i.GiftName) {
+            if (e.target.targetDataset.row.Id == i.GiftNo) {
                 dd.alert({
                     content: promptConf.promptConf.DuplicateFormItem,
                     buttonText: promptConf.promptConf.Confirm

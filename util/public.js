@@ -113,7 +113,7 @@ export default {
                     //重新发起
                     if (app.globalData.valid == true) {
                         let data = JSON.parse(param.data);
-                        console.log(data.nodeList);
+                        console.log(data.imageList);
                         for (let d in data) {
                             that.setData({
                                 [`${d}`]: data[d]
@@ -147,7 +147,9 @@ export default {
                                 tableData: [],
                                 tableData2: data.tableData
                             });
+                        } else if (that.data.flowid == 24) {
                         } else {
+                            console.log("sssss");
                             that.setData({
                                 tableParam2: {
                                     total: data.tableParam.total
@@ -868,7 +870,15 @@ export default {
                 if (data.ImageUrl && data.ImageUrl.length > 5) {
                     let tempList = data.ImageUrl.split(",");
                     for (let img of tempList) {
-                        imageList.push(that.data.dormainName + img.substring(2).replace(/\\/g, "/"));
+                        imageList.push(
+                            that.data.dormainName +
+                                img
+                                    .substring(2)
+                                    .replace(/\\/g, "/")
+                                    .replace(/\s/g, "%20")
+                                    .replace(/[\(]/g, "（")
+                                    .replace(/[\)]/g, "）")
+                        );
                     }
                     that.setData({ imageList: imageList });
                 }

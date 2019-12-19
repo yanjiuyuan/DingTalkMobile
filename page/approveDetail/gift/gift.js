@@ -27,7 +27,7 @@ Page({
         this._getData("Gift/GetTable" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
             console.log(res);
             this.setData({
-                tableData: res,
+                purchaseList: res,
                 "tableParam2.total": res.length
             });
         });
