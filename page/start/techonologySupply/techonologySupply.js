@@ -314,5 +314,8 @@ Page({
                 items: this.data.items
             });
         }
+    },
+    onReady() {
+        console.log(this.data.items);
     }
 });

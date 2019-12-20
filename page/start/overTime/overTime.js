@@ -59,7 +59,7 @@ Page({
     bindPickerChangeOne(e) {
         console.log("picker发送选择改变，携带值为", e.detail.value);
         if (this.data.index2 != undefined) {
-            if (e.detail.value > this.data.index2) {
+            if (this.data.arrayOfTime[e.detail.value] > this.data.arrayOfTime[this.data.index2]) {
                 dd.alert({
                     content: promptConf.promptConf.TimeComparison,
                     buttonText: promptConf.promptConf.Confirm
@@ -80,16 +80,15 @@ Page({
 
     bindPickerChangeTwo(e) {
         console.log("picker发送选择改变，携带值为", e.detail.value);
-        this.data.index2 = e.detail.value;
         if (this.data.index1 != undefined) {
-            if (e.detail.value < this.data.index1) {
+            if (this.data.arrayOfTime[e.detail.value] < this.data.arrayOfTime[this.data.index1]) {
                 dd.alert({
                     content: promptConf.promptConf.TimeComparison,
                     buttonText: promptConf.promptConf.Confirm
                 });
                 return;
             }
-            let hour = this.removeBreakTime(this.data.index2, this.data.index1);
+            let hour = this.removeBreakTime(e.detail.value, this.data.index1);
             this.setData({
                 index2: e.detail.value,
                 hour: hour
@@ -184,7 +183,6 @@ Page({
     },
     // 去除休息时间7表示12:00,10表示13:30
     removeBreakTime(endIndex, startIndex) {
-        console.log(endIndex, startIndex);
         if (endIndex <= 7 || startIndex >= 10) {
             return ((endIndex - startIndex) * 30) / 60;
         }

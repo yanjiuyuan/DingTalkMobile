@@ -9,6 +9,8 @@ Page({
         dd.chooseDingTalkDir({
             success: res => {
                 console.log(res);
+                console.log(JSON.stringify(res));
+
                 dd.alert({
                     content: JSON.stringify(res)
                 });
@@ -28,6 +30,7 @@ Page({
             types: ["photo", "camera", "file", "space"],
             success: res => {
                 console.log(res);
+                console.log(JSON.stringify(res));
                 dd.alert({
                     content: JSON.stringify(res)
                 });

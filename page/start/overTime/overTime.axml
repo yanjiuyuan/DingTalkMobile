@@ -69,6 +69,5 @@
 		<template is ="submitButton"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
-		</view>
 	</form>
 </view>

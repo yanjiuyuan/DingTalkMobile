@@ -37,7 +37,6 @@ export default {
         flowid: 0,
         taskid: 0,
         nodeid: 0,
-
         state: "",
         id: 0,
         nodeList: [],
@@ -1547,6 +1546,9 @@ export default {
                     }
                 }
             }
+            this.setData({
+                items: this.data.items
+            });
         },
         //部门选择函数
         bindObjPickerChange(e) {
