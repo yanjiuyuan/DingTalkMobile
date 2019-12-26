@@ -316,7 +316,10 @@ margin-right:0.1rem;">*
 	</view>
 </template>
 <template name="submitButton">
-	<button type="primary" formType="submit" disabled="{{disablePage}}">提交申请</button>
+	<view class="buttons background-color">
+		<button type="primary" class="button-size" formType="submit" disabled="{{disablePage}}">提交申请</button>
+		<button type="primary" class="button-size" size="default" type="primary" onTap="temporaryPreservation">临时保存</button>
+	</view>
 </template>
 <!-- 建议输入框 -->
 <template name="suggest">
@@ -329,7 +332,7 @@ margin-right:0.1rem;">*
 </template>
 <!-- 临时保存 -->
 <template name="temporaryPreservation">
-	<button size="default" type="primary" onTap="temporaryPreservation">临时保存</button>
+	<!--<button size="default" type="primary" onTap="temporaryPreservation">临时保存</button> -->
 </template>
 <!-- 各种按钮 -->
 <template name ="variousButtons">

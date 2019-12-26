@@ -4,7 +4,6 @@
 	<view class="modal" a:if="{{!hidden}}" key="modal">
 		<view class="modal-mask" animation="{{animMaskData}}"/>
 		<view class="modal-container" animation="{{animContentData}}">
-			<view class="modal-close" onTap="onModalCloseTap">×</view>
 			<view class="modal-content">
 				<form onSubmit="addGood">
 					<view class="page-section">
@@ -16,7 +15,10 @@
 							</view>
 						</view>
 					</view>
-					<button type="primary" style="margin-bottom:0;" formType="submit">添加</button>
+					<view class="buttons">
+						<button type="primary" class="button-size" formType="submit">添加</button>
+						<button type="warn" class="button-size" onTap="onModalCloseTap">取消</button>
+					</view>
 				</form>
 			</view>
 		</view>

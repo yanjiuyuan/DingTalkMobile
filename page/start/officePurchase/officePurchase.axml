@@ -5,7 +5,6 @@
 	<view class="modal" a:if="{{!hidden}}" key="modal">
 		<view class="modal-mask" animation="{{animMaskData}}"/>
 		<view class="modal-container" animation="{{animContentData}}">
-			<view class="modal-close" onTap="onModalCloseTap">×</view>
 			<view class="modal-content">
 				<form onSubmit="addGood">
 					<view class="page-section">
@@ -18,13 +17,17 @@
 						</view>
 						<view class="form-row">
 							<view class="form-row-label">
-								用途</view>
+								用途
+							</view>
 							<view class="form-row-content">
 								<input name="Purpose" class="input" placeholder="用途" />
 							</view>
 						</view>
 					</view>
-					<button type="primary" style="margin-bottom:0;" formType="submit">编辑</button>
+					<view class="buttons">
+						<button type="primary" class="button-size" formType="submit">编辑</button>
+						<button type="warn" class="button-size" onTap="onModalCloseTap">取消</button>
+					</view>
 				</form>
 			</view>
 		</view>

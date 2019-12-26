@@ -50,7 +50,7 @@
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
-				<template is="required"></template>项目大类</view>
+					<template is="required"></template>项目大类</view>
 				<my-picker index="{{index1}}" range ="{{array1}}" onChange="bindPickerChangeOne" value="{{table.ProjectType}}"/>
 			</view>
 			<view class="form-row">
@@ -66,14 +66,14 @@
 				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
+				<view class="form-row-label" style="width:3rem">
 					<template is="required"></template>客户项目整体情况</view>
 				<view class="form-row-content">
 					<textarea auto-height="true" name="ProjectOverview" class="input" data-name="ProjectOverview" onInput="inputToTable" value="{{table.ProjectOverview}}"/>
 				</view>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
+				<view class="form-row-label" style="width:3rem">
 					<template is="required"></template>技术支持内容要点</view>
 				<view class="form-row-content">
 					<textarea auto-height="true" name="MainPoints" class="input" data-name="MainPoints" onInput="inputToTable" value="{{table.MainPoints}}"/>

@@ -5,6 +5,7 @@
 	</view>
 	<view class="margin-left" a:for="{{fileList}}">
 		<view class="cube">
+			<image mode="scaleToFill" src="/components/my-uploadFiles/file.png" style="width:90rpx;height:90rpx" />
 		</view>
 		<view class="cube-right">
 			<view class="cube-name">

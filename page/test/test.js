@@ -3,7 +3,8 @@ import promptConf from "/util/promptConf.js";
 Page({
     ...pub.func,
     data: {
-        ...pub.data
+        ...pub.data,
+        hidden: true
     },
     test2() {
         dd.chooseDingTalkDir({
@@ -41,5 +42,16 @@ Page({
                 });
             }
         });
+    },
+    add() {
+        console.log(this.data.hidden);
+        this.setData({
+            hidden: !this.data.hidden
+        });
+        this.createMaskShowAnim();
+        this.createContentShowAnim();
+    },
+    a(e) {
+        console.log(e.detail.value);
     }
 });

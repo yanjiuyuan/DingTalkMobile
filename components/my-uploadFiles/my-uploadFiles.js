@@ -3,13 +3,13 @@ Component({
     mixins: [],
     data: {
         fileList: [
-            // {
-            //     fileId: "2194424840",
-            //     fileName: "培训通知(1).docx",
-            //     fileSize: 12703,
-            //     fileType: "docx",
-            //     spaceId: "1699083579"
-            // }
+            {
+                fileId: "2194424840",
+                fileName: "培训通知(1).docx",
+                fileSize: 12703,
+                fileType: "docx",
+                spaceId: "1699083579"
+            }
         ]
     },
     props: {

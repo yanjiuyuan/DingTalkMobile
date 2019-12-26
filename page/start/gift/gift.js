@@ -135,7 +135,10 @@ Page({
     //提交弹窗表单
     addGood(e) {
         let value = e.detail.value;
+
         console.log(value);
+        console.log(this.data.good);
+
         if (!value || !value.GiftCount) {
             dd.alert({
                 content: `表单填写不完整`,
@@ -143,7 +146,7 @@ Page({
             });
             return;
         }
-        if (this.data.good.Stock < value.GiftCount) {
+        if (parseInt(this.data.good.Stock) < parseInt(value.GiftCount)) {
             dd.alert({
                 content: promptConf.promptConf.GreaterThanAvailable,
                 buttonText: promptConf.promptConf.Confirm

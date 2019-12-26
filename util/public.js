@@ -88,7 +88,6 @@ export default {
             onLoad(param) {
                 console.log("start page on load~~~~~~~~~~");
                 let that = this;
-                let title = "";
                 this.setData({
                     flowid: param.flowid,
                     "tableInfo.Title": param.title
@@ -98,7 +97,8 @@ export default {
                     if (app.globalData[`${param.flowid}`] == undefined || app.globalData[`${param.flowid}`] == false) {
                         that.setData({
                             table: {}, //清除表单数据
-                            imageList: [] //清除图片数据
+                            imageList: [],
+                            imgUrlList: [] //清除图片数据
                         });
                         that.getNodeList(); //获取审批列表
                         that.getProjectList(); //获取项目列表
@@ -112,11 +112,14 @@ export default {
                     //重新发起
                     if (app.globalData.valid == true) {
                         let data = JSON.parse(param.data);
-                        console.log(data.imageList);
+
                         for (let d in data) {
                             that.setData({
                                 [`${d}`]: data[d]
                             });
+                        }
+                        if (data.imageList.length > 0) {
+                            that.imageListToImgUrlList(data.imageList);
                         }
                         if (that.data.flowid == 12) {
                             that.setData({
@@ -243,6 +246,7 @@ export default {
                     paramArr
                 );
             },
+
             //搜索物料编码
             searchCode(e) {
                 let value = e.detail.value;
@@ -292,9 +296,11 @@ export default {
                 let index = e.target.targetDataset.index;
                 if (!index && index != 0) return;
                 console.log(this.data.purchaseList);
+                let length = this.data.purchaseList.length;
                 this.data.purchaseList.splice(index, 1);
                 this.setData({
-                    purchaseList: this.data.purchaseList
+                    purchaseList: this.data.purchaseList,
+                    "tableParam2.total": length - 1
                 });
                 console.log(this.data.purchaseList);
             }
@@ -869,15 +875,7 @@ export default {
                 if (data.ImageUrl && data.ImageUrl.length > 5) {
                     let tempList = data.ImageUrl.split(",");
                     for (let img of tempList) {
-                        imageList.push(
-                            that.data.dormainName +
-                                img
-                                    .substring(2)
-                                    .replace(/\\/g, "/")
-                                    .replace(/\s/g, "%20")
-                                    .replace(/[\(]/g, "（")
-                                    .replace(/[\)]/g, "）")
-                        );
+                        imageList.push(that.data.dormainName + this.urlEncode(img.substring(2)));
                     }
                     that.setData({ imageList: imageList });
                 }
@@ -914,6 +912,27 @@ export default {
                     that.setData({ pdfList: pdfList });
                 }
             }
+        },
+        // url特殊字符转换
+        urlEncode(str) {
+            return str
+                .replace(/\\/g, "/")
+                .replace(/\s/g, "%20")
+                .replace(/\&/g, "%26")
+                .replace(/[\(]/g, "%28")
+                .replace(/[\)]/g, "%29");
+            // .replace(/\#/g, "%23")
+            // .replace(/\%/g, "%25")
+            // .replace(/\+/g, "%2B")
+            // .replace(/\,/g, "%2C")
+            // .replace(/\:/g, "%3A")
+            // .replace(/\;/g, "%3B")
+            // .replace(/\</g, "%3C")
+            // .replace(/\=/g, "%3D")
+            // .replace(/\>/g, "%3E")
+            // .replace(/\?/g, "%3F")
+            // .replace(/\@/g, "%40")
+            // .replace(/\|/g, "%7C");
         },
         //审批所有流程通过，后续处理
         doneSubmit(text) {
@@ -991,8 +1010,6 @@ export default {
                     }
                 }
 
-                console.log(tempNodeList);
-                console.log(this.data.nodeList);
                 //只有重新发起才会有初始的nodeList
                 if (this.data.nodeList.length > 0) {
                     for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
@@ -1010,8 +1027,6 @@ export default {
                         }
                     }
                 }
-                console.log(tempNodeList);
-
                 that.setData({
                     nodeList: tempNodeList,
                     isBack: res[0].IsBack
@@ -1130,6 +1145,7 @@ export default {
                 success: res => {
                     that.setData({ imageList: that.data.imageList });
                     for (let p of res.apFilePaths) {
+                        console.log("imageList:", p);
                         that.data.imageList.push(p);
                         that.setData({ disablePage: true });
                         dd.uploadFile({
@@ -1138,7 +1154,7 @@ export default {
                             fileName: p.substring(7),
                             filePath: p,
                             success: res => {
-                                console.log(JSON.parse(res.data).Content);
+                                console.log("imgUrlList:", JSON.parse(res.data).Content);
                                 that.data.imgUrlList.push(JSON.parse(res.data).Content);
                                 that.setData({ disablePage: false });
                             },
@@ -1452,6 +1468,23 @@ export default {
             dd.redirectTo({
                 url: url + "?" + "flowid=" + this.data.tableInfo.FlowId + "&" + "data=" + str
             });
+        },
+
+        // 转imageList成imgUrlList
+        imageListToImgUrlList(imageList) {
+            let arr = [];
+            for (let i = 0, len = imageList.length; i < len; i++) {
+                arr.push(
+                    "~\\" +
+                        imageList[i]
+                            .slice(this.data.dormainName.length)
+                            .replace("/", "\\")
+                            .replace("/", "\\")
+                );
+                this.setData({
+                    imgUrlList: arr
+                });
+            }
         },
         //計算相差天數,会去除星期六日
         DateDiff(sDate1, sDate2) {

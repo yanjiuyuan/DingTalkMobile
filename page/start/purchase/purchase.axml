@@ -5,63 +5,68 @@
 	<view class="modal" a:if="{{!hidden}}" key="modal">
 		<view class="modal-mask" animation="{{animMaskData}}"/>
 		<view class="modal-container" animation="{{animContentData}}">
-			<view class="modal-close" onTap="onModalCloseTap">×</view>
 			<view class="modal-content">
 				<form onSubmit="addGood">
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">
-								<template is="required"></template>单位</view>
-							<view class="form-row-content">
-								<input name="Unit" class="input" placeholder="单位" maxlength="5" />
+					<scroll-view scroll-y="{{true}}" style="max-height:400px">
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">
+									<template is="required"></template>单位</view>
+								<view class="form-row-content">
+									<input name="Unit" class="input" placeholder="单位" maxlength="5" />
+								</view>
 							</view>
 						</view>
-					</view>
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">单价</view>
-							<view class="form-row-content">
-								<input name="Price" class="input" placeholder="单价" maxlength="5" type="search"/>
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">单价</view>
+								<view class="form-row-content">
+									<input name="Price" class="input" placeholder="单价" maxlength="5" type="search"/>
+								</view>
 							</view>
 						</view>
-					</view>
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">
-								<template is="required"></template>数量</view>
-							<view class="form-row-content">
-								<input name="Count" class="input" placeholder="数量" maxlength="5"/>
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">
+									<template is="required"></template>数量</view>
+								<view class="form-row-content">
+									<input name="Count" class="input" placeholder="数量" maxlength="5"/>
+								</view>
 							</view>
 						</view>
-					</view>
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">
-								<template is="required"></template>需用日期</view>
-							<view class="form-row-content">
-								<input name="UrgentDate" class="input" placeholder="需用日期" onFocus="selectDate" value="{{dateStr}}" onTap="selectDate" />
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">
+									<template is="required"></template>需用日期</view>
+								<view class="form-row-content">
+									<input name="UrgentDate" class="input" placeholder="需用日期" value="{{dateStr}}" disabled="{{true}}" />
+								</view>
+								<view onTap="selectDate" class="tag tag-info">+ 选择</view>
 							</view>
 						</view>
-					</view>
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">
-								<template is="required"></template>用途</view>
-							<view class="form-row-content">
-								<input name="Purpose" class="input" placeholder="用途" />
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">
+									<template is="required"></template>用途</view>
+								<view class="form-row-content">
+									<input name="Purpose" class="input" placeholder="用途" />
+								</view>
 							</view>
 						</view>
-					</view>
-					<view class="page-section">
-						<view class="form-row">
-							<view class="form-row-label">备注</view>
-							<view class="form-row-content">
-								<input name="Mark" class="input" placeholder="备注" />
+						<view class="page-section">
+							<view class="form-row">
+								<view class="form-row-label">备注</view>
+								<view class="form-row-content">
+									<input name="Mark" class="input" placeholder="备注" />
+								</view>
 							</view>
 						</view>
+					</scroll-view>
+					<view class="buttons">
+						<button a:if="{{!ifedit}}" type="primary" class="button-size" formType="submit">添加</button>
+						<button a:if="{{ifedit}}" type="primary" class="button-size" formType="submit">编辑</button>
+						<button type="warn" class="button-size" onTap="onModalCloseTap">取消</button>
 					</view>
-					<button a:if="{{!ifedit}}" type="primary" style="margin-bottom:0;" formType="submit">添加</button>
-					<button a:if="{{ifedit}}" type="primary" style="margin-bottom:0;" formType="submit" >编辑</button>
 				</form>
 			</view>
 		</view>

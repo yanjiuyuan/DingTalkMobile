@@ -10,8 +10,6 @@ Page({
         tableOperate: "选择",
         purchaseList: [],
         tableParam2: {
-            size: 100,
-            now: 1,
             total: 0
         },
         tableOperate2: "删除",
@@ -130,7 +128,29 @@ Page({
             paramArr
         );
     },
+    //选择物料
+    chooseItem(e) {
+        if (!e) return;
+        console.log(e);
+        this.data.good = e.target.targetDataset.row;
+        if (!this.data.good) return;
 
+        for (let p of this.data.purchaseList) {
+            if (p.CodeNo == this.data.good.FNumber) {
+                dd.alert({
+                    content: promptConf.promptConf.DuplicateFormItem,
+                    buttonText: promptConf.promptConf.Confirm
+                });
+                return;
+            }
+        }
+
+        this.setData({
+            hidden: !this.data.hidden
+        });
+        this.createMaskShowAnim();
+        this.createContentShowAnim();
+    },
     //提交弹窗表单
     addGood(e) {
         this.setData({
@@ -138,13 +158,32 @@ Page({
         });
         let value = e.detail.value;
         console.log(value);
-        console.log(this.data.good);
-        for (let p of this.data.purchaseList) {
-            if (p.CodeNo == this.data.good.FNumber) return;
-        }
-        if (!value || !value.Unit || !value.Count || !value.NeedTime || !value.MaintainContent) {
+
+        if (value.Unit.trim() == "") {
             dd.alert({
-                content: `表单填写不完整`,
+                content: "单位不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+
+        if (value.Count.trim() == "") {
+            dd.alert({
+                content: "数量不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (value.NeedTime.trim() == "") {
+            dd.alert({
+                content: "需用日期不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (value.MaintainContent.trim() == "") {
+            dd.alert({
+                content: "维修内容不允许为空，请输入！",
                 buttonText: promptConf.promptConf.Confirm
             });
             return;
@@ -154,7 +193,7 @@ Page({
             Name: this.data.good.FName,
             Standard: this.data.good.FModel,
             Unit: value.Unit,
-            Price: value.Price ? value.Price + "" : "0",
+            Price: value.Price ? value.Price + "" : "",
             Count: value.Count,
             MaintainContent: value.MaintainContent,
             NeedTime: value.NeedTime,

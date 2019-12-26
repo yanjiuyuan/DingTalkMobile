@@ -40,7 +40,6 @@
 			</view>
 		</view>
 		<button size="default" type="primary" form-type="submit">添加</button>
-		</view>
 	</form>
 	<view onTap="chooseItem" style="font-size:25rpx">
 		<text>角色列表</text>

@@ -22,8 +22,7 @@ Page({
             });
             return;
         }
-        console.log(value);
-        if (this.data.imageList.length < 1) {
+        if (this.data.imgUrlList.length < 1) {
             dd.alert({
                 content: promptConf.promptConf.NoPicture,
                 buttonText: promptConf.promptConf.Confirm
@@ -96,11 +95,6 @@ Page({
                     });
                 }
             }
-        });
-    },
-    onReady() {
-        this.setData({
-            imgUrlList: []
         });
     }
 });

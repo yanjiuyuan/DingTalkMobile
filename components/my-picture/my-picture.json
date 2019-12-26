@@ -1,6 +1,6 @@
 {
-  "component": true,
-  "usingComponents": {
-    "my-close": "/components/my-close/my-close"
-  }
+    "component": true,
+    "usingComponents": {
+        "my-close": "/components/my-close/my-close"
+    }
 }

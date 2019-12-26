@@ -316,6 +316,6 @@ Page({
         }
     },
     onReady() {
-        console.log(this.data.items);
+        console.log(JSON.stringify(this.data.items));
     }
 });

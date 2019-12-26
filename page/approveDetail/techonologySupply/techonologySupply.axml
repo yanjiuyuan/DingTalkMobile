@@ -47,13 +47,13 @@
 				</view>
 			</view>
 			<view a:if="{{show}}" class="form-row">
-				<view class="form-row-label">客户项目整体情况</view>
+				<view class="form-row-label" style="width:3rem">客户项目整体情况</view>
 				<view class="form-row-content">
 					<textarea auto-height="true" name="ProjectOverview" maxlength="140" class="input" value="{{table.ProjectOverview}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view a:if="{{show}}" class="form-row">
-				<view class="form-row-label">技术支持内容要点</view>
+				<view class="form-row-label" style="width:3rem">技术支持内容要点</view>
 				<view class="form-row-content">
 					<textarea auto-height="true" name="MainPoints" maxlength="140" class="input" value="{{table.MainPoints}}" disabled="{{true}}" />
 				</view>

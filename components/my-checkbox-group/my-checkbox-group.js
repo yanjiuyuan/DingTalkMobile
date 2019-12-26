@@ -22,17 +22,17 @@ Component({
         console.log("我初始了");
     },
     didUpdate() {
+        //选人控件会清空itemList数组
         console.log(JSON.stringify(this.props.itemList));
-        if (this.data.cache.length == 0) {
-            console.log("第一次更新");
-            this.data.cache = this.props.itemList;
-        } else {
-            console.log("不是第一次更新");
-            this.props.itemList = this.data.cache;
-            this.setData({
-                itemList: this.data.cache
-            });
-        }
+        // if (this.data.cache.length == 0) {
+        //     console.log("第一次更新");
+        //     this.data.cache = this.props.itemList;
+        // } else {
+        //     console.log("不是第一次更新");
+        //     this.setData({
+        //         itemList: this.data.cache
+        //     });
+        // }
     },
     didUnmount() {
         console.log("我消失了");

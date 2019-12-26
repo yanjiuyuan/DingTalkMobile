@@ -26,21 +26,21 @@
         <view class="form-row-label">
           <template is="required"></template>文件文号</view>
         <view class="form-row-content">
-          <input name="Customer" class="input" placeholder="文件问好" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
+          <input name="Customer" class="input" placeholder="文件文号" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
         </view>
       </view>
       <view class="form-row">
         <view class="form-row-label">
           <template is="required"></template>收文时间</view>
         <view class="form-row-content">
-          <input name="Customer" class="input" placeholder="文件问好" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
+          <input name="Customer" class="input" placeholder="收文时间" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
         </view>
       </view>
       <view class="form-row">
         <view class="form-row-label">
           <template is="required"></template>主要内容</view>
         <view class="form-row-content">
-          <input name="Customer" class="input" placeholder="文件问好" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
+          <input name="Customer" class="input" placeholder="主要内容" data-name="Customer" onInput="inputToTable" value="{{table.Customer}}" />
         </view>
       </view>
       <my-uploadfiles spaceId="670048396" title="上传文件" onGetArray="getArray" />
