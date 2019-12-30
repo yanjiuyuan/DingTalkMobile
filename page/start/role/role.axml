@@ -95,8 +95,8 @@
 						</view>
 					</scroll-view>
 					<view class="buttonView">
-						<button size="mini" type="primary" class="buttons" form-type="submit">确定</button>
-						<button size="mini" type="primary" class="buttons" onTap="cancel">取消</button>
+						<button size="mini" type="primary" class="buttonss" form-type="submit">确定</button>
+						<button size="mini" type="primary" class="buttonss" onTap="cancel">取消</button>
 					</view>
 				</view>
 			</form>

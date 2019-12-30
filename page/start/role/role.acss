@@ -1,13 +1,16 @@
 @import '/util/template/template.acss';
-.margin{
+.margin {
 	margin-left: 2rem;
 }
-.radio-margin{
+
+.radio-margin {
 	margin: 0 20rpx;
 }
-.checkbox-margin{
+
+.checkbox-margin {
 	margin: 0 0 0 8rpx;
 }
+
 .modal-container-s {
 	width: 90%;
 	height: auto;
@@ -18,7 +21,7 @@
 	position: fixed;
 	left: 50%;
 	z-index: 1000;
-	margin-top:15%;
+	margin-top: 15%;
 	margin-left: -45%;
 	border-radius: 20rpx;
 }
@@ -42,59 +45,70 @@
 	margin-left: 0.2rem;
 	color: #000;
 	background-color: #fff;
-	width:1.8rem;
+	width: 1.8rem;
 }
-.input-s{
+
+.input-s {
 	background-color: #fff;
-	width:95%;
+	width: 95%;
 	font-size: 25rpx;
 }
-.title{
+
+.title {
 	margin: 30rpx 0;
 	text-align: center;
 }
-.buttonView{
+
+.buttonView {
 	text-align: center;
 }
-.buttons{
+
+.buttonss {
 	margin: 20rpx 20rpx;
 	border-radius: 10px;
 }
-.margin{
+
+.margin {
 	margin-left: 1.6rem;
 }
-.radio-margin{
+
+.radio-margin {
 	margin: 0 20rpx;
 	font-size: 25rpx;
 }
-.ViewButton{
+
+.ViewButton {
 	padding: 0.1rem;
 	font-size: 25rpx;
 	border-radius: 10px;
 	color: #fff;
-	display:inline-block;
+	display: inline-block;
 	background-color: #3296FA;
 	margin-right: 10rpx;
-
 }
-.size{
+
+.size {
 	font-size: 25rpx;
 }
-.checkbox-margin{
+
+.checkbox-margin {
 	margin: 0 0 0 8rpx;
 }
-.row-s{
+
+.row-s {
 	display: flex;
 	align-items: center;
 	padding: 0 0.3rem;
 }
-.btn-view{
+
+.btn-view {
 	width: 100%;
 	height: auto;
 	background-color: #fff;
 	position: fixed;
 	bottom: 0;
 }
-.radio-group-margin{
+
+.radio-group-margin {
 	margin: 1.8rem;
 }

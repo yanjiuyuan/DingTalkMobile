@@ -116,7 +116,8 @@ Page({
                     });
                 }
                 that.setData({
-                    "tableParam.total": data.length
+                    "tableParam.total": data.length,
+                    "tableParam.now": 1
                 });
                 that.data.data = data;
                 that.getData();

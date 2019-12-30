@@ -64,6 +64,9 @@ Page({
                 value
             );
         };
+        this.setData({
+            disablePage: true
+        });
         this.approvalSubmit(value, callBack, value["ProjectId"]);
     },
     //选人 可以实现

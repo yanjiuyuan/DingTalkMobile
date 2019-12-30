@@ -129,6 +129,7 @@
 			</form>
 			<!-- 物料表单 -->
 			<view onTap="deleteItem">
+			<!-- tableData -->
 				<text>已添加物料编码列表</text>
 				<template is="datatable" data="{{items:tableItems,data:purchaseList,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>

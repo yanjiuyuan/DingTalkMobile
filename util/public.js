@@ -18,7 +18,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: 2.7,
+        version: 2.71,
         DingData: {
             nickName: "",
             departName: "",
@@ -122,11 +122,13 @@ export default {
                             that.imageListToImgUrlList(data.imageList);
                         }
                         if (that.data.flowid == 12) {
+                            console.log("我会执行");
                             that.setData({
+                                purchaseList: [],
                                 tableData: [],
                                 tableOperate: "删除",
                                 tableParam: {
-                                    total: data.tableParam.total
+                                    total: 0
                                 }
                             });
                         } else if (that.data.flowid == 36) {
@@ -237,6 +239,9 @@ export default {
                         }
                     }
                 }
+                this.setData({
+                    disablePage: true
+                });
                 that._postData(
                     "FlowInfoNew/CreateTaskInfo",
                     function(res) {
@@ -271,7 +276,8 @@ export default {
                         return;
                     }
                     that.setData({
-                        "tableParam.total": JSON.parse(res.data).length
+                        "tableParam.total": JSON.parse(res.data).length,
+                        "tableParam.now": 1
                     });
                     that.data.data = JSON.parse(res.data);
                     that.getData();
@@ -370,6 +376,12 @@ export default {
                             that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) ||
                         (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
                     ) {
+                        console.log(that.data.nodeInfo.ChoseNodeId);
+                        console.log(that.data.nodeInfo.IsNeedChose);
+                        console.log(that.data.addPeopleNodes);
+                        console.log(that.data.addPeopleNodes.indexOf(node.NodeId));
+                        console.log(node);
+
                         if (node.AddPeople.length == 0) {
                             dd.alert({
                                 content: promptConf.promptConf.Approver,
@@ -1197,6 +1209,8 @@ export default {
                 Id: this.data.changeRemarkId,
                 Remark: e.detail.value.remark
             };
+            console.log(this.data.changeRemarkId);
+            return;
             let id = this.data.changeRemarkNodeid;
             this.setData({
                 [`nodeList[${id}].Remark`]: param.Remark
@@ -1461,10 +1475,10 @@ export default {
         relaunch(e) {
             app.globalData.table = this.data.table;
             app.globalData.valid = true;
-            console.log(this.data);
-            let str = JSON.stringify(this.data);
+            let str = JSON.stringify(this.data).replace(/%/g, "%25");
             let arr = this.route.split("/");
             let url = "/page/start/" + arr[2] + "/" + arr[3];
+            console.log(url);
             dd.redirectTo({
                 url: url + "?" + "flowid=" + this.data.tableInfo.FlowId + "&" + "data=" + str
             });

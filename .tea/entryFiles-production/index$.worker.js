@@ -54,17 +54,14 @@ if(AFAppX.registerApp) {
 
 function success() {
 require('../../app');
-require('../../components/my-picker/my-picker?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-checkbox-group/my-checkbox-group?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-close/my-close?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../components/my-uploadFiles/my-uploadFiles?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
-require('../../components/my-picture/my-picture?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
-require('../../components/my-hideform/my-hideform?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../util/table/table?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../util/table/column/column?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../node_modules/mini-ddui/es/list/index?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
 require('../../node_modules/mini-ddui/es/list/list-item/index?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
-require('../../page/test/test?hash=a12e672f2dcbeca931835deb81529c9ed092e644');
+require('../../components/my-picker/my-picker?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-checkbox-group/my-checkbox-group?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-close/my-close?hash=05d2a9730dd6009bf9446182f9c985f40f8c0f43');
+require('../../components/my-uploadFiles/my-uploadFiles?hash=bf65d8f0fcc39754499e376c2032b121121304cc');
 require('../../page/start/index?hash=0586a24eef8e7e701db2de7bdb9c468150d04c51');
 require('../../page/approve/approve?hash=253a9edbf9b44d07ab67b2e03c6673c5f9d58b63');
 require('../../page/start/purchase/purchase?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');

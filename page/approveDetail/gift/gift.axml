@@ -10,12 +10,6 @@
 			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
-			<view class="form-row">
-				<view class="form-row-label">意见</view>
-				<view class="form-row-content">
-					<input name="applyman" class="input" value="{{tableInfo.Remark}}" disabled="{{true}}" />
-				</view>
-			</view>
 			<template is="datatable" data="{{items:tableItems2,data:purchaseList,param:tableParam2}}"/>
 			<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
 			<view a:if="{{index==0}}">

@@ -118,7 +118,8 @@ Page({
                 });
             }
             that.setData({
-                "tableParam.total": JSON.parse(res.data).length
+                "tableParam.total": JSON.parse(res.data).length,
+                "tableParam.now": 1
             });
             that.data.data = JSON.parse(res.data);
             that.getData();
@@ -139,6 +140,7 @@ Page({
                 content: `标题不能为空，请输入!`,
                 buttonText: promptConf.promptConf.Confirm
             });
+            return;
         }
         let param = {
             Title: value.title,

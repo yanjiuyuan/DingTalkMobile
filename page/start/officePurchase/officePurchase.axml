@@ -73,7 +73,7 @@
 			</form>
 			<view a:for="{{dataList}}" onTap="deleteItem">
 				<text style="font-size:0.3rem">部门名称：{{item.name}},请购总价预计
-					<text style="color:red">{{item.tmpTotalPrice}}</text> 元</text>
+					<text style="color:red">{{item.tmpTotalPrice.toFixed(2)}}</text> 元</text>
 				<template is="datatable" data="{{items:tableItems,data:item.value,param:item.tableParam,tableOperate:tableOperate,tableOperate2:tableOperate2}}"/>
 			</view>
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>

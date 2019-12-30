@@ -7,7 +7,7 @@
 		<view class="modal-container" animation="{{animContentData}}">
 			<view class="modal-content">
 				<form onSubmit="addGood">
-					<scroll-view scroll-y="{{true}}" style="max-height:400px">
+					<scroll-view scroll-y="{{true}}" style="max-height:7rem">
 						<view class="page-section">
 							<view class="form-row">
 								<view class="form-row-label">

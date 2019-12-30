@@ -10,9 +10,9 @@
 			<view class="people" a:if="{{item.NodeName != '结束'}}">
 				<view a:if="{{item.NodePeople}}" class="peoples">
 					<view a:if="{{item.NodePeople.length > 1}}">
-							<text class="people-item">多人</text>
+						<text class="people-item">多人</text>
 					</view>
-					<view  a:if="{{item.NodePeople.length <= 2}}">
+					<view a:if="{{item.NodePeople.length<= 2}}">
 						<view a:for="{{item.NodePeople}}">
 							<text class="people-item">{{item}}</text>
 						</view>
@@ -136,8 +136,8 @@
 						</view>
 					</scroll-view>
 					<view class="buttonView">
-						<button size="mini" type="primary" class="buttons" form-type="submit" data>确定</button>
-						<button size="mini" type="primary" class="buttons" onTap="cancel">取消</button>
+						<button size="mini" type="primary" class="buttonss" form-type="submit" data>确定</button>
+						<button size="mini" type="primary" class="buttonss" onTap="cancel">取消</button>
 					</view>
 				</view>
 			</form>

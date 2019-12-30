@@ -86,7 +86,8 @@ Page({
             } else if (res.length > 0) {
                 this.setData({
                     tableData: res,
-                    "tableParam.total": res.length
+                    "tableParam.total": res.length,
+                    "tableParam.now": 1
                 });
                 this.data.data = res;
                 this.getData();

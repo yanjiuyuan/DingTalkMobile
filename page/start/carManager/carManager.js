@@ -152,7 +152,18 @@ Page({
     getCar(Key) {
         let key = Key || "";
         let that = this;
-        this._getData("CarMananger/Quary?key=" + key, res => {
+        let param = {
+            key: key,
+            applyManId: app.userInfo.userid
+        };
+        this._getData("CarMananger/Quary" + this.formatQueryStr(param), res => {
+            if (res.length == 0) {
+                dd.alert({
+                    content: promptConf.promptConf.SearchNoReturn,
+                    buttonText: promptConf.promptConf.Confirm
+                });
+                return;
+            }
             that.setData({
                 tableData: res,
                 "tableParam.total": res.length

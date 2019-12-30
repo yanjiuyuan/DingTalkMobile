@@ -33,7 +33,7 @@ Page({
             this.data.table["FactEndTime"] = value.FactEndTime;
             this.data.table["FactDays"] = value.FactDays;
             this.data.table["FactCooperateContent"] = value.FactCooperateContent;
-            this.data.addPeopleNodes = [6];
+            this.data.addPeopleNodes = [7];
             //this.data.table['FactCooperateMan'] = value.FactCooperateMan
         }
 
@@ -71,7 +71,7 @@ Page({
                     for (let i = 0; i < names.length; i++) {
                         a.push({ name: names[i], userId: ids[i] });
                     }
-                    that.data.nodeList[6].AddPeople = a;
+                    that.data.nodeList[8].AddPeople = a;
                     that.setData({
                         "table.FactCooperateMan": names.join(","),
                         "table.FactCooperateManId": ids.join(","),
@@ -109,7 +109,7 @@ Page({
                             for (let i = 0; i < names.length; i++) {
                                 a.push({ name: names[i], userId: ids[i] });
                             }
-                            that.data.nodeList[6].AddPeople = a;
+                            that.data.nodeList[8].AddPeople = a;
                             that.setData({
                                 "table.FactCooperateMan": names.join(","),
                                 "table.FactCooperateManId": ids.join(","),
@@ -154,7 +154,7 @@ Page({
                             for (let i = 0; i < names.length; i++) {
                                 a.push({ name: names[i], userId: ids[i] });
                             }
-                            that.data.nodeList[6].AddPeople = a;
+                            that.data.nodeList[8].AddPeople = a;
                             that.setData({
                                 "table.FactCooperateMan": names.join(","),
                                 "table.FactCooperateManId": ids.join(","),
@@ -191,11 +191,12 @@ Page({
                 let CooperateMan = res.CooperateMan.split(",");
                 let CooperateManId = res.CooperateManId.split(",");
                 for (let i = 0; i < CooperateMan.length; i++) {
-                    that.data.nodeList[6].AddPeople.push({
+                    that.data.nodeList[8].AddPeople.push({
                         name: CooperateMan[i],
                         userId: CooperateManId[i]
                     });
                 }
+                console.log(this.data.nodeList);
             }
 
             this.setData({
