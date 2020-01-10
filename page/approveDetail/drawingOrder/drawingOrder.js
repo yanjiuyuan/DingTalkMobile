@@ -5,6 +5,7 @@ Page({
     ...pub.func.dowith,
     data: {
         ...pub.data,
+        reg: /^-?\d+$/, //只能是整数数字
         tableItems2: [
             {
                 prop: "DrawingNo",

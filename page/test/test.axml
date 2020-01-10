@@ -1,11 +1,4 @@
 <import src="/util/template/template.axml"/>
-<template is="uploadFiles" data="{{fileList:fileList}}" />
-<my-picture title="上传图片" isFill="{{false}}" url="{{dormainName + 'drawingupload/Upload'}}" onUpload="a" imageList="{{undefined}}">
-</my-picture>
-<my-uploadfiles spaceId="670048396"></my-uploadfiles>
-<view>
-    <button size="default" type="primary" onTap="test">附件</button>
-    <button size="default" type="primary" onTap="test2">选取钉盘文件</button>
-</view>
-<my-hideform title ="编辑角色" hidden="{{hidden}}"></my-hideform>
-<button size="default" type="primary" onTap="add">Button</button>
+<!--<template is="uploadFiles" data="{{fileList:fileList}}" /><my-picture title="上传图片" isFill="{{false}}" url="{{dormainName + 'drawingupload/Upload'}}" onUpload="a" imageList="{{undefined}}"></my-picture><my-uploadfiles spaceId="670048396"></my-uploadfiles><view><button size="default" type="primary" onTap="test">附件</button><button size="default" type="primary" onTap="test2">选取钉盘文件</button></view><my-hideform title ="编辑角色" hidden="{{hidden}}"></my-hideform><button size="default" type="primary" onTap="add">Button</button> -->
+<button size="default" type="primary" onTap="getLocation">Button</button>
+<text>{{address}}</text>

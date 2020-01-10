@@ -5,19 +5,19 @@ self.__appxInited = 1;
 require('./config$');
 
 
-var AFAppX = self.AFAppX.getAppContext
-  ? self.AFAppX.getAppContext().AFAppX
-  : self.AFAppX;
-self.getCurrentPages = AFAppX.getCurrentPages;
-self.getApp = AFAppX.getApp;
-self.Page = AFAppX.Page;
-self.App = AFAppX.App;
-self.my = AFAppX.bridge || AFAppX.abridge;
-self.abridge = self.my;
-self.Component = AFAppX.WorkerComponent || function(){};
-self.$global = AFAppX.$global;
-self.requirePlugin = AFAppX.requirePlugin;
-        
+  var AFAppX = self.AFAppX.getAppContext
+    ? self.AFAppX.getAppContext().AFAppX
+    : self.AFAppX;
+  self.getCurrentPages = AFAppX.getCurrentPages;
+  self.getApp = AFAppX.getApp;
+  self.Page = AFAppX.Page;
+  self.App = AFAppX.App;
+  self.my = AFAppX.bridge || AFAppX.abridge;
+  self.abridge = self.my;
+  self.Component = AFAppX.WorkerComponent || function(){};
+  self.$global = AFAppX.$global;
+  self.requirePlugin = AFAppX.requirePlugin;
+          
 
 if(AFAppX.registerApp) {
   AFAppX.registerApp({
@@ -98,6 +98,7 @@ require('../../page/approveDetail/drawingOrder/drawingOrder?hash=32d7d2807ed4e66
 require('../../page/start/officePurchase/officePurchase?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
 require('../../page/start/carManager/carManager?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/sendRead/sendRead?hash=54731a45c39dc50866f1d3121b4269aa4fa64f21');
+require('../../util/people/people?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }

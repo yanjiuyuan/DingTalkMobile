@@ -31,8 +31,10 @@
           </view>
           <view onTap="selectEndDateTime" class="tag tag-info">+ 选择</view>
         </view>
-        <button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
-        <button type="primary" formType="submit" disabled="{{disablePage}}" data-isSend="{{true}}">打印表单</button>
+        <view class="buttons">
+          <button type="primary" class="button-size" formType="submit" disabled="{{disablePage}}">搜索</button>
+          <button type="primary" class="button-size" formType="submit" disabled="{{disablePage}}" data-isSend="{{true}}">打印表单</button>
+        </view>
       </form>
     </view>
   </form>

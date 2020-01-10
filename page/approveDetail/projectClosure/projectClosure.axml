@@ -129,7 +129,7 @@
 					<input class="input" value="{{table.IsPortrait == true ? '是': '否'}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<view a:if="{{(table.IsPortrait && nodeid !== 1 && nodeid !== 2 && nodeid !== 3) || (index == 2 && table.IsPortrait)}}">
+			<view a:if="{{table.IsPortrait && (nodeid > 3 || index == 2 )}}">
 				<view >纵向基本情况表</view>
 				<template is="datatable" data="{{items:tableItems3,data:tableData3,param:tableParam3}}"/>
 				<button size="default" type="primary" onTap="PrintOne">打印纵向基本情况表</button>
@@ -145,18 +145,7 @@
 					</view>
 				</view>
 				<view class="{{show}}">
-					<view a:if="{{bom6.fileList != null && bom6.attribute == 'Bom6'}}">
-						<view class="form-row" style="height:auto;">
-							<view class="form-row-label">{{bom6.label}}</view>
-							<view class="form-row-content">
-								<view a:for="{{bom6.fileList}}"> 
-									{{item.FileName.split(".")[0].length > 6 ? item.FileName.split(".")[0].slice(0,3) + "..." + item.FileName.split(".")[0].slice(item.FileName.split(".")[0].length-3,item.FileName.split(".")[0].length) +"." + item.FileName.split(".")[1] : item.FileName}}
-									<button type="primary" data-mediaId="{{item.MediaId}}" onTap="downloadFile" disabled="{{disablePage}}" style="display:inline;padding:4rpx;margin:0 10rpx;">下载</button>
-								</view>
-							</view>
-						</view>
-					</view>
-					<view a:for="{{uploadFileConfig}}" a:if="{{item.fileList != null && (( nodeid !== 1 && nodeid !== 2 && nodeid !== 3) || Ind == 2   )  }}">
+					<view a:for="{{uploadFileConfig}}" a:if="{{item.fileList != null && ( item.attribute == 'Bom6' ||  nodeid > 3  || Ind == 2 )    }}">
 						<view class="form-row" style="height:auto;">
 							<view class="form-row-label">{{item.label}}</view>
 							<view class="form-row-content">
@@ -183,19 +172,17 @@
 			</view>
 		</view>
 		<!-- 受理知识产权清单 -->
-		<view a:if="{{  intellectualProperty.length > 0 && ( nodeid > 2 || index == 2 ) }}">
+		<view a:if="{{  intellectualProperty.length > 0 && ( nodeid > 1 || index == 2 ) }}">
 			<view class="form-row margin" onTap="showOrCloseTwo">
 				<view style = "font-size:0.34rem">受理知识产权清单</view>
-				<view class="form-row-content">
-					<image class="row-arrow margin-right {{rotate2}}" src="/image/arrowright.png" mode="aspectFill" />
-				</view>
-			</view>
-			<view class="{{show2}}">
-				<template is="datatable" data="{{items:tableItems1,data:intellectualProperty,param:tableParam5}}"/>
+				<image class="row-arrow margin-right {{rotate2}}" src="/image/arrowright.png" mode="aspectFill" />
 			</view>
 		</view>
+		<view class="{{show2}}">
+			<template is="datatable" data="{{items:tableItems1,data:intellectualProperty,param:tableParam5}}"/>
+		</view>
 		<!-- 转化/应用单位情况表 -->
-		<view a:if="{{(table.IsTransverse && nodeid !== 1 && nodeid !== 2 && nodeid !== 3) || index == 2}}">
+		<view a:if="{{table.IsTransverse && (nodeid > 3  || index == 2)}}">
 			<view class="form-row margin" onTap="showOrCloseFour">
 				<view style = "font-size:0.34rem">转化/应用单位情况表</view>
 				<view class="form-row-content">
@@ -208,7 +195,7 @@
 			</view>
 		</view>
 		<!-- 项目经费使用情况表（实际支出） -->
-		<view a:if="{{nodeid > 2 || (index == 0 && nodeid == 2 )}}">
+		<view a:if="{{nodeid > 1}}">
 			<view class="form-row margin" onTap="showOrCloseThree">
 				<view style = "font-size:0.34rem">项目经费使用情况表（实际支出）</view>
 				<view class="form-row-content">
@@ -219,7 +206,7 @@
 				<view onTap="chooseItem">
 					<template is="datatable" data="{{items:tableItems4,data:tableData4,param:tableParam4,tableOperate:tableOperate}}"/>
 				</view>
-				<button a:if="{{nodeid > 2}}" size="default" onTap="PrintThree" type="primary">打印项目经费使用情况表</button>
+				<button a:if="{{nodeid > 2 || (nodeid == 2 && index == 1)}}" size="default" onTap="PrintThree" type="primary">打印项目经费使用情况表</button>
 			</view>
 		</view>
 		<template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
@@ -238,7 +225,7 @@
 			<button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
 		</view>
 		<view a:if="{{index == 2 && state == '已撤回' || index == 2 && state == '被退回'}}">
-			<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button>
+			<!--<button onTap="relaunch" type="warn" disabled="{{disablePage}}">重新发起</button> -->
 		</view>
 	</form>
 </view>

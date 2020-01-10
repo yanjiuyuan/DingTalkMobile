@@ -76,22 +76,6 @@ Page({
 		this.createContentShowAnim();
 	},
 
-	test() {
-		dd.getLocation({
-			type: 0,
-			success(res) {
-				dd.openLocation({
-					longitude: res.longitude,
-					latitude: res.latitude,
-					name: '黄龙万科中心',
-					address: res.address,
-				});
-			},
-			fail() {
-				dd.alert({ title: '定位失败' });
-			},
-		})
-	},
 	//添加，输入外出地点
 	addPlace(e) {
 		let value = e.detail.value;
@@ -265,7 +249,7 @@ Page({
 						dd.alert({
 							content: promptConf.promptConf.TimeComparison,
 							buttonText: promptConf.promptConf.Confirm
-						})
+						}) 
 						return;
 					}
 					this.setData({

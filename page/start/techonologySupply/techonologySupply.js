@@ -39,6 +39,9 @@ Page({
                         node.AddPeople = res.users;
                     }
                 }
+
+                console.log(JSON.stringify(that.data.items));
+
                 that.setData({
                     "table.ResponsibleMan": names.join(","),
                     ResponsibleMan: res.users[0],
@@ -71,6 +74,7 @@ Page({
                         names.push(d.name);
                         ids.push(d.userId);
                     }
+                    console.log(JSON.stringify(that.data.items));
                     that.setData({
                         "table.OtherEngineers": names.join(","),
                         "table.OtherEngineerId": ids.join(","),
@@ -229,7 +233,6 @@ Page({
             remark: value.remark,
             MainPoints: value.MainPoints.replace(/\s+/g, "")
         };
-        console.log(body);
         if (
             !body.ResponsibleMan ||
             !body.Customer ||
@@ -239,38 +242,95 @@ Page({
             !body.MainPoints ||
             !body.ProjectOverview
         ) {
+        }
+        console.log(body);
+
+        if (body.Title.trim() == "") {
             dd.alert({
-                content: "请完整填写表单",
+                content: "标题不允许为空，请输入！",
                 buttonText: promptConf.promptConf.Confirm
             });
             return;
-        } else {
-            this._postData(
-                "FlowInfoNew/CreateTaskInfo",
-                data => {
-                    body.TaskId = data;
-                    this._postData(
-                        "TechnicalSupport/Save",
-                        data => {
-                            that.setData({
-                                names: []
-                            });
-                            dd.alert({
-                                content: promptConf.promptConf.Submission,
-                                buttonText: promptConf.promptConf.Confirm,
-                                success: () => {
-                                    dd.navigateBack({
-                                        delta: 2
-                                    });
-                                }
-                            });
-                        },
-                        body
-                    );
-                },
-                CreateTaskInfo
-            );
         }
+        if (body.DeptName.trim() == "") {
+            dd.alert({
+                content: "技术支持部门不允许为空，请选择！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (body.ResponsibleMan == "") {
+            dd.alert({
+                content: "项目负责人不允许为空，请选择！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (body.Customer.trim() == "") {
+            dd.alert({
+                content: "合作单位不允许为空，请选择！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (body.ProjectType == undefined) {
+            dd.alert({
+                content: "项目大类不允许为空，请选择！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+
+        if (body.TimeRequired == "") {
+            dd.alert({
+                content: "要求完成时间不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+
+        if (body.ProjectOverview.trim() == "") {
+            dd.alert({
+                content: "客户项目整体情况不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (body.MainPoints.trim() == "") {
+            dd.alert({
+                content: "技术支持内容要点不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        this.setData({
+            disablePage: true
+        });
+        this._postData(
+            "FlowInfoNew/CreateTaskInfo",
+            data => {
+                body.TaskId = data;
+                this._postData(
+                    "TechnicalSupport/Save",
+                    data => {
+                        that.setData({
+                            names: []
+                        });
+                        dd.alert({
+                            content: promptConf.promptConf.Submission,
+                            buttonText: promptConf.promptConf.Confirm,
+                            success: () => {
+                                dd.navigateBack({
+                                    delta: 2
+                                });
+                            }
+                        });
+                    },
+                    body
+                );
+            },
+            CreateTaskInfo
+        );
     },
 
     showOrClose() {
@@ -302,6 +362,7 @@ Page({
         });
     },
     onShow() {
+        //未临时保存
         if (app.globalData[`${this.data.flowid}`] == false || app.globalData[`${this.data.flowid}`] == undefined) {
             this.data.items = [];
             for (let i of this.data.DeptNames) {
@@ -314,8 +375,5 @@ Page({
                 items: this.data.items
             });
         }
-    },
-    onReady() {
-        console.log(JSON.stringify(this.data.items));
     }
 });

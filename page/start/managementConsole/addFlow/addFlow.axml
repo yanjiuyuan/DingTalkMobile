@@ -10,7 +10,7 @@
 				</view>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
+				<view class="form-row-label" style="width:2.7rem">
 					<template is="required"></template>移动端流程名称</view>
 				<view class="form-row-content">
 					<input name="FlowNameMobile" class="input" value="{{tableInfo.FlowNameMobile}}" placeholder="移动端流程名称" maxlength="6" />

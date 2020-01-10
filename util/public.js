@@ -18,7 +18,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: 2.71,
+        version: "2.7.31",
         DingData: {
             nickName: "",
             departName: "",
@@ -142,6 +142,7 @@ export default {
                             });
                         } else if (that.data.flowid == 23) {
                             that.setData({
+                                reg: /^-?\d+$/, //只能是整数数字
                                 tableParam: {
                                     total: 0
                                 },
@@ -149,7 +150,8 @@ export default {
                                     total: data.tableParam.total
                                 },
                                 tableData: [],
-                                tableData2: data.tableData
+                                tableData2: data.data,
+                                tableData3: data.tableInfo
                             });
                         } else if (that.data.flowid == 24) {
                         } else {
@@ -332,7 +334,6 @@ export default {
                     that.getNodeList();
                     that.getNodeInfo();
                     that.getDingList(param.taskid);
-                    that.isWithdraw();
                 };
                 this.checkLogin(callBack);
             },
@@ -376,13 +377,12 @@ export default {
                             that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) ||
                         (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
                     ) {
-                        console.log(that.data.nodeInfo.ChoseNodeId);
-                        console.log(that.data.nodeInfo.IsNeedChose);
-                        console.log(that.data.addPeopleNodes);
-                        console.log(that.data.addPeopleNodes.indexOf(node.NodeId));
-                        console.log(node);
-
                         if (node.AddPeople.length == 0) {
+                            console.log(that.data.nodeInfo);
+                            console.log(node.NodeId);
+                            console.log(that.data.addPeopleNodes);
+                            console.log(that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0);
+
                             dd.alert({
                                 content: promptConf.promptConf.Approver,
                                 buttonText: promptConf.promptConf.Confirm
@@ -537,11 +537,6 @@ export default {
                     }
                 });
             },
-            //判断是否可以撤回参数
-            isWithdraw() {
-                console.log(this.data.nodeList);
-                console.log(this.data.nodeInfo);
-            },
             //获取审批表单信息
             getFormData() {
                 let that = this;
@@ -596,7 +591,6 @@ export default {
                     case "68":
                         url = "Maintain/Read";
                         break;
-                    // case "69": url = "ProjectClosure/Read"; break;
                 }
                 if (!url) return;
                 if (flowid == "12") {
@@ -660,6 +654,8 @@ export default {
                                 totalPrice: totalPrice == "NaN" ? 0 : totalPrice
                             });
                         }
+                        if (flowid == "23") {
+                        }
                         that.setData({
                             data: res,
                             "tableParam.total": res.length
@@ -672,6 +668,7 @@ export default {
             //根据taskId获取下一个需要审批的人，即要钉的人
             getDingList(taskId) {
                 let that = this;
+                that.data.dingList = [];
                 this._getData("DingTalkServers/Ding?taskId=" + taskId, function(data) {
                     if (data == null) {
                         return;
@@ -814,7 +811,7 @@ export default {
                         (url = "api/PurchaseManage"), (method = "get");
                         break; //零部件采购-
                     case "23":
-                        (url = "DrawingUpload/GetExcelReport"), (method = "get");
+                        (url = "PurchaseOrder/GetExcelReport"), (method = "get");
                         break; //图纸下单-
                     case "26":
                         (url = "Pick/PrintExcel"), (method = "post");
@@ -978,11 +975,15 @@ export default {
                         (lastNode.NodeName == "抄送" ||
                             lastNode.NodeName == "抄送相关人员" ||
                             lastNode.NodeName == "抄送小组成员" ||
-                            lastNode.NodeName == "抄送所有人") &&
+                            lastNode.NodeName == "抄送所有人" ||
+                            lastNode.NodeName == "抄送相关部长" ||
+                            lastNode.NodeName == "抄送实际协作人") &&
                         (node.NodeName == "抄送" ||
                             node.NodeName == "抄送相关人员" ||
                             node.NodeName == "抄送小组成员" ||
-                            node.NodeName == "抄送所有人")
+                            node.NodeName == "抄送所有人" ||
+                            node.NodeName == "抄送相关部长" ||
+                            node.NodeName == "抄送实际协作人")
                     ) {
                         tempNodeList[tempNodeList.length - 1].ApplyMan =
                             tempNodeList[tempNodeList.length - 1].ApplyMan + "," + node.ApplyMan;
@@ -1025,6 +1026,9 @@ export default {
                 //只有重新发起才会有初始的nodeList
                 if (this.data.nodeList.length > 0) {
                     for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
+                        if (this.data.nodeList[i].NodePeople == undefined) {
+                            break;
+                        }
                         if (
                             this.data.nodeList[i].NodeName != "结束" &&
                             this.data.nodeList[i].NodePeople.length > 0 &&
@@ -1157,7 +1161,7 @@ export default {
                 success: res => {
                     that.setData({ imageList: that.data.imageList });
                     for (let p of res.apFilePaths) {
-                        console.log("imageList:", p);
+                        console.log("imageList:", JSON.stringify(p));
                         that.data.imageList.push(p);
                         that.setData({ disablePage: true });
                         dd.uploadFile({
@@ -1166,7 +1170,7 @@ export default {
                             fileName: p.substring(7),
                             filePath: p,
                             success: res => {
-                                console.log("imgUrlList:", JSON.parse(res.data).Content);
+                                console.log("imgUrlList:", JSON.stringify(JSON.parse(res.data).Content));
                                 that.data.imgUrlList.push(JSON.parse(res.data).Content);
                                 that.setData({ disablePage: false });
                             },
@@ -1424,7 +1428,6 @@ export default {
                 for (let i of departmentList) {
                     department.push(i.name);
                 }
-                console.log(department);
                 app.globalData.DeptNames = department;
             });
         },
@@ -1580,6 +1583,11 @@ export default {
         inputToTableInfo(e) {
             let name = e.currentTarget.dataset.name;
             this.data.tableInfo[name] = e.detail.value;
+            if (name == "Title") {
+                this.setData({
+                    "tableInfo.Title": this.data.tableInfo[name]
+                });
+            }
         },
         //checkBox选择按钮更新
         onChange(e) {
@@ -1635,6 +1643,25 @@ export default {
                 return pre;
             }, []);
             return array;
+        },
+        //重置nodeid,也可以写在getNodeList()里，不过要换html表单显示条件，
+        resetNodeId() {
+            let param = {
+                FlowId: this.data.flowid,
+                TaskId: this.data.taskid
+            };
+            this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), res => {
+                console.log(res);
+                for (let i = res.length - 1; 0 <= i; i--) {
+                    if (res[i].ApplyManId == app.userInfo.userid) {
+                        console.log(res[i].NodeId);
+                        this.setData({
+                            nodeid: res[i].NodeId
+                        });
+                        return res[i].NodeId;
+                    }
+                }
+            });
         }
     }
 };

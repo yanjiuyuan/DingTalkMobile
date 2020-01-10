@@ -87,7 +87,7 @@ data-name="CarNumber" onInput="inputToTable"  />
 		</view>
 		<button type="primary" onTap="downLoad">下载《私车公用协议书》</button>
 		<!-- 提交按钮 -->
-		<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
 	</form>

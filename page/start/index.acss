@@ -3,16 +3,7 @@
 .approval-box-img {
 	width: 60px;
 	height: 60px;
-	/* border: 1px red solid; */
 	background-image: url(image/icon900-540-test.png);
-	/* background-image: url(image/icon900-540.png); */
-
-	 
-
-	/* background-repeat: no-repeat; */
-
-	/* background-position: -54px -54px; */
-	/* border: 1px red solid; */
 	background-size:780px 420px;
 
 

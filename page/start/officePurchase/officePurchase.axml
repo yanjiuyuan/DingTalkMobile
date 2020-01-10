@@ -79,7 +79,7 @@
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
 			<template is="suggest" data="{{table}}"/>
 			<!-- 提交按钮 -->
-			<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 			<!-- 临时保存 -->
 			<template is="temporaryPreservation"/>
 		</view>

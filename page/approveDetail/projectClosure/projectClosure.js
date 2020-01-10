@@ -13,12 +13,7 @@ Page({
         tableParam4: {
             total: 15
         },
-        bom6: {
-            label: "BOM表",
-            attribute: "Bom6",
-            point: "打包上传",
-            fileList: []
-        },
+
         uploadFileConfig: [
             {
                 label: "立项书或建议书",
@@ -51,6 +46,13 @@ Page({
                 fileList: []
             },
 
+            {
+                label: "BOM表",
+                attribute: "Bom6",
+                point: "打包上传",
+                fileList: []
+            },
+            
             {
                 label: "软件源代码",
                 attribute: "SourceCode7",
@@ -130,7 +132,7 @@ Page({
 
         tableItems1: [
             {
-                prop: "Type",
+                prop: "Types",
                 label: "类别",
                 width: 200
             },
@@ -305,10 +307,9 @@ Page({
                 Subject: "合计",
                 TaskId: null
             }
-        ]
+        ]  
     },
-    submit(e) {
-        let that = this;
+    submit(e) { 
         let value = e.detail.value;
         let param = {
             Title: value.title,
@@ -318,6 +319,7 @@ Page({
         this.data.result.projectFundingList = this.data.tableData4;
         this.data.result.NodeId = this.data.nodeid;
         console.log(this.data.result.projectFundingList);
+        console.log(this.data.result);
         let flag = true;
         if (this.data.nodeid == 2) {
             console.log("bbbb");
@@ -329,7 +331,7 @@ Page({
                     });
                     flag = false;
                     break;
-                }
+                } 
                 flag = true;
             }
         }
@@ -343,6 +345,10 @@ Page({
     },
 
     onReady() {
+        //特殊步骤需要隐藏，需要重置nodeid
+        if (this.data.index == 1) {
+            this.resetNodeId();
+        }
         if (this.data.nodeid == 2 && this.data.index == 0) {
             this.setData({
                 tableOperate: "填写"
@@ -354,16 +360,17 @@ Page({
 
         this._getData("ProjectClosure/Read" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
             console.log(res);
+
             if (this.data.state != "已完成") {
                 // for (let i of this.data.nodeList) {
-                // 	if (i.ApplyMan == this.data.DingData.nickName) {
+                // 	if (i.ApplyMan == this.data.DingData.nickName) { 
                 // 		this.setData({
                 // 			nodeid: i.NodeId,
                 // 		})
                 // 		break;//申请人是否可以是部长
-                // 	}
+                // 	} 
                 // }
-            }
+            } 
 
             let arr1 = [];
             let arr2 = [];
@@ -373,11 +380,11 @@ Page({
                 } else {
                     arr2.push(i);
                 }
-            }
+            } 
             //获取知识产权类型
             for (let i of arr1) {
                 this._getData("IntellectualProperty/Read" + this.formatQueryStr({ TaskId: i.OldTaskId }), res => {
-                    i.Type = res.Type;
+                    i.Types = res.Type;
                     this.setData({
                         intellectualProperty: arr1
                     });
@@ -392,15 +399,9 @@ Page({
                 }
             }
 
-            this.data.bom6.fileList = JSON.parse(res.projectClosure["Bom6"]);
-
-            console.log(this.data.bom6.fileList);
-            console.log(this.data.bom6.attribute);
-            console.log(this.data.bom6.label);
 
             this.setData({
                 uploadFileConfig: this.data.uploadFileConfig,
-                bom6: this.data.bom6,
                 result: res,
                 table: res.projectClosure,
                 tableData1: arr2,
@@ -424,7 +425,7 @@ Page({
         if (!e) return;
         console.log(e);
         this.data.good = e.target.targetDataset.row;
-        if (!this.data.good) return;
+        if (!this.data.good) return; 
 
         this.setData({
             Subject: this.data.good.Subject,
@@ -434,7 +435,7 @@ Page({
         this.createMaskShowAnim();
         this.createContentShowAnim();
     },
-
+ 
     //隐藏弹窗表单
     onModalCloseTap() {
         this.createMaskHideAnim();

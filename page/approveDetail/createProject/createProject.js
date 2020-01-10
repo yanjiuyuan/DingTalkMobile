@@ -28,7 +28,7 @@ Page({
                 });
                 return;
             }
-            if (!this.data.reg4.test(value.ProjectId)) {
+            if (this.data.nodeid == 3 && !this.data.reg4.test(value.ProjectId)) {
                 dd.alert({
                     content: "请规范填写项目编号",
                     buttonText: promptConf.promptConf.Confirm

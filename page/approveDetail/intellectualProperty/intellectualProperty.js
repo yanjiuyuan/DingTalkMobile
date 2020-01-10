@@ -187,7 +187,7 @@ Page({
     },
     onReady() {
         let that = this;
-
+        console.log(this.data.nodeid == 5 && this.data.index == 0);
         this._getData("IntellectualProperty/Read" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
             for (let r in res) {
                 if (res[r] === null) res[r] = "";

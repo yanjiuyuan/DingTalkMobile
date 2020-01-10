@@ -30,10 +30,8 @@ export default {
         //选人控件方法
         choosePeople(e) {
             console.log("start choose people");
-            console.log(this.data.nodeList);
-
-            let nodeId = e.target.targetDataset.NodeId;
             let that = this;
+            let nodeId = e.target.dataset.NodeId;
             let arr = that.data.nodeList;
             let index = nodeId;
             let IsMultipleSelection = 0;
@@ -64,7 +62,6 @@ export default {
                         headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
                         success: function(res) {
                             let name = res.data.name;
-
                             for (let node of that.data.nodeList) {
                                 if (node.NodeId == nodeId) {
                                     result.users.name = name;
@@ -94,7 +91,12 @@ export default {
                 }
             });
         },
-
+        showHiding(e) {
+            console.log(e.currentTarget.dataset.NodePeople);
+            dd.navigateTo({
+                url: "/util/people/people?chooseMan=" + e.currentTarget.dataset.NodePeople.join(",")
+            });
+        },
         //翻頁相關事件
         getData(table) {
             let start = this.data.tableParam.size * (this.data.tableParam.now - 1);

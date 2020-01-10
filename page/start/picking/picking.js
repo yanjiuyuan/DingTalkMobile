@@ -32,7 +32,7 @@ Page({
                 width: 300
             },
             {
-                prop: "fAmount",
+                prop: "fCommitQty",
                 label: "库存数量",
                 width: 200
             },
@@ -64,7 +64,7 @@ Page({
                 width: 200
             },
             {
-                prop: "fAmount",
+                prop: "fCommitQty",
                 label: "库存数量",
                 width: 200
             },
@@ -128,8 +128,6 @@ Page({
                     "tableParam.total": data.length,
                     "tableParam.now": 1
                 });
-                console.log(data);
-                that.data.goods = data;
                 that.data.data = data;
                 that.getData();
             }
@@ -142,11 +140,6 @@ Page({
                 buttonText: promptConf.promptConf.Confirm
             });
         }
-        // else {
-        // 	dd.showLoading({
-        // 		content:promptConf.promptConf.Obtaining
-        // 	});
-        // }
         let value = e.detail.value;
 
         console.log(value.keyWord);
@@ -258,6 +251,14 @@ Page({
                 content: `标题不能为空，请输入!`,
                 buttonText: promptConf.promptConf.Confirm
             });
+            return;
+        }
+        if (this.data.purchaseList.length == 0) {
+            dd.alert({
+                content: `请选择物料!`,
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
         }
         let param = {
             Title: value.title,
@@ -315,7 +316,8 @@ Page({
             this.data.purchaseList.splice(index, 1);
             this.setData({
                 [`tableParam2.total`]: length - 1,
-                purchaseList: this.data.purchaseList
+                purchaseList: this.data.purchaseList,
+                goods: this.data.purchaseList
             });
             console.log(this.data.purchaseList);
         }
@@ -358,19 +360,12 @@ Page({
             });
             return;
         }
-
-        if (!value || !value.fQty) {
-            dd.alert({
-                content: `表单填写不完整`,
-                buttonText: promptConf.promptConf.Confirm
-            });
-            return;
-        }
+        //编辑
         if (this.data.ifedit) {
             for (let i = 0; i < this.data.purchaseList.length; i++) {
                 //数量判断
                 for (let g of this.data.goods) {
-                    if (this.data.purchaseList[i].fNumber == g.fNumber && parseInt(value.fQty) > parseInt(g.fAmount)) {
+                    if (good.fNumber == g.fNumber && parseInt(value.fQty) > parseInt(g.fCommitQty)) {
                         dd.alert({
                             content: promptConf.promptConf.GreaterThanAvailable,
                             buttonText: promptConf.promptConf.Confirm
@@ -381,12 +376,15 @@ Page({
 
                 if (this.data.purchaseList[i].fNumber == good.fNumber) {
                     good.fQty = value.fQty ? value.fQty + "" : "1";
+                    good.fAmount = parseInt(good.fQty) * parseInt(good.fPrice);
                     this.setData({
                         [`purchaseList[${i}]`]: good
                     });
                 }
             }
-        } else {
+        }
+        // 添加
+        else {
             for (let p of this.data.purchaseList) {
                 if (p.fNumber == good.fNumber) {
                     dd.alert({
@@ -398,7 +396,7 @@ Page({
             }
 
             //数量判断
-            if (value.fQty > good.fAmount) {
+            if (value.fQty > good.fCommitQty) {
                 dd.alert({
                     content: promptConf.promptConf.GreaterThanAvailable,
                     buttonText: promptConf.promptConf.Confirm
@@ -410,20 +408,20 @@ Page({
                 fName: good.fName,
                 fModel: good.fModel,
                 unitName: good.unitName,
+                fCommitQty: good.fCommitQty,
                 fQty: value.fQty ? value.fQty + "" : "1",
                 fPrice: good.fPrice ? good.fPrice + "" : "0",
-                fAmount: good.fAmount ? good.fAmount + "" : "0",
+                fAmount: parseInt(good.fQty) * parseInt(good.fPrice),
                 fFullName: good.fFullName
             };
             let length = this.data.purchaseList.length;
             let setStr = "purchaseList[" + length + "]";
             this.setData({
                 [`tableParam2.total`]: length + 1,
-                [`purchaseList[${length}]`]: param
+                [`purchaseList[${length}]`]: param,
+                [`goods[${length}]`]: param
             });
         }
-        // this.data.data = this.data.purchaseList;
-        // this.getData('purchaseList');
         this.onModalCloseTap();
     },
     //隐藏弹窗表单
@@ -438,11 +436,25 @@ Page({
     },
 
     onReady() {
+        let that = this;
         app.globalData.valid = true;
         if (app.globalData.valid == true) {
-            console.log(this.data.purchaseList);
+            for (let i of this.data.purchaseList) {
+                let url = this.data.jinDomarn + "Pick/ReadPickInfoSingle" + this.formatQueryStr({ keyWord: i.fNumber });
+                dd.httpRequest({
+                    url: url,
+                    method: "GET",
+                    success: function(res) {
+                        let data = res.data.data;
+                        i.fCommitQty = res.data.data[0].fQty;
+                        that.setData({
+                            purchaseList: that.data.purchaseList
+                        });
+                    }
+                });
+            }
+
             this.setData({
-                goods: this.data.purchaseList,
                 tableItems2: [
                     {
                         prop: "fNumber",
@@ -455,7 +467,7 @@ Page({
                         width: 200
                     },
                     {
-                        prop: "fAmount",
+                        prop: "fCommitQty",
                         label: "库存数量",
                         width: 200
                     },
@@ -479,7 +491,8 @@ Page({
                         label: "供应商",
                         width: 300
                     }
-                ]
+                ],
+                goods: this.data.purchaseList
             });
             app.globalData.valid = false;
         }

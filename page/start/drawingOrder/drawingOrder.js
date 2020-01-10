@@ -107,10 +107,10 @@ Page({
     chooseItem(e) {
         let row = e.target.targetDataset.row;
         console.log(row);
-        let OldFilePDFUrl = row.OldFilePDFUrl.split(",");
-        let MediaIdPDF = row.MediaIdPDF.split(",");
-        let OldFileUrl = row.OldFileUrl.split(",");
-        let MediaId = row.MediaId.split(",");
+        let OldFilePDFUrl = row.OldFilePDFUrl ? row.OldFilePDFUrl.split(",") : [];
+        let MediaIdPDF = row.MediaIdPDF ? row.MediaIdPDF.split(",") : [];
+        let OldFileUrl = row.OldFileUrl ? row.OldFileUrl.split(",") : [];
+        let MediaId = row.MediaId ? row.MediaId.split(",") : [];
 
         let pdfList = [];
         let fileList = [];
@@ -128,6 +128,8 @@ Page({
                 mediaId: MediaId[i]
             });
         }
+        console.log(row.ProjectName);
+        console.log("sssssssssssss");
 
         this.setData({
             fileList: fileList,
@@ -139,6 +141,7 @@ Page({
         });
     },
     submit(e) {
+        console.log("我会执行");
         let that = this;
         let value = e.detail.value;
         let tableData = this.data.tableData2;
@@ -163,6 +166,7 @@ Page({
             });
             return;
         }
+
         if (!that.data.reg.test(value.counts)) {
             dd.alert({
                 content: "套数必须为整数，请重新输入！",

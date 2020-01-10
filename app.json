@@ -60,7 +60,8 @@
         "page/approveDetail/drawingOrder/drawingOrder",
         "page/start/officePurchase/officePurchase",
         "page/start/carManager/carManager",
-        "page/start/sendRead/sendRead"
+        "page/start/sendRead/sendRead",
+        "util/people/people"
     ],
     "window": {
         "enableWK": "YES",

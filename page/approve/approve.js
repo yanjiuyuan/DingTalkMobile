@@ -10,6 +10,7 @@ Page({
         pageCount: 0,
         clientHeight: 400,
         size: 5,
+
         items: [
             {
                 index: 0,
@@ -63,6 +64,7 @@ Page({
             }
         });
     },
+    //切换审批列表
     changeItem(e) {
         this.data.size = 5;
         var that = this;
@@ -127,6 +129,7 @@ Page({
             that.router(row);
         }
     },
+    //路由
     router(row) {
         if (row.TaskId && row.FlowId) {
             let param = {
@@ -150,7 +153,7 @@ Page({
             });
         }
     },
-
+    //懒加载
     scroll() {
         this.data.size = this.data.size + 5;
         this.getApproveList(this.data.activeItem);

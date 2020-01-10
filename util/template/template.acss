@@ -375,3 +375,15 @@
 .background-color {
 	background-color: #fff;
 }
+
+.icon-Approval-add {
+	width: 30rpx;
+	height: 30rpx;
+}
+
+.test {
+	padding: 0;
+	min-height: 90rpx;
+	display: table-cell;
+	vertical-align: middle;
+}

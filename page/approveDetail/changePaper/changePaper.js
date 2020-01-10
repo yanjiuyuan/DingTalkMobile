@@ -113,5 +113,24 @@ Page({
         }
         let url = "FileNew/UpdatePDFState?TaskId=" + this.data.taskid + "&PDFState=" + states.join(",");
         this._getData(url, function(res) {});
+    },
+
+    onReady() {
+        let that = this;
+        let param = {
+            ApplyManId: this.data.DingData.userid,
+            nodeId: this.data.nodeid,
+            TaskId: this.data.taskid
+        };
+        this._getData(
+            "FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
+            function(res) {
+                console.log(JSON.parse(res.counts).Designer);
+                that.setData({
+                    ["tableInfo.counts"]: JSON.parse(res.counts)
+                });
+            },
+            this.data.DingData
+        );
     }
 });

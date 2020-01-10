@@ -19,24 +19,28 @@ Component({
     },
     didMount() {
         this.StringToArray();
-        console.log("我初始了");
+        console.log("初始");
     },
     didUpdate() {
+        console.log("跟新");
         //选人控件会清空itemList数组
-        console.log(JSON.stringify(this.props.itemList));
-        // if (this.data.cache.length == 0) {
-        //     console.log("第一次更新");
-        //     this.data.cache = this.props.itemList;
-        // } else {
-        //     console.log("不是第一次更新");
-        //     this.setData({
-        //         itemList: this.data.cache
-        //     });
-        // }
+        if (this.data.cache.length == 0) {
+            console.log("第一次更新");
+            this.data.cache = this.props.itemList;
+        } else {
+            console.log("不是第一次更新");
+            for (let i = 0, length = this.props.itemList.length; i < length; i++) {
+                if (this.props.itemList[i].checked == true) {
+                    this.data.cache[i].checked = this.props.itemList[i].checked;
+                }
+            }
+
+            this.setData({
+                itemList: this.data.cache
+            });
+        }
     },
-    didUnmount() {
-        console.log("我消失了");
-    },
+    didUnmount() {},
     methods: {
         //改变项的checked值
         onChanges(e) {

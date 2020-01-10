@@ -35,7 +35,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>计划行车路线</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="PlantTravelWay" class="input" data-name="PlantTravelWay" onInput="inputToTable"  value="{{table.PlantTravelWay}}"/>
+					<textarea auto-height="true" name="PlantTravelWay" class="input" data-name="PlantTravelWay" onInput="inputToTable" value="{{table.PlantTravelWay}}"/>
 				</view>
 			</view>
 			<view class="form-row">
@@ -79,7 +79,7 @@
 		</view>
 		<button type="primary" onTap="downLoad">下载《车辆安全使用协议》</button>
 		<!-- 提交按钮 -->
-		<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
 	</form>

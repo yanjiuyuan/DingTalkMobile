@@ -19,6 +19,7 @@ Page({
         ifedit: false,
         good: {},
         goods: [],
+        searchShow: true,
         addPeopleNodes: [2], //额外添加审批人节点数组
         totalPrice: 0,
         tableItems: [
@@ -293,6 +294,7 @@ Page({
         if (!e) return;
         console.log(e);
         good = e.target.targetDataset.row;
+        console.log(good);
         if (!good) return;
 
         this.setData({
@@ -335,6 +337,7 @@ Page({
         let value = e.detail.value;
 
         console.log(good);
+
         let reg = /^-?\d+$/;
         if (!reg.test(value.fQty)) {
             dd.alert({
@@ -357,7 +360,7 @@ Page({
             });
             return;
         }
-        //
+        //编辑
         if (this.data.ifedit) {
             for (let i = 0; i < this.data.purchaseList.length; i++) {
                 //数量判断
@@ -379,7 +382,9 @@ Page({
                     break;
                 }
             }
-        } else {
+        }
+        //添加
+        else {
             for (let p of this.data.purchaseList) {
                 if (p.fNumber == good.fNumber) {
                     dd.alert({
@@ -402,12 +407,15 @@ Page({
                 fNumber: good.fNumber,
                 fName: good.fName,
                 fModel: good.fModel,
+                fQty: value.fQty,
                 unitName: good.unitName,
-                fQty: value.fQty ? value.fQty + "" : "1",
                 fPrice: good.fPrice ? good.fPrice + "" : "0",
                 fAmount: good.fAmount ? good.fAmount + "" : "0",
                 fFullName: good.fFullName
             };
+
+            this.data.goods.push(good);
+
             let length = this.data.purchaseList.length;
             let setStr = "purchaseList[" + length + "]";
             this.setData({
@@ -415,8 +423,6 @@ Page({
                 [`purchaseList[${length}]`]: param
             });
             //数量判断
-            param.fQty = good.fQty;
-            this.data.goods.push(param);
         }
         this.onModalCloseTap();
     },
@@ -429,5 +435,15 @@ Page({
                 hidden: true
             });
         }, 210);
+    },
+    radioChange(e) {
+        console.log("radioChange");
+        this.setData({
+            searchShow: !this.data.searchShow,
+            purchaseList: [],
+            tableParam2: {
+                total: 0
+            }
+        });
     }
 });

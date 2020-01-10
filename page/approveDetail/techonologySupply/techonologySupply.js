@@ -154,6 +154,8 @@ Page({
                         });
                     }
                     that.setData({
+                        "nodeList[5].NodePeople": names,
+
                         "nodeList[5].AddPeople": addPeoples,
                         "table.TeamMembers": names.join(","),
                         "table.TeamMembersId": ids.join(",")
@@ -191,6 +193,7 @@ Page({
                             console.log(addPeoples);
                             that.setData({
                                 "nodeList[5].AddPeople": addPeoples,
+                                "nodeList[5].NodePeople": names,
                                 "table.TeamMembers": names.join(","),
                                 "table.TeamMembersId": ids.join(",")
                             });
@@ -240,6 +243,7 @@ Page({
                             addPeoples = that.objectArrayDuplication(addPeoples, "userId");
                             that.setData({
                                 "nodeList[5].AddPeople": addPeoples,
+                                "nodeList[5].NodePeople": names,
                                 "table.TeamMembers": names.join(","),
                                 "table.TeamMembersId": ids.join(",")
                             });

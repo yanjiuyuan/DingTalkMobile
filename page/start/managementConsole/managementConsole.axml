@@ -1,14 +1,17 @@
 <!-- 管理控制台 -->
 <import src="/util/template/template.axml" />
 <view class="top">
-	<view class="top-left" onTap='increase'
-  >
-		<view class="top-icon"></view>
+	<view class="top-left" onTap="increase">
+		<view class="top-icon">
+			<image mode="scaleToFill" class="top-icon-image" src="/image/add-48.png"/>
+		</view>
     新增分组
 	</view>
 	<view class="vertical-line"></view>
 	<view class="top-right" onTap="sort">
-		<view class="top-icon"></view>
+		<view class="top-icon">
+			<image mode="scaleToFill" class="top-icon-image" src="/image/sort.png"/>
+		</view>
     排序功能
 	</view>
 </view>
@@ -41,12 +44,15 @@
 			<view class="menu" onTap="addShortcut" data-title="{{m.SORT_NAME}}" data-item="{{m}}">
 				<view class="grid-item-new" data-index="{{index}}">
 					<view class="grid-item-wrapper-new">
-						<view class="add"> +</view>
+						<view class="adds">
+							<image mode="scaleToFill" class="icon-add" src="/image/add.png"/>
+						</view>
 						<text class="grid-text-new blue">添加</text>
 					</view>
 				</view>
 			</view>
 		</view>
 	</view>
-	<template is="inputConfirm" data="{{ifName:ifName,title:title,animContentData:animContentData,animMaskData:animMaskData}}" />
-	<template is="inputConfirm" data="{{ifName:hidden,title:title_1,animContentData:animContentData,animMaskData:animMaskData}}" />
+</view>
+<template is="inputConfirm" data="{{ifName:ifName,title:title,animContentData:animContentData,animMaskData:animMaskData}}" />
+<template is="inputConfirm" data="{{ifName:hidden,title:title_1,animContentData:animContentData,animMaskData:animMaskData}}" />

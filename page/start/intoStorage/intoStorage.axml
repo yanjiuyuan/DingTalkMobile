@@ -47,8 +47,17 @@
 				<!--<picker onChange="bindPickerChange" value="{{projectIndex}}" range="{{projectList}}" range-key="ProjectName"><view class="row"><view class="row-extra">{{projectList[projectIndex].ProjectName}}</view><image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" /></view></picker> -->
 				<my-picker onChange="bindPickerChange" index="{{projectIndex}}" range="{{projectList}}" value="{{tableInfo.ProjectName}}" rangeKey="ProjectName"></my-picker>
 			</view>
+			<view class="form-row">
+				<view class="form-row-label" style="width:2.5rem">搜索类型</view>
+				<radio-group class="radio-group" name="codeType" onChange="radioChange">
+					<label a:for="{{[{name:'采购单编号',checked:true,label:'1'},{name:'关键字',checked:false,label:'2'}]}}">
+						<radio value="{{item.label}}" checked="{{item.checked}}" />{{item.name}}
+					</label>
+				</radio-group>
+				<view style="color:red">切换清空数据！</view>
+			</view>
 			<!-- 搜索 -->
-			<form onSubmit="search">
+			<form onSubmit="search" a:if="{{!searchShow}}">
 				<view class="page-section">
 					<view class="form-row">
 						<view class="form-row-label">关键字搜索</view>
@@ -59,7 +68,7 @@
 					</view>
 				</view>
 			</form>
-			<form onSubmit="searchByNo">
+			<form onSubmit="searchByNo" a:if="{{searchShow}}">
 				<view class="page-section">
 					<view class="form-row">
 						<view class="form-row-label">采购单编号搜索</view>
@@ -71,7 +80,7 @@
 				</view>
 			</form>
 			<!-- 物料表单 -->
-			<view onTap="chooseItem">
+			<view onTap="chooseItem" a:if="{{!searchShow}}">
 				<text>物料表单</text>
 				<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
@@ -85,7 +94,7 @@
 			<template is="suggest" data="{{table}}"/>
 		</view>
 		<!-- 提交按钮 -->
-		<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
 	</form>

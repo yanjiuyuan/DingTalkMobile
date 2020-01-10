@@ -159,6 +159,7 @@ page {
 	height: 80rpx;
 	width: 80rpx;
 	border-radius: 50%;
+	box-sizing: border-box;
 	border: 1px #4796FA dotted;
 	color: #4796FA;
 	display: flex;
@@ -175,7 +176,7 @@ page {
 	height: 80rpx;
 	width: 80rpx;
 	border-radius: 50%;
-	border: 1px #4796FA dotted;
+	border: 1px #4796FA solid;
 	color: #4796FA;
 	display: flex;
 	align-items: center;
@@ -193,8 +194,11 @@ page {
 }
 
 .tag {
-	display: inline-block;
-	text-align: center;
+	/* display: inline-block;
+	text-align: center; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	padding: 14rpx;
 	font-size: 24rpx;
 }
@@ -211,18 +215,30 @@ page {
 	background-color: #F0F9EB;
 }
 
-.tag-warning {
-	color: #E6A23C;
-	border: 1px solid #E6A23C;
-	background-color: #FDF6E6;
-	width: 160rpx;
-	margin-right: 10rpx;
+.tag-success-new {
+	border-radius: 5px;
+	background-color: #67C23A;
+	color: #fff;
 }
 
 .tag-danger {
 	color: #F56C6C;
 	border: 1px solid #F56C6C;
 	background-color: #FEF0F0;
+}
+
+.tag-danger-new {
+	border-radius: 5px;
+	background-color: #F56C6C;
+	color: #fff;
+}
+
+.tag-warning {
+	color: #E6A23C;
+	border: 1px solid #E6A23C;
+	background-color: #FDF6E6;
+	width: 160rpx;
+	margin-right: 10rpx;
 }
 
 .tag-info {
@@ -372,4 +388,6 @@ button {
 .button-size {
 	width: 3rem;
 	margin: 0.2rem 0 0.2rem 0;
+	border-radius: 20rpx;
+	font-size: "微软雅黑";
 }

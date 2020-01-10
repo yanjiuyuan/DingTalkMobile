@@ -53,5 +53,20 @@ Page({
     },
     a(e) {
         console.log(e.detail.value);
+    },
+    getLocation() {
+        let that = this;
+
+        dd.getLocation({
+            success(res) {
+                console.log(JSON.stringify(res));
+                that.setData({
+                    address: res.address
+                });
+            },
+            fail() {
+                dd.alert({ title: "定位失败" });
+            }
+        });
     }
 });

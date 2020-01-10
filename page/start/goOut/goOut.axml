@@ -5,7 +5,6 @@
 	<view class="modal" a:if="{{!hidden}}" key="modal">
 		<view class="modal-mask" animation="{{animMaskData}}"/>
 		<view class="modal-container" animation="{{animContentData}}">
-			<view class="modal-close" onTap="onModalCloseTap">×</view>
 			<view class="modal-content">
 				<form onSubmit="addPlace">
 					<view class="page-section">
@@ -17,7 +16,10 @@
 							</view>
 						</view>
 					</view>
-					<button type="primary" style="margin-bottom:0;" formType="submit">添加</button>
+					<view class="buttons">
+						<button type="primary" class="button-size" style="margin-bottom:0;" formType="submit">添加</button>
+						<button type="warn" class="button-size" onTap="onModalCloseTap">取消</button>
+					</view>
 				</form>
 			</view>
 		</view>
@@ -41,7 +43,7 @@
 			<view class="form-row">
 				<view class="form-row-label">同行人</view>
 				<view class="form-row-content">
-					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1"  name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/>
+					<textarea style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}"/>
 					<!--<text auto-height="true" name="EvectionMan" class="input" disabled="{{true}}" value="{{table.EvectionMan}}">{{table.EvectionMan}}</text> -->
 				</view>
 				<view onTap="choosePeoples" class="tag tag-info">+ 选人</view>
@@ -84,7 +86,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>时长(小时)</view>
 				<view class="form-row-content">
-					<input name="Duration" class="input" value="{{table.Duration}}" disabled="true"  placeholder="时长"/>
+					<input name="Duration" class="input" value="{{table.Duration}}" disabled="true" placeholder="时长"/>
 				</view>
 			</view>
 			<!-- 选人组件 -->
@@ -92,7 +94,7 @@
 			<template is="suggest" data="{{table}}"/>
 		</view>
 		<!-- 提交按钮 -->
-		<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
 	</form>

@@ -52,10 +52,10 @@
 					<view class="form-row-label">
 						<template is="required"></template>申报名称</view>
 					<view class="form-row-content">
-						<input auto-height="true" name="ActualName" class="input" value="{{table.Name}}" disabled="{{nodeid != 5}}" />
+						<input auto-height="true" name="ActualName" class="input" value="{{table.ActualName}}" disabled="{{nodeid != 5}}" />
 					</view>
 				</view>
-				<view a:if="{{nodeid == 5 && index == 0}}">
+				<view a:if="{{(nodeid == 5 && index == 0)}}">
 					<view class="form-row">
 						<view class="form-row-label">
 							<template is="required"></template>申报类别</view>
@@ -82,7 +82,7 @@
 						</view>
 					</view>
 				</view>
-				<view a:if="{{!(nodeid == 5 && index == 0)}}">
+				<view a:if="{{(nodeid > 5 && index != 0)}}">
 					<view class="form-row">
 						<view class="form-row-label">申报类别</view>
 						<view class="form-row-content">

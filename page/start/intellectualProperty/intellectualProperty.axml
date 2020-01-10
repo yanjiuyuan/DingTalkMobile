@@ -4,7 +4,6 @@
 	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
-			<!--<view class="form-row"><view class="form-row-label"><template is="required"></template>标题</view><view class="form-row-content"><textarea name="Title" class="input" style="min-height:90rpx;padding:0;" value="{{tableInfo.Title}}" placeholder="输入 标题" maxlength="0" auto-height="true"/></view></view><view class="form-row"><view class="form-row-label"><template is="required"></template>申请人</view><view class="form-row-content"><input name="ApplyMan" class="input" disabled="{{true}}" value="{{DingData.nickName}}"/></view></view> -->
 			<!-- 标题 -->
 			<template is ="titleOfObject" data="{{tableInfo}}"/>
 			<!-- 申请人 -->
@@ -48,17 +47,18 @@
 				<view class="form-row-label">
 					<template is="required"></template>申请发明人</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" maxlength="-1" style="min-height:90rpx;padding:0;" name="z        " class="input" disabled="{{true}}" value="{{table.Inventor}}"/>
+					<textarea auto-height="true" maxlength="-1" style="min-height:90rpx;padding:0;" name="Inventor" class="input" disabled="{{true}}" value="{{table.Inventor}}"/>
 				</view>
 				<view onTap="chooseMans" class="tag tag-info">+ 选人</view>
 			</view>
+			<text class="redText">#按贡献度大小排序#</text>
 			<!-- 选人组件 -->
 			<template is="choosePeople" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length}}"/>
 			<!-- 建议输入框 -->
 			<template is="suggest" data="{{table}}"/>
 		</view>
 		<!-- 提交按钮 -->
-		<template is ="submitButton"/>
+		<template is ="submitButton" data="{{disablePage:disablePage}}"/>
 		<!-- 临时保存 -->
 		<template is="temporaryPreservation"/>
 	</form>
