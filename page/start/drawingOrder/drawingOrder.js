@@ -188,6 +188,7 @@ Page({
         };
         let obj = {
             Title: value.title,
+            Remark: value.remark,
             counts: value.counts,
             FilePDFUrl: that.data.tableData3.FilePDFUrl,
             FileUrl: that.data.tableData3.FileUrl,

@@ -66,13 +66,13 @@
 			<view class="form-row">
 				<view class="form-row-label">开始时间</view>
 				<view class="form-row-content">
-					<input name="StartTime" class="input" value="{{table.StartTime}}" disabled="{{nodeid <= 4}}" />
+					<input name="StartTime" class="input" value="{{table.StartTime}}" disabled="{{nodeid <= 5}}" />
 				</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">返回时间</view>
 				<view class="form-row-content">
-					<input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{nodeid <= 4}}" />
+					<input name="EndTime" class="input" value="{{table.EndTime}}" disabled="{{nodeid <= 5}}" />
 				</view>
 			</view>
 			<view class="form-row" a:if="{{(nodeid == 2 && index == 0)|| (nodeid == 4 && index == 0)}}">
@@ -85,18 +85,15 @@
 					</view>
 				</picker>
 			</view>
-			<view class="form-row" a:if="{{(nodeid == 2 && index == 0) || (nodeid == 4 && index == 0)}}" style="height:100rpx;">
-				<view class="form-row-label">车辆占用</view>
+			<view class="form-row" a:if="{{(nodeid == 2 && index == 0) || (nodeid == 4 && index == 0)}}" style="height:auto;display:block;">
+				<view class="form-row-label" style="margin-top:0.3rem">车辆占用</view>
 				<view class="form-row-content" a:if="{{useTimeList.length > 0}}" a:for="{{useTimeList}}">
-					<view>
-						<text style="font-size:24rpx;color:red;">驾驶员:{{item.name}}</text>
-					</view>
-					<view>
-						<text style="font-size:24rpx;color:red;">占用时间:{{item.time}}</text></view>
+					<text style="font-size:24rpx;color:red;">{{index + 1}}.驾驶员:{{item.name}} 占用时间:{{item.time}}</text>
 				</view>
 				<view class="form-row-content" a:if="{{useTimeList.length == 0}}">
 					<view>
-						<text style="font-size:24rpx;color:red;">未被占用</text></view>
+						<text style="font-size:24rpx;color:red;">未被占用</text>
+					</view>
 				</view>
 			</view>
 			<view class="form-row" a:if="{{nodeid > 2}}">

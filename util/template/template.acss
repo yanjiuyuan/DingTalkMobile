@@ -1,7 +1,7 @@
 /*表格类 */
 
 .table {
-	border-top: 1px solid;
+	/* border-top: 1px solid; */
 	margin-top: 80rpx;
 	margin-bottom: 20rpx;
 }
@@ -10,17 +10,19 @@
 	display: inline-block;
 	overflow: scroll;
 	height: 60rpx;
-	/* padding:10px; */
-	padding-left: 0 12rpx;
 	text-align: center;
 	border: 1px solid;
-	margin-left: -1px;
-	margin-top: -5px;
+	margin: 0 1px;
+	/* padding-left: 0 12rpx; */
+	/* margin-left: -1px; */
+	/* margin-top: -5px; */
 }
 
+.cell-title {}
+
 .button {
-	border: 1px solid #409EFF;
-	color: #409EFF;
+	border: 1px solid #4796FA;
+	color: #4796FA;
 	padding: 4px;
 	border-radius: 4px;
 }
@@ -295,7 +297,7 @@
 .button1 button {
 	width: 100%;
 	background-color: #fff;
-	color: #409EFF;
+	color: #4796FA;
 	border-radius: 0px;
 	border-right: 0px;
 	border-bottom: 0px #DFDFE2 solid;
@@ -307,7 +309,7 @@
 .button2 button {
 	width: 100%;
 	background-color: #fff;
-	color: #409EFF;
+	color: #4796FA;
 	border-radius: 0px;
 	border-bottom: 0px;
 	border-right: 0px;

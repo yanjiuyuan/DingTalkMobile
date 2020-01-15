@@ -23,14 +23,7 @@
 					<input class="input" name="Type" value="{{table.Type}}" disabled="{{true}}" />
 				</view>
 			</view>
-			<view class="form-row">
-				<view class="form-row-label">项目名称</view>
-				<view class="form-row-content">
-					<!--<input auto-height="true" name="Project" class="input" value="{{table.Project}}" disabled="{{true}}" /> -->
-					<!-- {{tableInfo.ProjectId}}-{{tableInfo.ProjectName}}  -->
-					<textarea maxlength="-1" style="min-height:90rpx;padding:0;" name="Title" class="input" value="{{table.Project}}" disabled="{{true}}" />
-				</view>
-			</view>
+			<template is="objectName" data="{{tableInfo:tableInfo}}"/>
 			<view class="form-row">
 				<view class="form-row-label">申请发明人</view>
 				<view class="form-row-content">

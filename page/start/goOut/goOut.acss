@@ -1,1 +1,2 @@
 @import '/util/template/template.acss';
+.button-inline-new {}

@@ -55,9 +55,9 @@
 					<text auto-height="true" name="Inventor" class="input" disabled="{{true}}" value="{{table.Place}}">{{table.Place}}</text>
 				</view>
 			</view>
-			<view style="margin-left:25%;">
-				<button type="primary" onTap="showInput" class="button-inline" style='margin-left:10rpx;'>添加地点</button>
-				<button type="warn" onTap="removePlace" class="button-inline" style='margin-left:10rpx;'>删除地点</button>
+			<view>
+				<button type="primary" onTap="showInput" class="button-inline-new" style='margin-left:10rpx;'>添加地点</button>
+				<button type="warn" onTap="removePlace" class="button-inline-new" style='margin-left:10rpx;'>删除地点</button>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">

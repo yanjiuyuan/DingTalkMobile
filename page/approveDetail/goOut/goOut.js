@@ -199,7 +199,11 @@ Page({
                 let timestamp = Date.parse(dateTmp);
                 let dateTmp2 = ApplyTime.replace(/-/g, "/");
                 let timestamp2 = Date.parse(dateTmp2);
-                if (timestamp2 > timestamp) {
+
+                console.log(timestamp2);
+                console.log(timestamp);
+
+                if (timestamp2 + 1800000 > timestamp) {
                     this.setData({
                         timeUp: true
                     });

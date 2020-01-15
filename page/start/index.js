@@ -9,7 +9,6 @@ Page({
         let that = this;
         this.checkLogin2(function() {
             that.getMenu();
-            // that.getProjectList();
         });
         this.getDepartmentList();
         this.getUserInfo();

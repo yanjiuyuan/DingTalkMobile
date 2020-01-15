@@ -42,13 +42,13 @@ Page({
                 activeItem: query.index
             });
         }
-        this.checkLogin(() => {
+        this.checkLogin2(() => {
             this.getApproveList(this.data.activeItem);
         });
     },
     onShow() {
         setTimeout(() => {
-            this.checkLogin(() => {
+            this.checkLogin2(() => {
                 this.getApproveList(this.data.activeItem);
             });
         }, 200);
@@ -142,12 +142,87 @@ Page({
                 flowname: row.FlowName
             };
             let url = "";
-            for (let i = 0, length = app.globalData.menu.length; i < length; i++) {
-                if (parseInt(row.FlowId) == app.globalData.menu[i].FlowId) {
-                    url = app.globalData.menu[i].ApproveUrl.slice(6);
+            row.FlowId = parseInt(row.FlowId);
+            //不能用全局变量，跳到特定页时访问不到全局变量
+            switch (row.FlowId) {
+                case 1:
+                    url = "/page/approveDetail/officeSupplies/officeSupplies";
                     break;
-                }
+                case 6:
+                    url = "/page/approveDetail/paper/paper";
+                    break;
+                case 8:
+                    url = "/page/approveDetail/purchase/purchase";
+                    break;
+                case 12:
+                    url = "/page/approveDetail/meterieCode/meterieCode";
+                    break;
+                case 13:
+                    url = "/page/approveDetail/usePublicCar/usePublicCar";
+                    break;
+                case 14:
+                    url = "/page/approveDetail/useCar/useCar";
+                    break;
+                case 17:
+                    url = "/page/approveDetail/overTime/overTime";
+                    break;
+                case 18:
+                    url = "/page/approveDetail/officePurchase/officePurchase";
+                    break;
+                case 19:
+                    url = "/page/approveDetail/sendRead/sendRead";
+                    break;
+                case 23:
+                    url = "/page/approveDetail/drawingOrder/drawingOrder";
+                    break;
+                case 24:
+                    url = "/page/approveDetail/gift/gift";
+                    break;
+                case 26:
+                    url = "/page/approveDetail/picking/picking";
+                    break;
+                case 27:
+                    url = "/page/approveDetail/intoStorage/intoStorage";
+                    break;
+                case 30:
+                    url = "/page/approveDetail/goOut/goOut";
+                    break;
+                case 31:
+                    url = "/page/approveDetail/createProject/createProject";
+                    break;
+                case 32:
+                    url = "/page/approveDetail/crossHelp/crossHelp";
+                    break;
+                case 33:
+                    url = "/page/approveDetail/changePaper/changePaper";
+                    break;
+                case 34:
+                    url = "/page/approveDetail/techonologySupply/techonologySupply";
+                    break;
+                case 35:
+                    url = "/page/approveDetail/letGoodsGo/letGoodsGo";
+                    break;
+                case 36:
+                    url = "/page/approveDetail/intellectualProperty/intellectualProperty";
+                    break;
+                case 67:
+                    url = "/page/approveDetail/borrowThing/borrowThing";
+                    break;
+                case 68:
+                    url = "/page/approveDetail/maintain/maintain";
+                    break;
+                case 69:
+                    url = "/page/approveDetail/projectClosure/projectClosure";
+                    break;
             }
+
+            // for (let i = 0, length = app.globalData.menu.length; i < length; i++) {
+            //     if (parseInt(row.FlowId) == app.globalData.menu[i].FlowId) {
+            //         url = app.globalData.menu[i].ApproveUrl.slice(6);
+            //         break;
+            //     }
+            // }
+
             dd.navigateTo({
                 url: url + this._formatQueryStr(param)
             });
@@ -158,4 +233,5 @@ Page({
         this.data.size = this.data.size + 5;
         this.getApproveList(this.data.activeItem);
     }
+    //获取待审批查看数据和待读数据
 });

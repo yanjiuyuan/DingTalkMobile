@@ -66,6 +66,7 @@ export default {
                                 if (node.NodeId == nodeId) {
                                     result.users.name = name;
                                     node.AddPeople = result.users;
+                                    console.log(result.users);
                                 }
                             }
                             console.log("选择了一个人");

@@ -18,7 +18,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.31",
+        version: "2.7.35",
         DingData: {
             nickName: "",
             departName: "",
@@ -223,6 +223,14 @@ export default {
                             return;
                         }
                         for (let a of node.AddPeople) {
+                            if (a.name == null || a.name == "" || a.userId == null || a.userId == "") {
+                                dd.alert({
+                                    content: promptConf.promptConf.Approver,
+                                    buttonText: promptConf.promptConf.Confirm
+                                });
+                                return;
+                            }
+
                             let tmpParam = {
                                 ApplyMan: a.name,
                                 ApplyManId: a.userId,
@@ -378,11 +386,6 @@ export default {
                         (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
                     ) {
                         if (node.AddPeople.length == 0) {
-                            console.log(that.data.nodeInfo);
-                            console.log(node.NodeId);
-                            console.log(that.data.addPeopleNodes);
-                            console.log(that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0);
-
                             dd.alert({
                                 content: promptConf.promptConf.Approver,
                                 buttonText: promptConf.promptConf.Confirm
