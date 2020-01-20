@@ -5,7 +5,6 @@ Page({
     ...pub.func.dowith,
     data: {
         ...pub.data,
-        IsReview: true,
         copyMans: [],
         table: {}
     },
@@ -14,10 +13,13 @@ Page({
         let param = {
             Remark: value.remark
         };
-        console.log(this.data.table);
-        console.log(this.data.DingData);
 
-        this.data.table.IsReview = this.data.IsReview;
+        console.log(value);
+        console.log(this.data.table);
+
+        if (this.data.nodeid == 2) {
+            this.data.table.IsReview = value.IsReview;
+        }
         this.data.table.ProjectId = value.ProjectId;
         if (this.data.nodeid == 3 || this.data.nodeid == 2) {
             if (this.data.nodeid == 3 && !this.data.table.ProjectId) {
@@ -35,6 +37,8 @@ Page({
                 });
                 return;
             }
+            this.data.table.CompanyName = "泉州华中科技大学智能制造研究院";
+
             this._postData(
                 "CreateProject/Modify",
                 res => {

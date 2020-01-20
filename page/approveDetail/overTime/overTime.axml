@@ -9,8 +9,6 @@
 			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
-			<!--<view class="form-row"><view class="form-row-label">
-					加班人员</view><view class="form-row-content"><input name="name" class="input" disabled="{{true}}" value="{{DingData.nickName}}" /></view></view> -->
 			<view class="form-row">
 				<view class="form-row-label">
 					加班事由

@@ -50,7 +50,7 @@ Page({
             endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
             success: res => {
                 this.setData({
-                    "table.StartTime": res.date
+                    "table.DateTime": res.date
                 });
             }
         });

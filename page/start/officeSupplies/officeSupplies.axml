@@ -76,12 +76,12 @@
 			</form>
 			<!-- 物料表单 -->
 			<!--<button type="primary" onTap="processOn" disabled="{{disablePage}}">流程图</button>  -->
-			<view onTap="chooseItem">
+			<view onTap="chooseItem" a:if="{{tableData.length > 0}}">
 				<text>办公用品列表</text>
 				<template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate}}"/>
 			</view>
 			<!-- 已选物料表单 -->
-			<view onTap="deleteItem">
+			<view onTap="deleteItem" a:if="{{purchaseList.length > 0}}">
 				<text>已选办公用品</text>
 				<template is="datatable" data="{{items:tableItems2,data:purchaseList,param:tableParam2,tableOperate:tableOperate2}}"/>
 			</view>

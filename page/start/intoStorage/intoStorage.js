@@ -10,8 +10,6 @@ Page({
         tableOperate: "选择",
         purchaseList: [],
         tableParam2: {
-            // size: 100,
-            // now: 0,
             total: 0
         },
         tableOperate2: "删除",
@@ -80,22 +78,13 @@ Page({
                 label: "单位",
                 width: 100
             },
-            // {
-            //   prop: 'fPrice',
-            //   label: '单价',
-            //   width: 200
-            // },
-            // {
-            //   prop: 'fAmount',
-            //   label: '金额',
-            // },
+
             {
                 prop: "fFullName",
                 label: "供应商",
                 width: 300
             }
         ]
-        //data:[]
     },
     //表单操作相关
     search(e) {
@@ -365,7 +354,7 @@ Page({
             for (let i = 0; i < this.data.purchaseList.length; i++) {
                 //数量判断
                 for (let g of this.data.goods) {
-                    if (this.data.purchaseList[i].fNumber == g.fNumber && value.fQty > g.fQty) {
+                    if (good.fNumber == g.fNumber && value.fQty > g.fQty) {
                         dd.alert({
                             content: promptConf.promptConf.GreaterThanAvailable,
                             buttonText: promptConf.promptConf.Confirm
@@ -385,6 +374,7 @@ Page({
         }
         //添加
         else {
+            console.log("添加");
             for (let p of this.data.purchaseList) {
                 if (p.fNumber == good.fNumber) {
                     dd.alert({

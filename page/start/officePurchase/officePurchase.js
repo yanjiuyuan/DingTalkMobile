@@ -124,7 +124,6 @@ Page({
             "OfficeSuppliesPurchase/GetTable" +
                 this.formatQueryStr({ startTime: value.startTime, endTime: value.endTime + " 23:59:59" }),
             res => {
-                console.log(res.data);
                 if (res.data.length == 0) {
                     dd.alert({
                         content: promptConf.promptConf.SearchNoReturn,
@@ -153,8 +152,6 @@ Page({
                     });
                 }
 
-                console.log(this.data.dataList);
-
                 for (let d of res.data) {
                     for (let l of this.data.dataList) {
                         if (d.dept == l.name) {
@@ -178,7 +175,6 @@ Page({
                     totalPrice: this.data.totalPrice,
                     "tableParam.total": this.data.dataList[0].value.length
                 });
-                // that.getData();
             }
         );
     },
@@ -187,16 +183,19 @@ Page({
         let index = e.target.targetDataset.index;
         let row = e.target.targetDataset.row;
         if (!index && index != 0) return;
-        console.log(e);
         //默认方法，删除选项
         if (!e.target.targetDataset.opt2) {
             for (let i of this.data.dataList) {
                 for (let j of i.value) {
                     if (row.Id == j.Id) {
-                        i.tmpTotalPrice = (
-                            parseFloat(i.tmpTotalPrice) -
-                            parseFloat(row.ExpectPrice != "" ? row.ExpectPrice : 0) * parseFloat(row.Count)
-                        ).toFixed(2);
+                        console.log(typeof i.tmpTotalPrice);
+                        i.tmpTotalPrice = Number(
+                            (
+                                parseFloat(i.tmpTotalPrice) -
+                                parseFloat(row.ExpectPrice != "" ? row.ExpectPrice : 0) * parseFloat(row.Count)
+                            ).toFixed(2)
+                        );
+
                         this.data.totalPrice = (
                             parseFloat(this.data.totalPrice) -
                             parseFloat(row.ExpectPrice != "" ? row.ExpectPrice : 0) * parseFloat(row.Count)
@@ -210,11 +209,9 @@ Page({
                 totalPrice: this.data.totalPrice,
                 dataList: this.data.dataList
             });
-            console.log("删除");
         }
         //第二方法，编辑选项
         else {
-            console.log("编辑");
             good = e.target.targetDataset.row;
             if (!good) return;
             this.setData({
@@ -227,42 +224,33 @@ Page({
 
     addGood(e) {
         let value = e.detail.value;
-        console.log(good);
-        console.log(value);
-
-        let reg3 = /^[\.\d]*$/; //纯数字包括小数
-
-        if (!reg3.test(value.fQty)) {
-            dd.alert({
-                content: `数量必须为整数，请重新输入！`,
-                buttonText: promptConf.promptConf.Confirm
-            });
-            return;
-        }
-        if (value.fQty == 0) {
-            dd.alert({
-                content: `数量不允许为0，请重新输入！`,
-                buttonText: promptConf.promptConf.Confirm
-            });
-            return;
-        }
-        if (!value || !value.fQty) {
-            dd.alert({
-                content: `数量不允许为空，请输入！`,
-                buttonText: promptConf.promptConf.Confirm
-            });
-            return;
-        }
         for (let i of this.data.dataList) {
             for (let j of i.value) {
                 if (good.CodeNo == j.CodeNo) {
-                    j.Count = value.fQty;
+                    let a = j.ExpectPrice;
+                    j.ExpectPrice = value.ExpectPrice;
                     j.Purpose = value.Purpose == "" ? j.Purpose : value.Purpose;
+
+                    this.data.totalPrice = (
+                        parseFloat(this.data.totalPrice) -
+                        parseFloat(a != "" ? a : 0) * parseFloat(j.Count) +
+                        parseFloat(j.ExpectPrice != "" ? j.ExpectPrice : 0) * parseFloat(j.Count)
+                    ).toFixed(2);
+
+                    i.tmpTotalPrice =
+                        parseFloat(i.tmpTotalPrice) -
+                        parseFloat(a != "" ? a : 0) * parseFloat(j.Count) +
+                        parseFloat(
+                            (parseFloat(j.ExpectPrice != "" ? j.ExpectPrice : 0) * parseFloat(j.Count)).toFixed(2)
+                        );
+
+                    break;
                 }
             }
         }
         console.log(this.data.dataList);
         this.setData({
+            totalPrice: this.data.totalPrice,
             dataList: this.data.dataList,
             hidden: !this.data.hidden
         });

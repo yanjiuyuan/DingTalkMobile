@@ -18,8 +18,6 @@
 	/* margin-top: -5px; */
 }
 
-.cell-title {}
-
 .button {
 	border: 1px solid #4796FA;
 	color: #4796FA;
@@ -388,4 +386,54 @@
 	min-height: 90rpx;
 	display: table-cell;
 	vertical-align: middle;
+}
+
+/* 新的表格样式 */
+
+.table-new {
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+}
+
+.table-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #fff;
+	margin-top: -2px;
+}
+
+.table-bottom-s {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: -2px;
+}
+
+.table-previous {
+	margin-right: 20rpx;
+}
+
+.cell-new {
+	display: inline-block;
+	height: 80rpx;
+	text-align: center;
+	background-color: #fff;
+	border-right: 1px solid #F7F7F7;
+	/* border-bottom: 1px solid #F7F7F7; */
+	overflow: scroll;
+	/* margin: 0 1px; */
+	/* border: 1px solid; */
+	/* padding-left: 0 12rpx; */
+	/* margin-left: -1px; */
+	margin-top: -2px;
+}
+
+.cell-new text {
+	line-height: 80rpx;
+}
+
+.cell-title {
+	background-color: #4796FA;
+	color: #fff;
 }

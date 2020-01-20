@@ -13,6 +13,7 @@ Page({
         tableParam2: {
             total: 0
         },
+
         tableItems: [
             {
                 prop: "TaskId",
@@ -145,6 +146,8 @@ Page({
         let that = this;
         let value = e.detail.value;
         let tableData = this.data.tableData2;
+        let reg = /^-?\d+$/; //只能是整数数字
+
         if (tableData == undefined) {
             dd.alert({
                 content: "物料表单不能为空，请选择！",
@@ -159,6 +162,7 @@ Page({
             });
             return;
         }
+
         if (value.counts == "") {
             dd.alert({
                 content: "套数不允许为空，请输入！",
@@ -167,7 +171,7 @@ Page({
             return;
         }
 
-        if (!that.data.reg.test(value.counts)) {
+        if (!reg.test(value.counts)) {
             dd.alert({
                 content: "套数必须为整数，请重新输入！",
                 buttonText: promptConf.promptConf.Confirm

@@ -14,11 +14,12 @@ let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项�
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"];
 let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"];
 let localStorage = "";
+
 export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.35",
+        version: "2.7.37",
         DingData: {
             nickName: "",
             departName: "",

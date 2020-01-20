@@ -31,7 +31,7 @@
 			<view class="form-row">
 				<view class="form-row-label">主要内容</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="MainIdea" maxlength="800" class="input" value="{{table.MainIdea}}" disabled="{{true}}" />
+					<textarea auto-height="true" name="MainIdea" maxlength="140" class="input" value="{{table.MainIdea}}" disabled="{{true}}" />
 				</view>
 			</view>
 			<view class="form-row" style="height:100%;">
@@ -43,18 +43,18 @@
 					</view>
 				</view>
 			</view>
-			<view class="form-row">
+			<view class="form-row" a:if="{{(nodeid == 1 && index == 0) || nodeid > 1}}">
 				<view class="form-row-label">
 					<template a:if="{{nodeid == 1 }}" is="required"></template>拟办意见</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="Suggestion" maxlength="800" class="input" value="{{table.Suggestion}}" disabled="{{nodeid > 1}}" />
+					<textarea auto-height="true" name="Suggestion" maxlength="30" class="input" value="{{table.Suggestion}}" disabled="{{nodeid > 1}}" />
 				</view>
 			</view>
-			<view class="form-row" a:if="{{nodeid>=3}}">
+			<view class="form-row" a:if="{{(nodeid == 3 && index == 0) || nodeid > 3}}">
 				<view class="form-row-label">
 					<template a:if="{{nodeid == 3 }}" is="required"></template>领导阅示</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="Leadership" maxlength="800" class="input" value="{{table.Leadership}}" disabled="{{nodeid > 3}}" />
+					<textarea auto-height="true" name="Leadership" maxlength="30" class="input" value="{{table.Leadership}}" disabled="{{nodeid > 3}}" />
 				</view>
 			</view>
 			<!-- 选人组件 -->

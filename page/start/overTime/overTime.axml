@@ -27,37 +27,25 @@
 				<view class="form-row-label">
 					<template is="required"></template>加班日期</view>
 				<view class="form-row-content">
-					<input name="DateTime" class="input" placeholder="加班日期" disabled="{{true}}" value="{{table.StartTime}}"/>
+					<input name="DateTime" class="input" placeholder="加班日期" disabled="{{true}}" value="{{table.DateTime}}"/>
 				</view>
 				<view onTap="selectStartDateTime" class="tag tag-info">+ 选择</view>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>起始时间</view>
-				<picker onChange="bindPickerChangeOne" value="{{index1}}" range="{{arrayOfTime}}">
-					<view class="row">
-						<view class="row-title"></view>
-						<view class="row-extra">{{arrayOfTime[index1]}}</view>
-						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-					</view>
-				</picker>
+				<my-picker index="{{index1}}" range ="{{arrayOfTime}}" onChange="bindPickerChangeOne" value="{{table.StartTime}}"/>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>结束时间</view>
-				<picker onChange="bindPickerChangeTwo" value="{{index2}}" range="{{arrayOfTime}}">
-					<view class="row">
-						<view class="row-title"></view>
-						<view class="row-extra">{{arrayOfTime[index2]}}</view>
-						<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
-					</view>
-				</picker>
+				<my-picker index="{{index2}}" range ="{{arrayOfTime}}" onChange="bindPickerChangeTwo" value="{{table.EndTimeTime}}"/>
 			</view>
 			<view class="form-row">
 				<view class="form-row-label" style="width:3rem">
 					<template is="required"></template>加班时长（小时）</view>
 				<view class="form-row-content">
-					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" disabled="{{true}}"/>
+					<input name="UseTime" class="input" value="{{hour}}" placeholder="加班时长" disabled="{{true}}" />
 				</view>
 			</view>
 			<!-- 选人组件 -->

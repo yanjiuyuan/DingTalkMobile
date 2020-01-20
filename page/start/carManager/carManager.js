@@ -117,17 +117,17 @@ Page({
                 width: 300
             },
             {
-                prop: "UseKilometres",
+                prop: "StartKilometres",
                 label: "起始公里/KM",
                 width: 200
             },
             {
-                prop: "FactKilometre",
+                prop: "EndKilometres",
                 label: "结束公里/KM",
                 width: 200
             },
             {
-                prop: "UnitPricePerKilometre",
+                prop: "UseKilometres",
                 label: "总里程/KM",
                 width: 100
             }

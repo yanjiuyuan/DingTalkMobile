@@ -52,7 +52,7 @@ Page({
                 point: "打包上传",
                 fileList: []
             },
-            
+
             {
                 label: "软件源代码",
                 attribute: "SourceCode7",
@@ -131,6 +131,28 @@ Page({
         show4: "hidden",
 
         tableItems1: [
+            {
+                prop: "Type",
+                label: "类别",
+                width: 200
+            },
+            {
+                prop: "ApplyMan",
+                label: "申请人",
+                width: 200
+            },
+            {
+                prop: "ApplyTime",
+                label: "申请时间",
+                width: 250
+            },
+            {
+                prop: "OldTaskId",
+                label: "流水号",
+                width: 200
+            }
+        ],
+        tableItems5: [
             {
                 prop: "Types",
                 label: "类别",
@@ -307,9 +329,9 @@ Page({
                 Subject: "合计",
                 TaskId: null
             }
-        ]  
+        ]
     },
-    submit(e) { 
+    submit(e) {
         let value = e.detail.value;
         let param = {
             Title: value.title,
@@ -331,7 +353,7 @@ Page({
                     });
                     flag = false;
                     break;
-                } 
+                }
                 flag = true;
             }
         }
@@ -363,14 +385,14 @@ Page({
 
             if (this.data.state != "已完成") {
                 // for (let i of this.data.nodeList) {
-                // 	if (i.ApplyMan == this.data.DingData.nickName) { 
+                // 	if (i.ApplyMan == this.data.DingData.nickName) {
                 // 		this.setData({
                 // 			nodeid: i.NodeId,
                 // 		})
                 // 		break;//申请人是否可以是部长
-                // 	} 
+                // 	}
                 // }
-            } 
+            }
 
             let arr1 = [];
             let arr2 = [];
@@ -380,7 +402,7 @@ Page({
                 } else {
                     arr2.push(i);
                 }
-            } 
+            }
             //获取知识产权类型
             for (let i of arr1) {
                 this._getData("IntellectualProperty/Read" + this.formatQueryStr({ TaskId: i.OldTaskId }), res => {
@@ -398,7 +420,6 @@ Page({
                     }
                 }
             }
-
 
             this.setData({
                 uploadFileConfig: this.data.uploadFileConfig,
@@ -425,7 +446,7 @@ Page({
         if (!e) return;
         console.log(e);
         this.data.good = e.target.targetDataset.row;
-        if (!this.data.good) return; 
+        if (!this.data.good) return;
 
         this.setData({
             Subject: this.data.good.Subject,
@@ -435,7 +456,7 @@ Page({
         this.createMaskShowAnim();
         this.createContentShowAnim();
     },
- 
+
     //隐藏弹窗表单
     onModalCloseTap() {
         this.createMaskHideAnim();

@@ -179,7 +179,7 @@
 			</view>
 		</view>
 		<view class="{{show2}}">
-			<template is="datatable" data="{{items:tableItems1,data:intellectualProperty,param:tableParam5}}"/>
+			<template is="datatable" data="{{items:tableItems5,data:intellectualProperty,param:tableParam5}}"/>
 		</view>
 		<!-- 转化/应用单位情况表 -->
 		<view a:if="{{table.IsTransverse && (nodeid > 3  || index == 2)}}">

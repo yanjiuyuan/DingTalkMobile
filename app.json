@@ -69,7 +69,7 @@
         "defaultTitle": "研究院钉钉",
         "backgroundColor": "#F5F5F9",
         "pullRefresh": false,
-        "allowsBounceVertical": true
+        "allowsBounceVertical": false
     },
     "tabBar": {
         "textColor": "#404040",
