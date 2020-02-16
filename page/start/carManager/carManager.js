@@ -241,13 +241,15 @@ Page({
     },
     cancel(e) {
         this.setData({
-            row: {},
+            row: undefined,
             hidden: !this.data.hidden
         });
     },
     confirm(e) {
         let that = this;
         let value = e.detail.value;
+        console.log(this.data.row);
+
         if (value.Name.trim() == "") {
             dd.alert({
                 content: "名称不允许为空，请输入！",
@@ -277,7 +279,7 @@ Page({
             return;
         }
         //编辑
-        if (this.data.row.Id) {
+        if (this.data.row) {
             console.log("编辑");
             this.data.row.Name = value.Name;
             this.data.row.Type = value.Type;
@@ -303,7 +305,7 @@ Page({
                         buttonText: promptConf.promptConf.Confirm
                     });
                     that.setData({
-                        row: {},
+                        row: undefined,
                         hidden: !this.data.hidden
                     });
                     that.getCar();
@@ -312,7 +314,7 @@ Page({
             );
         }
         //添加
-        else if (!this.data.row.Id) {
+        else if (!this.data.row) {
             console.log("添加");
             let obj = {
                 ApplyManId: app.userInfo.userid,

@@ -6,9 +6,9 @@
 				<view class="form-row-label">
 					<template is="required"></template>流程名称</view>
 				<view class="form-row-content">
-					<input name="FlowName" class="input" value="{{tableInfo.FlowName}}" placeholder="流程名称" />
+					<input name="FlowName" class="input" value="{{tableInfo.FlowName}}" placeholder="流程名称" maxlength="6"/>
 				</view>
-			</view>
+			</view> 
 			<view class="form-row">
 				<view class="form-row-label" style="width:2.7rem">
 					<template is="required"></template>移动端流程名称</view>
@@ -16,6 +16,15 @@
 					<input name="FlowNameMobile" class="input" value="{{tableInfo.FlowNameMobile}}" placeholder="移动端流程名称" maxlength="6" />
 				</view>
 			</view>
+ 
+			<view class="form-row">
+				<view class="form-row-label"> 
+					<template is="required"></template>创建人</view>
+				<view class="form-row-content">
+					<input name="CreateMan" class="input" value="{{CreateMan}}" disabled="true"/>
+				</view>
+	 		</view>
+			
 			<view class="form-row">
 				<view class="form-row-label">
 					<template is="required"></template>流程id</view>

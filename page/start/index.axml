@@ -33,7 +33,7 @@
 						<text class="grid-text-new">{{item.FlowName.indexOf('申请') > 0 && item.FlowName.length > 6  ? item.FlowName.substring(0,item.FlowName.indexOf('申请')):item.FlowName}}</text>
 					</view>
 				</navigator>
-			</view>
+			</view> 
 		</view>
 	</view>
 </view>

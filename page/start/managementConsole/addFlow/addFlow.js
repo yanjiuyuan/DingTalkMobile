@@ -1,5 +1,5 @@
 import pub from '/util/public';
-import promptConf from "/util/promptConf.js";
+import promptConf from "/util/promptConf.js"; 
 const app = getApp();
 Page({
 	...pub.func,
@@ -9,11 +9,15 @@ Page({
 		IsSupportMobileArray: [{ name: '是', label: true }, { name: '否', label: false }],
 		IsFlowArray: [{ name: '是', label: true }, { name: '否', label: false }],
 	},
-	onLoad(option) {
-		
+	onLoad(options) {
+		console.log(options)
+		this.setData({
+			CreateMan: app.userInfo.nickName,
+			CreateManId:app.userInfo.userid,
+			})
 	},
 	//配置节点信息
-	setNodeInfo() {
+	setNodeInfo() { 
 		dd.navigateTo({
 			url: "../addFlow/setNodeInfo/setNodeInfo"
 		})
@@ -89,20 +93,16 @@ Page({
 	},
 	submit(e) {
 		let value = e.detail.value;	
-		for (let i in this.data.tableInfo) {
-			for (let j in value) {
-				if (i == j) {
-					this.data.tableInfo[i] = value[j];
-				}
-			}
-		}
+		console.log(value);
 
-		this.data.sort.flows = [this.data.tableInfo];
+
 		let obj = {
 			applyManId: app.userInfo.userid,
-			FlowSortList: [this.data.sort]
+			FlowSortList: []
 		}
-		this._postData("FlowInfoNew/LoadFlowModify", (res) => {
+		console.log(obj);
+		return;
+		this._postData("FlowInfoNew/FlowAdd", (res) => {
 			dd.alert({
 				content: promptConf.promptConf.UpdateSuccess,
 				buttonText: promptConf.promptConf.Confirm

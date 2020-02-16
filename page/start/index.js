@@ -53,7 +53,7 @@ Page({
                             "DingTalkServers/getUserDetail" +
                             lib.func.formatQueryStr({ userid: res.users[0].userId }),
                         method: "POST",
-                        data: "",
+                        data: "", 
                         headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
                         success: function(res) {
                             console.log(res);
@@ -68,6 +68,7 @@ Page({
                             console.log(DingData);
                             dd.hideLoading();
                             that.setData({ DingData: DingData });
+                            that.onLoad();//更换人物，重新登录
                         }
                     });
                 }
@@ -104,7 +105,7 @@ Page({
         app.userInfo.name = name;
         app.userInfo.userid = userId;
         app.userInfo.nickName = name;
-
+        this.onLoad();
         this.setData({
             DingData: {
                 nickName: name,
@@ -116,7 +117,7 @@ Page({
     getUserInfo() {
         let that = this;
         this._getData("FlowInfoNew/GetUserInfo", function(data) {
-            data.push(
+            data.unshift(
                 {
                     PeopleId: "056652031835326264",
                     NodePeople: "许瑜瑜"
