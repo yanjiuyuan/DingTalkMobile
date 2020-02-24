@@ -53,7 +53,7 @@ Page({
                             "DingTalkServers/getUserDetail" +
                             lib.func.formatQueryStr({ userid: res.users[0].userId }),
                         method: "POST",
-                        data: "", 
+                        data: "",
                         headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
                         success: function(res) {
                             console.log(res);
@@ -68,7 +68,7 @@ Page({
                             console.log(DingData);
                             dd.hideLoading();
                             that.setData({ DingData: DingData });
-                            that.onLoad();//更换人物，重新登录
+                            that.onLoad(); //更换人物，重新登录
                         }
                     });
                 }
@@ -123,6 +123,10 @@ Page({
                     NodePeople: "许瑜瑜"
                 },
                 {
+                    PeopleId: "175508475239722073",
+                    NodePeople: "黄俊生"
+                },
+                {
                     PeopleId: "100367431324638845",
                     NodePeople: "张顺林"
                 },
@@ -133,98 +137,6 @@ Page({
             );
             that.setData({
                 userList: data
-            });
-        });
-    },
-
-    // getMenu() {
-    // 	let that = this;
-    // 	this._getData('FlowInfoNew/LoadFlowSort?userId=' + app.userInfo.userid, function(data) {
-    // 		let sorts = data;
-    // 		that.setData({ sort: data });
-    // 		let sortItem = [];//用于存放sort打开展开收起的数据
-    // 		let tempdata = [];//用于存放流程数据
-    // 		for (let s of sorts) {
-    // 			for (let f of s.flows) {
-    // 				f.flowId = f.FlowId;
-    // 				f.sortName = s.SORT_NAME;
-    // 				f.flowName = f.FlowName;
-
-    // 				tempdata.push(f);
-    // 			}
-
-    // 		}
-    // 		let temp = that.mergeObjectArr(tempdata, that.data.menu, 'flowId');
-    // 		for (let s of sorts) {
-    // 			let item = {
-    // 				text: "收起",
-    // 				class: "dropdown-content-show"
-    // 			}
-    // 			sortItem.push(item);
-    // 			s['show'] = false;
-    // 			for (let t of temp) {
-    // 				if (t.url && t.sortId == s.Sort_ID) {
-    // 					s['show'] = true;
-    // 					break;
-    // 				}
-    // 			}
-    // 		}
-    // 		console.log(sorts);
-    // 		console.log(temp);
-    // 		console.log(sortItem);
-    // 		console.log(that.data.menu);
-
-    // 		app.globalData.sort = sorts;
-    // 		app.globalData.menu = temp;
-    // 		app.globalData.sortItems = sortItem;
-    // 		that.setData({
-    // 			sort: sorts,
-    // 			menu: temp,
-    // 			sortItems: sortItem
-    // 		})
-    // 	})
-    // },
-
-    getMenu() {
-        let that = this;
-        this._getData("FlowInfoNew/LoadFlowSort?userId=" + app.userInfo.userid, function(data) {
-            let sorts = data;
-            app.globalData.ALLsort = JSON.parse(JSON.stringify(data));
-            that.setData({ sort: data });
-            let sortItem = []; //用于存放sort打开展开收起的数据
-            let tempdata = []; //用于存放流程数据
-            for (let s of sorts) {
-                for (let f of s.flows) {
-                    tempdata.push(f);
-                }
-            }
-            // let temp = that.mergeObjectArr(tempdata, that.data.menu, 'flowId');
-            for (let s of sorts) {
-                let item = {
-                    text: "收起",
-                    class: "dropdown-content-show"
-                };
-                s["show"] = false;
-                sortItem.push(item);
-                for (let t of tempdata) {
-                    if (t.PhoneUrl && t.SORT_ID == s.Sort_ID) {
-                        s["show"] = true;
-                        break;
-                    }
-                }
-            }
-            // console.log(sorts);
-            // console.log(tempdata);
-            // console.log(sortItem);
-            // console.log(that.data.menu);
-
-            app.globalData.sort = sorts;
-            app.globalData.menu = tempdata;
-            app.globalData.sortItems = sortItem;
-            that.setData({
-                sort: sorts,
-                menu: tempdata,
-                sortItems: sortItem
             });
         });
     },

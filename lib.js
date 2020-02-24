@@ -1,10 +1,10 @@
-// let dormainName = "http://47.96.172.122:8093/"; //线上研究院
+let dormainName = "http://47.96.172.122:8093/"; //线上研究院
 // let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
-// 
-let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
+//
+// let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
 
 function doWithErrcode(result) {
-    if (!result) { 
+    if (!result) {
         return 1;
     }
     if (result.error && result.error.errorCode != 0) {

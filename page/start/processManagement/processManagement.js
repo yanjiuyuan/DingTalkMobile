@@ -22,8 +22,11 @@ Page({
             responseUserOnly: false, //返回人，或者返回人和部门
             startWithDepartmentId: 0, // 0表示从企业最上层开始},
             success: function(res) {
-                // that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId, (result) => {
-                that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + "023752010629202711", result => {
+                that.setData({
+                    user: res.users[0]
+                });
+                that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId, result => {
+                    // that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + "023752010629202711", result => {
                     if (JSON.stringify(result) == "{}") {
                         that.setData({
                             severanceOfficer: res.users[0].name,
@@ -48,8 +51,8 @@ Page({
                     for (let i in processData) {
                         processData[i] = {
                             flowName: resultKey[i],
-                            // nodeList: that.Arrangement(processData[i], res.users[0].name, res.users[0].userId)
-                            nodeList: that.Arrangement(processData[i], "王平江", "023752010629202711")
+                            nodeList: that.Arrangement(processData[i], res.users[0].name, res.users[0].userId)
+                            // nodeList: that.Arrangement(processData[i], "王平江", "023752010629202711")
                         };
                     }
                     console.log(processData);
@@ -108,13 +111,30 @@ Page({
             responseUserOnly: false, //返回人，或者返回人和部门
             startWithDepartmentId: 0, // 0表示从企业最上层开始},
             success: function(res) {
+                that.data.processData[index].nodeList[NodeId].NodePeople = that.data.processData[index].nodeList[
+                    NodeId
+                ].NodePeople.replace(that.data.user.name, res.users[0].name);
+                that.data.processData[index].nodeList[NodeId].PeopleId = that.data.processData[index].nodeList[
+                    NodeId
+                ].PeopleId.replace(that.data.user.userId, res.users[0].userId);
+
                 that.data.processData[index].nodeList[NodeId].AddPeople = [
                     { name: res.users[0].name, userId: res.users[0].userId }
                 ];
-                console.log(that.data.processData);
-                that.setData({
-                    processData: that.data.processData
-                });
+                console.log(that.data.processData[index].nodeList);
+                that._postData(
+                    "FlowInfoNew/UpdateNodeInfos",
+                    res => {
+                        that.setData({
+                            processData: that.data.processData
+                        });
+                        dd.alert({
+                            content: promptConf.promptConf.UpdateSuccess,
+                            buttonText: promptConf.promptConf.Confirm
+                        });
+                    },
+                    that.data.processData[index].nodeList
+                );
             }
         });
     },

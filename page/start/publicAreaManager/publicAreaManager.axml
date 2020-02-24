@@ -1,0 +1,86 @@
+<!-- 公共消毒管理 -->
+<import src="/util/template/template.axml"/>
+<view class="page">
+    <form onSubmit ="submit" a:if="{{power == 6 }}">
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>开始时间</view>
+            <view class="form-row-content">
+                <input name="startTime" class="input" placeholder="开始时间" value="{{table.BeginTime}}" disabled="true"/>
+            </view>
+            <view onTap="selectStartDate" class="tag tag-info">+ 选择</view>
+        </view>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>结束时间</view>
+            <view class="form-row-content">
+                <input name="endTime" class="input" placeholder="结束时间" value="{{table.EndTime}}" disabled="true"/>
+            </view>
+            <view onTap="selectEndDate" class="tag tag-info">+ 选择</view>
+        </view>
+        <view class="buttons">
+            <button class="button-size" type="primary" formType="submit" data-IsPrint="{{false}}">搜索</button>
+            <button class="button-size" type="primary" formType="submit" data-IsPrint="{{true}}" disabled="{{disablePages}}">打印表单</button>
+        </view>
+    </form>
+    <view a:if="{{power == 0 || power == 6 || power == undefined}}">
+        <text>消毒记录表(十楼)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[0],param:tableParam[0]}}"/>
+    </view>
+    <view a:if="{{power == 1 || power == 6 || power == undefined}}">
+        <text>消毒记录表(十一楼)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[1],param:tableParam[1]}}"/>
+    </view>
+    <view a:if="{{power == 2 || power == 6 || power == undefined}}">
+        <text>消毒记录表(十二楼)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[2],param:tableParam[2]}}"/>
+    </view>
+    <view a:if="{{power == 3 || power == 6 || power == undefined}}">
+        <text>消毒记录表(十三楼)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[3],param:tableParam[3]}}"/>
+    </view>
+    <view a:if="{{power == 4 || power == 6 || power == undefined}}">
+        <text>消毒记录表(基地办公楼)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[4],param:tableParam[4]}}"/>
+    </view>
+    <view a:if="{{power == 5 || power == 6 || power == undefined}}">
+        <text>消毒记录表(基地四楼宿舍)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[5],param:tableParam[5]}}"/>
+    </view>
+    <view a:if="{{power == 7 || power == 6 || power == undefined}}">
+        <text>消毒记录表(北峰宿舍)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[7],param:tableParam[7]}}"/>
+    </view>
+    <view a:if="{{power == 8 || power == 6 || power == undefined}}">
+        <text>消毒记录表(基地小楼宿舍)</text>
+        <template is="datatable" data="{{items:tableItems,data:tableData[8],param:tableParam[8]}}"/>
+    </view>
+    <form onSubmit ="save" a:if="{{(power >= 0 && power <= 5) || power == 7 || power == 8}}">
+        <text class="titles">消毒记录填写({{roleNameList[power].name}})</text>
+        <view class="form-row">
+            <view class="form-row-label">
+                </template>监督员</view>
+            <view class="form-row-content">
+                <input name="ControlPeople" class="input" disabled="{{true}}" placeholder="请输入监督员" value="{{DingData.nickName}}" />
+            </view>
+        </view>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>保洁员</view>
+            <view class="form-row-content">
+                <input name="ClearPeople" class="input" placeholder="请输入保洁员" />
+            </view>
+        </view>
+        <!--<view class="form-row"><view class="form-row-label"><template is="required"></template>完成时间</view><my-picker index="{{index}}" range ="{{arrayOfTime}}" onChange="bindPickerChange" value="{{table.StartTime}}"/></view> -->
+        <view class="form-row">
+            <view class="form-row-label" style="width:5.2rem">
+                <template is="required"></template>是否合格</view>
+            <radio-group class="radio-group" name="State" onChange="radioChange">
+                <label class="radio" a:for="{{[{name:'是',label:true},{name:'否',label:false}]}}">
+                    <radio value="{{item.label}}" checked="{{item.checked}}" />{{item.name}}
+                </label>
+            </radio-group>
+        </view>
+        <button type="primary" formType="submit">提交</button>
+    </form>
+</view>

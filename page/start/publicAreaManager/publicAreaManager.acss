@@ -1,0 +1,6 @@
+@import "/util/template/template.acss";
+.titles {
+    font-size: 36rpx;
+    font-weight: bold;
+    font-family: "微软雅黑";
+}

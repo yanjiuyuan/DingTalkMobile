@@ -71,3 +71,7 @@ require('../../page/start/officePurchase/officePurchase?hash=d9e1d28e3a7a0002d1f
 require('../../page/start/carManager/carManager?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/sendRead/sendRead?hash=54731a45c39dc50866f1d3121b4269aa4fa64f21');
 require('../../util/people/people?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/start/maskSupplies/maskSupplies?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
+require('../../page/approveDetail/maskSupplies/maskSupplies?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/start/maskQuery/maskQuery?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
+require('../../page/start/publicAreaManager/publicAreaManager?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');

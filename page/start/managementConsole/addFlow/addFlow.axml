@@ -4,40 +4,28 @@
 		<view class="page-section" style="margin-bottom:140rpx;">
 			<view class="form-row">
 				<view class="form-row-label">
-					<template is="required"></template>流程名称</view>
-				<view class="form-row-content">
-					<input name="FlowName" class="input" value="{{tableInfo.FlowName}}" placeholder="流程名称" maxlength="6"/>
-				</view>
-			</view> 
-			<view class="form-row">
-				<view class="form-row-label" style="width:2.7rem">
-					<template is="required"></template>移动端流程名称</view>
-				<view class="form-row-content">
-					<input name="FlowNameMobile" class="input" value="{{tableInfo.FlowNameMobile}}" placeholder="移动端流程名称" maxlength="6" />
-				</view>
-			</view>
- 
-			<view class="form-row">
-				<view class="form-row-label"> 
-					<template is="required"></template>创建人</view>
-				<view class="form-row-content">
-					<input name="CreateMan" class="input" value="{{CreateMan}}" disabled="true"/>
-				</view>
-	 		</view>
-			
-			<view class="form-row">
-				<view class="form-row-label">
 					<template is="required"></template>流程id</view>
 				<view class="form-row-content">
 					<input name="flowId" class="input" value="{{tableInfo.flowId}}" placeholder="流程id" />
 				</view>
 			</view>
-			<view class="form-row" onTap="setNodeInfo">
-				<view class="form-row-label">节点配置</view>
+			<view class="form-row">
+				<view class="form-row-label">
+					<template is="required"></template>流程名称</view>
 				<view class="form-row-content">
-					<image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" />
+					<input name="FlowName" class="input" value="{{tableInfo.FlowName}}" placeholder="流程名称" maxlength="6"/>
 				</view>
 			</view>
+			<!--<view class="form-row"><view class="form-row-label" style="width:2.7rem"><template is="required"></template>移动端流程名称</view><view class="form-row-content"><input name="FlowNameMobile" class="input" value="{{tableInfo.FlowNameMobile}}" placeholder="移动端流程名称" maxlength="6" /></view></view> -->
+			<view class="form-row">
+				<view class="form-row-label">
+					创建人
+				</view>
+				<view class="form-row-content">
+					<input name="CreateMan" class="input" value="{{CreateMan}}" disabled="true"/>
+				</view>
+			</view>
+			<!--<view class="form-row" onTap="setNodeInfo"><view class="form-row-label">节点配置</view><view class="form-row-content"><image class="row-arrow" src="/image/arrowright.png" mode="aspectFill" /></view></view> -->
 			<view class="form-row">
 				<view class="form-row-label">PC页面路径</view>
 				<view class="form-row-content">
@@ -68,15 +56,8 @@
 					</label>
 				</radio-group>
 			</view>
-			<view class="form-row">
-				<view class="form-row-label">
-				权限成员
-				</view>
-				<view class="form-row-content">
-					<textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="ApplyMan" class="input" value="{{tableInfo.ApplyMan}}"/>
-				</view>
-				<view onTap="choosePeople" class="tag tag-info">+ 选人</view>
-			</view>
+			<!--<view class="form-row"><view class="form-row-label">
+				权限成员</view><view class="form-row-content"><textarea disabled="{{true}}" style="min-height:90rpx;padding:0;" auto-height="true" maxlength="-1" name="ApplyMan" class="input" value="{{tableInfo.ApplyMan}}"/></view><view onTap="choosePeople" class="tag tag-info">+ 选人</view></view> -->
 			<view class="form-row">
 				<view class="form-row-label">移动端通知路径</view>
 				<view class="form-row-content">

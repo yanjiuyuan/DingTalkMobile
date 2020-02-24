@@ -19,7 +19,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.37",
+        version: "2.7.39",
         DingData: {
             nickName: "",
             departName: "",
@@ -764,6 +764,9 @@ export default {
                     case "69":
                         (url = "ProjectClosure/PrintAndSend"), (method = "post");
                         break; //结题
+                    case "75":
+                        (url = "PickMask/GetPrintPDF"), (method = "post");
+                        break;
                 }
                 let obj = {
                     UserId: that.data.DingData.userid,
@@ -1053,7 +1056,44 @@ export default {
                 });
             });
         },
-
+        //获取菜单
+        getMenu() {
+            let that = this;
+            this._getData("FlowInfoNew/LoadFlowSort?userId=" + app.userInfo.userid, function(data) {
+                let sorts = data;
+                app.globalData.ALLsort = JSON.parse(JSON.stringify(data));
+                that.setData({ sort: data });
+                let sortItem = []; //用于存放sort打开展开收起的数据
+                let tempdata = []; //用于存放流程数据
+                for (let s of sorts) {
+                    for (let f of s.flows) {
+                        tempdata.push(f);
+                    }
+                }
+                for (let s of sorts) {
+                    let item = {
+                        text: "收起",
+                        class: "dropdown-content-show"
+                    };
+                    s["show"] = false;
+                    sortItem.push(item);
+                    for (let t of tempdata) {
+                        if (t.PhoneUrl && t.SORT_ID == s.Sort_ID) {
+                            s["show"] = true;
+                            break;
+                        }
+                    }
+                }
+                app.globalData.sort = sorts;
+                app.globalData.menu = tempdata;
+                app.globalData.sortItems = sortItem;
+                that.setData({
+                    sort: sorts,
+                    menu: tempdata,
+                    sortItems: sortItem
+                });
+            });
+        },
         getNodeList_done(nodeList) {},
         //获取项目列表
         getProjectList() {
@@ -1366,7 +1406,7 @@ export default {
                     departmentList: app.userInfo.departmentList
                 };
 
-                that.setData({ DingData: DingData });
+                that.setData({ DingData: DingData, DeptNames: app.globalData.DeptNames });
                 callBack();
                 return;
             }

@@ -214,6 +214,9 @@ Page({
                 case 69:
                     url = "/page/approveDetail/projectClosure/projectClosure";
                     break;
+                case 75:
+                    url = "/page/approveDetail/maskSupplies/maskSupplies";
+                    break;
             }
 
             // for (let i = 0, length = app.globalData.menu.length; i < length; i++) {

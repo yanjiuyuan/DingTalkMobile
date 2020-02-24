@@ -1,0 +1,59 @@
+<!-- 口罩领用 -->
+<import src="/util/template/template.axml"/>
+<form onSubmit="submit">
+    <!-- 退回审批表单 -->
+    <template is="reBack" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hidden,disablePage:disablePage}}"/>
+    <template is="changeRemark" data="{{animContentData:animContentData,animMaskData:animMaskData,hidden:hiddenCrmk,disablePage:disablePage}}"/>
+    <view class="page-section">
+        <template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
+        <template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
+        <template is="department" data="{{department:tableInfo.Dept}}"/>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>开始时间</view>
+            <view class="form-row-content">
+                <input name="BeginTime" class="input" placeholder="开始时间" value="{{table.BeginTime}}" disabled="true"/>
+            </view>
+        </view>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>结束时间</view>
+            <view class="form-row-content">
+                <input name="EndTime" class="input" placeholder="结束时间" value="{{table.EndTime}}" disabled="true"/>
+            </view>
+        </view>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>领用数量</view>
+            <view class="form-row-content">
+                <input name="PickCount" class="input" data-name="PickCount" value="{{table.PickCount}}" disabled="true"/>
+            </view>
+        </view>
+        <view class="form-row">
+            <view class="form-row-label">
+                <template is="required"></template>领用人数</view>
+            <view class="form-row-content">
+                <input name="PickPeopleCount" class="input" data-name="PickPeopleCount" value="{{table.PickPeopleCount}}" disabled="true" />
+            </view>
+        </view>
+        <!-- 选人组件 -->
+        <template is="test" data="{{nodeList:nodeList,nodedata:nodeInfo,length:nodeList.length,DingData:DingData,pageNumber:index}}"/>
+        <view a:if="{{index == 0}}">
+            <template is="suggest"/>
+            <button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
+            <button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
+        </view>
+        <view a:if="{{ index!= 0 && state == '已完成' }}">
+            <button type="primary" onTap="print" disabled="{{disablePage}}">打印表单</button>
+        </view>
+        <view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
+            <button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>
+        </view>
+        <view a:if="{{index==2 && state=='未完成'}}">
+            <button type="primary" onTap="ding" disabled="{{disablePage}}">钉一下</button>
+        </view>
+        <view a:if="{{index==2 && state=='未完成' && rebackAble == true}}">
+            <button onTap="returnSubmit" type="warn" disabled="{{disablePage}}">撤回</button>
+        </view>
+    </view>
+</form>
