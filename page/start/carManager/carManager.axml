@@ -54,8 +54,8 @@
       </picker>
     </view>
     <view class="buttons">
-      <button class="button-size" type="primary" formType="submit" data-IsPrint	="{{false}}">搜索</button>
-      <button class="button-size" type="primary" formType="submit" data-IsPrint	="{{true}}" disabled="{{disablePages}}">打印表单</button>
+      <button class="button-size" type="primary" formType="submit" data-IsSend="{{false}}">搜索</button>
+      <button class="button-size" type="primary" formType="submit" data-IsSend="{{true}}" disabled="{{disablePages}}">打印表单</button>
     </view>
   </form>
   <view a:if="{{tableData2}}" onTap="chooseItems">

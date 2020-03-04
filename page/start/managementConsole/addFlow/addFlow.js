@@ -5,18 +5,159 @@ Page({
     ...pub.func,
     data: {
         ...pub.data,
+
+        background: [
+            {
+                url: "/image/icons/1-1.png"
+            },
+            {
+                url: "/image/icons/1-2.png"
+            },
+            {
+                url: "/image/icons/1-3.png"
+            },
+            {
+                url: "/image/icons/1-4.png"
+            },
+            {
+                url: "/image/icons/1-5.png"
+            },
+            {
+                url: "/image/icons/1-6.png"
+            },
+            {
+                url: "/image/icons/1-7.png"
+            },
+            {
+                url: "/image/icons/1-8.png"
+            },
+            {
+                url: "/image/icons/1-9.png"
+            },
+            {
+                url: "/image/icons/2-1.png"
+            },
+            {
+                url: "/image/icons/2-2.png"
+            },
+            {
+                url: "/image/icons/2-3.png"
+            },
+            {
+                url: "/image/icons/2-4.png"
+            },
+            {
+                url: "/image/icons/2-5.png"
+            },
+            {
+                url: "/image/icons/2-6.png"
+            },
+            {
+                url: "/image/icons/2-7.png"
+            },
+            {
+                url: "/image/icons/2-8.png"
+            },
+            {
+                url: "/image/icons/2-9.png"
+            },
+            {
+                url: "/image/icons/3-1.png"
+            },
+            {
+                url: "/image/icons/3-2.png"
+            },
+            {
+                url: "/image/icons/3-3.png"
+            },
+            {
+                url: "/image/icons/3-4.png"
+            },
+            {
+                url: "/image/icons/3-5.png"
+            },
+            {
+                url: "/image/icons/3-6.png"
+            },
+            {
+                url: "/image/icons/3-7.png"
+            },
+            {
+                url: "/image/icons/3-8.png"
+            },
+            {
+                url: "/image/icons/3-9.png"
+            },
+            {
+                url: "/image/icons/4-1.png"
+            },
+            {
+                url: "/image/icons/4-2.png"
+            },
+            {
+                url: "/image/icons/4-3.png"
+            },
+            {
+                url: "/image/icons/4-4.png"
+            },
+            {
+                url: "/image/icons/4-5.png"
+            },
+            {
+                url: "/image/icons/4-6.png"
+            },
+            {
+                url: "/image/icons/4-7.png"
+            },
+            {
+                url: "/image/icons/4-8.png"
+            },
+            {
+                url: "/image/icons/4-9.png"
+            },
+            {
+                url: "/image/icons/5-1.png"
+            },
+            {
+                url: "/image/icons/5-2.png"
+            },
+            {
+                url: "/image/icons/5-3.png"
+            },
+            {
+                url: "/image/icons/5-4.png"
+            },
+            {
+                url: "/image/icons/5-5.png"
+            },
+            {
+                url: "/image/icons/5-6.png"
+            },
+            {
+                url: "/image/icons/5-7.png"
+            },
+            {
+                url: "/image/icons/5-8.png"
+            },
+            {
+                url: "/image/icons/5-9.png"
+            }
+        ],
+        current: 0,
+        position: "0px 0px",
         IsEnableArray: [
-            { name: "是", label: 1 },
+            { name: "是", label: 1, checked: true },
             { name: "否", label: 0 }
         ],
         IsSupportMobileArray: [
-            { name: "是", label: true },
+            { name: "是", label: true, checked: true },
             { name: "否", label: false }
         ],
         IsFlowArray: [
-            { name: "是", label: true },
+            { name: "是", label: true, checked: true },
             { name: "否", label: false }
-        ]
+        ],
+        IsSupportMobile: true
     },
     onLoad(options) {
         let item = JSON.parse(options.item);
@@ -25,6 +166,13 @@ Page({
             item: item,
             CreateMan: app.userInfo.nickName,
             CreateManId: app.userInfo.userid
+        });
+    },
+
+    radioChangeTwo(e) {
+        console.log(e.detail.value);
+        this.setData({
+            IsSupportMobile: e.detail.value
         });
     },
     //配置节点信息
@@ -98,16 +246,24 @@ Page({
     },
     submit(e) {
         let value = e.detail.value;
-        if (value.flowId == "") {
+        console.log(value);
+        if (value.flowId.trim() == "") {
             dd.alert({
                 content: "流程Id不允许为空，请输入！",
                 buttonText: promptConf.promptConf.Confirm
             });
             return;
         }
-        if (value.FlowName == "") {
+        if (value.FlowName.trim() == "") {
             dd.alert({
                 content: "流程名称不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+        if (value.PcUrl.trim() == "") {
+            dd.alert({
+                content: "PC页面路径不允许为空，请输入！",
                 buttonText: promptConf.promptConf.Confirm
             });
             return;
@@ -118,7 +274,9 @@ Page({
         value.State = 1;
         value.Sort_ID = this.data.item.Sort_ID;
         value.Title = "";
-        value.position = "-0px -0px";
+        value.IsFlow = false;
+        value.ApplyMan = "";
+        value.position = this.data.position;
         let obj = {
             applyManId: app.userInfo.userid,
             flowsList: [value]
@@ -139,5 +297,15 @@ Page({
             },
             obj
         );
+    },
+    choose(e) {
+        let index = e.target.dataset.index;
+        let x = -(index % 9) * 90 + "px";
+        let y = -parseInt(index / 9) * 90 + "px";
+        let position = x + " " + y;
+        this.setData({
+            current: index,
+            position: position
+        });
     }
 });

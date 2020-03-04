@@ -51,31 +51,136 @@ export default {
             dd.complexChoose({
                 ...that.data.chooseParam,
                 multiple: IsMultipleSelection == 0 || IsMultipleSelection == undefined ? false : true,
+                pickedUsers: that.data.pickedUsers || [], //已选用户
                 success: function(res) {
-                    let result = res;
-                    dd.httpRequest({
-                        url:
-                            that.data.dormainName +
-                            "DingTalkServers/getUserDetail" +
-                            lib.func.formatQueryStr({ userid: res.users[0].userId }),
-                        method: "POST",
-                        headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
-                        success: function(res) {
-                            let name = res.data.name;
-                            for (let node of that.data.nodeList) {
-                                if (node.NodeId == nodeId) {
-                                    result.users.name = name;
-                                    node.AddPeople = result.users;
-                                    console.log(result.users);
-                                }
-                            }
-                            console.log("选择了一个人");
-                            console.log(that.data.nodeList);
-                            that.setData({
-                                nodeList: that.data.nodeList
-                            });
+                    console.log(res);
+                    let users = []; //部门
+                    //只选部门外的人
+                    if (res.departments.length == 0 && res.users.length > 0) {
+                        that.data.pickedUsers = [];
+                        for (let d of res.users) {
+                            that.data.pickedUsers.push(d.userId);
                         }
-                    });
+
+                        for (let node of that.data.nodeList) {
+                            if (node.NodeId == nodeId) {
+                                node.AddPeople = res.users;
+                            }
+                        }
+                        console.log(that.data.nodeList);
+                        that.setData({
+                            nodeList: that.data.nodeList
+                        });
+                    }
+                    //只选部门，不选部门外的人
+                    else if (res.departments.length > 0 && res.users.length == 0) {
+                        let deptId = [];
+                        for (let i of res.departments) {
+                            deptId.push(i.id);
+                        }
+
+                        that.postDataReturnData(
+                            "DingTalkServers/GetDeptAndChildUserListByDeptId",
+                            result => {
+                                console.log(result.data);
+                                that.data.pickedUsers = [];
+                                that.data.pickedDepartments = [];
+                                let userlist = [];
+                                for (let i in result.data) {
+                                    let data = JSON.parse(result.data[i]);
+                                    that.data.pickedDepartments.push(i);
+                                    userlist.push(...data.userlist);
+                                    for (let d of data.userlist) {
+                                        that.data.pickedUsers.push(d.userid);
+                                        users.push(d);
+                                        d.userId = d.userid;
+                                    }
+                                }
+                                that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+                                users = that.objectArrayDuplication(users, "userId"); //对象数组去重
+                                for (let node of that.data.nodeList) {
+                                    if (node.NodeId == nodeId) {
+                                        node.AddPeople = users;
+                                    }
+                                }
+                                console.log(that.data.nodeList);
+                                that.setData({
+                                    nodeList: that.data.nodeList
+                                });
+                            },
+                            deptId
+                        );
+                    }
+                    //部门外的人和部门一起选
+                    else if (res.departments.length > 0 && res.users.length > 0) {
+                        let deptId = [];
+                        for (let i of res.departments) {
+                            deptId.push(i.id);
+                        }
+
+                        that.postDataReturnData(
+                            "DingTalkServers/GetDeptAndChildUserListByDeptId",
+                            result => {
+                                console.log(result.data);
+                                that.data.pickedUsers = [];
+                                that.data.pickedDepartments = [];
+                                let userlist = [];
+                                for (let i in result.data) {
+                                    let data = JSON.parse(result.data[i]);
+                                    that.data.pickedDepartments.push(i);
+                                    userlist.push(...data.userlist);
+                                    for (let d of data.userlist) {
+                                        that.data.pickedUsers.push(d.userid);
+                                        users.push(d);
+                                        d.userId = d.userid;
+                                    }
+                                }
+                                for (let i of res.users) {
+                                    that.data.pickedUsers.push(i.userId);
+                                    users.push(i);
+                                }
+                                that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
+                                users = that.objectArrayDuplication(users, "userId"); //对象数组去重
+                                for (let node of that.data.nodeList) {
+                                    if (node.NodeId == nodeId) {
+                                        node.AddPeople = users;
+                                    }
+                                }
+                                console.log(that.data.nodeList);
+                                that.setData({
+                                    nodeList: that.data.nodeList
+                                });
+                            },
+                            deptId
+                        );
+                    }
+
+                    /////////////////////////////////旧的选人函数，不支持结合部门的选择
+                    // console.log(res);
+                    // let result = res;
+                    // dd.httpRequest({
+                    //     url:
+                    //         that.data.dormainName +
+                    //         "DingTalkServers/getUserDetail" +
+                    //         lib.func.formatQueryStr({ userid: res.users[0].userId }),
+                    //     method: "POST",
+                    //     headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
+                    //     success: function(res) {
+                    //         let name = res.data.name;
+                    //         for (let node of that.data.nodeList) {
+                    //             if (node.NodeId == nodeId) {
+                    //                 result.users.name = name;
+                    //                 node.AddPeople = result.users;
+                    //                 console.log(result.users);
+                    //             }
+                    //         }
+                    //         console.log("选择了一个人");
+                    //         console.log(that.data.nodeList);
+                    //         that.setData({
+                    //             nodeList: that.data.nodeList
+                    //         });
+                    //     }
+                    // });
                 },
                 fail: function(err) {}
             });
@@ -94,8 +199,18 @@ export default {
         },
         showHiding(e) {
             console.log(e.currentTarget.dataset.NodePeople);
+            let NodePeople = e.currentTarget.dataset.NodePeople;
+            console.log();
+            if (typeof NodePeople[0] == "object") {
+                let arr = [];
+                for (let i of NodePeople) {
+                    arr.push(i.name);
+                }
+                NodePeople = arr;
+            }
+
             dd.navigateTo({
-                url: "/util/people/people?chooseMan=" + e.currentTarget.dataset.NodePeople.join(",")
+                url: "/util/people/people?chooseMan=" + NodePeople.join(",")
             });
         },
         //翻頁相關事件

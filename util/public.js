@@ -19,7 +19,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.39",
+        version: "2.7.40",
         DingData: {
             nickName: "",
             departName: "",
@@ -205,7 +205,22 @@ export default {
                 }
 
                 paramArr.push(applyObj);
+
+                let mustList = [];
+                let choseList = [];
+
+                //是否必选
+                if (that.data.nodeInfo.IsMandatory) {
+                    mustList = that.data.nodeInfo.IsMandatory.split(",");
+                }
+                // 该节点需要选择的节点
+                if (that.data.nodeInfo.ChoseNodeId) {
+                    choseList = that.data.nodeInfo.ChoseNodeId.split(",");
+                }
+                console.log(mustList);
+                console.log(choseList);
                 for (let node of that.data.nodeList) {
+                    //第一个if 判断该节点是否需要选人
                     if (
                         (that.data.nodeInfo.IsNeedChose &&
                             that.data.nodeInfo.ChoseNodeId &&
@@ -213,7 +228,13 @@ export default {
                                 (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) ||
                         (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)
                     ) {
-                        if (node.AddPeople.length == 0) {
+                        //第二个if表示判断该节点是否是必选节点
+                        if (
+                            (node.AddPeople.length == 0 && mustList[choseList.indexOf(node.NodeId + "")] == "1") ||
+                            (node.AddPeople.length == 0 &&
+                                that.data.addPeopleNodes &&
+                                that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
+                        ) {
                             dd.alert({
                                 content: promptConf.promptConf.Approver,
                                 buttonText: promptConf.promptConf.Confirm
@@ -379,6 +400,17 @@ export default {
                 for (let p in param) {
                     paramArr[0][p] = param[p];
                 }
+                let mustList = [];
+                let choseList = [];
+
+                //是否必选
+                if (that.data.nodeInfo.IsMandatory) {
+                    mustList = that.data.nodeInfo.IsMandatory.split(",");
+                }
+                // 该节点需要选择的节点
+                if (that.data.nodeInfo.ChoseNodeId) {
+                    choseList = that.data.nodeInfo.ChoseNodeId.split(",");
+                }
                 for (let node of this.data.nodeList) {
                     if (
                         (that.data.nodeInfo.IsNeedChose &&
@@ -386,7 +418,12 @@ export default {
                             that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0) ||
                         (that.data.addPeopleNodes && that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
                     ) {
-                        if (node.AddPeople.length == 0) {
+                        if (
+                            (node.AddPeople.length == 0 && mustList[choseList.indexOf(node.NodeId + "")] == "1") ||
+                            (node.AddPeople.length == 0 &&
+                                that.data.addPeopleNodes &&
+                                that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
+                        ) {
                             dd.alert({
                                 content: promptConf.promptConf.Approver,
                                 buttonText: promptConf.promptConf.Confirm
@@ -1057,42 +1094,49 @@ export default {
             });
         },
         //获取菜单
-        getMenu() {
+        getMenu(isAll) {
             let that = this;
-            this._getData("FlowInfoNew/LoadFlowSort?userId=" + app.userInfo.userid, function(data) {
-                let sorts = data;
-                app.globalData.ALLsort = JSON.parse(JSON.stringify(data));
-                that.setData({ sort: data });
-                let sortItem = []; //用于存放sort打开展开收起的数据
-                let tempdata = []; //用于存放流程数据
-                for (let s of sorts) {
-                    for (let f of s.flows) {
-                        tempdata.push(f);
-                    }
-                }
-                for (let s of sorts) {
-                    let item = {
-                        text: "收起",
-                        class: "dropdown-content-show"
-                    };
-                    s["show"] = false;
-                    sortItem.push(item);
-                    for (let t of tempdata) {
-                        if (t.PhoneUrl && t.SORT_ID == s.Sort_ID) {
-                            s["show"] = true;
-                            break;
+            this._getData(
+                "FlowInfoNew/LoadFlowSort" + that.formatQueryStr({ userid: app.userInfo.userid, IsAll: isAll }),
+                function(data) {
+                    let sorts = data;
+                    app.globalData.ALLsort = JSON.parse(JSON.stringify(data));
+                    that.setData({ sort: data });
+                    let sortItem = []; //用于存放sort打开展开收起的数据
+                    let tempdata = []; //用于存放流程数据
+                    for (let s of sorts) {
+                        for (let f of s.flows) {
+                            tempdata.push(f);
                         }
                     }
+                    for (let s of sorts) {
+                        let item = {
+                            text: "收起",
+                            class: "dropdown-content-show"
+                        };
+                        s["show"] = false;
+                        sortItem.push(item);
+                        for (let t of tempdata) {
+                            if (t.PhoneUrl && t.SORT_ID == s.Sort_ID) {
+                                s["show"] = true;
+                                break;
+                            }
+                        }
+                    }
+                    app.globalData.sort = sorts;
+                    app.globalData.menu = tempdata;
+                    app.globalData.sortItems = sortItem;
+
+                    // console.log(sorts);
+                    // console.log(tempdata);
+
+                    that.setData({
+                        sort: sorts,
+                        menu: tempdata,
+                        sortItems: sortItem
+                    });
                 }
-                app.globalData.sort = sorts;
-                app.globalData.menu = tempdata;
-                app.globalData.sortItems = sortItem;
-                that.setData({
-                    sort: sorts,
-                    menu: tempdata,
-                    sortItems: sortItem
-                });
-            });
+            );
         },
         getNodeList_done(nodeList) {},
         //获取项目列表
@@ -1678,11 +1722,10 @@ export default {
                 }
             });
         },
-        //对象数组去重,//pre为累加器，[]为pre的初始值
+        //对象数组去重,//pre为累加器，[]为pre的初始值，item为对象中要去重的key
         objectArrayDuplication(objectArray, item) {
             let obj = {};
             let array = objectArray.reduce((pre, next) => {
-                console.log(pre);
                 obj[next[item]] ? "" : (obj[next[item]] = true && pre.push(next));
                 return pre;
             }, []);

@@ -33,21 +33,14 @@
 			</view>
 		</view>
 	</view>
-	<!-- 基本表单 --> 
+	<!-- 基本表单 -->
 	<form onSubmit="submit">
 		<view class="page-section">
 			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<!--<view><view class="form-row-label" style="float:left;">添加到</view><radio-group class="radio-group" style="float:left;" name="codeType" onChange="radioChange"><label class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}"><radio value="{{item.label}}" checked="{{item.checked}}"/>{{item.name}}</label></radio-group></view> -->
-			<!-- <view class="form-row" a:if="{{nodeid == 2 && index == 0}}">
-				<view class="form-row-label" style="width:2.5rem">添加到</view>
-				<radio-group class="radio-group" name="codeType" onChange="radioChange">
-					<label class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}">
-						<radio value="{{item.label}}" checked="{{item.checked}}" />{{item.name}}
-					</label>
-				</radio-group>
-			</view> -->
+			<!--<view class="form-row" a:if="{{nodeid == 2 && index == 0}}"><view class="form-row-label" style="width:2.5rem">添加到</view><radio-group class="radio-group" name="codeType" onChange="radioChange"><label class="radio" a:for="{{[{name:'零部件',checked:true,label:'1'},{name:'办公用品',checked:false,label:'2'}]}}"><radio value="{{item.label}}" checked="{{item.checked}}" />{{item.name}}</label></radio-group></view> -->
 			<!-- 物料表单 -->
 			<template a:if="{{nodeid!=2}}" is="datatable" data="{{items:tableItems,data:tableData,param:tableParam}}"/>
 			<view a:else onTap="chooseItem">
@@ -58,7 +51,7 @@
 			<view a:if="{{index==0}}">
 				<template is="suggest"/>
 				<button type="primary" formType="submit" disabled="{{disablePage}}">同意</button>
-				<button type="warn" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
+				<button type="warn" a:if="{{nodeInfo.IsBack}}" onTap="tapReturn" disabled="{{disablePage}}">退回</button>
 			</view>
 			<view a:if="{{index==2 && (state=='已撤回' || state=='被退回')}}">
 				<button type="primary" onTap="relaunch" disabled="{{disablePage}}">重新发起</button>

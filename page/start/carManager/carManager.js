@@ -49,6 +49,11 @@ Page({
         // 公车
         tableItem2: [
             {
+                prop: "TaskId",
+                label: "流水号",
+                width: 200
+            },
+            {
                 prop: "Dept",
                 label: "使用部门",
                 width: 200
@@ -89,7 +94,7 @@ Page({
                 width: 200
             },
             {
-                prop: "Name",
+                prop: "AllPrice",
                 label: "费用估计/元",
                 width: 200
             }
@@ -234,6 +239,7 @@ Page({
     },
     addCar() {
         this.setData({
+            row: {},
             hidden: !this.data.hidden
         });
         this.createMaskShowAnim();
@@ -241,7 +247,7 @@ Page({
     },
     cancel(e) {
         this.setData({
-            row: undefined,
+            row: {},
             hidden: !this.data.hidden
         });
     },
@@ -279,7 +285,7 @@ Page({
             return;
         }
         //编辑
-        if (this.data.row) {
+        if (this.data.row.Name) {
             console.log("编辑");
             this.data.row.Name = value.Name;
             this.data.row.Type = value.Type;
@@ -314,7 +320,7 @@ Page({
             );
         }
         //添加
-        else if (!this.data.row) {
+        else if (!this.data.row.Name) {
             console.log("添加");
             let obj = {
                 ApplyManId: app.userInfo.userid,

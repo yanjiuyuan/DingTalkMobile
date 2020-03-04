@@ -18,18 +18,14 @@ Page({
         animMaskData: [] //遮罩层
     },
     onLoad() {
-        this.getMenu();
-        console.log("s");
-
+        this.getMenu(true);
         this.setData({
             sort: app.globalData.sort,
             menu: app.globalData.menu,
             sortItems: app.globalData.sortItem
         });
     },
-    onshow() {
-        console.log("s");
-    },
+
     //添加快捷方式
     addShortcut(e) {
         console.log(e);
@@ -73,7 +69,7 @@ Page({
                     this._postData(
                         "FlowInfoNew/FlowSortDelete",
                         res => {
-                            this.getSort();
+                            this.getMenu(true);
                             dd.alert({
                                 content: promptConf.promptConf.DeleteSuccess,
                                 buttonText: promptConf.promptConf.Confirm
@@ -104,7 +100,7 @@ Page({
                     this._postData(
                         "FlowInfoNew/FlowDelete",
                         res => {
-                            this.getMenu();
+                            this.getMenu(true);
                             dd.alert({
                                 content: promptConf.promptConf.DeleteSuccess,
                                 buttonText: promptConf.promptConf.Confirm
@@ -166,7 +162,7 @@ Page({
             this._postData(
                 "FlowInfoNew/LoadFlowModify",
                 res => {
-                    this.getSort();
+                    this.getMenu(true);
                     dd.alert({
                         content: promptConf.promptConf.UpdateSuccess,
                         buttonText: promptConf.promptConf.Confirm
@@ -195,7 +191,7 @@ Page({
             this._postData(
                 "FlowInfoNew/FlowSortAdd",
                 res => {
-                    this.getSort();
+                    this.getMenu(true);
                     dd.alert({
                         content: promptConf.promptConf.AddSuccess,
                         buttonText: promptConf.promptConf.Confirm
@@ -211,19 +207,6 @@ Page({
         });
     },
 
-    // 重新获取分组数据
-    getSort() {
-        let that = this;
-        this._getData(
-            "FlowInfoNew/LoadFlowSort" + that.formatQueryStr({ userid: app.userInfo.userid, DEPT_ID: "ALL" }),
-            res => {
-                app.globalData.sort = res;
-                that.setData({
-                    sort: app.globalData.sort
-                });
-            }
-        );
-    },
     cancel(e) {
         this.setData({
             ifName: !this.data.ifName,
@@ -238,7 +221,8 @@ Page({
         let sort = e.target.dataset.sort;
         delete sort.flows;
         dd.navigateTo({
-            url: "flowDetail/flowDetail?item=" + JSON.stringify(item) + "&sort=" + JSON.stringify(sort)
+            // url: "flowDetail/flowDetail?item=" + JSON.stringify(item) + "&sort=" + JSON.stringify(sort)
+            url: "flowDetail/flowDetail?FlowId=" + item.FlowId + "&Sort_ID=" + sort.Sort_ID
         });
     },
 

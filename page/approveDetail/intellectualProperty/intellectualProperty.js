@@ -17,7 +17,10 @@ Page({
         };
         if (this.data.nodeid == 5) {
             this.data.table["ActualName"] = value.ActualName;
-            this.data.table["Company"] = this.data.CompanyNames[this.data.companyIndex];
+            // this.data.table["Company"] = this.data.CompanyNames[this.data.companyIndex];
+
+            this.data.table["Company"] = value.Company;
+
             this.data.table["ActualType"] = this.data.IntellectualPropertyTypes[this.data.stateIndexs];
             console.log(this.data.table);
             if (this.data.table.ActualName.trim() == "") {
@@ -34,6 +37,14 @@ Page({
                 });
                 return;
             }
+            if (this.data.table.Company == "") {
+                dd.alert({
+                    content: "申报单位不允许为空，请输入！",
+                    buttonText: promptConf.promptConf.Confirm
+                });
+                return;
+            }
+            return;
         }
         this.setData({ disablePage: true });
         this._postData(

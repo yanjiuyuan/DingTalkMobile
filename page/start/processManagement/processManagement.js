@@ -161,5 +161,90 @@ Page({
         }
 
         // /FlowInfoNew/UpdateNodeInfos
+    },
+    search(e) {
+        let that = this;
+        let value = e.detail.value;
+        if (value.CooperateMan.trim() == "") {
+            dd.alert({
+                content: "离职人员不允许为空，请输入！",
+                buttonText: promptConf.promptConf.Confirm
+            });
+            return;
+        }
+
+        let obj = {
+            applyMan: value.CooperateMan
+        };
+        this.setData({
+            processData: undefined
+        });
+        this._getData("FlowInfoNew/GetAllUserInfo" + this.formatQueryStr(obj), res => {
+            if (res.length == 0) {
+                dd.alert({
+                    content: promptConf.promptConf.SearchNoReturn,
+                    buttonText: promptConf.promptConf.Confirm
+                });
+                that.setData({
+                    People: res
+                });
+                return;
+            }
+            if (res.length == 1) {
+                that.getSortData(res[0]);
+                that.setData({
+                    People: res
+                });
+            }
+            if (res.length > 1) {
+                that.setData({
+                    People: res
+                });
+            }
+        });
+    },
+    getSortData(user) {
+        let that = this;
+        that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + user.applyManId, result => {
+            if (JSON.stringify(result) == "{}") {
+                that.setData({
+                    severanceOfficer: user.applyMan,
+                    severanceOfficerId: user.applyManId
+                });
+                dd.alert({
+                    content: promptConf.promptConf.NoNodeInformation,
+                    buttonText: promptConf.promptConf.Confirm
+                });
+                return;
+            }
+            let processData = [];
+            let sortItems = [];
+            let resultKey = Object.keys(result);
+            for (let i in result) {
+                processData.push(result[i]);
+                sortItems.push({
+                    show: "hidden",
+                    rotate: "RotateToTheRight"
+                });
+            }
+            for (let i in processData) {
+                processData[i] = {
+                    flowName: resultKey[i],
+                    nodeList: that.Arrangement(processData[i], user.applyMan, user.applyManId)
+                };
+            }
+            console.log(processData);
+            that.setData({
+                processData: processData,
+                sortItems: sortItems,
+                severanceOfficer: user.applyMan,
+                severanceOfficerId: user.applyManId
+            });
+        });
+    },
+    chose(e) {
+        console.log(e);
+        let user = e.currentTarget.dataset.item;
+        this.getSortData(user);
     }
 });
