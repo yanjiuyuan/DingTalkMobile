@@ -255,7 +255,31 @@
 	</view>
 </template>
 <!-- 新的数据表样式 -->
-<!--<template name="datatable"><view class="table-new"><scroll-view class="scroll-view_H" scroll-x="{{true}}"><view class="cell-new cell-title" style="width:100rpx;" a:if="{{tableOperate}}"><text>操作</text></view><view class="cell-new cell-title" style="width:100rpx;" a:if="{{tableOperate2}}"><text>操作2</text></view><view class="cell-new cell-title" a:for="{{items}}" style="width:{{item.width}}rpx;"><text>{{item.label}}</text></view><view a:for="{{data}}" a:for-item="d" style="padding:0px;margin:0px"><view class="cell-new" style="width:100rpx;" a:if="{{tableOperate}}"><text class="button" data-row="{{d}}" data-index="{{index}}">{{tableOperate}}</text></view><view class="cell-new" style="width:100rpx;" a:if="{{tableOperate2}}"><text class="button" data-row="{{d}}" data-index="{{index}}" data-opt2="{{true}}">{{tableOperate2}}</text></view><view class="cell-new" a:for="{{items}}" style="width:{{item.width}}rpx;"><text a:if="{{d[item.prop].indexOf('删除')>=0}}" style="color:red;">{{(d[item.prop] == null || d[item.prop] == undefined)?'-':d[item.prop]}}</text><text a:else>{{(d[item.prop] == null || d[item.prop] == undefined)?'-':d[item.prop]}}</text></view></view></scroll-view><view a:if="param.total" class="table-bottom"><view><text a:if="{{param.now}}">共{{param.total}}条,第{{param.now}}页</text><text a:if="{{!param.now}}">共{{param.total}}条,第1页</text><text style="color:red;">  -  提示：向右滑动显示全部信息</text></view><view><button type="primary" size="mini" plain="true" class="table-previous" data-page="{{param.now-1}}" onTap="handleCurrentChange" a:if="{{param.now > 1 }}">上一页</button><button type="primary" size="mini" plain="true" class="table-next" data-page="{{param.now + 1}}" onTap="handleCurrentChange" a:if="{{param.total/5 > param.now}}">下一页</button></view></view></view></template> -->
+<template name="datatable">
+	<view class="table-new">
+		<scroll-view class="scroll-view_H" scroll-x="{{true}}">
+			<view class="cell-new cell-title" style="width:100rpx;" a:if="{{tableOperate}}">
+				<text>操作</text></view>
+			<view class="cell-new cell-title" style="width:100rpx;" a:if="{{tableOperate2}}">
+				<text>操作2</text></view>
+			<view class="cell-new cell-title" a:for="{{items}}" style="width:{{item.width}}rpx;">
+				<text>{{item.label}}</text></view>
+			<view a:for="{{data}}" a:for-item="d" style="padding:0px;margin:0px">
+				<view class="cell-new" style="width:100rpx;" a:if="{{tableOperate}}">
+					<text class="button" data-row="{{d}}" data-index="{{index}}">{{tableOperate}}</text></view>
+				<view class="cell-new" style="width:100rpx;" a:if="{{tableOperate2}}">
+					<text class="button" data-row="{{d}}" data-index="{{index}}" data-opt2="{{true}}">{{tableOperate2}}</text></view>
+				<view class="cell-new" a:for="{{items}}" style="width:{{item.width}}rpx;">
+					<text a:if="{{d[item.prop].indexOf('删除')>=0}}" style="color:red;">{{(d[item.prop] == null || d[item.prop] == undefined)?'-':d[item.prop]}}</text>
+					<text a:else>{{(d[item.prop] == null || d[item.prop] == undefined)?'-':d[item.prop]}}</text></view></view></scroll-view>
+		<view a:if="param.total" class="table-bottom">
+			<view>
+				<text class="color-new" a:if="{{param.now}}">共{{param.total}}条,第{{param.now}}页</text>
+				<text class="color-new" a:if="{{!param.now}}">共{{param.total}}条,第1页</text>
+				<text style="color:red;">  -  提示：向右滑动显示全部信息</text></view>
+			<view>
+				<button type="primary" size="mini" plain="true" class="table-previous" data-page="{{param.now-1}}" onTap="handleCurrentChange" a:if="{{param.now > 1 }}">上一页</button>
+				<button type="primary" size="mini" plain="true" class="table-next" data-page="{{param.now + 1}}" onTap="handleCurrentChange" a:if="{{param.total/5 > param.now}}">下一页</button></view></view></view></template>
 <!-- 必填前缀 -->
 <template name="required">
 	<view style="color:red;display:inline-block;vertical-align:middle;
