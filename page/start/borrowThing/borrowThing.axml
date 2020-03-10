@@ -118,9 +118,9 @@
 						<view class="form-row-content">
 							<input name="keyWord" class="input" placeholder="关键字" />
 						</view>
+						<button type="primary" formType="submit" disabled="{{disablePage}}" class = "button-inline">搜索</button>
 					</view>
 				</view>
-				<button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
 			</form>
 			<!-- 物料表单 -->
 			<view onTap="chooseItem">

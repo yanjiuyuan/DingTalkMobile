@@ -1,36 +1,9 @@
 <!-- 流程页面 -->
 <view class="processOn">
-
-	  <view class="processOn-title">审批流程</view>
-		<!-- <view a:for="{{tableInfo}}"  a:for-item="node" >
-			<view class="processOn-view" a:if="{{node.NodeName !== '结束'}}" >
-
-				<view class="processOn-view-left"> 
-					<view class="processOn-view-left-icon">
-						<view a:if="{{node.NodeId > 0}}" class="processOn-view-left-icon-top">	</view>
-						<view a:if="{{node.NodeId == 0}}" class="processOn-view-left-icon-middle-s">{{index + 1}}</view>
-						<view a:if="{{node.NodeId > 0}}" class="processOn-view-left-icon-middle">{{index + 1}}</view>
-						<view a:if="{{node.NodeId < tableInfo.length - 2}}" class="processOn-view-left-icon-bottom"></view>
-					</view>
-					<view class="processOn-view-left-text"> 
-						<view>
-							{{node.NodeName}}
-						</view>
-            <view class="step" a:if="{{node.ChoseNodeId}}">
-                {{text}}
-            </view>
-					</view>					
-				</view>
-				<view class="processOn-view-right"> 
-			
-				</view>
-			</view>
-	  </view> -->
-
-<canvas    id="canvas"
- onTouchStart="log"
-  onTouchMove="log"
-  onTouchEnd="log" width="375" height="555" style="width:100%;height:100%;"/>
+	<view class="processOn-title">审批流程</view>
+	<!--<view a:for="{{tableInfo}}" a:for-item="node"><view class="processOn-view" a:if="{{node.NodeName !== '结束'}}"><view class="processOn-view-left"><view class="processOn-view-left-icon"><view a:if="{{node.NodeId > 0}}" class="processOn-view-left-icon-top"></view><view a:if="{{node.NodeId == 0}}" class="processOn-view-left-icon-middle-s">{{index + 1}}</view><view a:if="{{node.NodeId > 0}}" class="processOn-view-left-icon-middle">{{index + 1}}</view><view a:if="{{node.NodeId < tableInfo.length - 2}}" class="processOn-view-left-icon-bottom"></view></view><view class="processOn-view-left-text"><view>
+							{{node.NodeName}}</view><view class="step" a:if="{{node.ChoseNodeId}}">
+                {{text}}</view></view></view><view class="processOn-view-right"></view></view></view> -->
+	<canvas id="canvas" onTouchStart="log" onTouchMove="log" onTouchEnd="log" width="375" height="555" style="width:100%;height:100%;"/>
 </view>
-
-<!-- <view class="box"></view> -->
+<!--<view class="box"></view> -->

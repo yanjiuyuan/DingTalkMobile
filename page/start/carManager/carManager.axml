@@ -14,7 +14,7 @@
       <button class="button-size" type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
       <button class="button-size" type="primary" onTap="addCar" disabled="{{disablePage}}">添加车辆</button>
     </view>
-  </form>
+  </form> 
   <view onTap="chooseItem">
     <text>车辆列表</text>
     <template is="datatable" data="{{items:tableItems,data:tableData,param:tableParam,tableOperate:tableOperate,tableOperate2:tableOperate2}}"/>

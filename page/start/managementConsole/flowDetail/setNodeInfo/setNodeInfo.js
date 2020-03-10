@@ -5,21 +5,22 @@ Page({
     ...pub.func,
     data: {
         ...pub.data,
-        /**添加涉及的参数 */ 
+        /**添加涉及的参数 */
+
         //添加--退回
         FirstArray: [
             { name: "是", label: true },
-            { name: "否", label: false, checked: true }
+            { name: "否", label: false, checked: true },
         ],
         //添加--抄送
         SecondArray: [
             { name: "是", label: true },
-            { name: "否", label: false, checked: true }
+            { name: "否", label: false, checked: true },
         ],
         //添加--选人
         thirdArray: [
             { name: "是", label: true },
-            { name: "否", label: false, checked: true }
+            { name: "否", label: false, checked: true },
         ],
         IsSend: false,
         IsBack: false,
@@ -31,22 +32,23 @@ Page({
         //添加--角色选人节点
         thirdNeedArray: [],
 
+        choosePeopleArray: [],
         /**编辑涉及的参数 */
         //编辑--退回
         editorFirstArray: [
             { name: "是", label: true },
-            { name: "否", label: false }
+            { name: "否", label: false },
         ],
         //编辑--抄送
         editorSecondArray: [
             { name: "是", label: true },
-            { name: "否", label: false }
+            { name: "否", label: false },
         ],
         //编辑--选人
         editorThirdArray: [
             { name: "是", label: true },
-            { name: "否", label: false }
-        ]
+            { name: "否", label: false },
+        ],
     },
     //初始化加载
     onLoad(option) {
@@ -78,7 +80,7 @@ Page({
                         ChoseType: "0",
                         RoleNames: null,
                         RolesList: null,
-                        AddPeople: []
+                        AddPeople: [],
                     },
                     {
                         NodeId: 1,
@@ -99,12 +101,12 @@ Page({
                         ChoseType: null,
                         RoleNames: null,
                         RolesList: null,
-                        AddPeople: []
-                    }
+                        AddPeople: [],
+                    },
                 ];
                 that.setData({
                     nodeList: tempNodeList,
-                    FlowId: option
+                    FlowId: option,
                 });
                 return;
             }
@@ -147,8 +149,8 @@ Page({
                     node.AddPeople = [
                         {
                             name: that.data.DingData.nickName,
-                            userId: that.data.DingData.userid
-                        }
+                            userId: that.data.DingData.userid,
+                        },
                     ];
                 }
             }
@@ -156,7 +158,7 @@ Page({
             console.log(tempNodeList);
             that.setData({
                 nodeList: tempNodeList,
-                FlowId: option
+                FlowId: option,
             });
         });
     },
@@ -188,10 +190,10 @@ Page({
                     }
                     console.log(that.data.nodeList);
                     that.setData({
-                        nodeList: that.data.nodeList
+                        nodeList: that.data.nodeList,
                     });
                 }
-            }
+            },
         });
     },
     //添加
@@ -207,7 +209,7 @@ Page({
         this.setData({
             needChoose: arr,
             NodeId: NodeId,
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskShowAnim();
         this.createContentShowAnim();
@@ -299,7 +301,7 @@ Page({
                 if (i.checked) {
                     choosePeopleArray.push({
                         index: i.value,
-                        roleIndex: -1
+                        roleIndex: -1,
                     });
                 }
             }
@@ -313,7 +315,7 @@ Page({
                 firstNeedArray: firstNeedArray,
                 secondNeedArray: secondNeedArray,
                 thirdNeedArray: thirdNeedArray,
-                choosePeopleArray: choosePeopleArray
+                choosePeopleArray: choosePeopleArray,
             });
         }
 
@@ -330,7 +332,7 @@ Page({
             IsBack: nodeInfo.IsBack,
             show: nodeInfo.IsNeedChose,
             nodeInfo: nodeInfo,
-            hidden2: !this.data.hidden2
+            hidden2: !this.data.hidden2,
         });
         this.createMaskShowAnim();
         this.createContentShowAnim();
@@ -362,7 +364,7 @@ Page({
                     that.data.nodeList[NodeId].PeopleId = userids;
                     console.log(that.data.nodeList);
                     that.setData({
-                        nodeList: that.data.nodeList
+                        nodeList: that.data.nodeList,
                     });
                 } else if (res.departments.length > 0 && res.users.length == 0) {
                     let deptId = [];
@@ -395,7 +397,7 @@ Page({
                             that.data.nodeList[NodeId].PeopleId = userids;
                             console.log(that.data.nodeList);
                             that.setData({
-                                nodeList: that.data.nodeList
+                                nodeList: that.data.nodeList,
                             });
                         },
                         deptId
@@ -436,7 +438,7 @@ Page({
                             that.data.nodeList[NodeId].PeopleId = userids;
                             console.log(that.data.nodeList);
                             that.setData({
-                                nodeList: that.data.nodeList
+                                nodeList: that.data.nodeList,
                             });
                         },
                         deptId
@@ -453,7 +455,7 @@ Page({
                     that.data.nodeList[NodeId].PeopleId = ids;
                     console.log(that.data.nodeList);
                     that.setData({
-                        nodeList: that.data.nodeList
+                        nodeList: that.data.nodeList,
                     });
                 } else {
                     let deptId = [];
@@ -481,14 +483,14 @@ Page({
                             ids = [...new Set(ids)]; //数组去重
                             that.setData({
                                 ["nodeList[NodeId].NodePeople"]: names,
-                                ["nodeList[NodeId].PeopleId"]: ids
+                                ["nodeList[NodeId].PeopleId"]: ids,
                             });
                         },
                         deptId
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     choosePeoples(e) {
@@ -509,12 +511,12 @@ Page({
                         ids.push(d.userId);
                         addPeoples.push({
                             name: d.name,
-                            userId: d.userId
+                            userId: d.userId,
                         });
                     }
                     that.setData({
                         Approver: names.join(","),
-                        PeopleId: ids.join(",")
+                        PeopleId: ids.join(","),
                     });
                 } else {
                     let deptId = [];
@@ -538,7 +540,7 @@ Page({
                                     ids.push(d.userid);
                                     addPeoples.push({
                                         name: d.name,
-                                        userId: d.userId
+                                        userId: d.userId,
                                     });
                                     d.userId = d.userid;
                                 }
@@ -547,14 +549,14 @@ Page({
                             ids = [...new Set(ids)]; //数组去重
                             that.setData({
                                 Approver: names.join(","),
-                                PeopleId: ids.join(",")
+                                PeopleId: ids.join(","),
                             });
                         },
                         deptId
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     //添加--取消
@@ -569,7 +571,7 @@ Page({
             choosePeopleArray: [],
             ChoseType: [],
             Approver: "",
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskHideAnim();
         this.createContentHideAnim();
@@ -586,7 +588,7 @@ Page({
             choosePeopleArray: [],
             ChoseType: [],
             Approver: "",
-            hidden2: !this.data.hidden2
+            hidden2: !this.data.hidden2,
         });
         this.createMaskHideAnim();
         this.createContentHideAnim();
@@ -594,7 +596,7 @@ Page({
     //添加--是否退回
     radioChangeOne(e) {
         this.setData({
-            IsBack: e.detail.value
+            IsBack: e.detail.value,
         });
     },
     //添加--是否抄送
@@ -605,13 +607,13 @@ Page({
             isBack: false,
             show: false,
             multiple: e.detail.value,
-            IsSend: e.detail.value
+            IsSend: e.detail.value,
         });
     },
     //添加--是否需要选人
     radioChangeThree(e) {
         this.setData({
-            show: e.detail.value
+            show: e.detail.value,
         });
     },
     // 变换需要选人节点时，相应三个节点数组 也要跟着变
@@ -674,7 +676,7 @@ Page({
             firstNeedArray: arr1, //需要多选节点
             secondNeedArray: arr2, //必选节点
             thirdNeedArray: arr3, //角色选人
-            ChoseNodeId: arr4
+            ChoseNodeId: arr4,
         });
     },
     //添加--需要多选节点IsSelectMore
@@ -698,7 +700,7 @@ Page({
             }
         }
         this.setData({
-            firstNeedArray: this.data.firstNeedArray
+            firstNeedArray: this.data.firstNeedArray,
         });
     },
     //添加--必选节点IsMandatory
@@ -721,7 +723,7 @@ Page({
             }
         }
         this.setData({
-            secondNeedArray: this.data.secondNeedArray
+            secondNeedArray: this.data.secondNeedArray,
         });
     },
     //添加--角色选人节点ChoseType
@@ -732,7 +734,7 @@ Page({
         for (let i of arr) {
             arrs.push({
                 index: i,
-                roleIndex: -1
+                roleIndex: -1,
             });
         }
         console.log(value);
@@ -753,7 +755,7 @@ Page({
         }
         this.setData({
             choosePeopleArray: arrs,
-            ChoseType: this.data.thirdNeedArray
+            ChoseType: this.data.thirdNeedArray,
         });
     },
     //添加--角色选人函数
@@ -768,7 +770,7 @@ Page({
         console.log(this.data.choosePeopleArray);
 
         this.setData({
-            choosePeopleArray: this.data.choosePeopleArray
+            choosePeopleArray: this.data.choosePeopleArray,
         });
     },
     //获取所有角色信息
@@ -780,7 +782,7 @@ Page({
                 roleList.push(i);
             }
             that.setData({
-                roleList: roleList
+                roleList: roleList,
             });
         });
     },
@@ -793,37 +795,38 @@ Page({
         let IsSelectMore = [],
             IsMandatory = [],
             ChoseType = [];
+        if (this.data.ChoseNodeId) {
+            for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
+                if (this.data.firstNeedArray[i].checked) {
+                    IsSelectMore[i] = "1";
+                } else {
+                    IsSelectMore[i] = "0";
+                }
+            }
 
-        for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
-            if (this.data.firstNeedArray[i].checked) {
-                IsSelectMore[i] = "1";
-            } else {
-                IsSelectMore[i] = "0";
+            for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
+                if (this.data.secondNeedArray[i].checked) {
+                    IsMandatory[i] = "1";
+                } else {
+                    IsMandatory[i] = "0";
+                }
             }
-        }
-
-        for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
-            if (this.data.secondNeedArray[i].checked) {
-                IsMandatory[i] = "1";
-            } else {
-                IsMandatory[i] = "0";
+            for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
+                if (this.data.thirdNeedArray[i].checked) {
+                    ChoseType[i] = "1";
+                } else {
+                    ChoseType[i] = "0";
+                }
             }
+            console.log(IsSelectMore);
+            console.log(IsMandatory);
+            console.log(ChoseType);
+            this.setData({
+                IsSelectMore: IsSelectMore,
+                IsMandatory: IsMandatory,
+                ChoseType: ChoseType,
+            });
         }
-        for (let i = 0, len = this.data.ChoseNodeId.length; i < len; i++) {
-            if (this.data.thirdNeedArray[i].checked) {
-                ChoseType[i] = "1";
-            } else {
-                ChoseType[i] = "0";
-            }
-        }
-        console.log(IsSelectMore);
-        console.log(IsMandatory);
-        console.log(ChoseType);
-        this.setData({
-            IsSelectMore: IsSelectMore,
-            IsMandatory: IsMandatory,
-            ChoseType: ChoseType
-        });
     },
     //添加提交
     submit(e) {
@@ -833,7 +836,7 @@ Page({
         if (value.NodeName == "") {
             dd.alert({
                 content: "节点名称不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -880,14 +883,16 @@ Page({
             IsMandatory: that.data.IsMandatory ? that.data.IsMandatory.join(",") : "",
             ChoseType: that.data.ChoseType ? that.data.ChoseType.join(",") : "",
             RoleNames: str || "",
-            RolesList: {}
+            RolesList: {},
         };
         for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
             if (this.data.NodeId == this.data.nodeList[i].NodeId) {
                 this.data.nodeList.splice(this.data.NodeId + 1, 0, nodeInfo);
                 for (let j = i + 2, length = that.data.nodeList.length; j < length; j++) {
                     that.data.nodeList[j].NodeId += 1;
-                    that.data.nodeList[j].PreNodeId = (parseInt(that.data.nodeList[j].PreNodeId) + 1).toString();
+                    that.data.nodeList[j].PreNodeId = (
+                        parseInt(that.data.nodeList[j].PreNodeId) + 1
+                    ).toString();
                 }
             }
         }
@@ -901,7 +906,7 @@ Page({
             secondNeedArray: [],
             thirdNeedArray: [],
             ChoseType: [],
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskHideAnim();
         this.createContentHideAnim();
@@ -914,7 +919,7 @@ Page({
         if (value.NodeName == "") {
             dd.alert({
                 content: "节点名称不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -949,7 +954,9 @@ Page({
             FlowId: that.data.FlowId.flowId,
             NodeName: value.NodeName,
             NodePeople: value.NodePeople ? value.NodePeople.split(",") : "",
-            PeopleId: that.data.PeopleId ? that.data.PeopleId.split(",") : that.data.nodeInfo.PeopleId,
+            PeopleId: that.data.PeopleId
+                ? that.data.PeopleId.split(",")
+                : that.data.nodeInfo.PeopleId,
             PreNodeId: that.data.nodeInfo.PreNodeId,
             IsAllAllow: true,
             IsBack: value.IsBack || false,
@@ -961,7 +968,7 @@ Page({
             IsMandatory: that.data.IsMandatory ? that.data.IsMandatory.join(",") : "",
             ChoseType: that.data.ChoseType ? that.data.ChoseType.join(",") : "",
             RoleNames: str || "",
-            RolesList: {}
+            RolesList: {},
         };
         console.log(nodeInfo);
         this.data.nodeList[this.data.NodeId] = nodeInfo;
@@ -975,7 +982,7 @@ Page({
             thirdNeedArray: [],
             choosePeopleArray: [],
             ChoseType: [],
-            hidden2: !this.data.hidden2
+            hidden2: !this.data.hidden2,
         });
         this.createMaskHideAnim();
         this.createContentHideAnim();
@@ -987,7 +994,9 @@ Page({
         let nodeArray = this.data.nodeList;
         for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
             console.log(i);
-            nodeArray[i].NodePeople = nodeArray[i].NodePeople ? nodeArray[i].NodePeople.join(",") : "";
+            nodeArray[i].NodePeople = nodeArray[i].NodePeople
+                ? nodeArray[i].NodePeople.join(",")
+                : "";
             nodeArray[i].PeopleId = nodeArray[i].PeopleId ? nodeArray[i].PeopleId.join(",") : "";
         }
 
@@ -996,15 +1005,15 @@ Page({
             res => {
                 dd.alert({
                     content: promptConf.promptConf.UpdateSuccess,
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 setTimeout(() => {
                     dd.navigateBack({
-                        delta: 1
+                        delta: 1,
                     });
                 }, 500);
             },
             nodeArray
         );
-    }
+    },
 });

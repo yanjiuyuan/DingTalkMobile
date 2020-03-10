@@ -1,6 +1,5 @@
 // let dormainName = "http://47.96.172.122:8093/"; //线上研究院
 let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
-//
 // let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
 
 function doWithErrcode(result) {
@@ -10,7 +9,7 @@ function doWithErrcode(result) {
     if (result.error && result.error.errorCode != 0) {
         dd.alert({
             content: result.error.errorMessage,
-            buttonText: "确认"
+            buttonText: "确认",
         });
         return 1;
     }
@@ -35,7 +34,7 @@ export default {
         Month: month,
         Day: day,
         DateStr: _dateToString(d),
-        TimeStr: hour + ":" + minutes
+        TimeStr: hour + ":" + minutes,
     },
     func: {
         checkLogin() {},
@@ -47,7 +46,7 @@ export default {
                 url: dormainName + url,
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
                 success: function(res) {
                     let app = getApp();
@@ -66,9 +65,14 @@ export default {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
-                }
+                },
             });
         },
 
@@ -77,7 +81,7 @@ export default {
                 url: dormainName + url,
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
                 success: function(res) {
                     let app = getApp();
@@ -96,9 +100,14 @@ export default {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
-                }
+                },
             });
         },
 
@@ -109,7 +118,7 @@ export default {
                 data: JSON.stringify(param),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
                 success: function(res) {
                     let app = getApp();
@@ -128,9 +137,14 @@ export default {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
-                }
+                },
             });
         },
         _postData(url, succe, param, userInfo = {}) {
@@ -140,7 +154,7 @@ export default {
                 data: JSON.stringify(param),
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
                 success: function(res) {
                     let app = getApp();
@@ -162,9 +176,14 @@ export default {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
-                }
+                },
             });
         },
         requestData(type, url, succe, param = {}, userInfo) {
@@ -173,7 +192,7 @@ export default {
                 method: type,
                 data: param,
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
                 success: function(res) {
                     console.log(url);
@@ -184,10 +203,15 @@ export default {
                 fail: function(res) {
                     if (JSON.stringify(res) == "{}") return;
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
                 },
-                complete: function(res) {}
+                complete: function(res) {},
             });
         },
         requestJsonData(type, url, succe, param = {}, userInfo) {
@@ -197,7 +221,7 @@ export default {
                 data: param,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
                 success: function(res) {
                     console.log(url);
@@ -207,9 +231,14 @@ export default {
                 },
                 fail: function(res) {
                     dd.alert({
-                        content: "获取数据失败-" + url + "报错:" + JSON.stringify(res) + errorMessage(res)
+                        content:
+                            "获取数据失败-" +
+                            url +
+                            "报错:" +
+                            JSON.stringify(res) +
+                            errorMessage(res),
                     });
-                }
+                },
             });
         },
         requestNofailData(type, url, succe, param = {}, userInfo) {
@@ -219,30 +248,42 @@ export default {
                 data: param,
                 headers: {
                     "Content-Type": "application/json; charset=utf-8",
-                    Accept: "application/json"
+                    Accept: "application/json",
                 },
                 success: function(res) {
                     console.log(url);
                     if (type == "POST" || type == "post") console.log(param);
                     console.log(res);
                     if (res.data.error.errorCode != 0) {
-                        postErrorMsg(type, url, param, { Message: res.data.Message, error: res.error }, userInfo);
+                        postErrorMsg(
+                            type,
+                            url,
+                            param,
+                            { Message: res.data.Message, error: res.error },
+                            userInfo
+                        );
                     }
                     succe(res);
                 },
                 complete: function(res) {
                     if (res && res.error) {
                         dd.alert({
-                            content: "系统正在维护，请联系管理员~~~~~~~~~~~~~"
+                            content: "系统正在维护，请联系管理员~~~~~~~~~~~~~",
                         });
                         console.log("complete处理错误~~~~~~~~~~~~~~~~~~~~~~");
                         console.log(userInfo);
                         console.log(res.data);
-                        postErrorMsg(type, url, param, { Message: res.data.Message, error: res.error }, userInfo);
+                        postErrorMsg(
+                            type,
+                            url,
+                            param,
+                            { Message: res.data.Message, error: res.error },
+                            userInfo
+                        );
                     }
                     return;
                     let message = res.data.Message;
-                }
+                },
             });
         },
         //通过prop合并两个数组
@@ -295,8 +336,8 @@ export default {
                 default:
                     return seconds;
             }
-        }
-    }
+        },
+    },
 };
 
 function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
@@ -309,7 +350,7 @@ function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
         Para: JSON.stringify(param),
         GetOrPost: type,
         ErrorCode: error.errorCode ? error.errorCode : "",
-        ErrorMsg: error.errorMessage ? error.errorMessage : JSON.stringify(error)
+        ErrorMsg: error.errorMessage ? error.errorMessage : JSON.stringify(error),
     };
     let postUrl = dormainName + "ErrorLog/Save";
     dd.alert({ content: postUrl });
@@ -320,14 +361,14 @@ function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
         data: JSON.stringify(postParam),
         headers: {
             "Content-Type": "application/json; charset=utf-8",
-            Accept: "application/json"
+            Accept: "application/json",
         },
         success: function(res) {
             console.log("提交错误信息~~~~~~~~~~~~~~~~~~~~~~");
             console.log(postUrl);
             console.log(postParam);
             console.log(res);
-        }
+        },
     });
 }
 

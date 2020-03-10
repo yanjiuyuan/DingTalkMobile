@@ -9,8 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mini-ddui": "0.0.7",
     "regenerator": "^0.14.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mini-ddui": "0.0.7"
+  }
 }
