@@ -5,13 +5,13 @@ Page({
     ...pub.func.dowith,
     data: {
         ...pub.data,
-        table: {}
+        table: {},
     },
     submit(e) {
         let that = this;
         let value = e.detail.value;
         let param = {
-            Remark: value.remark
+            Remark: value.remark,
         };
         console.log(value);
         if (
@@ -24,7 +24,7 @@ Page({
         ) {
             dd.alert({
                 content: "表单未填写完整",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -77,7 +77,7 @@ Page({
                     that.setData({
                         "table.FactCooperateMan": names.join(","),
                         "table.FactCooperateManId": ids.join(","),
-                        nodeList: that.data.nodeList
+                        nodeList: that.data.nodeList,
                     });
                 } else if (res.departments.length > 0 && res.users.length == 0) {
                     let deptId = [];
@@ -116,7 +116,7 @@ Page({
                             that.setData({
                                 "table.FactCooperateMan": names.join(","),
                                 "table.FactCooperateManId": ids.join(","),
-                                nodeList: that.data.nodeList
+                                nodeList: that.data.nodeList,
                             });
                         },
                         deptId
@@ -162,7 +162,7 @@ Page({
                             that.setData({
                                 "table.FactCooperateMan": names.join(","),
                                 "table.FactCooperateManId": ids.join(","),
-                                nodeList: that.data.nodeList
+                                nodeList: that.data.nodeList,
                             });
                         },
                         deptId
@@ -173,7 +173,7 @@ Page({
                 // if (this.rebackAble && node.IsSend == false && node.ApplyTime && node.ApplyManId && node.ApplyManId != DingData.userid) {
                 // 	this.rebackAble = false
                 // }
-            }
+            },
         });
     },
     onReady() {
@@ -201,7 +201,7 @@ Page({
 
                     that.data.nodeList[7].AddPeople.push({
                         name: CooperateMan[i],
-                        userId: CooperateManId[i]
+                        userId: CooperateManId[i],
                     });
                 }
                 console.log(this.data.nodeList);
@@ -209,7 +209,7 @@ Page({
 
             this.setData({
                 table: res,
-                nodeList: that.data.nodeList
+                nodeList: that.data.nodeList,
             });
         });
     },
@@ -222,9 +222,9 @@ Page({
             endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
             success: res => {
                 this.setData({
-                    "table.FactBeginTime": res.date
+                    "table.FactBeginTime": res.date,
                 });
-            }
+            },
         });
     },
     selectEndDate() {
@@ -239,15 +239,15 @@ Page({
                 if (iDay < 0) {
                     dd.alert({
                         content: promptConf.promptConf.TimeComparison,
-                        buttonText: promptConf.promptConf.Confirm
+                        buttonText: promptConf.promptConf.Confirm,
                     });
                     return;
                 }
                 this.setData({
                     "table.FactDays": iDay,
-                    "table.FactEndTime": res.date
+                    "table.FactEndTime": res.date,
                 });
-            }
+            },
         });
-    }
+    },
 });
