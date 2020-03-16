@@ -424,7 +424,7 @@ Page({
                 fCommitQty: good.fCommitQty,
                 fQty: value.fQty ? value.fQty + "" : "1",
                 fPrice: good.fPrice ? good.fPrice + "" : "0",
-                fAmount: parseInt(good.fQty) * parseInt(good.fPrice),
+                fAmount: parseInt(value.fQty) * parseInt(good.fPrice),
                 fFullName: good.fFullName,
             };
             let length = this.data.purchaseList.length;
