@@ -7,13 +7,13 @@ Page({
         ...pub.data,
         addPeopleNodes: [], //额外添加审批人节点数组
 
-        table: {}
+        table: {},
     },
     submit(e) {
         let that = this;
         let value = e.detail.value;
         let param = {
-            Remark: value.remark
+            Remark: value.remark,
         };
         if (this.data.nodeid == 5) {
             this.data.table["ActualName"] = value.ActualName;
@@ -21,30 +21,31 @@ Page({
 
             this.data.table["Company"] = value.Company;
 
-            this.data.table["ActualType"] = this.data.IntellectualPropertyTypes[this.data.stateIndexs];
+            this.data.table["ActualType"] = this.data.IntellectualPropertyTypes[
+                this.data.stateIndexs
+            ];
             console.log(this.data.table);
             if (this.data.table.ActualName.trim() == "") {
                 dd.alert({
                     content: "申报名称不允许空，请输入！",
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 return;
             }
             if (this.data.table.ActualType == undefined) {
                 dd.alert({
                     content: "申报类别不允许为空，请输入！",
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 return;
             }
             if (this.data.table.Company == "") {
                 dd.alert({
                     content: "申报单位不允许为空，请输入！",
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 return;
             }
-            return;
         }
         this.setData({ disablePage: true });
         this._postData(
@@ -58,12 +59,12 @@ Page({
     //下拉框选择处理
     changeIptIndex(e) {
         this.setData({
-            stateIndexs: e.detail.value
+            stateIndexs: e.detail.value,
         });
     },
     changeCompany(e) {
         this.setData({
-            companyIndex: e.detail.value
+            companyIndex: e.detail.value,
         });
     },
     //选人控件方法
@@ -84,10 +85,10 @@ Page({
                 that.setData({
                     //[${i}]
                     "table.ActualInventor": names.join(","),
-                    "table.ActualInventorId": ids.join(",")
+                    "table.ActualInventorId": ids.join(","),
                 });
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     //选人 可以实现
@@ -113,7 +114,7 @@ Page({
                     }
                     that.setData({
                         "table.ActualInventor": names.join(","),
-                        "table.ActualInventorId": ids.join(",")
+                        "table.ActualInventorId": ids.join(","),
                     });
                 } else if (res.departments.length > 0 && res.users.length == 0) {
                     let deptId = [];
@@ -145,7 +146,7 @@ Page({
 
                             that.setData({
                                 "table.ActualInventor": names.join(","),
-                                "table.ActualInventorId": ids.join(",")
+                                "table.ActualInventorId": ids.join(","),
                             });
                         },
                         deptId
@@ -186,33 +187,36 @@ Page({
 
                             that.setData({
                                 "table.ActualInventor": names.join(","),
-                                "table.ActualInventorId": ids.join(",")
+                                "table.ActualInventorId": ids.join(","),
                             });
                         },
                         deptId
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     onReady() {
         let that = this;
         console.log(this.data.nodeid == 5 && this.data.index == 0);
-        this._getData("IntellectualProperty/Read" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
-            for (let r in res) {
-                if (res[r] === null) res[r] = "";
-            }
-            let index = 0;
-            for (let i = 0, len = this.data.IntellectualPropertyTypes.length; i < len; i++) {
-                if (res.Type == this.data.IntellectualPropertyTypes[i]) {
-                    index = i;
+        this._getData(
+            "IntellectualProperty/Read" + this.formatQueryStr({ TaskId: this.data.taskid }),
+            res => {
+                for (let r in res) {
+                    if (res[r] === null) res[r] = "";
                 }
+                let index = 0;
+                for (let i = 0, len = this.data.IntellectualPropertyTypes.length; i < len; i++) {
+                    if (res.Type == this.data.IntellectualPropertyTypes[i]) {
+                        index = i;
+                    }
+                }
+                this.setData({
+                    stateIndex: index,
+                    table: res,
+                });
             }
-            this.setData({
-                stateIndex: index,
-                table: res
-            });
-        });
-    }
+        );
+    },
 });

@@ -9,48 +9,51 @@ Page({
         tableParam: {
             size: 5,
             now: 1,
-            total: 0
+            total: 0,
         },
         IsEnableArray: [
             { name: "是", label: true },
-            { name: "否", label: false, checked: true }
+            { name: "否", label: false, checked: true },
         ],
         SecondArray: [
             { name: "是", label: true },
-            { name: "否", label: false }
+            { name: "否", label: false },
         ],
         tableItems: [
             {
                 prop: "RoleName",
                 label: "角色名称",
-                width: 300
+                width: 300,
             },
             {
                 prop: "CreateTime",
                 label: "创建时间",
-                width: 300
+                width: 300,
             },
             {
                 prop: "IsEnable",
                 label: "是否启用",
-                width: 300
-            }
-        ]
+                width: 300,
+            },
+        ],
     },
     onReady() {
         let that = this;
-        this._getData("Role/GetRole" + that.formatQueryStr({ applyManId: app.userInfo.userid }), function(res) {
-            console.log(res);
-            for (let i of res) {
-                i.IsEnable = i.IsEnable == true ? "是" : "否";
+        this._getData(
+            "Role/GetRole" + that.formatQueryStr({ applyManId: app.userInfo.userid }),
+            function(res) {
+                console.log(res);
+                for (let i of res) {
+                    i.IsEnable = i.IsEnable == true ? "是" : "否";
+                }
+                that.setData({
+                    tableData: res,
+                    "tableParam.total": res.length,
+                });
+                that.data.data = res;
+                that.getData();
             }
-            that.setData({
-                tableData: res,
-                "tableParam.total": res.length
-            });
-            that.data.data = res;
-            that.getData();
-        });
+        );
     },
     //修改选人
     choosePeoples(e) {
@@ -72,7 +75,7 @@ Page({
                         thirdNeedArray.push({
                             name: d.name,
                             value: d.name,
-                            id: d.userId
+                            id: d.userId,
                         });
                     }
                     thirdNeedArray = that.objectArrayDuplication(thirdNeedArray, "name");
@@ -80,7 +83,7 @@ Page({
                     that.setData({
                         permissionMember: names.join(","),
                         PeopleId: ids.join(","),
-                        thirdNeedArray: thirdNeedArray
+                        thirdNeedArray: thirdNeedArray,
                     });
                 } else {
                     let deptId = [];
@@ -104,7 +107,7 @@ Page({
                                     thirdNeedArray.push({
                                         name: d.name,
                                         value: d.name,
-                                        id: d.userid
+                                        id: d.userid,
                                     });
                                     d.userId = d.userid;
                                 }
@@ -117,14 +120,14 @@ Page({
                             that.setData({
                                 permissionMember: names.join(","),
                                 PeopleId: ids.join(","),
-                                thirdNeedArray: thirdNeedArray
+                                thirdNeedArray: thirdNeedArray,
                             });
                         },
                         deptId
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     //添加选人
@@ -147,13 +150,14 @@ Page({
                         twoNeedArray.push({
                             name: d.name,
                             value: d.name,
-                            id: d.userId
+                            id: d.userId,
                         });
                     }
+                    twoNeedArray = that.objectArrayDuplication(twoNeedArray, "id");
                     that.setData({
                         addPermissionMember: names.join(","),
                         PeopleId: ids.join(","),
-                        twoNeedArray: twoNeedArray
+                        twoNeedArray: twoNeedArray,
                     });
                 } else {
                     let deptId = [];
@@ -177,24 +181,25 @@ Page({
                                     twoNeedArray.push({
                                         name: d.name,
                                         value: d.name,
-                                        id: d.userid
+                                        id: d.userid,
                                     });
                                     d.userId = d.userid;
                                 }
                             }
                             names = [...new Set(names)]; //数组去重
                             ids = [...new Set(ids)]; //数组去重
+                            twoNeedArray = that.objectArrayDuplication(twoNeedArray, "id");
                             that.setData({
                                 addPermissionMember: names.join(","),
                                 PeopleId: ids.join(","),
-                                twoNeedArray: twoNeedArray
+                                twoNeedArray: twoNeedArray,
                             });
                         },
                         deptId
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     chooseItem(e) {
@@ -206,7 +211,7 @@ Page({
         let row = e.target.targetDataset.row;
 
         for (let i of this.data.SecondArray) {
-            if (row.IsEnable == i.label) {
+            if (row.IsEnable == i.name) {
                 i.checked = true;
             } else {
                 i.checked = false;
@@ -228,17 +233,17 @@ Page({
             tableInfo: row,
             permissionMember: str,
             thirdNeedArray: arr,
-            SecondArray: this.data.SecondArray
+            SecondArray: this.data.SecondArray,
         });
         this.setData({
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskShowAnim();
         this.createContentShowAnim();
     },
     cancel(e) {
         this.setData({
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
     },
     onChangeThird(e) {
@@ -290,25 +295,25 @@ Page({
                 RoleId: this.data.row.Id,
                 UserName: i.name,
                 UserId: i.id,
-                IsEnable: i.checked
+                IsEnable: i.checked,
             };
             rolesList.push(obj);
         }
         this.data.row.roles = rolesList;
         let obj = {
             applyManId: app.userInfo.userid,
-            roles: [this.data.row]
+            roles: [this.data.row],
         };
         this._postData(
             "Role/ModifyRole",
             res => {
                 dd.alert({
                     content: promptConf.promptConf.UpdateSuccess,
-                    buttonText: promptConf.promptConf.confirm
+                    buttonText: promptConf.promptConf.confirm,
                 });
                 this.onReady(); //重新刷新
                 this.setData({
-                    hidden: !this.data.hidden
+                    hidden: !this.data.hidden,
                 });
             },
             obj
@@ -320,14 +325,14 @@ Page({
         if (value.RoleName == "") {
             dd.alert({
                 content: "角色名称不允许为空，请输入！",
-                buttonText: promptConf.promptConf.confirm
+                buttonText: promptConf.promptConf.confirm,
             });
             return;
         }
         if (value.people == "") {
             dd.alert({
                 content: "权限成员不允许为空，请输入！",
-                buttonText: promptConf.promptConf.confirm
+                buttonText: promptConf.promptConf.confirm,
             });
             return;
         }
@@ -337,7 +342,7 @@ Page({
             CreateTime: this.data.DateStr + " " + this.data.TimeStr,
             IsEnable: value.IsEnable,
             RoleName: value.RoleName,
-            Remark: value.Remark
+            Remark: value.Remark,
         };
 
         let rolesList = [];
@@ -348,7 +353,7 @@ Page({
                 CreateTime: this.data.DateStr + " " + this.data.TimeStr,
                 UserName: i.name,
                 UserId: i.id,
-                IsEnable: i.checked
+                IsEnable: i.checked,
             };
             rolesList.push(obj);
         }
@@ -360,11 +365,11 @@ Page({
             res => {
                 dd.alert({
                     content: promptConf.promptConf.AddSuccess,
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 this.onReady(); //重新刷新
             },
             [row]
         );
-    }
+    },
 });

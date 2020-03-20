@@ -13,17 +13,24 @@ Page({
         this.getDepartmentList();
         this.getUserInfo();
     },
+    onShow() {
+        console.log("ss");
+        this.setData({
+            sort: app.globalData.sort,
+            menu: app.globalData.menu,
+        });
+    },
     data: {
         ...pub.data,
         pageName: "component/index",
         pageInfo: {
-            pageId: 0
+            pageId: 0,
         },
         curIndex: 0,
         userIndex: -1,
         userList: [],
         sort: [],
-        sortItems: []
+        sortItems: [],
     },
     //选人控件方法
     choosePeople(e) {
@@ -44,8 +51,8 @@ Page({
                     that.setData({
                         DingData: {
                             nickName: name,
-                            userid: userId
-                        }
+                            userid: userId,
+                        },
                     });
                     dd.httpRequest({
                         url:
@@ -54,7 +61,10 @@ Page({
                             lib.func.formatQueryStr({ userid: res.users[0].userId }),
                         method: "POST",
                         data: "",
-                        headers: { "Content-Type": "application/json; charset=utf-8", Accept: "application/json" },
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                            Accept: "application/json",
+                        },
                         success: function(res) {
                             console.log(res);
                             let name = res.data.name;
@@ -62,18 +72,18 @@ Page({
                                 nickName: name,
                                 departName: null,
                                 userid: app.userInfo.userid,
-                                departmentList: res.data.dept
+                                departmentList: res.data.dept,
                             };
                             app.userInfo = DingData;
                             console.log(DingData);
                             dd.hideLoading();
                             that.setData({ DingData: DingData });
                             that.onLoad(); //更换人物，重新登录
-                        }
+                        },
                     });
                 }
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
 
@@ -86,14 +96,14 @@ Page({
             success: res => {
                 console.log(res);
                 dd.alert({
-                    content: JSON.stringify(res)
+                    content: JSON.stringify(res),
                 });
             },
             fail: err => {
                 dd.alert({
-                    content: JSON.stringify(err)
+                    content: JSON.stringify(err),
                 });
-            }
+            },
         });
     },
     //选人操作
@@ -109,9 +119,9 @@ Page({
         this.setData({
             DingData: {
                 nickName: name,
-                userid: userId
+                userid: userId,
             },
-            userIndex: value.detail.value
+            userIndex: value.detail.value,
         });
     },
     getUserInfo() {
@@ -120,23 +130,23 @@ Page({
             data.unshift(
                 {
                     PeopleId: "056652031835326264",
-                    NodePeople: "许瑜瑜"
+                    NodePeople: "许瑜瑜",
                 },
                 {
                     PeopleId: "175508475239722073",
-                    NodePeople: "黄俊生"
+                    NodePeople: "黄俊生",
                 },
                 {
                     PeopleId: "100367431324638845",
-                    NodePeople: "张顺林"
+                    NodePeople: "张顺林",
                 },
                 {
                     PeopleId: "30426359483381436",
-                    NodePeople: "cs"
+                    NodePeople: "cs",
                 }
             );
             that.setData({
-                userList: data
+                userList: data,
             });
         });
     },
@@ -148,20 +158,20 @@ Page({
             let item = this.data.sortItems;
             item[index] = {
                 text: "收起",
-                class: "dropdown-content-show"
+                class: "dropdown-content-show",
             };
             this.setData({
-                sortItems: item
+                sortItems: item,
             });
         } else if (this.data.sortItems[index].text === "收起") {
             let item = this.data.sortItems;
             item[index] = {
                 text: "展开",
-                class: "dropdown-content"
+                class: "dropdown-content",
             };
             this.setData({
-                sortItems: item
+                sortItems: item,
             });
         }
-    }
+    },
 });

@@ -13,7 +13,7 @@
 		</view>
 	</form>
 	<view a:if="{{ People.length > 1}}" style="margin-left:20rpx;margin-bottom:20rpx;">请选择相关人员</view>
-	<view a:for="{{People}}" a:if="{{ People.length > 1}}" class="menu" a:for-item="item" onTap="chose" data-item="{{item}}">
+	<view a:for="{{People}}" a:if="{{ People.length > 1}}" class="menu" a:for-item="item" onTap="chose" data-item="{{item}}" data-item="{{item}}">
 		<view class="item">
 			<view class="item-icon">
 				<view a:if="{{item.applyMan.length == 2}}">

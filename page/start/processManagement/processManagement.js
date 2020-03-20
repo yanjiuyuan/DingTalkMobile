@@ -5,7 +5,7 @@ Page({
     ...pub.data,
     ...pub.func,
     data: {
-        List: []
+        List: [],
     },
     onLoad() {},
 
@@ -23,48 +23,55 @@ Page({
             startWithDepartmentId: 0, // 0表示从企业最上层开始},
             success: function(res) {
                 that.setData({
-                    user: res.users[0]
+                    user: res.users[0],
                 });
-                that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId, result => {
-                    // that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + "023752010629202711", result => {
-                    if (JSON.stringify(result) == "{}") {
+                that._getData(
+                    "FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + res.users[0].userId,
+                    result => {
+                        // that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + "023752010629202711", result => {
+                        if (JSON.stringify(result) == "{}") {
+                            that.setData({
+                                severanceOfficer: res.users[0].name,
+                                severanceOfficerId: res.users[0].userId,
+                            });
+                            dd.alert({
+                                content: promptConf.promptConf.NoNodeInformation,
+                                buttonText: promptConf.promptConf.Confirm,
+                            });
+                            return;
+                        }
+                        let processData = [];
+                        let sortItems = [];
+                        let resultKey = Object.keys(result);
+                        for (let i in result) {
+                            processData.push(result[i]);
+                            sortItems.push({
+                                show: "hidden",
+                                rotate: "RotateToTheRight",
+                            });
+                        }
+                        for (let i in processData) {
+                            processData[i] = {
+                                flowName: resultKey[i],
+                                nodeList: that.Arrangement(
+                                    processData[i],
+                                    res.users[0].name,
+                                    res.users[0].userId
+                                ),
+                                // nodeList: that.Arrangement(processData[i], "王平江", "023752010629202711")
+                            };
+                        }
+                        console.log(processData);
                         that.setData({
+                            processData: processData,
+                            sortItems: sortItems,
                             severanceOfficer: res.users[0].name,
-                            severanceOfficerId: res.users[0].userId
-                        });
-                        dd.alert({
-                            content: promptConf.promptConf.NoNodeInformation,
-                            buttonText: promptConf.promptConf.Confirm
-                        });
-                        return;
-                    }
-                    let processData = [];
-                    let sortItems = [];
-                    let resultKey = Object.keys(result);
-                    for (let i in result) {
-                        processData.push(result[i]);
-                        sortItems.push({
-                            show: "hidden",
-                            rotate: "RotateToTheRight"
+                            severanceOfficerId: res.users[0].userId,
                         });
                     }
-                    for (let i in processData) {
-                        processData[i] = {
-                            flowName: resultKey[i],
-                            nodeList: that.Arrangement(processData[i], res.users[0].name, res.users[0].userId)
-                            // nodeList: that.Arrangement(processData[i], "王平江", "023752010629202711")
-                        };
-                    }
-                    console.log(processData);
-                    that.setData({
-                        processData: processData,
-                        sortItems: sortItems,
-                        severanceOfficer: res.users[0].name,
-                        severanceOfficerId: res.users[0].userId
-                    });
-                });
+                );
             },
-            fail: function(err) {}
+            fail: function(err) {},
         });
     },
     //整理数组
@@ -111,31 +118,32 @@ Page({
             responseUserOnly: false, //返回人，或者返回人和部门
             startWithDepartmentId: 0, // 0表示从企业最上层开始},
             success: function(res) {
-                that.data.processData[index].nodeList[NodeId].NodePeople = that.data.processData[index].nodeList[
-                    NodeId
-                ].NodePeople.replace(that.data.user.name, res.users[0].name);
-                that.data.processData[index].nodeList[NodeId].PeopleId = that.data.processData[index].nodeList[
-                    NodeId
-                ].PeopleId.replace(that.data.user.userId, res.users[0].userId);
+                console.log(res);
+                that.data.processData[index].nodeList[NodeId].NodePeople = that.data.processData[
+                    index
+                ].nodeList[NodeId].NodePeople.replace(that.data.user.name, res.users[0].name);
+                that.data.processData[index].nodeList[NodeId].PeopleId = that.data.processData[
+                    index
+                ].nodeList[NodeId].PeopleId.replace(that.data.user.userId, res.users[0].userId);
 
                 that.data.processData[index].nodeList[NodeId].AddPeople = [
-                    { name: res.users[0].name, userId: res.users[0].userId }
+                    { name: res.users[0].name, userId: res.users[0].userId },
                 ];
                 console.log(that.data.processData[index].nodeList);
                 that._postData(
                     "FlowInfoNew/UpdateNodeInfos",
                     res => {
                         that.setData({
-                            processData: that.data.processData
+                            processData: that.data.processData,
                         });
                         dd.alert({
                             content: promptConf.promptConf.UpdateSuccess,
-                            buttonText: promptConf.promptConf.Confirm
+                            buttonText: promptConf.promptConf.Confirm,
                         });
                     },
                     that.data.processData[index].nodeList
                 );
-            }
+            },
         });
     },
     showOrClose(e) {
@@ -144,19 +152,19 @@ Page({
             let item = this.data.sortItems;
             item[index] = {
                 show: "show",
-                rotate: "Rotate-downward"
+                rotate: "Rotate-downward",
             };
             this.setData({
-                sortItems: item
+                sortItems: item,
             });
         } else if (this.data.sortItems[index].rotate === "Rotate-downward") {
             let item = this.data.sortItems;
             item[index] = {
                 show: "hidden",
-                rotate: "RotateToTheRight"
+                rotate: "RotateToTheRight",
             };
             this.setData({
-                sortItems: item
+                sortItems: item,
             });
         }
 
@@ -168,83 +176,90 @@ Page({
         if (value.CooperateMan.trim() == "") {
             dd.alert({
                 content: "离职人员不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
 
         let obj = {
-            applyMan: value.CooperateMan
+            applyMan: value.CooperateMan,
         };
         this.setData({
-            processData: undefined
+            processData: undefined,
         });
         this._getData("FlowInfoNew/GetAllUserInfo" + this.formatQueryStr(obj), res => {
             if (res.length == 0) {
                 dd.alert({
                     content: promptConf.promptConf.SearchNoReturn,
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 that.setData({
-                    People: res
+                    People: res,
                 });
                 return;
             }
             if (res.length == 1) {
                 that.getSortData(res[0]);
                 that.setData({
-                    People: res
+                    People: res,
                 });
             }
             if (res.length > 1) {
                 that.setData({
-                    People: res
+                    People: res,
                 });
             }
         });
     },
     getSortData(user) {
         let that = this;
-        that._getData("FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + user.applyManId, result => {
-            if (JSON.stringify(result) == "{}") {
+        that._getData(
+            "FlowInfoNew/GetNodeInfoInfoByApplyManId?applyManId=" + user.applyManId,
+            result => {
+                if (JSON.stringify(result) == "{}") {
+                    that.setData({
+                        severanceOfficer: user.applyMan,
+                        severanceOfficerId: user.applyManId,
+                    });
+                    dd.alert({
+                        content: promptConf.promptConf.NoNodeInformation,
+                        buttonText: promptConf.promptConf.Confirm,
+                    });
+                    return;
+                }
+                let processData = [];
+                let sortItems = [];
+                let resultKey = Object.keys(result);
+                for (let i in result) {
+                    processData.push(result[i]);
+                    sortItems.push({
+                        show: "hidden",
+                        rotate: "RotateToTheRight",
+                    });
+                }
+                for (let i in processData) {
+                    processData[i] = {
+                        flowName: resultKey[i],
+                        nodeList: that.Arrangement(processData[i], user.applyMan, user.applyManId),
+                    };
+                }
+                console.log(processData);
                 that.setData({
+                    processData: processData,
+                    sortItems: sortItems,
                     severanceOfficer: user.applyMan,
-                    severanceOfficerId: user.applyManId
-                });
-                dd.alert({
-                    content: promptConf.promptConf.NoNodeInformation,
-                    buttonText: promptConf.promptConf.Confirm
-                });
-                return;
-            }
-            let processData = [];
-            let sortItems = [];
-            let resultKey = Object.keys(result);
-            for (let i in result) {
-                processData.push(result[i]);
-                sortItems.push({
-                    show: "hidden",
-                    rotate: "RotateToTheRight"
+                    severanceOfficerId: user.applyManId,
                 });
             }
-            for (let i in processData) {
-                processData[i] = {
-                    flowName: resultKey[i],
-                    nodeList: that.Arrangement(processData[i], user.applyMan, user.applyManId)
-                };
-            }
-            console.log(processData);
-            that.setData({
-                processData: processData,
-                sortItems: sortItems,
-                severanceOfficer: user.applyMan,
-                severanceOfficerId: user.applyManId
-            });
-        });
+        );
     },
     chose(e) {
         console.log(e);
         let user = e.currentTarget.dataset.item;
+        this.setData({
+            user: user.applyMan,
+            userId: user.applyManId,
+        });
         this.getSortData(user);
-    }
+    },
 });
