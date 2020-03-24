@@ -48,13 +48,7 @@ Page({
             return;
         }
         this.setData({ disablePage: true });
-        this._postData(
-            "Evection/Modify",
-            res => {
-                this.aggreSubmit(param);
-            },
-            this.data.table
-        );
+        this.aggreSubmit(param);
     },
     reApproval() {
         this.data.localStorage = JSON.stringify({

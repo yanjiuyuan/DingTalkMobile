@@ -17,23 +17,15 @@ Page({
         ],
         animMaskData: [], //遮罩层
     },
-    onLoad() {
+    onLoad() {},
+
+    onShow() {
         this.getMenu(true);
         this.setData({
             sort: app.globalData.sort,
             menu: app.globalData.menu,
             sortItems: app.globalData.sortItem,
         });
-    },
-
-    onShow() {
-        let pages = getCurrentPages();
-        // console.log(pages);
-        let beforePage = pages[pages.length - 2];
-        beforePage.setData({ asd: "ss" });
-        // dd.navigateBack({
-        //     delta: 1,
-        // });
     },
 
     //添加快捷方式
@@ -66,6 +58,7 @@ Page({
         console.log(item);
 
         dd.confirm({
+            title: "友情提示",
             content: "是否删除" + item.SORT_NAME + "整个分组",
             confirmButtonText: promptConf.promptConf.Confirm,
             cancelButtonText: promptConf.promptConf.Cancel,

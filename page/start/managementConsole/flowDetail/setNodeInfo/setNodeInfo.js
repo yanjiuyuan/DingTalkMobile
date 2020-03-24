@@ -444,7 +444,6 @@ Page({
                         deptId
                     );
                 }
-                return;
                 ///////////////////////////////////
                 if (res.departments.length == 0) {
                     for (let d of res.users) {

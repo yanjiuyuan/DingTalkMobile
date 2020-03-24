@@ -14,7 +14,6 @@ Page({
         this.getUserInfo();
     },
     onShow() {
-        console.log("ss");
         this.setData({
             sort: app.globalData.sort,
             menu: app.globalData.menu,

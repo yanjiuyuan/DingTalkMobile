@@ -15,31 +15,31 @@ Page({
             {
                 index: 0,
                 name: "待我审批",
-                image: "../../image/1.png"
+                image: "../../image/1.png",
             },
             {
                 index: 1,
                 name: "我已审批",
-                image: "../../image/1.png"
+                image: "../../image/1.png",
             },
             {
                 index: 2,
                 name: "我发起的",
-                image: "../../image/2.png"
+                image: "../../image/2.png",
             },
             {
                 index: 3,
                 name: "抄送我的",
-                image: "../../image/3.png"
-            }
+                image: "../../image/3.png",
+            },
         ],
-        approveList: []
+        approveList: [],
     },
     onLoad(query) {
         return;
         if (query.index) {
             this.setData({
-                activeItem: query.index
+                activeItem: query.index,
             });
         }
         this.checkLogin2(() => {
@@ -59,9 +59,9 @@ Page({
             success: function(res) {
                 console.log(res);
                 that.setData({
-                    clientHeight: res.windowHeight - res.windowHeight * 0.14
+                    clientHeight: res.windowHeight - res.windowHeight * 0.14,
                 });
-            }
+            },
         });
     },
     //切换审批列表
@@ -71,7 +71,7 @@ Page({
         let index = e.target.dataset.index;
         if (index == this.data.activeItem) return;
         this.setData({
-            activeItem: index
+            activeItem: index,
         });
         this.checkLogin(function() {
             that.getApproveList(index);
@@ -98,14 +98,14 @@ Page({
             ApplyManId: that.data.DingData.userid,
             // IsSupportMobile:true,
             pageIndex: 1,
-            pageSize: this.data.size
+            pageSize: this.data.size,
         };
         if (keyword) param["Key"] = keyword;
         dd.showLoading({ content: "获取审批列表中，请稍候~" });
         that._getData("FlowInfoNew/GetFlowStateDetail" + that.formatQueryStr(param), function(res) {
             that.setData({
                 approveList: res.slice(0, 50),
-                pageCount: Math.ceil(res.length / 5)
+                pageCount: Math.ceil(res.length / 5),
             });
             dd.hideLoading();
         });
@@ -119,7 +119,7 @@ Page({
                 "FlowInfoNew/ChangeSendState" +
                     that.formatQueryStr({
                         TaskId: row.TaskId,
-                        UserId: that.data.DingData.userid
+                        UserId: that.data.DingData.userid,
                     }),
                 function(res) {
                     that.router(row);
@@ -139,7 +139,7 @@ Page({
                 id: row.Id,
                 index: this.data.activeItem,
                 state: row.FlowState,
-                flowname: row.FlowName
+                flowname: row.FlowName,
             };
             let url = "";
             row.FlowId = parseInt(row.FlowId);
@@ -227,7 +227,7 @@ Page({
             // }
 
             dd.navigateTo({
-                url: url + this._formatQueryStr(param)
+                url: url + this._formatQueryStr(param),
             });
         }
     },
@@ -235,6 +235,6 @@ Page({
     scroll() {
         this.data.size = this.data.size + 5;
         this.getApproveList(this.data.activeItem);
-    }
+    },
     //获取待审批查看数据和待读数据
 });

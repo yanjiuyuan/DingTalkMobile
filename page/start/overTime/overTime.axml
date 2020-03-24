@@ -1,6 +1,6 @@
 <!-- 基地加班 -->
 <import src="/util/template/template.axml"/>
-<view>
+<view class="page">
 	<form onSubmit="submit">
 		<view class="page-section">
 			<!-- 标题 -->
