@@ -217,6 +217,15 @@ Page({
                 case 75:
                     url = "/page/approveDetail/maskSupplies/maskSupplies";
                     break;
+                case 100:
+                    url = "/page/approveDetail/maintain/maintain";
+                    break;
+                case 101:
+                    url = "/page/approveDetail/maintain/maintain";
+                    break;
+                case 102:
+                    url = "/page/approveDetail/maintain/maintain";
+                    break;
             }
 
             // for (let i = 0, length = app.globalData.menu.length; i < length; i++) {

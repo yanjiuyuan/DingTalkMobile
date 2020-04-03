@@ -20,11 +20,14 @@ Page({
         this.data.table["CarNumber"] = this.data.table.CarId;
         this.data.table["StartKilometres"] = value.StartKilometres;
         this.data.table["EndKilometres"] = value.EndKilometres;
-        this.data.table["UseKilometres"] = (
-            value.EndKilometres -
-            0 -
-            (value.StartKilometres - 0)
-        ).toFixed(2);
+        if (this.data.nodeid == 3) {
+            this.data.table["UseKilometres"] = (
+                value.EndKilometres -
+                0 -
+                (value.StartKilometres - 0)
+            ).toFixed(2);
+        }
+
         this.data.table["FactTravelWay"] = value.FactTravelWay;
         console.log(value);
 

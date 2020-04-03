@@ -19,7 +19,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.42",
+        version: "2.7.43",
         DingData: {
             nickName: "",
             departName: "",
@@ -645,7 +645,16 @@ export default {
                         break;
                     case "68":
                         url = "Maintain/Read";
-                        break;
+                        break; //维修
+                    case "100":
+                        url = "Maintain/Read";
+                        break; //维修
+                    case "101":
+                        url = "Maintain/Read";
+                        break; //维修
+                    case "102":
+                        url = "Maintain/Read";
+                        break; //维修
                 }
                 if (!url) return;
                 if (flowid == "12") {
@@ -817,6 +826,17 @@ export default {
                     case "68":
                         (url = "Maintain/PrintPDF"), (method = "post");
                         break; //维修
+
+                    case "100":
+                        (url = "Maintain/PrintPDF"), (method = "post");
+                        break; //维修
+                    case "101":
+                        (url = "Maintain/PrintPDF"), (method = "post");
+                        break; //维修
+                    case "102":
+                        (url = "Maintain/PrintPDF"), (method = "post");
+                        break; //维修
+
                     case "69":
                         (url = "ProjectClosure/PrintAndSend"), (method = "post");
                         break; //结题
@@ -1165,6 +1185,7 @@ export default {
         getProjectList() {
             let that = this;
             this._getData("ProjectNew/GetAllProJect", function(res) {
+                app.globalData.projectList = res;
                 that.setData({
                     projectList: res,
                 });
@@ -1423,6 +1444,7 @@ export default {
                 that.setData({
                     DingData: DingData,
                     DeptNames: app.globalData.DeptNames,
+                    projectList: app.globalData.projectList,
                 });
                 callBack();
                 return;
@@ -1495,7 +1517,11 @@ export default {
                     departmentList: app.userInfo.departmentList,
                 };
 
-                that.setData({ DingData: DingData, DeptNames: app.globalData.DeptNames });
+                that.setData({
+                    projectList: app.globalData.projectList,
+                    DingData: DingData,
+                    DeptNames: app.globalData.DeptNames,
+                });
                 callBack();
                 return;
             }
