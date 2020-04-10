@@ -279,7 +279,11 @@
 				<text style="color:red;">  -  提示：向右滑动显示全部信息</text></view>
 			<view>
 				<button type="primary" size="mini" plain="true" class="table-previous" data-page="{{param.now-1}}" onTap="handleCurrentChange" a:if="{{param.now > 1 }}">上一页</button>
-				<button type="primary" size="mini" plain="true" class="table-next" data-page="{{param.now + 1}}" onTap="handleCurrentChange" a:if="{{param.total/5 > param.now}}">下一页</button></view></view></view></template>
+				<button type="primary" size="mini" plain="true" class="table-next" data-page="{{param.now + 1}}" onTap="handleCurrentChange" a:if="{{param.total/5 > param.now}}">下一页</button>
+			</view>
+		</view>
+	</view>
+</template>
 <!-- 必填前缀 -->
 <template name="required">
 	<view style="color:red;display:inline-block;vertical-align:middle;

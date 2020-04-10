@@ -65,7 +65,9 @@
         "page/start/maskSupplies/maskSupplies",
         "page/approveDetail/maskSupplies/maskSupplies",
         "page/start/maskQuery/maskQuery",
-        "page/start/publicAreaManager/publicAreaManager"
+        "page/start/publicAreaManager/publicAreaManager",
+        "page/start/esafenet/esafenet",
+        "page/approveDetail/esafenetDetail/esafenetDetail"
     ],
     "window": {
         "enableWK": "YES",

@@ -1,90 +1,76 @@
 <!-- 项目结题情况 -->
-
 <import src="/util/template/template.axml"/>
-
-    <view class="page-section">
-      <view class="form-row">
-        <view class="form-row-label">标题</view>
-        <view class="form-row-content">
-          <input  name="title" class="input" value="项目详情" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">项目类别</view>
-        <view class="form-row-content">
-          <input  name="ProjectType" class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">项目编号</view>
-        <view class="form-row-content">
-          <input  name="ProjectId" class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
-        </view>
-      </view>
-
-      <view class="form-row">
-        <view class="form-row-label">项目名称</view>
-        <view class="form-row-content">
-          <input  name="ProjectName" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">合作单位</view>
-        <view class="form-row-content">
-          <input  name="CooperativeUnit" class="input" value="{{tableInfo.CooperativeUnit}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">部门名称</view>
-        <view class="form-row-content">
-          <input  name="DeptName" class="input" value="{{tableInfo.DeptName}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">项目负责人</view>
-        <view class="form-row-content">
-          <input  name="ResponsibleMan" class="input" value="{{tableInfo.ResponsibleMan}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">项目组成员</view>
-        <view class="form-row-content">
-          <input  name="TeamMembers" class="input" value="{{tableInfo.TeamMembers}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">商务对接人</view>
-        <view class="form-row-content">
-          <input  name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">状态</view>
-        <view class="form-row-content">
-          <input  name="ProjectState" class="input" value="{{tableInfo.ProjectState}}" disabled="{{true}}" />
-        </view>
-      </view>  
-
-      <view class="form-row">
-        <view class="form-row-label">开始时间</view>
-        <view class="form-row-content">
-          <input  name="StartTime" class="input" value="{{tableInfo.StartTime}}" disabled="{{true}}" />
-        </view>
-      </view> 
-  
-      <view class="form-row">
-        <view class="form-row-label">结束时间</view>
-        <view class="form-row-content">
-          <input  name="EndTime" class="input" value="{{tableInfo.EndTime}}" disabled="{{true}}" />
-        </view>
-      </view> 
-
+<view class="page-section">
+  <view class="form-row">
+    <view class="form-row-label">标题</view>
+    <view class="form-row-content">
+      <input name="title" class="input" value="项目详情" disabled="{{true}}" />
     </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">项目类别</view>
+    <view class="form-row-content">
+      <input name="ProjectType" class="input" value="{{tableInfo.ProjectType}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">项目编号</view>
+    <view class="form-row-content">
+      <input name="ProjectId" class="input" value="{{tableInfo.ProjectId}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">项目名称</view>
+    <view class="form-row-content">
+      <input name="ProjectName" class="input" value="{{tableInfo.ProjectName}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">合作单位</view>
+    <view class="form-row-content">
+      <input name="CooperativeUnit" class="input" value="{{tableInfo.CooperativeUnit}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">部门名称</view>
+    <view class="form-row-content">
+      <input name="DeptName" class="input" value="{{tableInfo.DeptName}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">项目负责人</view>
+    <view class="form-row-content">
+      <input name="ResponsibleMan" class="input" value="{{tableInfo.ResponsibleMan}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">项目组成员</view>
+    <view class="form-row-content">
+      <input name="TeamMembers" class="input" value="{{tableInfo.TeamMembers}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">商务对接人</view>
+    <view class="form-row-content">
+      <input name="Title" class="input" value="{{tableInfo.Title}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">状态</view>
+    <view class="form-row-content">
+      <input name="ProjectState" class="input" value="{{tableInfo.ProjectState}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">开始时间</view>
+    <view class="form-row-content">
+      <input name="StartTime" class="input" value="{{tableInfo.StartTime}}" disabled="{{true}}" />
+    </view>
+  </view>
+  <view class="form-row">
+    <view class="form-row-label">结束时间</view>
+    <view class="form-row-content">
+      <input name="EndTime" class="input" value="{{tableInfo.EndTime}}" disabled="{{true}}" />
+    </view>
+  </view>
+</view>

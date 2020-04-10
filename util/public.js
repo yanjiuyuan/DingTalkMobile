@@ -19,7 +19,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.43",
+        version: "2.7.46",
         DingData: {
             nickName: "",
             departName: "",
@@ -1502,6 +1502,12 @@ export default {
                         }
                     );
                 },
+                fail: res => {
+                    dd.alert({
+                        content: JSON.stringify(res),
+                        buttonText: promptConf.promptConf.Confirm,
+                    });
+                },
             });
         },
 
@@ -1579,6 +1585,12 @@ export default {
                             });
                         }
                     );
+                },
+                fail: res => {
+                    dd.alert({
+                        content: JSON.stringify(res),
+                        buttonText: promptConf.promptConf.Confirm,
+                    });
                 },
             });
         },

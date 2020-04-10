@@ -50,7 +50,7 @@ Page({
         };
         if (this.data.imgUrlList.length > 0) {
             param["ImageUrl"] = this.data.imgUrlList.join(",");
-        } else if (this.data.nodeid == 3 && this.data.imgUrlList.length == 0) {
+        } else if (this.data.nodeid == 4 && this.data.imgUrlList.length == 0) {
             dd.alert({
                 content: promptConf.promptConf.NoPicture,
                 buttonText: promptConf.promptConf.Confirm,

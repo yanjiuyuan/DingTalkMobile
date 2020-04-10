@@ -1,0 +1,64 @@
+<import src="/util/template/template.axml"/>
+<view class="page">
+  <!-- 项目结题情况 -->
+  <view class="page-section">
+    <view class="form-row">
+      <view class="form-row-label">标题</view>
+      <view class="form-row-content">
+        <input name="title" class="input" value="亿赛通流程详情" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">流水号</view>
+      <view class="form-row-content">
+        <input name="ProjectType" class="input" value="{{tableInfo.TaskId}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">开始时间</view> 
+      <view class="form-row-content">
+        <input name="ProjectId" class="input" value="{{tableInfo.StartTime}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">结束时间</view>   
+      <view class="form-row-content">
+        <input name="ProjectName" class="input" value="{{tableInfo.EndTime}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">操作人</view>
+      <view class="form-row-content">
+        <input name="CooperativeUnit" class="input" value="{{tableInfo.SurName}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">抄送人</view>
+      <view class="form-row-content">
+        <input name="DeptName" class="input" value="{{tableInfo.ApplyMan}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">部门</view>
+      <view class="form-row-content">
+        <input name="ResponsibleMan" class="input" value="{{tableInfo.OrganiseName}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">备注</view>
+      <view class="form-row-content">
+        <input name="TeamMembers" class="input" value="{{tableInfo.Reason}}" disabled="{{true}}" />
+      </view>
+    </view>
+    <view class="form-row">
+      <view class="form-row-label">流程状态</view>
+      <view class="form-row-content">
+        <input name="Title" class="input" value="{{tableInfo.State}}" disabled="{{true}}" />
+      </view>
+    </view>
+
+    <view a:if ="{{tableInfo.Filepath.length > 0}}">
+    <text>相关文件</text>
+    <template is="datatable" data="{{items:tableItems2,data:tableInfo.Filepath,param:tableParam2}}"/>
+  </view>
+  </view>

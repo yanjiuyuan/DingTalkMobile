@@ -12,38 +12,38 @@ Page({
             {
                 prop: "Name",
                 label: "名称",
-                width: 300
+                width: 300,
             },
             {
                 prop: "Type",
                 label: "大类",
-                width: 200
+                width: 200,
             },
             {
                 prop: "CarNumber",
                 label: "车牌号",
-                width: 300
+                width: 300,
             },
             {
                 prop: "Color",
                 label: "颜色",
-                width: 200
+                width: 200,
             },
             {
                 prop: "FinnalEndTime",
                 label: "最近使用时间",
-                width: 400
+                width: 400,
             },
             {
                 prop: "UnitPricePerKilometre",
                 label: "每公里单价（元）",
-                width: 100
+                width: 100,
             },
             {
                 prop: "Remark",
                 label: "备注",
-                width: 100
-            }
+                width: 100,
+            },
         ],
 
         // 公车
@@ -51,105 +51,105 @@ Page({
             {
                 prop: "TaskId",
                 label: "流水号",
-                width: 200
+                width: 200,
             },
             {
                 prop: "Dept",
                 label: "使用部门",
-                width: 200
+                width: 200,
             },
             {
                 prop: "ApplyMan",
                 label: "申请人",
-                width: 200
+                width: 200,
             },
             {
                 prop: "UseTime",
                 label: "用车日期",
-                width: 500
+                width: 500,
             },
             {
                 prop: "Name",
                 label: "使用车辆",
-                width: 300
+                width: 300,
             },
             {
                 prop: "MainContent",
                 label: "用途",
-                width: 300
+                width: 300,
             },
             {
                 prop: "UseKilometres",
                 label: "总里程/KM",
-                width: 200
+                width: 200,
             },
             {
                 prop: "FactKilometre",
                 label: "实际里程/KM",
-                width: 200
+                width: 200,
             },
             {
                 prop: "UnitPricePerKilometre",
                 label: "每公里单价/元",
-                width: 200
+                width: 200,
             },
             {
                 prop: "AllPrice",
                 label: "费用估计/元",
-                width: 200
-            }
+                width: 200,
+            },
         ],
         //私车
         tableItem3: [
             {
                 prop: "Dept",
                 label: "使用部门",
-                width: 200
+                width: 200,
             },
             {
                 prop: "ApplyMan",
                 label: "申请人",
-                width: 200
+                width: 200,
             },
             {
                 prop: "UseTime",
                 label: "用车日期",
-                width: 500
+                width: 500,
             },
             {
                 prop: "MainContent",
                 label: "用途",
-                width: 300
+                width: 300,
             },
             {
                 prop: "StartKilometres",
                 label: "起始公里/KM",
-                width: 200
+                width: 200,
             },
             {
                 prop: "EndKilometres",
                 label: "结束公里/KM",
-                width: 200
+                width: 200,
             },
             {
                 prop: "UseKilometres",
                 label: "总里程/KM",
-                width: 100
-            }
+                width: 100,
+            },
         ],
         tableParam: {
             size: 5,
-            now: 1
+            now: 1,
         },
         tableParam2: {
-            total: 0
+            total: 0,
         },
         tableOperate: "编辑",
-        tableOperate2: "删除"
+        tableOperate2: "删除",
     },
     onReady() {
         this.setData({
-            items: this.data.tableItem2
+            items: this.data.tableItem2,
         });
         this.getCar();
     },
@@ -159,19 +159,19 @@ Page({
         let that = this;
         let param = {
             key: key,
-            applyManId: app.userInfo.userid
+            applyManId: app.userInfo.userid,
         };
         this._getData("CarMananger/Quary" + this.formatQueryStr(param), res => {
             if (res.length == 0) {
                 dd.alert({
                     content: promptConf.promptConf.SearchNoReturn,
-                    buttonText: promptConf.promptConf.Confirm
+                    buttonText: promptConf.promptConf.Confirm,
                 });
                 return;
             }
             that.setData({
                 tableData: res,
-                "tableParam.total": res.length
+                "tableParam.total": res.length,
             });
             that.data.data = res;
             that.getData();
@@ -182,7 +182,7 @@ Page({
         if (value.keyWord.trim() == "") {
             dd.alert({
                 content: promptConf.promptConf.SearchNoInput,
-                buttonText: promptConf.promptConf.Confirmm
+                buttonText: promptConf.promptConf.Confirmm,
             });
             return;
         }
@@ -200,7 +200,7 @@ Page({
             console.log("编辑");
             this.setData({
                 row: row,
-                hidden: !this.data.hidden
+                hidden: !this.data.hidden,
             });
             this.createMaskShowAnim();
             this.createContentShowAnim();
@@ -215,32 +215,35 @@ Page({
                     if (result.confirm == true) {
                         let param = {
                             Id: row.Id,
-                            ApplyManId: app.userInfo.userid
+                            ApplyManId: app.userInfo.userid,
                         };
-                        this.getDataReturnData("CarMananger/Delete" + this.formatQueryStr(param), res => {
-                            console.log(res.data);
-                            if (res.data.errorMessage == "没有权限") {
+                        this.getDataReturnData(
+                            "CarMananger/Delete" + this.formatQueryStr(param),
+                            res => {
+                                console.log(res.data);
+                                if (res.data.errorMessage == "没有权限") {
+                                    dd.alert({
+                                        content: "没有操作权限",
+                                        buttonText: promptConf.promptConf.Confirm,
+                                    });
+                                    return;
+                                }
                                 dd.alert({
-                                    content: "没有操作权限",
-                                    buttonText: promptConf.promptConf.Confirm
+                                    content: "删除成功",
+                                    buttonText: promptConf.promptConf.Confirm,
                                 });
-                                return;
+                                that.getCar();
                             }
-                            dd.alert({
-                                content: "删除成功",
-                                buttonText: promptConf.promptConf.Confirm
-                            });
-                            that.getCar();
-                        });
+                        );
                     }
-                }
+                },
             });
         }
     },
     addCar() {
         this.setData({
             row: {},
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskShowAnim();
         this.createContentShowAnim();
@@ -248,7 +251,7 @@ Page({
     cancel(e) {
         this.setData({
             row: {},
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
     },
     confirm(e) {
@@ -259,28 +262,28 @@ Page({
         if (value.Name.trim() == "") {
             dd.alert({
                 content: "名称不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.Type.trim() == "") {
             dd.alert({
                 content: "品牌不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.CarNumber.trim() == "") {
             dd.alert({
                 content: "车牌号不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.UnitPricePerKilometre == "") {
             dd.alert({
                 content: "每公里单价不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -302,17 +305,17 @@ Page({
                     if (res.data.errorMessage == "没有权限") {
                         dd.alert({
                             content: "没有操作权限",
-                            buttonText: promptConf.promptConf.Confirm
+                            buttonText: promptConf.promptConf.Confirm,
                         });
                         return;
                     }
                     dd.alert({
                         content: "修改成功",
-                        buttonText: promptConf.promptConf.Confirm
+                        buttonText: promptConf.promptConf.Confirm,
                     });
                     that.setData({
                         row: undefined,
-                        hidden: !this.data.hidden
+                        hidden: !this.data.hidden,
                     });
                     that.getCar();
                 },
@@ -329,7 +332,7 @@ Page({
                 CarNumber: value.CarNumber,
                 Color: value.Color,
                 UnitPricePerKilometre: value.UnitPricePerKilometre,
-                Remark: value.Remark
+                Remark: value.Remark,
             };
             this.postDataReturnData(
                 "CarMananger/Add",
@@ -338,16 +341,16 @@ Page({
                     if (res.data.errorMessage == "没有权限") {
                         dd.alert({
                             content: "没有操作权限",
-                            buttonText: promptConf.promptConf.Confirm
+                            buttonText: promptConf.promptConf.Confirm,
                         });
                         return;
                     }
                     dd.alert({
                         content: "添加成功",
-                        buttonText: promptConf.promptConf.Confirm
+                        buttonText: promptConf.promptConf.Confirm,
                     });
                     that.setData({
-                        hidden: !this.data.hidden
+                        hidden: !this.data.hidden,
                     });
                     that.getCar();
                 },
@@ -360,7 +363,15 @@ Page({
             format: "yyyy-MM-dd HH:mm",
             currentDate: this.data.DateStr + " " + this.data.TimeStr,
             startDate: "2015-01-01",
-            endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
+            endDate:
+                this.data.Year +
+                1 +
+                "-" +
+                this.data.Month +
+                "-" +
+                this.data.Day +
+                " " +
+                this.data.TimeStr,
             success: res => {
                 if (this.data.endDates) {
                     //判断时间
@@ -369,15 +380,15 @@ Page({
                     if (end < start) {
                         dd.alert({
                             content: promptConf.promptConf.TimeComparison,
-                            buttonText: promptConf.promptConf.Confirm
+                            buttonText: promptConf.promptConf.Confirm,
                         });
                         return;
                     }
                 }
                 this.setData({
-                    startDates: res.date
+                    startDates: res.date,
                 });
-            }
+            },
         });
     },
     selectEndDateTime() {
@@ -385,7 +396,15 @@ Page({
             format: "yyyy-MM-dd HH:mm",
             currentDate: this.data.DateStr + " " + this.data.TimeStr,
             startDate: "2015-01-01",
-            endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
+            endDate:
+                this.data.Year +
+                1 +
+                "-" +
+                this.data.Month +
+                "-" +
+                this.data.Day +
+                " " +
+                this.data.TimeStr,
             success: res => {
                 if (this.data.startDates) {
                     //判断时间
@@ -394,31 +413,31 @@ Page({
                     if (end < start) {
                         dd.alert({
                             content: promptConf.promptConf.TimeComparison,
-                            buttonText: promptConf.promptConf.Confirm
+                            buttonText: promptConf.promptConf.Confirm,
                         });
                         return;
                     }
                 }
                 this.setData({
-                    endDates: res.date
+                    endDates: res.date,
                 });
-            }
+            },
         });
     },
 
     bindPickerChange(e) {
         if (e.detail.value == 0) {
             this.setData({
-                items: this.data.tableItem2
+                items: this.data.tableItem2,
             });
         }
         if (e.detail.value == 1) {
             this.setData({
-                items: this.data.tableItem3
+                items: this.data.tableItem3,
             });
         }
         this.setData({
-            carIndex: e.detail.value
+            carIndex: e.detail.value,
         });
     },
     //第二个搜索
@@ -426,25 +445,25 @@ Page({
         let that = this;
         let value = e.detail.value;
         console.log(e);
-        if (value.key.trim() == "") {
-            dd.alert({
-                content: promptConf.promptConf.SearchNoInput,
-                buttonText: promptConf.promptConf.Confirmm
-            });
-            return;
-        }
+        // if (value.key.trim() == "") {
+        //     dd.alert({
+        //         content: promptConf.promptConf.SearchNoInput,
+        //         buttonText: promptConf.promptConf.Confirmm
+        //     });
+        //     return;
+        // }
 
         if (value.startTime.trim() == "") {
             dd.alert({
                 content: "开始时间不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirmm
+                buttonText: promptConf.promptConf.Confirmm,
             });
             return;
         }
         if (value.endTime.trim() == "") {
             dd.alert({
                 content: "结束时间不允许为空，请输入！",
-                buttonText: promptConf.promptConf.Confirmm
+                buttonText: promptConf.promptConf.Confirmm,
             });
             return;
         }
@@ -457,7 +476,7 @@ Page({
             pageIndex: 1,
             pageSize: 9999,
             IsSend: e.buttonTarget.dataset.IsSend,
-            IsPublic: this.data.typeArray[this.data.carIndex] == "公车" ? true : false
+            IsPublic: this.data.typeArray[this.data.carIndex] == "公车" ? true : false,
         };
 
         console.log(obj);
@@ -465,37 +484,46 @@ Page({
         //搜索
         if (e.buttonTarget.dataset.IsSend == false) {
             console.log("搜索");
-            this.getDataReturnData("CarMananger/QuaryPrintExcel" + this.formatQueryStr(obj), res => {
-                console.log(res.data.data);
-                if (res.data.data.length == 0) {
-                    dd.alert({
-                        content: promptConf.promptConf.SearchNoReturn,
-                        buttonText: promptConf.promptConf.Confirm
+            this.getDataReturnData(
+                "CarMananger/QuaryPrintExcel" + this.formatQueryStr(obj),
+                res => {
+                    console.log(res.data.data);
+                    if (res.data.data.length == 0) {
+                        dd.alert({
+                            content: promptConf.promptConf.SearchNoReturn,
+                            buttonText: promptConf.promptConf.Confirm,
+                        });
+                        return;
+                    }
+                    for (let i of res.data.data) {
+                        i.AllPrice = i.AllPrice.toFixed(2);
+                    }
+                    this.setData({
+                        tableData2: res.data.data,
+                        disablePages: false,
+                        "tableParam2.total": res.data.data.length,
                     });
-                    return;
                 }
-                this.setData({
-                    tableData2: res.data.data,
-                    disablePages: false,
-                    "tableParam2.total": res.data.data.length
-                });
-            });
+            );
         }
         //打印表单
         else if (e.buttonTarget.dataset.IsSend == true) {
             console.log("打印表单");
 
-            this.getDataReturnData("CarMananger/QuaryPrintExcel" + this.formatQueryStr(obj), res => {
-                console.log(res.data);
-                if (res.data.error.errorCode == 0) {
-                    dd.alert({
-                        content: promptConf.promptConf.PrintFrom,
-                        buttonText: promptConf.promptConf.Confirm
-                    });
+            this.getDataReturnData(
+                "CarMananger/QuaryPrintExcel" + this.formatQueryStr(obj),
+                res => {
+                    console.log(res.data);
+                    if (res.data.error.errorCode == 0) {
+                        dd.alert({
+                            content: promptConf.promptConf.PrintFrom,
+                            buttonText: promptConf.promptConf.Confirm,
+                        });
+                    }
                 }
-            });
+            );
         }
 
         return;
-    }
+    },
 });

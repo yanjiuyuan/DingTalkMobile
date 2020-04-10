@@ -59,15 +59,15 @@ export default {
                 ...that.data.chooseParam,
                 multiple:
                     IsMultipleSelection == 0 || IsMultipleSelection == undefined ? false : true,
-                pickedUsers: that.data.pickedUsers || [], //已选用户
+                // pickedUsers: that.data.pickedUsers || [], //已选用户
                 success: function(res) {
                     console.log(res);
                     let users = []; //部门
                     //只选部门外的人
                     if (res.departments.length == 0 && res.users.length > 0) {
-                        that.data.pickedUsers = [];
+                        // that.data.pickedUsers = [];
                         for (let d of res.users) {
-                            that.data.pickedUsers.push(d.userId);
+                            // that.data.pickedUsers.push(d.userId);
                         }
 
                         for (let node of that.data.nodeList) {
@@ -91,7 +91,7 @@ export default {
                             "DingTalkServers/GetDeptAndChildUserListByDeptId",
                             result => {
                                 console.log(result.data);
-                                that.data.pickedUsers = [];
+                                // that.data.pickedUsers = [];
                                 that.data.pickedDepartments = [];
                                 let userlist = [];
                                 for (let i in result.data) {

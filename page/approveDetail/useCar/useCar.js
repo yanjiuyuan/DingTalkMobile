@@ -7,7 +7,7 @@ Page({
         ...pub.data,
         useTimeList: [],
         imgUrlList: [],
-        table: {}
+        table: {},
     },
     uploadImg(e) {
         let that = this;
@@ -17,7 +17,7 @@ Page({
                 for (let p of res.apFilePaths) {
                     that.setData({ disablePage: true });
                     dd.showLoading({
-                        content: promptConf.promptConf.PictureProcessing
+                        content: promptConf.promptConf.PictureProcessing,
                     });
                     dd.uploadFile({
                         url: that.data.dormainName + "drawingupload/Upload",
@@ -27,7 +27,8 @@ Page({
                         filePath: p,
                         success: res => {
                             console.log(res);
-                            if (that.data.tableInfo["ImageUrl"]) that.data.tableInfo["ImageUrl"] += ",";
+                            if (that.data.tableInfo["ImageUrl"])
+                                that.data.tableInfo["ImageUrl"] += ",";
                             else that.data.tableInfo["ImageUrl"] = "";
                             that.data.tableInfo["ImageUrl"] += JSON.parse(res.data).Content;
                             that._postData(
@@ -42,10 +43,10 @@ Page({
                         },
                         fail: err => {
                             dd.alert({ content: "sorry" + JSON.stringify(err) });
-                        }
+                        },
                     });
                 }
-            }
+            },
         });
     },
     //添加定位
@@ -59,7 +60,7 @@ Page({
                 for (let p of res.apFilePaths) {
                     that.setData({ disablePage: true });
                     dd.showLoading({
-                        content: promptConf.promptConf.PictureProcessing
+                        content: promptConf.promptConf.PictureProcessing,
                     });
                     dd.uploadFile({
                         url: that.data.dormainName + "drawingupload/Upload?IsWaterMark=true",
@@ -69,7 +70,8 @@ Page({
                         filePath: p,
                         success: res => {
                             console.log(res);
-                            if (that.data.tableInfo["ImageUrl"]) that.data.tableInfo["ImageUrl"] += ",";
+                            if (that.data.tableInfo["ImageUrl"])
+                                that.data.tableInfo["ImageUrl"] += ",";
                             else that.data.tableInfo["ImageUrl"] = "";
                             that.data.tableInfo["ImageUrl"] += JSON.parse(res.data).Content;
                             that._postData(
@@ -84,28 +86,33 @@ Page({
                         },
                         fail: err => {
                             dd.alert({ content: "sorry" + JSON.stringify(err) });
-                        }
+                        },
                     });
                 }
-            }
+            },
         });
     },
     deleteImg() {
         this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(",");
         this.setData({
-            imageList: this.data.imageList.splice(0, this.data.imageList.length - 1)
+            imageList: this.data.imageList.splice(0, this.data.imageList.length - 1),
         });
         //
-        this.data.tableInfo["ImageUrl"] = this.data.imgUrlList.slice(0, this.data.imgUrlList.length - 1).join(",");
+        this.data.tableInfo["ImageUrl"] = this.data.imgUrlList
+            .slice(0, this.data.imgUrlList.length - 1)
+            .join(",");
         this._postData("FlowInfoNew/TaskModify", res => {}, this.data.tableInfo);
     },
     submit(e) {
         let that = this;
         let value = e.detail.value;
-        if ((!value.StartKilometres || !value.EndKilometres) && (this.data.nodeid == 3 || this.data.nodeid == 4)) {
+        if (
+            (!value.StartKilometres || !value.EndKilometres) &&
+            (this.data.nodeid == 3 || this.data.nodeid == 4)
+        ) {
             dd.alert({
                 content: "表单未填写完整",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -113,18 +120,19 @@ Page({
             console.log(this.data.imageList);
             dd.alert({
                 content: promptConf.promptConf.NoPicture,
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
         let param = {
             Title: value.title,
-            Remark: value.remark
+            Remark: value.remark,
         };
         this.data.table["FactTravelWay"] = value.FactTravelWay;
         this.data.table["StartKilometres"] = value.StartKilometres;
         this.data.table["EndKilometres"] = value.EndKilometres;
-        this.data.table["UseKilometres"] = parseInt(value.EndKilometres) - parseInt(value.StartKilometres);
+        this.data.table["UseKilometres"] =
+            parseInt(value.EndKilometres) - parseInt(value.StartKilometres);
         this.setData({ disablePage: true });
         this._postData(
             "CarTableNew/TableModify",
@@ -140,25 +148,28 @@ Page({
             valid: true,
             flowid: this.data.flowid,
             title: this.data.tableInfo.Title,
-            table: this.data.table
+            table: this.data.table,
         });
         for (let m of this.data.menu) {
             if (m.flowId == this.data.flowid) {
                 dd.redirectTo({
-                    url: "/page/start/" + m.url + "?flowid=" + m.flowId
+                    url: "/page/start/" + m.url + "?flowid=" + m.flowId,
                 });
             }
         }
     },
     onReady() {
-        this._getData("CarTableNew/TableQuary" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
-            let data = res[0];
-            if (!data.FactTravelWay) data.FactTravelWay = data.PlantTravelWay;
-            if (!data.PeerNumber) data.PeerNumber = "";
-            this.setData({
-                table: data
-            });
-        });
+        this._getData(
+            "CarTableNew/TableQuary" + this.formatQueryStr({ TaskId: this.data.taskid }),
+            res => {
+                let data = res[0];
+                if (!data.FactTravelWay) data.FactTravelWay = data.PlantTravelWay;
+                if (!data.PeerNumber) data.PeerNumber = "";
+                this.setData({
+                    table: data,
+                });
+            }
+        );
     },
     deletePhoto(e) {
         my.confirm({
@@ -171,14 +182,14 @@ Page({
                     let index = e.currentTarget.dataset.index;
                     this.data.imageList.splice(index, 1);
                     this.setData({
-                        imageList: this.data.imageList
+                        imageList: this.data.imageList,
                     });
                     this.data.imgUrlList = this.data.tableInfo.ImageUrl.split(",");
                     this.data.imgUrlList.splice(index, 1);
                     this.data.tableInfo["ImageUrl"] = this.data.imgUrlList.join(",");
                     this._postData("FlowInfoNew/TaskModify", res => {}, this.data.tableInfo);
                 }
-            }
+            },
         });
     },
     startKilometres(e) {
@@ -186,11 +197,11 @@ Page({
         let value = e.detail.value;
         if (this.data.table.EndKilometres != null) {
             this.setData({
-                ["table.UseKilometres"]: (this.data.table.EndKilometres - value).toFixed(1)
+                ["table.UseKilometres"]: (this.data.table.EndKilometres - value).toFixed(1),
             });
         }
         this.setData({
-            ["table.StartKilometres"]: value
+            ["table.StartKilometres"]: value,
         });
     },
     endKilometres(e) {
@@ -200,11 +211,11 @@ Page({
         let value = e.detail.value;
         if (this.data.table.StartKilometres != null) {
             this.setData({
-                ["table.UseKilometres"]: (value - this.data.table.StartKilometres).toFixed(1)
+                ["table.UseKilometres"]: (value - this.data.table.StartKilometres).toFixed(1),
             });
         }
         this.setData({
-            ["table.EndKilometres"]: value
+            ["table.EndKilometres"]: value,
         });
-    }
+    },
 });

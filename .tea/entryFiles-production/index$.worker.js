@@ -128,6 +128,8 @@ require('../../page/start/maskSupplies/maskSupplies?hash=d9e1d28e3a7a0002d1f248e
 require('../../page/approveDetail/maskSupplies/maskSupplies?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 require('../../page/start/maskQuery/maskQuery?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
 require('../../page/start/publicAreaManager/publicAreaManager?hash=d9e1d28e3a7a0002d1f248e5d6782649d2046d8d');
+require('../../page/start/esafenet/esafenet?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
+require('../../page/approveDetail/esafenetDetail/esafenetDetail?hash=32d7d2807ed4e666ef03b4b3fe8c38ecf2e34e68');
 }
 self.bootstrapApp ? self.bootstrapApp({ success }) : success();
 }
