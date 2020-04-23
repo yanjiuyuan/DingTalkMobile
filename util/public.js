@@ -19,7 +19,7 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.46",
+        version: "2.7.48",
         DingData: {
             nickName: "",
             departName: "",
@@ -473,6 +473,8 @@ export default {
                         }
                     }
                 }
+                // console.log(JSON.stringify(paramArr));
+                // return;
                 that._postData(
                     "FlowInfoNew/SubmitTaskInfo",
                     function(res) {

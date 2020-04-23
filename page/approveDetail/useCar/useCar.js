@@ -14,81 +14,44 @@ Page({
         dd.chooseImage({
             count: 2,
             success: res => {
-                for (let p of res.apFilePaths) {
-                    that.setData({ disablePage: true });
-                    dd.showLoading({
-                        content: promptConf.promptConf.PictureProcessing,
-                    });
-                    dd.uploadFile({
-                        url: that.data.dormainName + "drawingupload/Upload",
-                        fileType: "image",
-                        fileName: p.substring(7),
-                        IsWaterMark: true,
-                        filePath: p,
-                        success: res => {
-                            console.log(res);
-                            if (that.data.tableInfo["ImageUrl"])
-                                that.data.tableInfo["ImageUrl"] += ",";
-                            else that.data.tableInfo["ImageUrl"] = "";
-                            that.data.tableInfo["ImageUrl"] += JSON.parse(res.data).Content;
-                            that._postData(
-                                "FlowInfoNew/TaskModify",
-                                res => {
-                                    that.getFormData();
-                                    that.setData({ disablePage: false });
-                                    dd.hideLoading();
+                dd.compressImage({
+                    filePaths: res.apFilePaths,
+                    compressLevel: 2,
+                    success: res => {
+                        for (let p of res.apFilePaths) {
+                            that.setData({ disablePage: true });
+                            dd.showLoading({
+                                content: promptConf.promptConf.PictureProcessing,
+                            });
+                            dd.uploadFile({
+                                url: that.data.dormainName + "drawingupload/Upload",
+                                fileType: "image",
+                                fileName: p.substring(7),
+                                IsWaterMark: true,
+                                filePath: p,
+                                success: res => {
+                                    console.log(res);
+                                    if (that.data.tableInfo["ImageUrl"])
+                                        that.data.tableInfo["ImageUrl"] += ",";
+                                    else that.data.tableInfo["ImageUrl"] = "";
+                                    that.data.tableInfo["ImageUrl"] += JSON.parse(res.data).Content;
+                                    that._postData(
+                                        "FlowInfoNew/TaskModify",
+                                        res => {
+                                            that.getFormData();
+                                            that.setData({ disablePage: false });
+                                            dd.hideLoading();
+                                        },
+                                        that.data.tableInfo
+                                    );
                                 },
-                                that.data.tableInfo
-                            );
-                        },
-                        fail: err => {
-                            dd.alert({ content: "sorry" + JSON.stringify(err) });
-                        },
-                    });
-                }
-            },
-        });
-    },
-    //添加定位
-    addPlace() {
-        let that = this;
-        //上传图片
-        dd.chooseImage({
-            count: 1,
-            sourceType: ["camera"],
-            success: res => {
-                for (let p of res.apFilePaths) {
-                    that.setData({ disablePage: true });
-                    dd.showLoading({
-                        content: promptConf.promptConf.PictureProcessing,
-                    });
-                    dd.uploadFile({
-                        url: that.data.dormainName + "drawingupload/Upload?IsWaterMark=true",
-                        fileType: "image",
-                        fileName: p.substring(7),
-                        IsWaterMark: true,
-                        filePath: p,
-                        success: res => {
-                            console.log(res);
-                            if (that.data.tableInfo["ImageUrl"])
-                                that.data.tableInfo["ImageUrl"] += ",";
-                            else that.data.tableInfo["ImageUrl"] = "";
-                            that.data.tableInfo["ImageUrl"] += JSON.parse(res.data).Content;
-                            that._postData(
-                                "FlowInfoNew/TaskModify",
-                                res => {
-                                    that.getFormData();
-                                    that.setData({ disablePage: false });
-                                    dd.hideLoading();
+                                fail: err => {
+                                    dd.alert({ content: "sorry" + JSON.stringify(err) });
                                 },
-                                that.data.tableInfo
-                            );
-                        },
-                        fail: err => {
-                            dd.alert({ content: "sorry" + JSON.stringify(err) });
-                        },
-                    });
-                }
+                            });
+                        }
+                    },
+                });
             },
         });
     },
@@ -134,6 +97,7 @@ Page({
         this.data.table["UseKilometres"] =
             parseInt(value.EndKilometres) - parseInt(value.StartKilometres);
         this.setData({ disablePage: true });
+
         this._postData(
             "CarTableNew/TableModify",
             res => {
