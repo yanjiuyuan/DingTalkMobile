@@ -11,7 +11,7 @@ Page({
         tableOperate: "删除",
         purchaseList: [],
         tableParam: {
-            total: 0
+            total: 0,
         },
         good: {},
         bigIndex: -1,
@@ -19,8 +19,8 @@ Page({
         bigCodes: [
             {
                 materialCodeNumber: 1,
-                materialName: ""
-            }
+                materialName: "",
+            },
         ],
 
         bigCodes2: [
@@ -30,74 +30,74 @@ Page({
                 smallMaterialCodes: [
                     {
                         materialCodeNumber: "000",
-                        materialName: "文件档案管理类"
+                        materialName: "文件档案管理类",
                     },
                     {
                         materialCodeNumber: "001",
-                        materialName: "桌面用品"
+                        materialName: "桌面用品",
                     },
                     {
                         materialCodeNumber: "002",
-                        materialName: "办公本薄"
+                        materialName: "办公本薄",
                     },
                     {
                         materialCodeNumber: "003",
-                        materialName: "书写修正用品"
+                        materialName: "书写修正用品",
                     },
                     {
                         materialCodeNumber: "004",
-                        materialName: "财务用品"
+                        materialName: "财务用品",
                     },
                     {
                         materialCodeNumber: "005",
-                        materialName: "辅助用品"
+                        materialName: "辅助用品",
                     },
                     {
                         materialCodeNumber: "006",
-                        materialName: "电脑周边用品"
+                        materialName: "电脑周边用品",
                     },
                     {
                         materialCodeNumber: "040",
-                        materialName: "打印耗材"
+                        materialName: "打印耗材",
                     },
                     {
                         materialCodeNumber: "041",
-                        materialName: "装订耗材"
+                        materialName: "装订耗材",
                     },
                     {
                         materialCodeNumber: "042",
-                        materialName: "办公用纸"
+                        materialName: "办公用纸",
                     },
                     {
                         materialCodeNumber: "043",
-                        materialName: "IT耗材"
+                        materialName: "IT耗材",
                     },
                     {
                         materialCodeNumber: "080",
-                        materialName: "日用品"
+                        materialName: "日用品",
                     },
                     {
                         materialCodeNumber: "081",
-                        materialName: "清洁用品"
+                        materialName: "清洁用品",
                     },
                     {
                         materialCodeNumber: "120",
-                        materialName: "事务设备"
+                        materialName: "事务设备",
                     },
                     {
                         materialCodeNumber: "121",
-                        materialName: "IT设备"
+                        materialName: "IT设备",
                     },
                     {
                         materialCodeNumber: "122",
-                        materialName: "办公电器"
+                        materialName: "办公电器",
                     },
                     {
                         materialCodeNumber: "160",
-                        materialName: "办公家具"
-                    }
-                ]
-            }
+                        materialName: "办公家具",
+                    },
+                ],
+            },
         ],
 
         smallMaterialCodes: [],
@@ -106,69 +106,69 @@ Page({
             {
                 prop: "Name",
                 label: "物料名称",
-                width: 300
+                width: 300,
             },
             {
                 prop: "BigCodeName",
                 label: "大类名称",
-                width: 200
+                width: 200,
             },
             {
                 prop: "BigCode",
                 label: "大类编码",
-                width: 200
+                width: 200,
             },
             {
                 prop: "SmallCodeName",
                 label: "小类名称",
-                width: 200
+                width: 200,
             },
             {
                 prop: "SmallCode",
                 label: "小类编码",
-                width: 200
+                width: 200,
             },
             {
                 prop: "Standard",
                 label: "规格型号",
-                width: 300
+                width: 300,
             },
             {
                 prop: "Unit",
                 label: "单位",
-                width: 200
+                width: 200,
             },
             {
                 prop: "SurfaceTreatment",
                 label: "表面处理",
-                width: 200
+                width: 200,
             },
             {
                 prop: "PerformanceLevel",
                 label: "性能等级",
-                width: 200
+                width: 200,
             },
             {
                 prop: "StandardNumber",
                 label: "标准号",
-                width: 200
+                width: 200,
             },
             {
                 prop: "Features",
                 label: "典型特征",
-                width: 200
+                width: 200,
             },
             {
                 prop: "purpose",
                 label: "用途",
-                width: 200
+                width: 200,
             },
             {
                 prop: "Remark",
                 label: "备注",
-                width: 100
-            }
-        ]
+                width: 100,
+            },
+        ],
     },
     submit(e) {
         let that = this;
@@ -176,19 +176,19 @@ Page({
         console.log(e.detail.value);
         let param = {
             Title: value.title,
-            Remark: value.remark
+            Remark: value.remark,
         };
         if (value.title.trim() == "") {
             dd.alert({
                 content: `标题不能为空，请输入!`,
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (this.data.purchaseList.length == 0) {
             dd.alert({
                 content: "表单数据不全或有误，请重新输入！",
-                buttonText: promptConf.promptConf.Confirm
+                buttonText: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -221,12 +221,12 @@ Page({
             bigCodes: [
                 {
                     materialCodeNumber: "",
-                    materialName: ""
-                }
+                    materialName: "",
+                },
             ],
             smallMaterialCodes: [],
             table: {},
-            purchaseList: []
+            purchaseList: [],
         });
         that.data.codeType = e.detail.value;
         that.getMaterielCode();
@@ -236,7 +236,7 @@ Page({
         console.log(e);
         let Name = e.currentTarget.dataset.Name;
         this.setData({
-            [`table.${Name}`]: e.detail.value
+            [`table.${Name}`]: e.detail.value,
         });
     },
 
@@ -248,7 +248,7 @@ Page({
                 bigCodes: this.data.bigCodes2,
                 smallMaterialCodes: this.data.bigCodes2[0].smallMaterialCodes,
                 bigIndex: 0,
-                smallIndex: 0
+                smallIndex: 0,
             });
         } else if (this.data.codeType == "1") {
             url = "/ItemCodeAdd/GetAllMaterialCode";
@@ -258,7 +258,7 @@ Page({
                     bigCodes: res,
                     smallMaterialCodes: res[0].smallMaterialCodes,
                     bigIndex: 0,
-                    smallIndex: 0
+                    smallIndex: 0,
                 });
             });
         }
@@ -270,21 +270,21 @@ Page({
         this.setData({
             bigIndex: index,
             smallIndex: 0,
-            smallMaterialCodes: this.data.bigCodes[index].smallMaterialCodes
+            smallMaterialCodes: this.data.bigCodes[index].smallMaterialCodes,
         });
     },
     changeSmallCode(e) {
         console.log("changeSmallCode");
         let index = e.detail.value;
         this.setData({
-            smallIndex: index
+            smallIndex: index,
         });
     },
     //弹窗表单相关
     //显示弹窗表单
     chooseItem(e) {
         this.setData({
-            hidden: !this.data.hidden
+            hidden: !this.data.hidden,
         });
         this.createMaskShowAnim();
         this.createContentShowAnim();
@@ -297,7 +297,7 @@ Page({
         this.data.purchaseList.splice(index, 1);
         this.setData({
             ["tableParam.total"]: length - 1,
-            purchaseList: this.data.purchaseList
+            purchaseList: this.data.purchaseList,
         });
         console.log(this.data.purchaseList);
     },
@@ -314,7 +314,7 @@ Page({
                 ) {
                     dd.alert({
                         content: "物料名称、规格型号不可重复",
-                        buttonText: promptConf.promptConf.Confirm
+                        buttonText: promptConf.promptConf.Confirm,
                     });
                     return;
                 }
@@ -324,28 +324,28 @@ Page({
         if (!value || this.data.bigIndex < 0 || this.data.smallIndex < 0) {
             dd.alert({
                 content: `表单填写不完整`,
-                button: promptConf.promptConf.Confirm
+                button: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.Name.trim() == "") {
             dd.alert({
                 content: `物料名称不允许为空，请输入！`,
-                button: promptConf.promptConf.Confirm
+                button: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.Standard.trim() == "") {
             dd.alert({
                 content: `规格型号不允许为空，请输入！`,
-                button: promptConf.promptConf.Confirm
+                button: promptConf.promptConf.Confirm,
             });
             return;
         }
         if (value.Unit.trim() == "") {
             dd.alert({
                 content: `单位不允许为空，请输入！`,
-                button: promptConf.promptConf.Confirm
+                button: promptConf.promptConf.Confirm,
             });
             return;
         }
@@ -357,7 +357,7 @@ Page({
         this.setData({
             table: value,
             ["tableParam.total"]: length + 1,
-            [`purchaseList[${length}]`]: value
+            [`purchaseList[${length}]`]: value,
         });
     },
     onShow() {
@@ -367,5 +367,5 @@ Page({
         this.getMaterielCode();
     },
 
-    onReady() {}
+    onReady() {},
 });

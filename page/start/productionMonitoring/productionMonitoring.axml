@@ -6,11 +6,11 @@
   <form onSubmit="confirm">
     <view class="page-section" a:if="{{!hidden && tableInfo}}">
       <!-- 标题 -->
-      <template is ="title" data="{{tableInfo}}"/>
+      <!--<template is ="title" data="{{tableInfo}}"/> -->
       <view class="form-row">
         <view class="form-row-label">单位</view>
         <view class="form-row-content">
-          <input name="CompanyName" class="input" disabled="{{true}}" value="{{tableInfo.AccountKeeping || '未填写'}}" />
+          <input name="CompanyName" class="input" disabled="{{true}}" value="{{tableInfo.CompanyName || '未填写'}}" />
         </view>
       </view>
       <view class="form-row">
