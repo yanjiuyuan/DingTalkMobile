@@ -16,6 +16,17 @@ Page({
         show2: "hidden",
         a: true,
         tableOperate: "验收",
+        companyId: 0,
+        companyArray: [
+            {
+                companyName: "研究院",
+                companyId: 0,
+            },
+            {
+                companyName: "华数",
+                companyId: 1,
+            },
+        ],
         good: {},
         hidden: true,
         updateData: [], //用于保存更新后的生产进度表
@@ -230,13 +241,47 @@ Page({
             });
         }
     },
-
+    bindPickerChange(e) {
+        this.setData({
+            companyId: e.detail.value,
+        });
+    },
+    search(e) {
+        let that = this;
+        let obj = {
+            applyManId: this.data.DingData.userid,
+            pageIndex: 1,
+            pageSize: 99,
+            companyId: this.data.companyId,
+        };
+        this._getData("ProcessingProgress/Read" + this.formatQueryStr(obj), res => {
+            console.log(res);
+            if (res.length > 0) {
+                that.setData({
+                    data: res,
+                    ["tableParam.total"]: res.length,
+                });
+                this.getData();
+            } else {
+                dd.confirm({
+                    title: "温馨提示",
+                    content: "您不是图纸设计人员或无查看改流程权限",
+                    confirmButtonText: promptConf.promptConf.Confirm,
+                    cancelButtonText: promptConf.promptConf.Cancel,
+                    success: result => {
+                        dd.navigateTo({
+                            url: "../../../page/start/index",
+                        });
+                    },
+                });
+            }
+        });
+    },
     onLoad(options) {
         let that = this;
         this.checkLogin(() => {
             let TaskId = options.taskid;
             that.data.CompanyId = options.companyId;
-            dd.alert({ content: JSON.stringify(options) });
 
             //判断taskid是否存在，存在的话则只出现一条，表单
             if (TaskId !== undefined) {
@@ -361,7 +406,7 @@ Page({
     updateTable() {
         let that = this;
         let param = {
-            CompanyId: 0, //公司id
+            CompanyId: this.data.companyId, //公司id
             applyMan: app.userInfo.name,
             applyManId: app.userInfo.userid,
             IsExcelUpload: false,

@@ -207,6 +207,12 @@
           <input name="NoteTaker " class="input" disabled="{{true}}" value="{{tableInfo.NoteTaker || '未填写'}}" />
         </view>
       </view>
+      <view class="form-row">
+        <view class="form-row-label">图纸审核员</view>
+        <view class="form-row-content">
+          <input name="Tabulator " class="input" disabled="{{true}}" value="{{tableInfo.Tabulator || '未填写'}}" />
+        </view>
+      </view>
       <view style="height:30rpx;"></view>
       <!--<view class="form-row"><view class="form-row-label">设计员确认收货</view><view class="form-row-content"><input name="IsAlreadyRead " class="input" disabled="{{true}}" value="{{tableInfo.IsAlreadyRead }}" /></view></view>   -->
       <view class="form-row" a:if ="{{power == 2}}">
@@ -225,6 +231,18 @@
           <input name="title" class="input" value="生产进度监控" placeholder="输入 标题" disabled="{{true}}" />
         </view>
       </view>
+      <form onSubmit="search" a:if="{{!searchShow}}">
+        <view class="page-section">
+          <view class="form-row">
+            <view class="form-row-label">
+              <template is="required"></template>单位</view>
+            <view class="form-row-content">
+              <my-picker onChange="bindPickerChange" index="{{companyId}}" range="{{companyArray}}" rangeKey="companyName"></my-picker>
+            </view>
+          </view>
+        </view>
+        <button type="primary" formType="submit" disabled="{{disablePage}}">搜索</button>
+      </form>
       <!-- 生产加工进度表 -->
       <view onTap="updateItem">
         <text>生产加工进度表</text>
