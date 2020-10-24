@@ -62,7 +62,50 @@ Page({
     },
 
     //上传图片
+    // uploadImg(e) {
+    //     let that = this;
+    //     dd.chooseImage({
+    //         count: 1,
+    //         success: res => {
+    //             dd.compressImage({
+    //                 filePaths: res.apFilePaths,
+    //                 compressLevel: 2,
+    //                 success: res => {
+    //                     that.setData({ imageList: that.data.imageList });
+    //                     for (let p of res.apFilePaths) {
+    //                         console.log("imageList:", JSON.stringify(p));
+    //                         that.data.imageList.push(p);
+    //                         that.setData({ disablePage: true });
+    //                         dd.uploadFile({
+    //                             url: that.data.dormainName + "drawingupload/Upload",
+    //                             fileType: "image",
+    //                             fileName: p.substring(7),
+    //                             filePath: p,
+    //                             success: res => {
+    //                                 console.log(
+    //                                     "imgUrlList:",
+    //                                     JSON.stringify(JSON.parse(res.data).Content)
+    //                                 );
+    //                                 that.data.imgUrlList.push(JSON.parse(res.data).Content);
+    //                                 that.setData({ disablePage: false });
+    //                             },
+    //                             fail: err => {
+    //                                 dd.alert({
+    //                                     content: "sorry" + JSON.stringify(err),
+    //                                 });
+    //                             },
+    //                         });
+    //                     }
+    //                     that.setData({ imageList: that.data.imageList });
+    //                 },
+    //             });
+    //         },
+    //     });
+    // },
+
+
     uploadImg(e) {
+
         let that = this;
         dd.chooseImage({
             count: 1,
@@ -73,20 +116,26 @@ Page({
                     success: res => {
                         that.setData({ imageList: that.data.imageList });
                         for (let p of res.apFilePaths) {
+                            that.setData({ disablePage: true });
+
                             console.log("imageList:", JSON.stringify(p));
                             that.data.imageList.push(p);
-                            that.setData({ disablePage: true });
                             dd.uploadFile({
-                                url: that.data.dormainName + "drawingupload/Upload",
+                                url: that.data.dormainName + "drawingupload/Upload?IsWaterMark=true",
                                 fileType: "image",
                                 fileName: p.substring(7),
                                 filePath: p,
                                 success: res => {
+                                    // dd.alert({
+                                    //     content: JSON.stringify(res),
+                                    //     buttonText: "ss",
+                                    // });
                                     console.log(
                                         "imgUrlList:",
                                         JSON.stringify(JSON.parse(res.data).Content)
                                     );
                                     that.data.imgUrlList.push(JSON.parse(res.data).Content);
+
                                     that.setData({ disablePage: false });
                                 },
                                 fail: err => {

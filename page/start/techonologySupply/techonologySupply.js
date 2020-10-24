@@ -212,7 +212,7 @@ Page({
                 IsEnable: 1,
                 IsSend: false,
                 NodeId: "1",
-                OldFileUrl: null,
+                OldFileUrl: "",
                 State: 0
             }
         ];

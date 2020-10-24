@@ -12,28 +12,28 @@ let yTap = -90;
 let States = ["在研", "已完成", "终止"];
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"];
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"];
-let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"];
+let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]; 
 let localStorage = "";
 
-export default {
+export default { 
     data: {
-        ...lib.data,
+        ...lib.data, 
         ...template.data,
-        version: "2.7.52",
+        version: "2.7.62",
         DingData: {
             nickName: "",
             departName: "",
             userid: "",
         },
 
-        reg: /^-?\d+$/, //只能是整数数字
+        reg: /^-?\d+$/, //只能是整数数字 
         reg2: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /, //正浮点数
-        reg3: /^[\.\d]*$/, //纯数字包括小数
-        reg4: /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/, //项目编号规范2019bbb000
-
-        departmentIdnex: 0, //选择部门时用到的下标
-        hideMask: false,
-        param: {},
+        reg3: /^[\.\d]*$/, //纯数字包括小数  
+        reg4: /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/, //项目编号规范2019bbb000 
+ 
+        departmentIdnex: 0, //选择部门时用到的下标 
+        hideMask: false, 
+        param: {}, 
         IsNeedChose: false,
         flowid: 0,
         taskid: 0,

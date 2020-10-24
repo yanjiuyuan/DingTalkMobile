@@ -282,7 +282,7 @@
 				<button type="primary" size="mini" plain="true" class="table-next" data-page="{{param.now + 1}}" onTap="handleCurrentChange" a:if="{{param.total/5 > param.now}}">下一页</button>
 			</view>
 		</view>
-	</view>
+	</view> 
 </template>
 <!-- 必填前缀 -->
 <template name="required">

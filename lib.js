@@ -1,21 +1,20 @@
-let dormainName = "http://47.96.172.122:8093/"; //线上研究院
-// let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
+// let dormainName = "http://47.96.172.122:8093/"; //线上研究院
+let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
 // let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
-
 function doWithErrcode(result) {
     if (!result) {
         return 1;
     }
-    if (result.error && result.error.errorCode != 0) {
+    if (result.error && result.error.errorCode != 0) { 
         dd.alert({
             content: result.error.errorMessage,
             buttonText: "确认",
-        });
-        return 1;
+        }); 
+        return 1; 
     }
     return;
-}
-let d = new Date();
+}  
+let d = new Date(); 
 let year = d.getFullYear();
 let month = d.getMonth() + 1;
 let day = d.getDate();
@@ -25,7 +24,8 @@ let minutes = d.getMinutes();
 export default {
     data: {
         // jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
-        jinDomarn: "http://wuliao5222.55555.io:35705/api/",
+        // jinDomarn: "http://wuliao5222.55555.io:35705/api/",
+        jinDomarn:  "http://120.37.178.46:8888/api/",
         dormainName: dormainName,
         currentPage: 1,
         totalRows: 0,
@@ -170,6 +170,7 @@ export default {
                         postErrorMsg("POST", url, res.data.error, userInfo);
                         return;
                     }
+                    
                     succe(res.data.data);
                 },
                 fail: function(res) {

@@ -144,6 +144,10 @@ Page({
                 {
                     PeopleId: "30426359483381436",
                     NodePeople: "cs",
+                },
+                {
+                    PeopleId: "023300645120473453",
+                    NodePeople: "傅云龙",
                 }
             );
             that.setData({

@@ -310,14 +310,15 @@ Page({
         //默认方法，删除选项
         if (!e.target.targetDataset.opt2) {
             let length = this.data.purchaseList.length;
+            // debugger;
             this.data.purchaseList.splice(index, 1);
             this.setData({
-                [`tableParam2.total`]: length - 1,
+                [`tableParam2.total`]: this.data.purchaseList.length,
                 purchaseList: this.data.purchaseList,
-                goods: this.data.purchaseList,
+                goods: JSON.parse(JSON.stringify(this.data.purchaseList)), 
             });
             console.log(this.data.purchaseList);
-        }
+        } 
         //第二方法，编辑选项
         else {
             good = e.target.targetDataset.row;
@@ -378,7 +379,7 @@ Page({
                         [`purchaseList[${i}]`]: good,
                     });
                     break;
-                }
+                } 
             }
         }
         //添加
@@ -415,14 +416,11 @@ Page({
             };
 
             this.data.goods.push(good);
-
-            let length = this.data.purchaseList.length;
-            let setStr = "purchaseList[" + length + "]";
+            this.data.purchaseList.push(param); 
             this.setData({
-                [`tableParam2.total`]: length + 1,
-                [`purchaseList[${length}]`]: param,
+                [`tableParam2.total`]:this.data.purchaseList.length,
+                purchaseList:  this.data.purchaseList,
             });
-            //数量判断
         }
         this.onModalCloseTap();
     },

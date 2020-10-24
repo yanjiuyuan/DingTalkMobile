@@ -416,7 +416,7 @@ Page({
             for (let i in res.projectClosure) {
                 for (let j of this.data.uploadFileConfig) {
                     if (i == j.attribute) {
-                        j.fileList = JSON.parse(res.projectClosure[i]);
+                       if(res.projectClosure[i])  j.fileList = JSON.parse(res.projectClosure[i]);
                     }
                 }
             }

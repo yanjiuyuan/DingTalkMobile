@@ -18,14 +18,14 @@
 			</picker>
 		</view>
 	</view>
-</view>
+</view> 
 <view a:for="{{sort}}" a:for-item="m" a:if="{{m.show}} " class="sort">
 	<view onTap="showOrClose" data-index="{{index}}">
 		<text class="sort-name" a:if="{{m.show}}"> {{m.SORT_NAME}}</text>
 		<text class="sort-open">{{sortItems[index].text}}</text>
 	</view>
 	<view class="{{sortItems[index].class}}">
-		<view class="menu">
+		<view class="menu" >
 			<view a:for="{{menu}}" a:if="{{item.PhoneUrl && item.SORT_ID == m.Sort_ID}}" class="grid-item-new" data-index="{{index}}">
 				<navigator url="/page/start/{{item.PhoneUrl}}?flowid={{item.FlowId}}&title={{item.FlowName}}">
 					<view class="grid-item-wrapper-new">
@@ -33,7 +33,7 @@
 						<!--<text class="grid-text-new">{{item.FlowName}}</text> -->
 						<text class="grid-text-new">{{item.FlowName.indexOf('申请') > 0 && item.FlowName.length > 6  ? item.FlowName.replace('申请',""):item.FlowName}}</text>
 						<!--<text class="grid-text-new">{{item.FlowName.indexOf('申请')>0?item.FlowName.substring(0,item.FlowName.indexOf('申请')):item.FlowName}}</text> -->
-					</view>
+					</view> 
 				</navigator>
 			</view>
 		</view>
