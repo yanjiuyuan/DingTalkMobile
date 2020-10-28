@@ -256,7 +256,15 @@ Page({
                         "tableInfo.ApplyMan": names.join(","),
                         "tableInfo.ApplyManId": userids.join(","),
                     });
-                } else if (res.departments.length > 0 && res.users.length == 0) {
+
+                }
+                else if(res.departments.length == 0 && res.users.length == 0){
+                    that.setData({
+                            "tableInfo.ApplyMan": "",
+                            "tableInfo.ApplyManId": "",
+                    });
+                } 
+                else if (res.departments.length > 0 && res.users.length == 0) {
                     let deptId = [];
                     for (let i of res.departments) {
                         deptId.push(i.id);
@@ -291,7 +299,8 @@ Page({
                         },
                         deptId
                     );
-                } else if (res.departments.length > 0 && res.users.length > 0) {
+                } 
+                else if (res.departments.length > 0 && res.users.length > 0) {
                     let deptId = [];
                     for (let i of res.departments) {
                         deptId.push(i.id);

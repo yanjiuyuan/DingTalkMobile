@@ -11,7 +11,7 @@
 			<view class="item-text">
               {{m.SORT_NAME}}
 			</view>
-			<view class="item-right" onTouchMove="move" onTouchStart="moveStart" onTouchEnd="moveEnd" data-index="{{a}}" data-item="{{a}}">
+			<view class="item-right" catchTouchMove="move" catchTouchStart="moveStart" catchTouchEnd="moveEnd" data-index="{{a}}" data-item="{{a}}">
 				<view class="one-line"></view>
 				<view class="one-line"></view>
 				<view class="one-line"></view>

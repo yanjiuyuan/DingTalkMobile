@@ -224,6 +224,13 @@ Page({
 
     addGood(e) {
         let value = e.detail.value;
+        if(value.ExpectPrice == ""){
+            dd.alert({
+                content:"预计单价不允许为空，请输入！",
+                buttonText:promptConf.promptConf.Confirm
+            }) 
+            return;
+        }
         for (let i of this.data.dataList) {
             for (let j of i.value) {
                 if (good.CodeNo == j.CodeNo) {

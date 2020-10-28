@@ -246,9 +246,11 @@ Page({
                         });
                         return;
                     }
+                    this.setData({
+                    "table.PlanDays": iDay,
+                    })
                 }
                 this.setData({
-                    "table.PlanDays": iDay,
                     endDateStr: res.date,
                     "table.PlanEndTime": res.date
                 });

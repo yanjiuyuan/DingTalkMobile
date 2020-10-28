@@ -86,6 +86,7 @@
 							<view class="form-row-content">
 								<textarea auto-height="true" name="ApplyMan" style="min-height:70rpx;padding:0;font-size:25rpx" maxlength="-1" style="resize: none;" class="input" disabled="{{true}}" value="{{tableInfo.ApplyMan}}"></textarea>
 							</view>
+							<view></view>
 							<view onTap="choosePeoples" class="ViewButton">选人</view>
 						</view>
 						<view class="form-row-s">

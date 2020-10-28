@@ -1,20 +1,70 @@
+import promptConf from "./util/promptConf";
+
 // let dormainName = "http://47.96.172.122:8093/"; //线上研究院
-let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
+
+// let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
 // let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
+
+let dormainName = "http://wuliao5222.55555.io:35705/"; //新手机测试 
+
 function doWithErrcode(result) {
     if (!result) {
         return 1;
     }
-    if (result.error && result.error.errorCode != 0) { 
+    if (result.error && result.error.errorCode != 0) {
         dd.alert({
             content: result.error.errorMessage,
             buttonText: "确认",
-        }); 
-        return 1; 
+        });
+        return 1;
     }
     return;
-}  
-let d = new Date(); 
+}
+function errorShow(res) {
+    //http错误
+    if (res.error == 19) {
+        dd.alert({
+            content: `服务异常，请稍后重试。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+    //无权跨域
+    else if (res.error == 11) {
+        dd.alert({
+            content: `网络异常，请稍后重试。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+    //网路异常
+    else if (res.error == 12) {
+        dd.alert({
+            content: `网络异常，请稍后重试。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+    //http请求超时 
+    else if (res.error == 13) {
+        dd.alert({
+            content: `网络异常，请稍后重试。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+    //解码失败
+    else if (res.error == 14) {
+        dd.alert({
+            content: `服务异常，请稍后重试。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+    //4 设置错误
+    else {
+        dd.alert({
+            content: `未知错误，请联系管理员。错误码：${res.error}`,
+            buttonText: promptConf.promptConf.Confirm
+        });
+    }
+}
+let d = new Date();
 let year = d.getFullYear();
 let month = d.getMonth() + 1;
 let day = d.getDate();
@@ -25,7 +75,7 @@ export default {
     data: {
         // jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
         // jinDomarn: "http://wuliao5222.55555.io:35705/api/",
-        jinDomarn:  "http://120.37.178.46:8888/api/",
+        jinDomarn: "http://120.37.178.46:8888/api/",
         dormainName: dormainName,
         currentPage: 1,
         totalRows: 0,
@@ -37,9 +87,24 @@ export default {
         TimeStr: hour + ":" + minutes,
     },
     func: {
-        checkLogin() {},
-        goHome() {},
-        goError() {},
+        checkLogin() { },
+        goHome() { },
+        goError() { },
+        //节流
+        throttle(fn, wait) {
+            var pre = Date.now();
+            return function () {
+                var context = this;
+                var args = arguments;
+                var now = Date.now();
+                if (now - pre >= wait) {
+                    console.log('我执行力')
+
+                    fn.apply(context, args);
+                    pre = Date.now();
+                }
+            }
+        },
         //http 请求
         _getData(url, succe, userInfo = {}) {
             dd.httpRequest({
@@ -48,7 +113,7 @@ export default {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
-                success: function(res) {
+                success: function (res) {
                     let app = getApp();
                     //检查登录
                     if (app.userInfo) {
@@ -61,17 +126,14 @@ export default {
                     }
                     succe(res.data.data);
                 },
-                fail: function(res) {
+                fail: function (res) {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // })
+                    errorShow(res);
                 },
             });
         },
@@ -83,7 +145,7 @@ export default {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
-                success: function(res) {
+                success: function (res) {
                     let app = getApp();
                     //检查登录
                     if (app.userInfo) {
@@ -96,17 +158,16 @@ export default {
                     }
                     succe(res);
                 },
-                fail: function(res) {
+                fail: function (res) {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // })
+                    errorShow(res);
+
+
                 },
             });
         },
@@ -120,7 +181,7 @@ export default {
                     "Content-Type": "application/json; charset=utf-8",
                     Accept: "application/json",
                 },
-                success: function(res) {
+                success: function (res) {
                     let app = getApp();
                     //检查登录
                     if (app.userInfo) {
@@ -133,17 +194,15 @@ export default {
                     }
                     succe(res);
                 },
-                fail: function(res) {
+                fail: function (res) {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // })
+                    errorShow(res);
+
                 },
             });
         },
@@ -156,7 +215,7 @@ export default {
                     "Content-Type": "application/json; charset=utf-8",
                     Accept: "application/json",
                 },
-                success: function(res) {
+                success: function (res) {
                     let app = getApp();
                     //检查登录
                     if (app.userInfo) {
@@ -170,20 +229,18 @@ export default {
                         postErrorMsg("POST", url, res.data.error, userInfo);
                         return;
                     }
-                    
+
                     succe(res.data.data);
                 },
-                fail: function(res) {
+                fail: function (res) {
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // })
+                    errorShow(res);
+
                 },
             });
         },
@@ -195,24 +252,22 @@ export default {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
-                success: function(res) {
+                success: function (res) {
                     console.log(url);
                     if (type == "POST" || type == "post") console.log(param);
                     console.log(res);
                     succe(res);
                 },
-                fail: function(res) {
+                fail: function (res) {
                     if (JSON.stringify(res) == "{}") return;
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // })
+                    errorShow(res);
+
                 },
-                complete: function(res) {},
+                complete: function (res) { },
             });
         },
         requestJsonData(type, url, succe, param = {}, userInfo) {
@@ -224,21 +279,19 @@ export default {
                     "Content-Type": "application/json; charset=utf-8",
                     Accept: "application/json",
                 },
-                success: function(res) {
+                success: function (res) {
                     console.log(url);
                     if (type == "POST" || type == "post") console.log(param);
                     console.log(res);
                     succe(res);
                 },
-                fail: function(res) {
-                    dd.alert({
-                        content:
-                            "获取数据失败-" +
-                            url +
-                            "报错:" +
-                            JSON.stringify(res) +
-                            errorMessage(res),
-                    });
+                fail: function (res) {
+                    // dd.alert({
+                    //     content: "当前网络不可用，请检查网络设置！",
+                    //     buttonText: promptConf.promptConf.Confirm
+                    // }) 
+                    errorShow(res);
+
                 },
             });
         },
@@ -251,7 +304,7 @@ export default {
                     "Content-Type": "application/json; charset=utf-8",
                     Accept: "application/json",
                 },
-                success: function(res) {
+                success: function (res) {
                     console.log(url);
                     if (type == "POST" || type == "post") console.log(param);
                     console.log(res);
@@ -266,7 +319,7 @@ export default {
                     }
                     succe(res);
                 },
-                complete: function(res) {
+                complete: function (res) {
                     if (res && res.error) {
                         dd.alert({
                             content: "系统正在维护，请联系管理员~~~~~~~~~~~~~",
@@ -364,7 +417,7 @@ function postErrorMsg(type, url, error, userInfo = {}, param = {}) {
             "Content-Type": "application/json; charset=utf-8",
             Accept: "application/json",
         },
-        success: function(res) {
+        success: function (res) {
             console.log("提交错误信息~~~~~~~~~~~~~~~~~~~~~~");
             console.log(postUrl);
             console.log(postParam);

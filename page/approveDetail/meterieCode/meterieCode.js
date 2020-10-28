@@ -97,6 +97,20 @@ Page({
                     });
                     return;
                 }
+            //判断是否重复物料编码
+            for(let i of this.data.tableData){
+                for (let p of this.data.tableData) {
+                    if (p.CodeNumber == i.CodeNumber) {
+                        dd.alert({
+                            content: `物料编码不可重复，请重新输入！`, 
+                            buttonText: promptConf.promptConf.Confirm,
+                        });
+                        return;
+                    }
+                }
+            }
+
+        
             }
             this.requestJsonData(
                 "POST",
@@ -130,15 +144,9 @@ Page({
             });
             return;
         }
-        for (let p of this.data.tableData) {
-            if (p.CodeNumber == value.CodeNumber) {
-                dd.alert({
-                    content: `物料编码不可重复，请重新输入！`,
-                    buttonText: promptConf.promptConf.Confirm,
-                });
-                return;
-            }
-        }
+
+    
+        
 
         this.data.tableData[this.data.index].CodeNumber = value.CodeNumber;
         this.data.tableData[this.data.index].FNote = value.FNote;

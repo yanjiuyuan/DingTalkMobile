@@ -9,7 +9,7 @@ Page({
     ...pub.func.start,
     data: {
         ...pub.data,
-        addPeopleNodes: [1],
+        addPeopleNodes: [1], 
         names: [],
         array1: ["研发类", "产品类", "教育类"],
         index1: -1,
@@ -26,6 +26,7 @@ Page({
         console.log("start choose people");
         let nodeId = e.target.targetDataset.NodeId;
         let that = this;
+        debugger;
         dd.complexChoose({
             ...that.data.chooseParam,
             multiple: false,
@@ -40,18 +41,22 @@ Page({
                     }
                 }
 
-                console.log(JSON.stringify(that.data.items));
 
                 that.setData({
-                    "table.ResponsibleMan": names.join(","),
+                    "table.ResponsibleMan": names.join(","),  
                     ResponsibleMan: res.users[0],
-                    nodeList: that.data.nodeList
+                    nodeList: that.data.nodeList,
+                    
                 });
             },
-            fail: function(err) {}
+            fail: function(err) {} 
         });
     },
-
+    // onChange(e){
+    //     this.setData({
+    //         "table.DeptName":e.detail.value.toString(),
+    //     });
+    // },
     //选人 可以实现
     choosePeople(e) {
         console.log("start choose people");

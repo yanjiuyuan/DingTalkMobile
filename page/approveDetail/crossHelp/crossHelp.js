@@ -11,7 +11,7 @@ Page({
         let that = this;
         let value = e.detail.value;
         let param = {
-            Remark: value.remark,
+            Remark: value.remark, 
         };
         console.log(value);
         if (
@@ -215,12 +215,26 @@ Page({
     },
 
     selectStartDate() {
+        let that = this;
         dd.datePicker({
             format: "yyyy-MM-dd",
             currentDate: this.data.DateStr,
             startDate: this.data.DateStr,
             endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
             success: res => {
+                if(that.data.table.FactEndTime){
+                    let iDay = that.DateDiff(that.data.table.FactEndTime, res.date); //計算天數
+                    if (iDay < 0) {
+                    dd.alert({
+                            content: promptConf.promptConf.TimeComparison,
+                            buttonText: promptConf.promptConf.Confirm
+                    });
+                    return;
+                    }
+                    that.setData({
+                        "table.FactDays": iDay
+                    });
+                }
                 this.setData({
                     "table.FactBeginTime": res.date,
                 });
@@ -235,16 +249,20 @@ Page({
             startDate: this.data.DateStr,
             endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,
             success: res => {
-                let iDay = that.DateDiff(res.date, that.data.table.FactBeginTime); //計算天數
-                if (iDay < 0) {
-                    dd.alert({
-                        content: promptConf.promptConf.TimeComparison,
-                        buttonText: promptConf.promptConf.Confirm,
-                    });
-                    return;
+                if (that.data.table.FactBeginTime) {
+                    let iDay = that.DateDiff(res.date, that.data.table.FactBeginTime); //計算天數
+                    if (iDay < 0) {
+                        dd.alert({
+                            content: promptConf.promptConf.TimeComparison,
+                            buttonText: promptConf.promptConf.Confirm
+                        });
+                        return;
+                    }
+                    this.setData({
+                    "table.FactDays": iDay,
+                    })
                 }
                 this.setData({
-                    "table.FactDays": iDay,
                     "table.FactEndTime": res.date,
                 });
             },

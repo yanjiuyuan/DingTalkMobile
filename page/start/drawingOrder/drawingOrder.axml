@@ -39,7 +39,7 @@
 				<my-picker onChange="bindPickerChange" index="{{projectIndex}}" range="{{projectList}}" value="{{tableInfo.ProjectName}}" rangeKey="ProjectName"></my-picker>
 			</view>
 			<view class="form-row">
-				<view class="form-row-label">
+				<view class="form-row-label"> 
 					<template is="required"></template>套数</view>
 				<view class="form-row-content">
 					<input placeholder="套数" type="number" name="counts" value="{{tableInfo.counts}}" data-name="counts" onInput="inputToTableInfo"/>

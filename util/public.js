@@ -12,14 +12,28 @@ let yTap = -90;
 let States = ["在研", "已完成", "终止"];
 let ProjectTypes = ["自研项目", "纵向项目", "横向项目", "测试项目"];
 let CompanyNames = ["泉州华中科技大学智能制造研究院", "泉州华数机器人有限公司"];
-let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"]; 
+let IntellectualPropertyTypes = ["发明", "实用新型", "外观", "软件著作权"];
 let localStorage = "";
+function throttle(fn, wait) {
+    var timer = null;
+    return function () {
+        var context = this;
+        var args = arguments;
+        if (!timer) {
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+                timer = null;
+            }, wait)
+        }
+    }
+}
 
-export default { 
+
+export default {
     data: {
-        ...lib.data, 
+        ...lib.data,
         ...template.data,
-        version: "2.7.62",
+        version: "2.7.66",
         DingData: {
             nickName: "",
             departName: "",
@@ -30,10 +44,10 @@ export default {
         reg2: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /, //正浮点数
         reg3: /^[\.\d]*$/, //纯数字包括小数  
         reg4: /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/, //项目编号规范2019bbb000 
- 
+
         departmentIdnex: 0, //选择部门时用到的下标 
-        hideMask: false, 
-        param: {}, 
+        hideMask: false,
+        param: {},
         IsNeedChose: false,
         flowid: 0,
         taskid: 0,
@@ -93,7 +107,7 @@ export default {
                     flowid: param.flowid,
                     "tableInfo.Title": param.title,
                 });
-                let callBack = function() {
+                let callBack = function () {
                     //临时保存后无需再向服务器请求数据
                     if (
                         app.globalData[`${param.flowid}`] == undefined ||
@@ -181,7 +195,7 @@ export default {
                 this.checkLogin(callBack);
             },
             //提交审批
-            approvalSubmit(param = {}, callBack, param2 = {}) {
+            approvalSubmit: lib.func.throttle(function (param = {}, callBack, param2 = {}) {
                 if (!this.data.DingData.userid) {
                     dd.alert({
                         content: promptConf.promptConf.LoginPrompt,
@@ -220,8 +234,6 @@ export default {
                 if (that.data.nodeInfo.ChoseNodeId) {
                     choseList = that.data.nodeInfo.ChoseNodeId.split(",");
                 }
-                console.log(mustList);
-                console.log(choseList);
                 for (let node of that.data.nodeList) {
                     //第一个if 判断该节点是否需要选人
                     if (
@@ -286,13 +298,123 @@ export default {
                 });
                 that._postData(
                     "FlowInfoNew/CreateTaskInfo",
-                    function(res) {
+                    function (res) {
                         let taskid = res;
                         callBack(taskid);
                     },
                     paramArr
                 );
-            },
+            }, 5000),
+            // approvalSubmitss(param = {}, callBack, param2 = {}) {
+            //     if (!this.data.DingData.userid) {
+            //         dd.alert({
+            //             content: promptConf.promptConf.LoginPrompt,
+            //             buttonText: promptConf.promptConf.Confirm,
+            //         });
+            //         return;
+            //     }
+            //     let that = this;
+            //     this.setData({ disablePage: true });
+            //     let paramArr = [];
+            //     let applyObj = {
+            //         ApplyMan: that.data.DingData.nickName,
+            //         ApplyManId: that.data.DingData.userid,
+            //         Dept: that.data.DingData.departmentList[this.data.departmentIdnex],
+            //         NodeId: "0",
+            //         ApplyTime: that._getTime(),
+            //         IsEnable: "1",
+            //         FlowId: that.data.flowid + "",
+            //         IsSend: false,
+            //         State: "1",
+            //     };
+            //     for (let p in param) {
+            //         applyObj[p] = param[p];
+            //     }
+
+            //     paramArr.push(applyObj);
+
+            //     let mustList = [];
+            //     let choseList = [];
+
+            //     //是否必选
+            //     if (that.data.nodeInfo.IsMandatory) {
+            //         mustList = that.data.nodeInfo.IsMandatory.split(",");
+            //     }
+            //     // 该节点需要选择的节点
+            //     if (that.data.nodeInfo.ChoseNodeId) {
+            //         choseList = that.data.nodeInfo.ChoseNodeId.split(",");
+            //     }
+            //     for (let node of that.data.nodeList) {
+            //         //第一个if 判断该节点是否需要选人
+            //         if (
+            //             (that.data.nodeInfo.IsNeedChose &&
+            //                 that.data.nodeInfo.ChoseNodeId &&
+            //                 (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 ||
+            //                     (that.data.addPeopleNodes &&
+            //                         that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) ||
+            //             (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)
+            //         ) {
+            //             //第二个if表示判断该节点是否是必选节点
+            //             if (
+            //                 (node.AddPeople.length == 0 &&
+            //                     mustList[choseList.indexOf(node.NodeId + "")] == "1") ||
+            //                 (node.AddPeople.length == 0 &&
+            //                     that.data.addPeopleNodes &&
+            //                     that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
+            //             ) {
+            //                 dd.alert({
+            //                     content: promptConf.promptConf.Approver,
+            //                     buttonText: promptConf.promptConf.Confirm,
+            //                 });
+            //                 that.setData({
+            //                     disablePage: false,
+            //                 });
+            //                 return;
+            //             }
+            //             for (let a of node.AddPeople) {
+            //                 if (
+            //                     a.name == null ||
+            //                     a.name == "" ||
+            //                     a.userId == null ||
+            //                     a.userId == ""
+            //                 ) {
+            //                     dd.alert({
+            //                         content: promptConf.promptConf.Approver,
+            //                         buttonText: promptConf.promptConf.Confirm,
+            //                     });
+            //                     return;
+            //                 }
+
+            //                 let tmpParam = {
+            //                     ApplyMan: a.name,
+            //                     ApplyManId: a.userId,
+            //                     IsEnable: 1,
+            //                     FlowId: that.data.flowid + "",
+            //                     NodeId: node.NodeId + "",
+            //                     IsSend: node.IsSend,
+            //                     State: 0,
+            //                     OldFileUrl: null,
+            //                     IsBack: null,
+            //                 };
+            //                 for (let p2 in param2) {
+            //                     tmpParam[p2] = param2[p2];
+            //                 }
+            //                 paramArr.push(tmpParam);
+            //             }
+            //         }
+            //     }
+            //     this.setData({
+            //         disablePage: true,
+            //     });
+            //     that._postData(
+            //         "FlowInfoNew/CreateTaskInfo",
+            //         function (res) {
+            //             let taskid = res;
+            //             callBack(taskid);
+            //         },
+            //         paramArr
+            //     );
+            // },
 
             //搜索物料编码
             searchCode(e) {
@@ -309,7 +431,7 @@ export default {
                 that.requestData(
                     "GET",
                     "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }),
-                    function(res) {
+                    function (res) {
                         console.log(JSON.parse(res.data));
                         if (JSON.parse(res.data).length == 0) {
                             dd.alert({
@@ -370,7 +492,7 @@ export default {
                     flowname: param.flowname,
                 });
 
-                let callBack = function() {
+                let callBack = function () {
                     that.getFormData();
                     that.getBomInfo(param.flowid);
                     that.getNodeList();
@@ -381,7 +503,7 @@ export default {
             },
 
             //审批-同意
-            aggreSubmit(param, param2 = {}) {
+            aggreSubmit:lib.func.throttle(function(param, param2 = {}) {
                 if (!this.data.DingData.userid) {
                     dd.alert({
                         content: promptConf.promptConf.LoginPrompt,
@@ -477,7 +599,7 @@ export default {
                 // return;
                 that._postData(
                     "FlowInfoNew/SubmitTaskInfo",
-                    function(res) {
+                    function (res) {
                         dd.alert({
                             content: promptConf.promptConf.SuccessfulSubmission,
                             buttonText: promptConf.promptConf.Confirm,
@@ -490,10 +612,10 @@ export default {
                     },
                     paramArr
                 );
-            },
+            },5000),
 
             //撤回审批
-            returnSubmit(e) {
+            returnSubmit:lib.func.throttle(function(e) {
                 dd.confirm({
                     title: "温馨提示",
                     content: promptConf.promptConf.Withdraw,
@@ -526,7 +648,7 @@ export default {
                             }
                             that._postData(
                                 "FlowInfoNew/FlowBack",
-                                function(res) {
+                                function (res) {
                                     dd.alert({
                                         content: promptConf.promptConf.ApplicationWithdrawn,
                                         buttonText: promptConf.promptConf.Confirm,
@@ -542,9 +664,9 @@ export default {
                         }
                     },
                 });
-            },
+            },5000),
             //退回审批
-            returnsSubmit(e) {
+            returnsSubmit:lib.func.throttle(function(e) {
                 dd.confirm({
                     title: "温馨提示",
                     content: promptConf.promptConf.Return,
@@ -577,7 +699,7 @@ export default {
                             }
                             that._postData(
                                 "FlowInfoNew/FlowBack",
-                                function(res) {
+                                function (res) {
                                     dd.alert({
                                         content: promptConf.promptConf.ApplicationReturned,
                                         buttonText: promptConf.promptConf.Confirm,
@@ -593,7 +715,7 @@ export default {
                         }
                     },
                 });
-            },
+            },5000),
             //获取审批表单信息
             getFormData() {
                 let that = this;
@@ -604,7 +726,7 @@ export default {
                 };
                 this._getData(
                     "FlowInfoNew/GetApproveInfo" + this.formatQueryStr(param),
-                    function(res) {
+                    function (res) {
                         that.setData({
                             tableInfo: res,
                         });
@@ -686,7 +808,7 @@ export default {
                 }
                 this._getData(
                     url + this.formatQueryStr({ TaskId: this.data.taskid }),
-                    function(res) {
+                    function (res) {
                         if (flowid == "33") {
                             res = res.DrawingChangeList;
                             for (let r of res) {
@@ -737,7 +859,7 @@ export default {
             getDingList(taskId) {
                 let that = this;
                 that.data.dingList = [];
-                this._getData("DingTalkServers/Ding?taskId=" + taskId, function(data) {
+                this._getData("DingTalkServers/Ding?taskId=" + taskId, function (data) {
                     if (data == null) {
                         return;
                     }
@@ -860,7 +982,7 @@ export default {
 
                 //GET方法
                 if (method == "get") {
-                    this._getData(url + this.formatQueryStr(obj), function(res) {
+                    this._getData(url + this.formatQueryStr(obj), function (res) {
                         dd.alert({
                             content: promptConf.promptConf.PrintFrom,
                             buttonText: promptConf.promptConf.Confirm,
@@ -871,7 +993,7 @@ export default {
                 if (method == "post") {
                     this._postData(
                         url,
-                        function(res) {
+                        function (res) {
                             dd.alert({
                                 content: promptConf.promptConf.PrintFrom,
                                 buttonText: promptConf.promptConf.Confirm,
@@ -926,7 +1048,7 @@ export default {
                             taskId: this.data.taskid,
                         };
                     }
-                    this._getData(url + this.formatQueryStr(obj), function(res) {
+                    this._getData(url + this.formatQueryStr(obj), function (res) {
                         dd.alert({
                             content: promptConf.promptConf.OutPutBom,
                             buttonText: promptConf.promptConf.Confirm,
@@ -940,7 +1062,7 @@ export default {
                     };
                     this._postData(
                         url,
-                        function(res) {
+                        function (res) {
                             dd.alert({
                                 content: promptConf.promptConf.OutPutBom,
                                 buttonText: promptConf.promptConf.Confirm,
@@ -1119,16 +1241,17 @@ export default {
                         if (
                             this.data.nodeList[i].NodeName != "结束" &&
                             this.data.nodeList[i].NodePeople.length > 0 &&
-                            tempNodeList[i].ApplyMan == null
+                            !tempNodeList[this.data.nodeList[i].NodeId].ApplyMan
                         ) {
-                            tempNodeList[i].AddPeople = [
+                            tempNodeList[this.data.nodeList[i].NodeId].AddPeople.push(
                                 {
                                     name: this.data.nodeList[i].ApplyMan,
                                     userId: this.data.nodeList[i].ApplyManId,
                                 },
-                            ];
+                            );
                         }
                     }
+                    console.log(tempNodeList);
                 }
                 that.setData({
                     nodeList: tempNodeList,
@@ -1141,8 +1264,8 @@ export default {
             let that = this;
             this._getData(
                 "FlowInfoNew/LoadFlowSort" +
-                    that.formatQueryStr({ userid: app.userInfo.userid, IsAll: isAll }),
-                function(data) {
+                that.formatQueryStr({ userid: app.userInfo.userid, IsAll: isAll }),
+                function (data) {
                     let sorts = data;
                     app.globalData.ALLsort = JSON.parse(JSON.stringify(data));
                     that.setData({ sort: data });
@@ -1182,11 +1305,11 @@ export default {
                 }
             );
         },
-        getNodeList_done(nodeList) {},
+        getNodeList_done(nodeList) { },
         //获取项目列表
         getProjectList() {
             let that = this;
-            this._getData("ProjectNew/GetAllProJect", function(res) {
+            this._getData("ProjectNew/GetAllProJect", function (res) {
                 app.globalData.projectList = res;
                 that.setData({
                     projectList: res,
@@ -1198,8 +1321,8 @@ export default {
             let that = this;
             this._getData(
                 "FlowInfoNew/getnodeinfo" +
-                    this.formatQueryStr({ FlowId: this.data.flowid, nodeId: this.data.nodeid }),
-                function(res) {
+                this.formatQueryStr({ FlowId: this.data.flowid, nodeId: this.data.nodeid }),
+                function (res) {
                     that.setData({
                         nodeInfo: res[0],
                         IsNeedChose: res[0].IsNeedChose,
@@ -1420,7 +1543,7 @@ export default {
             this.requestData(
                 "POST",
                 url,
-                function(res) {
+                function (res) {
                     if (JSON.parse(res.data).errmsg == "ok") {
                         dd.alert({
                             content: promptConf.promptConf.Download,
@@ -1474,7 +1597,7 @@ export default {
                                     "Content-Type": "application/json; charset=utf-8",
                                     Accept: "application/json",
                                 },
-                                success: function(res) {
+                                success: function (res) {
                                     console.log(res);
                                     let name = res.data.name;
 
@@ -1555,7 +1678,7 @@ export default {
                                     "Content-Type": "application/json; charset=utf-8",
                                     Accept: "application/json",
                                 },
-                                success: function(res) {
+                                success: function (res) {
                                     console.log(res);
                                     let name = res.data.name;
                                     if (!result.userid) {
@@ -1669,10 +1792,10 @@ export default {
             for (let i = 0, len = imageList.length; i < len; i++) {
                 arr.push(
                     "~\\" +
-                        imageList[i]
-                            .slice(this.data.dormainName.length)
-                            .replace("/", "\\")
-                            .replace("/", "\\")
+                    imageList[i]
+                        .slice(this.data.dormainName.length)
+                        .replace("/", "\\")
+                        .replace("/", "\\")
                 );
                 this.setData({
                     imgUrlList: arr,
@@ -1714,7 +1837,7 @@ export default {
                 data: {
                     data: that.data,
                 },
-                success: function() {
+                success: function () {
                     app.globalData[`${that.data.flowid}`] = true;
                     dd.alert({
                         content: promptConf.promptConf.TemporaryPreservation,
@@ -1727,7 +1850,7 @@ export default {
             let that = this;
             dd.getStorage({
                 key: `${flowid}`,
-                success: function(res) {
+                success: function (res) {
                     that.data = res.data.data;
                     for (let d in that.data) {
                         that.setData({
@@ -1736,12 +1859,12 @@ export default {
                     }
                     dd.removeStorage({
                         key: `${flowid}`,
-                        success: function() {
+                        success: function () {
                             app.globalData[`${flowid}`] = false;
                         },
                     });
                 },
-                fail: function(res) {},
+                fail: function (res) { },
             });
         },
         //流程图

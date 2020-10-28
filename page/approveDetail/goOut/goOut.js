@@ -22,22 +22,28 @@ Page({
             Remark: value.remark,
             ImageUrl: this.data.tableInfo["ImageUrl"],
         };
-        if (
-            this.data.nodeid == 2 &&
-            this.data.tableInfo.ImageUrl.split(",").length < this.data.planLength
-        ) {
-            dd.alert({ content: "定位照片数小于计划外出地点数" });
-            return;
-        }
+ 
         if (this.data.nodeid == 2) {
-            if (value.ContactPeople == "") {
+            if(!this.data.tableInfo["ImageUrl"]){
                 dd.alert({
-                    content: "接触人员不允许为空，请输入！",
+                    content: "照片不允许为空，请上传！",
                     buttonText: promptConf.promptConf.Confirm,
                 });
                 return;
             }
-            this.data.table.ContactPeople = value.ContactPeople;
+            // if (value.ContactPeople == "") {
+            //     dd.alert({
+            //         content: "接触人员不允许为空，请输入！",
+            //         buttonText: promptConf.promptConf.Confirm,
+            //     }); 
+            //     return;
+            // }
+
+            if (this.data.tableInfo.ImageUrl.split(",").length < this.data.planLength) {
+                dd.alert({ content: "定位照片数小于计划外出地点数" });
+                return;
+            }
+            // this.data.table.ContactPeople = value.ContactPeople;
             that._postData(
                 "Evection/Modify",
                 res => {

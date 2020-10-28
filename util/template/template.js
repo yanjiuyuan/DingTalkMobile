@@ -102,6 +102,7 @@ export default {
                                         that.data.pickedUsers.push(d.userid);
                                         users.push(d);
                                         d.userId = d.userid;
+
                                     }
                                 }
                                 that.data.pickedUsers = [...new Set(that.data.pickedUsers)];
@@ -112,7 +113,7 @@ export default {
                                     }
                                 }
                                 console.log(that.data.nodeList);
-                                that.setData({
+                                that.setData({ 
                                     nodeList: that.data.nodeList,
                                 });
                             },

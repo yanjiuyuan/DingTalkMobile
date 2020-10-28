@@ -1,5 +1,6 @@
 import pub from "/util/public";
 import promptConf from "/util/promptConf.js";
+import lib from "/lib";
 let good = {};
 Page({
     ...pub.func,
@@ -49,10 +50,52 @@ Page({
         });
     },
 
+    // submit: lib.func.throttle(function (e) {
+    //     let that = this;
+    //     let value = e.detail.value;
+    //     if (value.content.trim() == "") {
+    //         dd.alert({
+    //             content: "借阅内容不允许为空，请输入！",
+    //             buttonText: promptConf.promptConf.Confirm,
+    //         });
+    //         return;
+    //     }
+    //     if (value.contentPurpose.trim() == "") {
+    //         dd.alert({
+    //             content: "借阅用途不允许为空，请输入！",
+    //             buttonText: promptConf.promptConf.Confirm,
+    //         });
+    //         return;
+    //     }
+    //     if (value.hasOwnProperty("ReceivingTime") && value.ReceivingTime == "") {
+    //         dd.alert({
+    //             content: "归还时间不允许为空，请输入！",
+    //             buttonText: promptConf.promptConf.Confirm,
+    //         });
+    //         return;
+    //     }
+    //     let obj = {
+    //         content: value.content,
+    //         contentPurpose: value.contentPurpose,
+    //         ReceivingTime: value.ReceivingTime ? value.ReceivingTime : "",
+    //         isPaper: this.data.isPaper,
+    //         isEdit: this.data.isEdit ? "是" : "否",
+    //     };
+    //     let param = {
+    //         Title: value.title,
+    //         Remark: value.remark,
+    //         counts: JSON.stringify(obj),
+    //     };
+    //     let callBack = function (taskId) {
+    //         that.bindAll(taskId);
+    //     };
+    //     console.log(param);
+    //     this.approvalSubmit(param, callBack);
+    // }, 5000),
+
     submit(e) {
         let that = this;
         let value = e.detail.value;
-        console.log(e.detail.value);
         if (value.content.trim() == "") {
             dd.alert({
                 content: "借阅内容不允许为空，请输入！",
@@ -86,7 +129,7 @@ Page({
             Remark: value.remark,
             counts: JSON.stringify(obj),
         };
-        let callBack = function(taskId) {
+        let callBack = function (taskId) {
             that.bindAll(taskId);
         };
         console.log(param);

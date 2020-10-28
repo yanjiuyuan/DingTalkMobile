@@ -150,17 +150,20 @@
 				<view a:else = "{{node.ApplyMan == null && node.AddPeople.length == 0 }}" class="choosePeople-view-right-plus-new" style="font-size:30rpx;">
 						待选
 				</view>
-				<view class="choosePeople-view-text">
-					<view class="choosePeople-view-text-top"> 
-                {{node.NodeName}}
+				<view style="margin-top:10px">				
+					<view class="choosePeople-view-text">
+						<view class="choosePeople-view-text-top"> 
+									{{node.NodeName}}
+						</view>
+					<view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view>
+					<view a:if="{{!node.ApplyTime && node.NodeName.indexOf('抄送') == -1 }}" class="choosePeople-view-text-right">未审批</view>
+					<view a:if="{{!node.ApplyTime && node.NodeName.indexOf('抄送') != -1 }}" class="choosePeople-view-text-right">未查看</view>
 					</view>
 					<view a:if="{{node.NodeName !== '抄送'}}" class="choosePeople-view-text-bottom">
-                {{node.Remark}}
+									{{node.Remark}}
 					</view>
 				</view>
-				<view a:if="{{node.ApplyTime}}" class="choosePeople-view-text-right">{{node.ApplyTime.substring(5,16)}}</view>
-				<view a:if="{{!node.ApplyTime && node.NodeName.indexOf('抄送') == -1 }}" class="choosePeople-view-text-right">未审批</view>
-				<view a:if="{{!node.ApplyTime && node.NodeName.indexOf('抄送') != -1 }}" class="choosePeople-view-text-right">未查看</view>
+
 			</view>
 		</view>
 	</view></template>
@@ -306,7 +309,7 @@ margin-right:0.1rem;">*
 					<view class="page-section">
 						<view class="page-section-title">退回建议</view>
 						<view class="page-section-demo">
-							<textarea name="remark" placeholder="请输入退回建议" maxlength="20"/>
+							<textarea name="remark" placeholder="请输入退回建议" maxlength="80"/>
 						</view>
 					</view>
 					<view class="buttons">
@@ -330,7 +333,7 @@ margin-right:0.1rem;">*
 					<view class="page-section">
 						<view class="page-section-title">修改意见</view>
 						<view class="page-section-demo">
-							<textarea name="remark" placeholder="输入修改意见" maxlength="20" />
+							<textarea name="remark" placeholder="输入修改意见" maxlength="80" />
 						</view>
 					</view>
 					<button type="warn" style="margin-bottom:0;" disabled="{{disablePage}}" formType="submit">修改</button>
@@ -472,7 +475,7 @@ margin-right:0.1rem;">*
 	<view class="page-section-suggest">
 		<view class="page-section-title">建议</view>
 		<view class="page-section-demo">
-			<textarea name="remark" placeholder="请输入建议" data-name="remark" onInput="inputToTable" maxlength="20" value="{{table.remark}}" />
+			<textarea name="remark" placeholder="请输入建议" data-name="remark" onInput="inputToTable" maxlength="80" value="{{table.remark}}" />
 		</view>
 	</view>
 </template>
