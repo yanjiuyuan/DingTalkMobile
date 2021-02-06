@@ -9,17 +9,17 @@ Page({
         table: {},
         show: true
     },
-    onReady(){
- 
-        if(this.data.nodeid == 1){
+    onReady() {
+
+        if (this.data.nodeid == 1) { 
             this.setData({
-                addPeopleNodes:[2],
+                addPeopleNodes: [2],
 
             })
         }
-        else{
-             this.setData({
-                addPeopleNodes:[],
+        else {
+            this.setData({
+                addPeopleNodes: [],
             })
         }
     },
@@ -29,6 +29,21 @@ Page({
         let param = {
             Remark: value.remark
         };
+
+        if (this.data.nodeid == 1 && this.data.index == 0) {
+            dd.confirm({
+                title: "温馨提示",
+                content: "小程序暂无上传文件功能，请移步PC端上传文件！",
+                confirmButtonText: promptConf.promptConf.Confirm,
+                cancelButtonText: promptConf.promptConf.Cancel,
+                success: result => {
+                    dd.switchTab({
+                        url: "/page/start/index",
+                    });
+                },
+            });
+        return;
+        }
         if (this.data.nodeid == 1) {
             if (value.ProjectName.trim() == "") {
                 dd.alert({
@@ -82,11 +97,11 @@ Page({
             //     return;
             // }
 
-            if(value.ProjectNo.trim().length <7){
+            if (value.ProjectNo.trim().length < 7) {
                 dd.alert({
-                    content:  '项目编号长度不小于7位',
-                    buttonText: promptConf.promptConf.Confirm 
-                }); 
+                    content: '项目编号长度不小于7位',
+                    buttonText: promptConf.promptConf.Confirm
+                });
                 return;
             }
             if (!value.ProjectNo) {
@@ -130,7 +145,7 @@ Page({
                         res => {
                             // return;
                             that.aggreSubmit(param);
-                        },  
+                        },
                         this.data.table
                     );
                 },
@@ -162,7 +177,7 @@ Page({
 
             multiple: true,
             title: "项目组成员",
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
                 let result = res;
                 let names = []; //userId
@@ -175,14 +190,14 @@ Page({
                         addPeoples.push({
                             name: d.name,
                             userId: d.userId
-                        }); 
+                        });
                     }
                     that.setData({
                         "nodeList[7].NodePeople": names,
 
                         "nodeList[7].AddPeople": addPeoples,
                         "table.TeamMembers": names.join(","),
-                        "table.TeamMembersId": ids.join(",") 
+                        "table.TeamMembersId": ids.join(",")
                     });
                 } else if (res.departments.length > 0 && res.users.length == 0) {
                     let deptId = [];
@@ -276,19 +291,13 @@ Page({
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function (err) { }
         });
     },
 
     onReady() {
         var that = this;
-        if(this.data.nodeid == 1 && this.data.index == 0){
-                dd.alert({
-                    content: "小程序暂无上传文件功能，请移步PC端上传文件！",
-                    buttonText: promptConf.promptConf.Confirm
-                }); 
-                return;
-        }
+
         this._getData("TechnicalSupport/Read" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
             for (let r in res) {
                 if (res[r] === null) res[r] = "";

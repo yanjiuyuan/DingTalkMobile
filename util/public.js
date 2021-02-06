@@ -33,14 +33,14 @@ export default {
     data: {
         ...lib.data,
         ...template.data,
-        version: "2.7.66",
+        version: "2.7.74",
         DingData: {
             nickName: "",
             departName: "",
             userid: "",
         },
 
-        reg: /^-?\d+$/, //只能是整数数字 
+        reg: /^-?\d+$/, //只能是整数数字
         reg2: /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$ /, //正浮点数
         reg3: /^[\.\d]*$/, //纯数字包括小数  
         reg4: /^\d{4}\w{3}\d{3}$|^\d{4}\w{2}\d{3}$/, //项目编号规范2019bbb000 
@@ -129,8 +129,7 @@ export default {
                     }
                     //重新发起
                     if (app.globalData.valid == true) {
-                        let data = JSON.parse(param.data);
-
+                        let data = app.globalData.data;
                         for (let d in data) {
                             that.setData({
                                 [`${d}`]: data[d],
@@ -188,7 +187,7 @@ export default {
                                 tableData: [],
                             });
                         }
-
+                        app.globalData.data = null;
                         app.globalData.valid = false;
                     }
                 };
@@ -305,116 +304,6 @@ export default {
                     paramArr
                 );
             }, 5000),
-            // approvalSubmitss(param = {}, callBack, param2 = {}) {
-            //     if (!this.data.DingData.userid) {
-            //         dd.alert({
-            //             content: promptConf.promptConf.LoginPrompt,
-            //             buttonText: promptConf.promptConf.Confirm,
-            //         });
-            //         return;
-            //     }
-            //     let that = this;
-            //     this.setData({ disablePage: true });
-            //     let paramArr = [];
-            //     let applyObj = {
-            //         ApplyMan: that.data.DingData.nickName,
-            //         ApplyManId: that.data.DingData.userid,
-            //         Dept: that.data.DingData.departmentList[this.data.departmentIdnex],
-            //         NodeId: "0",
-            //         ApplyTime: that._getTime(),
-            //         IsEnable: "1",
-            //         FlowId: that.data.flowid + "",
-            //         IsSend: false,
-            //         State: "1",
-            //     };
-            //     for (let p in param) {
-            //         applyObj[p] = param[p];
-            //     }
-
-            //     paramArr.push(applyObj);
-
-            //     let mustList = [];
-            //     let choseList = [];
-
-            //     //是否必选
-            //     if (that.data.nodeInfo.IsMandatory) {
-            //         mustList = that.data.nodeInfo.IsMandatory.split(",");
-            //     }
-            //     // 该节点需要选择的节点
-            //     if (that.data.nodeInfo.ChoseNodeId) {
-            //         choseList = that.data.nodeInfo.ChoseNodeId.split(",");
-            //     }
-            //     for (let node of that.data.nodeList) {
-            //         //第一个if 判断该节点是否需要选人
-            //         if (
-            //             (that.data.nodeInfo.IsNeedChose &&
-            //                 that.data.nodeInfo.ChoseNodeId &&
-            //                 (that.data.nodeInfo.ChoseNodeId.indexOf(node.NodeId) >= 0 ||
-            //                     (that.data.addPeopleNodes &&
-            //                         that.data.addPeopleNodes.indexOf(node.NodeId) >= 0))) ||
-            //             (node.NodeName.indexOf("申请人") >= 0 && node.NodeId > 0)
-            //         ) {
-            //             //第二个if表示判断该节点是否是必选节点
-            //             if (
-            //                 (node.AddPeople.length == 0 &&
-            //                     mustList[choseList.indexOf(node.NodeId + "")] == "1") ||
-            //                 (node.AddPeople.length == 0 &&
-            //                     that.data.addPeopleNodes &&
-            //                     that.data.addPeopleNodes.indexOf(node.NodeId) >= 0)
-            //             ) {
-            //                 dd.alert({
-            //                     content: promptConf.promptConf.Approver,
-            //                     buttonText: promptConf.promptConf.Confirm,
-            //                 });
-            //                 that.setData({
-            //                     disablePage: false,
-            //                 });
-            //                 return;
-            //             }
-            //             for (let a of node.AddPeople) {
-            //                 if (
-            //                     a.name == null ||
-            //                     a.name == "" ||
-            //                     a.userId == null ||
-            //                     a.userId == ""
-            //                 ) {
-            //                     dd.alert({
-            //                         content: promptConf.promptConf.Approver,
-            //                         buttonText: promptConf.promptConf.Confirm,
-            //                     });
-            //                     return;
-            //                 }
-
-            //                 let tmpParam = {
-            //                     ApplyMan: a.name,
-            //                     ApplyManId: a.userId,
-            //                     IsEnable: 1,
-            //                     FlowId: that.data.flowid + "",
-            //                     NodeId: node.NodeId + "",
-            //                     IsSend: node.IsSend,
-            //                     State: 0,
-            //                     OldFileUrl: null,
-            //                     IsBack: null,
-            //                 };
-            //                 for (let p2 in param2) {
-            //                     tmpParam[p2] = param2[p2];
-            //                 }
-            //                 paramArr.push(tmpParam);
-            //             }
-            //         }
-            //     }
-            //     this.setData({
-            //         disablePage: true,
-            //     });
-            //     that._postData(
-            //         "FlowInfoNew/CreateTaskInfo",
-            //         function (res) {
-            //             let taskid = res;
-            //             callBack(taskid);
-            //         },
-            //         paramArr
-            //     );
-            // },
 
             //搜索物料编码
             searchCode(e) {
@@ -503,7 +392,7 @@ export default {
             },
 
             //审批-同意
-            aggreSubmit:lib.func.throttle(function(param, param2 = {}) {
+            aggreSubmit: lib.func.throttle(function (param, param2 = {}) {
                 if (!this.data.DingData.userid) {
                     dd.alert({
                         content: promptConf.promptConf.LoginPrompt,
@@ -612,10 +501,10 @@ export default {
                     },
                     paramArr
                 );
-            },5000),
+            }, 5000),
 
             //撤回审批
-            returnSubmit:lib.func.throttle(function(e) {
+            returnSubmit(e) {
                 dd.confirm({
                     title: "温馨提示",
                     content: promptConf.promptConf.Withdraw,
@@ -664,9 +553,9 @@ export default {
                         }
                     },
                 });
-            },5000),
+            },
             //退回审批
-            returnsSubmit:lib.func.throttle(function(e) {
+            returnsSubmit(e) {
                 dd.confirm({
                     title: "温馨提示",
                     content: promptConf.promptConf.Return,
@@ -715,7 +604,7 @@ export default {
                         }
                     },
                 });
-            },5000),
+            },
             //获取审批表单信息
             getFormData() {
                 let that = this;
@@ -869,7 +758,7 @@ export default {
                 });
             },
             //钉一下功能
-            ding() {
+            ding: lib.func.throttle(function () {
                 console.log(this.data);
                 let param = {
                     userId: this.data.dingList[0],
@@ -888,9 +777,9 @@ export default {
                         });
                     }
                 );
-            },
+            }, 5000),
             //打印流程表单
-            print(flowid) {
+            print: lib.func.throttle(function (flowid) {
                 let that = this;
                 let url = "";
                 let method = "";
@@ -1002,9 +891,9 @@ export default {
                         obj
                     );
                 }
-            },
+            }, 5000),
             //导出bom表
-            output() {
+            output: lib.func.throttle(function () {
                 let that = this;
                 let url = "";
                 let method = "";
@@ -1071,7 +960,7 @@ export default {
                         obj
                     );
                 }
-            },
+            }, 5000),
 
             //处理表单中的图片、PDF等文件显示
             handleUrlData(data) {
@@ -1172,7 +1061,7 @@ export default {
                 FlowId: this.data.flowid,
                 TaskId: this.data.taskid,
             };
-            this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), res => {
+            return this._getData("FlowInfoNew/GetSign" + this.formatQueryStr(param), res => {
                 let lastNode = {};
                 let tempNodeList = [];
                 //审批人分组
@@ -1232,6 +1121,7 @@ export default {
                     }
                 }
 
+
                 //只有重新发起才会有初始的nodeList
                 if (this.data.nodeList.length > 0) {
                     for (let i = 0, length = this.data.nodeList.length; i < length; i++) {
@@ -1251,12 +1141,13 @@ export default {
                             );
                         }
                     }
-                    console.log(tempNodeList);
                 }
+
                 that.setData({
                     nodeList: tempNodeList,
                     isBack: res[0].IsBack,
                 });
+                return 1;
             });
         },
         //获取菜单
@@ -1435,22 +1326,31 @@ export default {
                     that.setData({ imageList: that.data.imageList });
                     for (let p of res.apFilePaths) {
                         console.log("imageList:", JSON.stringify(p));
+                        console.log(typeof p);
+                        console.log(p);
+                        console.log(p.substring(7));
+
+
                         that.data.imageList.push(p);
                         that.setData({ disablePage: true });
                         dd.uploadFile({
                             url: that.data.dormainName + "drawingupload/Upload",
                             fileType: "image",
-                            fileName: p.substring(7),
+                            fileName: p.substring(7).replace(/\//g, ""),
                             filePath: p,
                             success: res => {
+                                console.log(res);
                                 console.log(
                                     "imgUrlList:",
                                     JSON.stringify(JSON.parse(res.data).Content)
                                 );
                                 that.data.imgUrlList.push(JSON.parse(res.data).Content);
-                                that.setData({ disablePage: false });
+                                that.setData({
+                                    disablePage: false,
+                                });
                             },
                             fail: err => {
+                                console.log(JSON.stringify(err));
                                 dd.alert({
                                     content: "sorry" + JSON.stringify(err),
                                 });
@@ -1571,6 +1471,7 @@ export default {
                     DeptNames: app.globalData.DeptNames,
                     projectList: app.globalData.projectList,
                 });
+                console.log("检查登陆");
                 callBack();
                 return;
             }
@@ -1777,12 +1678,14 @@ export default {
         relaunch(e) {
             app.globalData.table = this.data.table;
             app.globalData.valid = true;
-            let str = JSON.stringify(this.data).replace(/%/g, "%25");
+            app.globalData.data = this.data;
+            // let str = JSON.stringify(this.data).replace(/%/g, "%25");
             let arr = this.route.split("/");
             let url = "/page/start/" + arr[2] + "/" + arr[3];
             console.log(url);
             dd.redirectTo({
-                url: url + "?" + "flowid=" + this.data.tableInfo.FlowId + "&" + "data=" + str,
+                url: url + "?" + "flowid=" + this.data.tableInfo.FlowId,
+
             });
         },
 
@@ -1808,9 +1711,10 @@ export default {
             let aDate, oDate1, oDate2, iDays;
 
             aDate = sDate1.split("-");
-            oDate1 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]); //转换为9-25-2017格式
+            oDate1 = new Date(aDate[1] + "/" + aDate[2] + "/" + aDate[0]); //转换为9-25-2017格式
             aDate = sDate2.split("-");
-            oDate2 = new Date(aDate[1] + "-" + aDate[2] + "-" + aDate[0]);
+            oDate2 = new Date(aDate[1] + "/" + aDate[2] + "/" + aDate[0]);
+
 
             iDays = parseInt((oDate1 - oDate2) / 1000 / 60 / 60 / 24);
 
@@ -1832,6 +1736,13 @@ export default {
         //临时保存
         temporaryPreservation(e) {
             let that = this;
+            that.data.data = [];
+            that.data.tableData = [];
+            that.data.tableParam = {
+                size: 5,
+                now: 1,
+                total: 0, 
+            };
             dd.setStorage({
                 key: `${that.data.flowid}`,
                 data: {
@@ -1844,6 +1755,10 @@ export default {
                         buttonText: promptConf.promptConf.Confirm,
                     });
                 },
+                fail: function (res) {
+                    console.log(JSON.stringify(res));
+                }
+
             });
         }, // 读取临时保存数据
         readData(flowid) {

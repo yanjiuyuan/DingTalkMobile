@@ -7,13 +7,14 @@ Page({
     ...pub.func,
     onLoad() {
         let that = this;
-        this.checkLogin2(function() {
+        this.checkLogin2(function () {
             that.getMenu();
         });
         this.getProjectList(); //获取项目列表
         // this.getContractNameList(); //获取合同列表
         this.getDepartmentList();
         this.getUserInfo();
+        this.getAllAdmin();//获取超级管理员
     },
     onShow() {
         this.setData({
@@ -32,6 +33,7 @@ Page({
         userList: [],
         sort: [],
         sortItems: [],
+        adminRoleList: [],//超级管理员
     },
     //选人控件方法
     choosePeople(e) {
@@ -40,7 +42,7 @@ Page({
         dd.complexChoose({
             ...that.chooseParam,
             multiple: false,
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
                 if (res.users.length > 0) {
                     let name = res.users[0].name;
@@ -66,7 +68,7 @@ Page({
                             "Content-Type": "application/json; charset=utf-8",
                             Accept: "application/json",
                         },
-                        success: function(res) {
+                        success: function (res) {
                             console.log(res);
                             let name = res.data.name;
                             let DingData = {
@@ -84,7 +86,7 @@ Page({
                     });
                 }
             },
-            fail: function(err) {},
+            fail: function (err) { },
         });
     },
 
@@ -127,7 +129,7 @@ Page({
     },
     getUserInfo() {
         let that = this;
-        this._getData("FlowInfoNew/GetUserInfo", function(data) {
+        this._getData("FlowInfoNew/GetUserInfo", function (data) {
             data.unshift(
                 {
                     PeopleId: "056652031835326264",
@@ -155,7 +157,24 @@ Page({
             });
         });
     },
+    //获取超级管理员
+    getAllAdmin() {
+        let that = this; 
+        let obj = {
+            RoleName: "超级管理员"
+        }
+        this.getDataReturnData("Role/GetRoleInfo" + lib.func.formatQueryStr(obj), function (res) {
+            let a = res.data.map(item=>{
+                return item.emplId;
+            })
+            that.setData({
+                adminRoleList: a,
+            })
 
+        })
+
+
+    },
     //点击展示
     showOrClose(event) {
         let index = event.target.dataset.index;

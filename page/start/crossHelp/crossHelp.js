@@ -64,12 +64,14 @@ Page({
             return;
         }
 
-        let callBack = function(taskId) {
+        let callBack = function (taskId) {
             value.TaskId = taskId;
+            value["FactBeginTime"] = value.PlanBeginTime;
+            value["FactEndTime"] = value.PlanEndTime;
             that._postData(
                 "Cooperate/Save",
                 res => {
-                    that.doneSubmit();
+                    that.doneSubmit(); 
                 },
                 value
             );
@@ -95,7 +97,7 @@ Page({
             pickedUsers: that.data.pickedUsers || [], //已选用户
             multiple: true,
             title: "协作人",
-            success: function(res) {
+            success: function (res) {
                 console.log(res);
                 let names = []; //userId
                 let ids = [];
@@ -195,7 +197,7 @@ Page({
                     );
                 }
             },
-            fail: function(err) {}
+            fail: function (err) { }
         });
     },
     selectStartDate() {
@@ -215,6 +217,10 @@ Page({
                         });
                         return;
                     }
+                    console.log(res.date);
+                    console.log(that.data.table.PlanEndTime);
+                    console.log(iDay);
+
                     that.setData({
                         "table.PlanDays": iDay
                     });
@@ -222,7 +228,7 @@ Page({
 
                 this.setData({
                     startDateStr: res.date,
-                    "table.PlanBeginTime": res.date
+                    "table.PlanBeginTime": res.date,
                 });
             }
         });
@@ -246,13 +252,14 @@ Page({
                         });
                         return;
                     }
+
                     this.setData({
-                    "table.PlanDays": iDay,
+                        "table.PlanDays": iDay,
                     })
                 }
                 this.setData({
                     endDateStr: res.date,
-                    "table.PlanEndTime": res.date
+                    "table.PlanEndTime": res.date,
                 });
             }
         });

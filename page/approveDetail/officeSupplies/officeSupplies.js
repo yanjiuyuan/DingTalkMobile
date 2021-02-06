@@ -56,7 +56,7 @@ Page({
             Remark: value.remark,
         };
         if (this.data.index == 0 && this.data.nodeid == 3) {
-            this._postData("OfficeSupplies/ModifyTable", res => {}, this.data.data);
+            this._postData("OfficeSupplies/ModifyTable", res => { }, this.data.data);
         }
         this.aggreSubmit(param);
     },
@@ -68,10 +68,23 @@ Page({
                 e.target.targetDataset.index;
             if (e.target.targetDataset.opt2) {
                 console.log("还原");
+                if (this.data.data[index].IsDelete) {
+                    this.data.totalPrice = parseFloat(this.data.totalPrice) + parseFloat(e.target.targetDataset.row.Count) * parseFloat(e.target.targetDataset.row.ExpectPrice);
+                    this.setData({
+                        totalPrice: this.data.totalPrice.toFixed(2),
+                    })
+                }
                 this.data.data[index].IsDelete = false;
                 this.data.data[index].IsDeletes = "否";
             } else if (!e.target.targetDataset.opt2) {
                 console.log("删除");
+                // debugger;
+                if (!this.data.data[index].IsDelete) {
+                    this.data.totalPrice = parseFloat(this.data.totalPrice) - parseFloat(e.target.targetDataset.row.Count) * parseFloat(e.target.targetDataset.row.ExpectPrice);
+                    this.setData({
+                        totalPrice: this.data.totalPrice.toFixed(2),
+                    })
+                }
                 this.data.data[index].IsDelete = true;
                 this.data.data[index].IsDeletes = "是";
             }

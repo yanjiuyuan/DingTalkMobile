@@ -109,7 +109,7 @@ Page({
             return;
         }
         let that = this;
-        that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function(res) {
+        that.requestData("GET", "Purchase/GetICItem" + that.formatQueryStr({ Key: value.keyWord }), function (res) {
             console.log(JSON.parse(res.data));
             if (JSON.parse(res.data).length == 0) {
                 dd.alert({
@@ -148,7 +148,7 @@ Page({
             ProjectName: that.data.projectList[that.data.projectIndex].ProjectName,
             ProjectId: that.data.projectList[that.data.projectIndex].ProjectId
         };
-        let callBack = function(taskId) {
+        let callBack = function (taskId) {
             that.bindAll(taskId);
         };
         console.log(param);
@@ -209,10 +209,7 @@ Page({
 
     //提交弹窗表单
     addGood(e) {
-        this.setData({
-            startDateStr: "",
-            endDateStr: ""
-        });
+
         let value = e.detail.value;
         console.log(value);
         if (value.Supplier.trim() == "") {
@@ -272,10 +269,12 @@ Page({
             Mark: value.Mark
         };
         let length = this.data.purchaseList.length;
-        let setStr = "purchaseList[" + length + "]";
+
         this.setData({
             [`purchaseList[${length}]`]: param,
-            "tableParam2.total": length + 1
+            "tableParam2.total": length + 1,
+            startDateStr: "",
+            endDateStr: ""
         });
         this.onModalCloseTap();
     }

@@ -12,7 +12,7 @@
 			<template is="department" data="{{department:tableInfo.Dept}}"/>
 			<view class="form-row">
 				<view class="form-row-label">预计总价</view>
-				<view class="form-row-content">
+				<view class="form-row-content"> 
 					<input class="input" value="{{totalPrice}}" disabled="{{true}}" />
 				</view>
 			</view>

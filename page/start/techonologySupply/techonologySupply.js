@@ -26,7 +26,6 @@ Page({
         console.log("start choose people");
         let nodeId = e.target.targetDataset.NodeId;
         let that = this;
-        debugger;
         dd.complexChoose({
             ...that.data.chooseParam,
             multiple: false,

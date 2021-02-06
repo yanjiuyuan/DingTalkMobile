@@ -1,15 +1,17 @@
 import promptConf from "./util/promptConf";
-
-// let dormainName = "http://47.96.172.122:8093/"; //线上研究院
+ 
+let dormainName = "http://47.96.172.122:8093/"; //线上研究院
 
 // let dormainName = "http://17e245o364.imwork.net:49415/"; //线下测试
 // let dormainName = "http://1858o1s713.51mypc.cn:45956/"; //测试人员测试新/
+// let dormainName = "http://wuliao5222.55555.io:35705/"; //新手机测试   
+// let dormainName ="http://120.37.178.46:8887/"//开发公网
 
-let dormainName = "http://wuliao5222.55555.io:35705/"; //新手机测试 
-
-function doWithErrcode(result) {
+// let dormainName ="http://120.37.178.46:8889/"//测试公网
+ 
+function doWithErrcode(result) { 
     if (!result) {
-        return 1;
+        return 1; 
     }
     if (result.error && result.error.errorCode != 0) {
         dd.alert({
@@ -22,33 +24,33 @@ function doWithErrcode(result) {
 }
 function errorShow(res) {
     //http错误
-    if (res.error == 19) {
+    if (res.error == 19) { 
         dd.alert({
             content: `服务异常，请稍后重试。错误码：${res.error}`,
             buttonText: promptConf.promptConf.Confirm
         });
-    }
-    //无权跨域
+    } 
+    //无权跨域 
     else if (res.error == 11) {
         dd.alert({
             content: `网络异常，请稍后重试。错误码：${res.error}`,
             buttonText: promptConf.promptConf.Confirm
         });
-    }
-    //网路异常
+    } 
+    //网路异常 
     else if (res.error == 12) {
         dd.alert({
             content: `网络异常，请稍后重试。错误码：${res.error}`,
             buttonText: promptConf.promptConf.Confirm
         });
-    }
+    } 
     //http请求超时 
     else if (res.error == 13) {
         dd.alert({
             content: `网络异常，请稍后重试。错误码：${res.error}`,
             buttonText: promptConf.promptConf.Confirm
         });
-    }
+    } 
     //解码失败
     else if (res.error == 14) {
         dd.alert({
@@ -75,7 +77,7 @@ export default {
     data: {
         // jinDomarn:'http://1858o1s713.51mypc.cn:16579/api/',
         // jinDomarn: "http://wuliao5222.55555.io:35705/api/",
-        jinDomarn: "http://120.37.178.46:8888/api/",
+        jinDomarn: "http://120.37.178.58:8888/api/",
         dormainName: dormainName,
         currentPage: 1,
         totalRows: 0,
@@ -95,11 +97,9 @@ export default {
             var pre = Date.now();
             return function () {
                 var context = this;
-                var args = arguments;
+                var args = arguments; 
                 var now = Date.now();
                 if (now - pre >= wait) {
-                    console.log('我执行力')
-
                     fn.apply(context, args);
                     pre = Date.now();
                 }
@@ -110,6 +110,7 @@ export default {
             dd.httpRequest({
                 url: dormainName + url,
                 method: "GET",
+                dataType: "json",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
                 },
@@ -119,7 +120,6 @@ export default {
                     if (app.userInfo) {
                         userInfo = app.userInfo;
                     }
-
                     if (doWithErrcode(res.data)) {
                         postErrorMsg("GET", url, res.data.error, userInfo);
                         return;
@@ -127,6 +127,7 @@ export default {
                     succe(res.data.data);
                 },
                 fail: function (res) {
+                    console.log(JSON.stringify(res));
                     if (JSON.stringify(res) == "{}") return;
                     postErrorMsg("GET", url, res, userInfo);
                     // dd.alert({

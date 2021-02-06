@@ -20,7 +20,7 @@
 				<view class="form-row-label">
 					<template is="required"></template>加班事由</view>
 				<view class="form-row-content">
-					<textarea auto-height="true" name="OverTimeContent" class="input" data-name="OverTimeContent" onInput="inputToTable" value="{{table.OverTimeContent}}"/>
+					<textarea auto-height="true" name="OverTimeContent" maxlength="80" class="input" data-name="OverTimeContent" onInput="inputToTable" value="{{table.OverTimeContent}}"/>
 				</view>
 			</view>
 			<view class="form-row">

@@ -1,5 +1,6 @@
 import pub from "/util/public";
 import promptConf from "/util/promptConf.js";
+import lib from "/lib";
 Page({
     ...pub.func,
     ...pub.func.dowith,
@@ -74,7 +75,7 @@ Page({
         };
         this.aggreSubmit(param);
     },
-    downloadAllPdf() {
+    downloadAllPdf:lib.func.throttle(function() {
         this._getData(
             "NewsAndCases/GetAllPDF" +
                 this.formatQueryStr({ ApplyManId: this.data.DingData.userid, taskId: this.data.taskid }),
@@ -85,7 +86,7 @@ Page({
                 });
             }
         );
-    },
+    },5000),
     //PDF文件查看后，点击按钮设置状态
     setPdfState(e) {
         let index = e.target.dataset.index;

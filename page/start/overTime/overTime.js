@@ -46,8 +46,8 @@ Page({
         dd.datePicker({
             format: "yyyy-MM-dd",
             currentDate: this.data.DateStr + " " + this.data.TimeStr,
-            startDate: this.data.DateStr + " " + this.data.TimeStr,
-            endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr,
+            startDate: this.data.Year - 1 + "-" + 1 + "-" + 1,
+            endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day + " " + this.data.TimeStr, 
             success: res => {
                 this.setData({
                     "table.DateTime": res.date

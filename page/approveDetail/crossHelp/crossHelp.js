@@ -178,7 +178,7 @@ Page({
     },
     onReady() {
         let that = this;
-        console.log;
+            console.log('我执行来1');
         this._getData("Cooperate/Read" + this.formatQueryStr({ TaskId: this.data.taskid }), res => {
             console.log(res);
             if (this.data.nodeid == 1) {
@@ -192,7 +192,7 @@ Page({
             res["FactCooperateContent"] = res.FactCooperateContent || "";
 
             if (this.data.nodeid == 4) {
-                that.data.nodeList[7].NodePeople = [];
+                that.data.nodeList[7]["NodePeople"] = [];
 
                 let CooperateMan = res.CooperateMan.split(",");
                 let CooperateManId = res.CooperateManId.split(",");
@@ -204,8 +204,10 @@ Page({
                         userId: CooperateManId[i],
                     });
                 }
-                console.log(this.data.nodeList);
             }
+            console.log("ss");
+            console.log(res);
+            console.log(that.data.nodeList);
 
             this.setData({
                 table: res,

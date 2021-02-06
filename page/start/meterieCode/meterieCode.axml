@@ -54,7 +54,7 @@
 						<view class="form-row-label">
 							<template is="required"></template>物料名称</view>
 						<view class="form-row-content">
-							<input name="Name" class="input" placeholder="物料名称" value="{{table.Name}}" onBlur="setInputData" data-Name="Name" />
+							<input name="Name" class="input" maxlength="50" placeholder="物料名称" value="{{table.Name}}" onBlur="setInputData" data-Name="Name" />
 						</view>
 					</view>
 				</view>
@@ -63,7 +63,7 @@
 						<view class="form-row-label">
 							<template is="required"></template>规格型号</view>
 						<view class="form-row-content">
-							<input name="Standard" class="input" placeholder="规格型号" value="{{table.Standard}}" onBlur="setInputData" data-Name="Standard"/>
+							<input name="Standard" class="input" maxlength="50" placeholder="规格型号" value="{{table.Standard}}" onBlur="setInputData" data-Name="Standard"/>
 						</view>
 					</view>
 				</view>
@@ -72,7 +72,7 @@
 						<view class="form-row-label">
 							<template is="required"></template>单位</view>
 						<view class="form-row-content">
-							<input name="Unit" class="input" placeholder="单位" value="{{table.Unit}}" onBlur="setInputData" data-Name="Unit"/>
+							<input name="Unit" class="input" maxlength="50" placeholder="单位" value="{{table.Unit}}" onBlur="setInputData" data-Name="Unit"/>
 						</view>
 					</view>
 				</view>
@@ -80,7 +80,7 @@
 					<view class="form-row">
 						<view class="form-row-label">表面处理</view>
 						<view class="form-row-content">
-							<input name="SurfaceTreatment" class="input" placeholder="表面处理" value="{{table.SurfaceTreatment}}" onBlur="setInputData" data-Name="SurfaceTreatment"/>
+							<input name="SurfaceTreatment" class="input" maxlength="50" placeholder="表面处理" value="{{table.SurfaceTreatment}}" onBlur="setInputData" data-Name="SurfaceTreatment"/>
 						</view>
 					</view>
 				</view>
@@ -88,7 +88,7 @@
 					<view class="form-row">
 						<view class="form-row-label">性能等级</view>
 						<view class="form-row-content">
-							<input name="PerformanceLevel" class="input" placeholder="性能等级" value="{{table.PerformanceLevel}}" onBlur="setInputData" data-Name="PerformanceLevel"/>
+							<input name="PerformanceLevel" class="input" maxlength="50" placeholder="性能等级" value="{{table.PerformanceLevel}}" onBlur="setInputData" data-Name="PerformanceLevel"/>
 						</view>
 					</view>
 				</view>
@@ -96,7 +96,7 @@
 					<view class="form-row">
 						<view class="form-row-label">标准号</view>
 						<view class="form-row-content">
-							<input name="StandardNumber" class="input" placeholder="标准号" value="{{table.StandardNumber}}" onBlur="setInputData" data-Name="StandardNumber"/>
+							<input name="StandardNumber" class="input" maxlength="50" placeholder="标准号" value="{{table.StandardNumber}}" onBlur="setInputData" data-Name="StandardNumber"/>
 						</view>
 					</view>
 				</view>
@@ -104,7 +104,7 @@
 					<view class="form-row">
 						<view class="form-row-label">典型特征</view>
 						<view class="form-row-content">
-							<input name="Features" class="input" placeholder="典型特征" value="{{table.Features}}" onBlur="setInputData" data-Name="Features"/>
+							<input name="Features" class="input" maxlength="50" placeholder="典型特征" value="{{table.Features}}" onBlur="setInputData" data-Name="Features"/>
 						</view>
 					</view>
 				</view>
@@ -112,7 +112,7 @@
 					<view class="form-row">
 						<view class="form-row-label">用途</view>
 						<view class="form-row-content">
-							<input name="purpose" class="input" placeholder="用途" value="{{table.purpose}}" onBlur="setInputData" data-Name="purpose"/>
+							<input name="purpose" class="input" maxlength="50" placeholder="用途" maxlength="20" value="{{table.purpose}}" onBlur="setInputData" data-Name="purpose"/>
 						</view>
 					</view>
 				</view>
@@ -120,7 +120,7 @@
 					<view class="form-row">
 						<view class="form-row-label">备注</view>
 						<view class="form-row-content">
-							<input name="Remark" class="input" placeholder="备注" value="{{table.Remark}}" onBlur="setInputData" data-Name="Remark"/>
+							<input name="Remark" class="input" maxlength="50" placeholder="备注" maxlength="20" value="{{table.Remark}}" onBlur="setInputData" data-Name="Remark"/>
 						</view>
 					</view>
 				</view>

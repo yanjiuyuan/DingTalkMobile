@@ -20,7 +20,7 @@
 								用途
 							</view>
 							<view class="form-row-content">
-								<input name="Purpose" class="input" placeholder="用途" />
+								<input name="Purpose" class="input" placeholder="用途"  maxlength="20"/>
 							</view>
 						</view>
 					</view>

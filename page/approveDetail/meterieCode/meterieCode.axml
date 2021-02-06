@@ -9,7 +9,7 @@
 		<view class="modal-mask" animation="{{animMaskData}}"/>
 		<view class="modal-container" animation="{{animContentData}}">
 			<view class="modal-close" onTap="onModalCloseTap2">×</view>
-			<view class="modal-content">
+			<view class="modal-content"> 
 				<form onSubmit="addGood">
 					<view class="page-section">
 						<view class="form-row">

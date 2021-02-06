@@ -28,6 +28,13 @@ Page({
 				buttonText: promptConf.promptConf.Confirm
 			})
 			return;
+		} 
+		if (this.data.nodeid==3 && value.Leadership.trim() == "") {
+			dd.alert({
+				content: "领导阅示不能为空，请输入！",
+				buttonText: promptConf.promptConf.Confirm 
+			})
+			return;
 		}
 		this.data.table['Suggestion'] = value['Suggestion']
 		this.data.table['Leadership'] = value['Leadership']

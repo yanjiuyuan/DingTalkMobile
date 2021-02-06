@@ -156,7 +156,7 @@ Page({
                     ? ""
                     : that.data.projectList[that.data.projectIndex].ProjectId,
         };
-        let callBack = function(taskId) {
+        let callBack = function (taskId) {
             that.bindAll(taskId);
         };
         console.log(param);
@@ -299,10 +299,23 @@ Page({
     },
     async test(e) {
         this.data.flowid = 100;
+        // await new Promise((resolve, reject) => {
+        //     this.getNodeInfo();
+        //     resolve();
+        // }).then(() => {
+        //     this.getNodeList();
+        //     return 1;
+        // }).then(() => {
+        //     this.changeIndex(e);
+
+        // })
         this.getNodeInfo();
         this.getNodeList();
         this.changeIndex(e);
+
+
     },
+
     changeIndex(e) {
         this.data.addPeopleNodes = [2]; //额外添加审批人节点数组
         setTimeout(() => {
@@ -315,7 +328,7 @@ Page({
             this.setData({
                 nodeList: this.data.nodeList,
             });
-        }, 500);
+        }, 1000);
         //选择完项目名称后修改标题
         let newTitle =
             this.data.projectList[e.detail.value].ProjectId +
@@ -336,7 +349,9 @@ Page({
     },
     bindPickerChange(e) {
         //for循环是判断是否需要需要审批节点
-        this.test(e);
+        this.test(e).then(() => {
+            console.log('ss')
+        });
     },
     radioChange(e) {
         console.log("radioChange");

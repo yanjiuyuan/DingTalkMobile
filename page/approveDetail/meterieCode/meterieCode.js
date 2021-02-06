@@ -89,7 +89,7 @@ Page({
             Remark: value.remark,
         };
         if (this.data.nodeid == 2) {
-            for (let t of this.data.purchaseList) {
+            for (let t of this.data.tableData) {
                 if (!t.CodeNumber) {
                     dd.alert({
                         content: "您还有物料编码未填写！",
@@ -97,21 +97,22 @@ Page({
                     });
                     return;
                 }
+            }
             //判断是否重复物料编码
-            for(let i of this.data.tableData){
-                for (let p of this.data.tableData) {
-                    if (p.CodeNumber == i.CodeNumber) {
-                        dd.alert({
-                            content: `物料编码不可重复，请重新输入！`, 
-                            buttonText: promptConf.promptConf.Confirm,
-                        });
-                        return;
-                    }
-                }
+            let CodeNumber = this.data.tableData.map(value => {
+                return value.CodeNumber
+            });
+            let CodeNumberSet = new Set(CodeNumber);
+            if (CodeNumberSet.size != CodeNumber.length) {
+                dd.alert({
+                    content: `物料编码不可重复，请重新输入！`,
+                    buttonText: promptConf.promptConf.Confirm,
+                });
+                return;
             }
 
-        
-            }
+
+
             this.requestJsonData(
                 "POST",
                 "ItemCodeAdd/TableModify",
@@ -120,11 +121,11 @@ Page({
                     if (this.data.codeType == "2") url2 = "/ItemCodeAdd/InsertOffice";
                     this.requestJsonData(
                         "POST",
-                        url2,
-                        res => {
+                        url2, 
+                        res => { 
                             this.aggreSubmit(param);
                         },
-                        JSON.stringify(this.data.tableData)
+                        JSON.stringify(this.data.tableData) 
                     );
                 },
                 JSON.stringify(this.data.tableData)
@@ -132,6 +133,7 @@ Page({
             return;
         }
         this.aggreSubmit(param);
+
     },
     //提交弹窗表单
     addGood(e) {
@@ -145,8 +147,8 @@ Page({
             return;
         }
 
-    
-        
+
+
 
         this.data.tableData[this.data.index].CodeNumber = value.CodeNumber;
         this.data.tableData[this.data.index].FNote = value.FNote;
@@ -160,7 +162,7 @@ Page({
         });
         this.onModalCloseTap2();
     },
-    radioChange: function(e) {
+    radioChange: function (e) {
         this.data.codeType = e.detail.codeType;
     },
     onModalCloseTap2() {

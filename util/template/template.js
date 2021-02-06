@@ -57,8 +57,10 @@ export default {
 
             dd.complexChoose({
                 ...that.data.chooseParam,
+                limitTips:"超出了人数限制", 
                 multiple:
                     IsMultipleSelection == 0 || IsMultipleSelection == undefined ? false : true,
+                    
                 // pickedUsers: that.data.pickedUsers || [], //已选用户
                 success: function(res) {
                     console.log(res);

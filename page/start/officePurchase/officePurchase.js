@@ -54,7 +54,7 @@ Page({
         let that = this;
         let iDay = 0;
         dd.datePicker({
-            format: "yyyy-MM-dd",
+            format: "yyyy-MM-dd", 
             currentDate: this.data.DateStr,
             startDate: this.data.Year - 1 + "-" + this.data.Month + "-" + this.data.Day,
             endDate: this.data.Year + 1 + "-" + this.data.Month + "-" + this.data.Day,

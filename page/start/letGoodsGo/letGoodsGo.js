@@ -22,6 +22,9 @@ Page({
             });
             return;
         }
+        console.log(this.data.imgUrlList);
+        console.log(this.data.imageList);
+
         if (this.data.imgUrlList.length < 1) {
             dd.alert({
                 content: promptConf.promptConf.NoPicture,
@@ -96,5 +99,7 @@ Page({
                 }
             }
         });
-    }
+    },
+
+    
 });

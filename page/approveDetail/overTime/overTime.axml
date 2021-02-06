@@ -8,13 +8,13 @@
 		<view class="page-section">
 			<template is = "titleOfApproval" data="{{tableInfo:tableInfo}}"></template>
 			<template is="applymanApproval" data="{{tableInfo:tableInfo}}"></template>
-			<template is="department" data="{{department:tableInfo.Dept}}"/>
-			<view class="form-row">
-				<view class="form-row-label">
+			<template is="department" data="{{department:tableInfo.Dept}}"/> 
+			<view class="form-row"> 
+				<view class="form-row-label"> 
 					加班事由
-				</view>
+				</view> 
 				<view class="form-row-content">
-					<textarea auto-height="true" name="OverTimeContent" class="input" disabled="{{true}}" value="{{table.OverTimeContent}}"/>
+					<textarea auto-height="true" maxlength="80" name="OverTimeContent" class="input" disabled="{{true}}" value="{{table.OverTimeContent}}"/>
 				</view>
 			</view>
 			<view class="form-row">

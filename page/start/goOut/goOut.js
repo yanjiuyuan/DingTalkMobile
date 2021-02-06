@@ -129,7 +129,7 @@ Page({
     removePlace() {
         this.data.placeArr.pop();
         this.setData({
-            "table.Place": this.data.placeArr.join("-")
+            "table.Place": this.data.placeArr.join(",")
         });
     },
 
